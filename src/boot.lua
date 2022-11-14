@@ -32,6 +32,18 @@ return function()
     term.redirect(monitorsByName[response])
   end
   console.clear()
+  console.centerLog 'Finalizing...'
+  -- provide encryption lib
+  local xor = require 'xor'
+  local uniqueKeys = require 'uniquekeys'
+  _G.ccoEncryption = {
+    -- Encrypts a string to securely store it locally
+    ['encryptLocal'] = function(data)
+      return xor(data, uniqueKeys.enc)
+    end,
+  }
+  _G.ccoEncryption.decryptLocal = _G.ccoEncryption.encryptLocal
+  console.clear()
   console.centerLog 'Rendering...'
   local basalt = require 'basalt'
   basalt.setTheme {
