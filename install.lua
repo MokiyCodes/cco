@@ -35,7 +35,7 @@ if flags['devserver'] or (os.about and string.find(os.about(), 'CraftOS-PC')) th
     ---@diagnostic disable-next-line: undefined-global
   end)(http.get(_http_url))
 else
-  local rq = http.get 'https://github.com/MokiyCodes/cco/releases/latest/download/bundle.lua'
+  local rq = http.get 'https://raw.githubusercontent.com/MokiyCodes/cco/main/install.lua'
   loadbundle(rq.readAll())
   rq.close()
 end
