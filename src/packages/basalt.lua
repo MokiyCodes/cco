@@ -5298,7 +5298,7 @@ project['libraries']['process'] = function(...)
     _b.processId = aa
     if type(ba) == 'string' then
       _b.coroutine = coroutine.create(function()
-        shell.execute(ba)
+        shell.run(ba)
       end)
     elseif type(ba) == 'function' then
       _b.coroutine = coroutine.create(function()

@@ -43,6 +43,7 @@ return function()
     end,
   }
   _G.ccoEncryption.decryptLocal = _G.ccoEncryption.encryptLocal
+  _G._g = _G
   console.clear()
   console.centerLog 'Rendering...'
   local basalt = require 'basalt'
@@ -126,9 +127,12 @@ return function()
     local f = main
       :addFrame()
       :setMovable()
-      :setSize((w or 30) + 1, (h or 12))
+      :setSize(math.min((w or 25) + 1, ({ term.getSize() })[1]), (h or 12))
       :setPosition(x or math.random(2, 12), y or math.random(2, 8))
       :setBackground(colors.red)
+    if ({ term.getSize() })[1] == 25 then
+      f:setPosition(1, y or math.random(2, 8))
+    end
 
     f:addLabel()
       :setSize('parent.w - 1', 1)
@@ -154,10 +158,38 @@ return function()
     processes[pId] = f
     return f
   end
-
-  local appList = main:addFrame():setScrollable():setSize('parent.w - 2', 16):setPosition(1, 1)
-  appList:addButton():setPosition('parent.w - 16', 2):setText('Open'):onClick(function()
+  _G._openProgramAsWindow = openProgram
+  local appList = main:addFrame():setScrollable():setSize(8, 'parent.h'):setPosition(1, 1)
+  local y = -3
+  local addAppButton = function()
+    y = y + 4
+    return appList:addButton():setPosition(1, y):setSize(8, 3)
+  end
+  addAppButton():setText('Shell'):onClick(function()
     openProgram('/rom/programs/shell.lua', 'Shell', true)
+  end)
+  addAppButton():setText('Update'):onClick(function()
+    openProgram(
+      '/rom/programs/http/wget.lua run https://raw.githubusercontent.com/MokiyCodes/cco/main/install.lua',
+      'Updater',
+      true
+    )
+  end)
+  addAppButton():setText('Chat'):onClick(function()
+    openProgram(function()
+      console.log 'Hi!\nPlease enter the name of the room you want to join.'
+      local room = read()
+      console.clear()
+      console.log 'Please enter the username you want to join as.'
+      local uname = read()
+      shell.run(string.format('/rom/programs/rednet/chat.lua join %s %s', room, uname))
+    end, 'Chat', true)
+  end)
+  addAppButton():setText('Shutdown'):onClick(function()
+    os.shutdown()
+  end)
+  addAppButton():setText('Reboot'):onClick(function()
+    os.reboot()
   end)
 
   basalt.autoUpdate()

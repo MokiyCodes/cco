@@ -43,9 +43,9 @@ local overwriteUniqueKeys = {}
 local overwriteAuthStoreThing
 if fs.exists '/.cco/.authbackup.json' then
   console.clear()
-  print 'We found a backup authentication store file.\nWould you like to use this? [y/N]'
+  print 'We found a backup authentication store file.\nTypically, this is used to allow any encrypted data to persist when updating.\nWould you like to use it? [Y/n]'
   local rs = string.lower(string.sub(read(), 1, 1))
-  if rs == 'y' then
+  if rs ~= 'n' then
     print 'Please input your old password.'
     pw = read '.'
     local f = fs.open('/.cco/.authbackup.json', 'r')
@@ -112,24 +112,27 @@ script = string.gsub(script, 'local shouldB64Decode = false', 'local shouldB64De
 sleep(0.2)
 console.clear()
 console.log 'Do you wish to install this system-wide (y), or as an application (N)? [y/N]'
-local systemWide = string.lower(string.sub(read(), 1, 1)) == 'y'
+local systemWide = fs.exists '/.cco/setup-launchonstartup' or string.lower(string.sub(read(), 1, 1)) == 'y'
 console.clear()
 console.centerLog 'Installing...'
 script = string.gsub(script, '_ENCRYPTME', authStoreThing.encryped)
 local file = fs.open('/cco.lua', 'w')
 file.write('local isStartup = false;' .. script)
 file.close()
+if not fs.isDir '/.cco' then
+  fs.makeDir '/.cco'
+end
 if systemWide then
   local file2 = fs.open('/startup.lua', 'w')
   file2.write('local isStartup = true;' .. script)
   file2.close()
+  local file3 = fs.open('/.cco/setup-launchonstartup', 'w')
+  file3.write 'ok bro'
+  file3.close()
 end
 sleep(0.4)
 console.clear()
 console.centerLog 'Backing up encryption keys...'
-if not fs.isDir '/.cco' then
-  fs.makeDir '/.cco'
-end
 local backupfile = fs.open('/.cco/.authbackup.json', 'w')
 backupfile.write(require('json').stringify {
   ['authStoreThing'] = authStoreThing,

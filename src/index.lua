@@ -1,5 +1,8 @@
 local console = require 'console'
 _G.console = console
+if args[#args - 1] == 'loadprogram' then
+  return require('programs/' .. args[#args])
+end
 if isStartup then
   require('termination').setDisabled(true)
 end

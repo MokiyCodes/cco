@@ -4,6 +4,7 @@
 -- Copyright (c) 2022 MokiyCodes.
 -- MIT License
 
+local args = { ... }
 local null = nil -- null is better than nil, change my mind
 local modules = {} -- we will assign modules to here later
 local require = function(...) -- handle loading modules
