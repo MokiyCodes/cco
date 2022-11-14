@@ -75,11 +75,16 @@ submitBtn:onClick(function()
     passwdField:show()
     login:setBackground(colors.black)
   else
+    for k, v in pairs(uniqueKeys) do
+      if k ~= 'Eenc' and k ~= 'pw' then
+        uniqueKeys[k] = xor(v, uniqueKeys.Eenc .. pw)
+      end
+    end
     submitBtn:hide()
     passwdField:hide()
-    login:setBackground(colors.green)
-
     require('termination').setDisabled(false)
+    login:hide()
+    require 'boot'()
   end
 end)
 
