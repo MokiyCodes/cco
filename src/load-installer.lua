@@ -139,9 +139,9 @@ backupfile.close()
 sleep(0.4)
 console.clear()
 if systemWide then
-  console.centerLog 'Shutting Down...'
+  console.centerLog 'Rebooting...'
   sleep(2)
-  os.shutdown()
+  os.reboot()
 else
   console.log 'The OS is available under the command \'cco\'.'
   sleep(0.5)
