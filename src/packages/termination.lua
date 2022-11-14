@@ -9,8 +9,10 @@ os.pullEvent = function(...)
   end
 end
 return {
-  ['set'] = function() end,
-  ['get'] = function()
+  ['setDisabled'] = function(v)
+    isTerminateDisabled = v
+  end,
+  ['getDisabled'] = function()
     return isTerminateDisabled
   end,
 }

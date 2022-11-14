@@ -13,4 +13,10 @@ for k, v in pairs(keys) do
     keys[k] = require 'rstr'(512)
   end
 end
+local shouldB64Decode = false
+if shouldB64Decode then
+  for k, v in pairs(keys) do
+    keys[k] = require('base64').Decode(v)
+  end
+end
 return keys

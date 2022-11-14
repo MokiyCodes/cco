@@ -5,7 +5,8 @@ local sizeX, sizeY = term.getSize()
 local basalt = require 'basalt'
 local hash = require 'hash'
 local uniqueKeys = require 'uniquekeys'
-
+local xor = require 'xor'
+require('termination').setDisabled(true)
 local login = basalt
   .createFrame()
   :setTheme({
@@ -76,6 +77,9 @@ submitBtn:onClick(function()
   else
     submitBtn:hide()
     passwdField:hide()
+    login:setBackground(colors.green)
+
+    require('termination').setDisabled(false)
   end
 end)
 

@@ -6,10 +6,6 @@ local hash = require 'hash'
 local chime = require 'misc/chime'
 local xor = require 'xor'
 console.clear()
--- Do some initial work, more or less instant
--- Get Size
-local sizeX, sizeY = term.getSize()
-console.clear()
 -- Play chime, say hello, all that jazz
 term.setCursorBlink(false)
 console.centerLog 'Welcome!'
@@ -49,16 +45,46 @@ local uniqueKeys = require 'uniquekeys'
 pw = hash.hmac(hash.sha3_512, uniqueKeys.pw, pw)
 
 -- encrypt keys
-require('auth').encryped = xor(pw, uniqueKeys.enc)
+local authStoreThing = require 'auth'
+local base64 = require 'base64'
+local script = thisBundle
+authStoreThing.encryped = base64.Encode(xor(pw, uniqueKeys.enc))
+local newUniqueKeys = {}
 for k, v in pairs(uniqueKeys) do
   if k ~= 'pw' and k ~= 'Eenc' then
     uniqueKeys[k] = xor(v, uniqueKeys.Eenc .. pw)
   end
+  newUniqueKeys[k] = base64.Encode(uniqueKeys[k])
+  script = string.gsub(script, '!!!' .. k, newUniqueKeys[k])
 end
+script = string.gsub(script, 'local shouldB64Decode = false', 'local shouldB64Decode = true')
 
 sleep(0.2)
 console.clear()
-console.centerLog 'Performing Initial Boot...'
-sleep(0.2)
+console.log 'Do you wish to install this system-wide (y), or as an application (N)? [y/N]'
+local systemWide = string.lower(string.sub(read(), 1, 1)) == 'y'
 console.clear()
-require 'login'
+console.centerLog 'Installing...'
+script = string.gsub(script, '_ENCRYPTME', authStoreThing.encryped)
+local file = fs.open('/cco.lua', 'w')
+file.write(script)
+file.close()
+if systemWide then
+  local file2 = fs.open('/startup.lua', 'w')
+  file2.write(script)
+  file2.close()
+end
+sleep(0.4)
+console.clear()
+if systemWide then
+  console.centerLog 'Shutting Down...'
+  sleep(2)
+  os.shutdown()
+else
+  console.log 'The OS is available undere the command \'cco\'.'
+  sleep(0.5)
+  -- console.centerLog 'Performing Initial Boot...'
+  -- sleep(0.2)
+  -- console.clear()
+  -- require 'login'
+end

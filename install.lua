@@ -5,7 +5,9 @@ for _, o in pairs { ... } do
   flags[string.lower(string.gsub(o, '-', ''))] = true
 end
 local loadbundle = function(bundle)
-  local b, ce = loadstring('local installer = true;' .. bundle, 'installer bundle')
+  _G.bundle = bundle
+  local b, ce =
+    loadstring('local installer = true;local thisBundle = _G.bundle;_G.bundle=nil;' .. bundle, 'installer bundle')
   if typeof(b) ~= 'function' then
     error('Compilation Error: ' .. (ce or b or 'Unknown Error'))
   end
