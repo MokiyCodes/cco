@@ -10,16 +10,17 @@ local require = function(...) -- handle loading modules
   local requested, returned = { ... }, {}
   for _, filepath in pairs(requested) do
     if not modules[filepath] then
-      error('[blb] no such module \'' .. filepath .. '\'')
-    end
-    local module = modules[filepath]
-    if module.isCached then
-      table.insert(returned, module.cache)
+      table.insert(returned, oldRequire(filepath) or error('[blb] no such module \'' .. filepath .. '\''))
     else
-      local moduleValue = module.load()
-      module.cache = moduleValue
-      module.isCached = true
-      table.insert(returned, module.cache)
+      local module = modules[filepath]
+      if module.isCached then
+        table.insert(returned, module.cache)
+      else
+        local moduleValue = module.load()
+        module.cache = moduleValue
+        module.isCached = true
+        table.insert(returned, module.cache)
+      end
     end
   end
   return table.unpack(returned)

@@ -1,0 +1,15 @@
+{
+  "robloxLsp.diagnostics.globals": [
+    "shell",
+    "http",
+    "_HOST",
+    "installer",
+    "term",
+    "sleep"
+  ],
+  "Lua.diagnostics.disable": [
+    "undefined-field",
+    "undefined-global",
+    "need-check-nil"
+  ]
+}
