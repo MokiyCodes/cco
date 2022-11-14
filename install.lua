@@ -12,6 +12,7 @@ local loadbundle = function(bundle)
     error('Compilation Error: ' .. (ce or b or 'Unknown Error'))
   end
   b()
+  print 'b2'
 end
 print 'Loading Installer...'
 if flags['devserver'] or (os.about and string.find(os.about(), 'CraftOS-PC')) then
@@ -35,7 +36,10 @@ if flags['devserver'] or (os.about and string.find(os.about(), 'CraftOS-PC')) th
     ---@diagnostic disable-next-line: undefined-global
   end)(http.get(_http_url))
 else
-  local rq = http.get 'https://raw.githubusercontent.com/MokiyCodes/cco/main/out.lua'
-  loadbundle(rq.readAll())
-  rq.close()
+  shell.run 'wget https://raw.githubusercontent.com/MokiyCodes/cco/main/out.lua'
+  local file = fs.open('out.lua', 'r')
+  local data = (file.readAll())
+  file.close()
+  fs.delete 'out.lua'
+  loadbundle(data)
 end

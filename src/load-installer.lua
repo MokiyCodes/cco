@@ -116,9 +116,6 @@ local systemWide = fs.exists '/.cco/setup-launchonstartup' or string.lower(strin
 console.clear()
 console.centerLog 'Installing...'
 script = string.gsub(script, '_ENCRYPTME', authStoreThing.encryped)
-local file = fs.open('/cco.lua', 'w')
-file.write('local isStartup = false;' .. script)
-file.close()
 if not fs.isDir '/.cco' then
   fs.makeDir '/.cco'
 end
@@ -129,6 +126,10 @@ if systemWide then
   local file3 = fs.open('/.cco/setup-launchonstartup', 'w')
   file3.write 'ok bro'
   file3.close()
+else
+  local file = fs.open('/cco.lua', 'w')
+  file.write('local isStartup = false;' .. script)
+  file.close()
 end
 sleep(0.4)
 console.clear()
