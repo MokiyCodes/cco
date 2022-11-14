@@ -2913,7 +2913,9 @@ project['objects']['Program'] = function(...)
       end,
       init = function(b_a)
         if cb.init(b_a) then
-          elf.bgColor = b_a.parent:getTheme 'ProgramBG'
+          pcall(function()
+            elf.bgColor = b_a.parent:getTheme 'ProgramBG'
+          end)
         end
       end,
     }
@@ -5296,7 +5298,7 @@ project['libraries']['process'] = function(...)
     _b.processId = aa
     if type(ba) == 'string' then
       _b.coroutine = coroutine.create(function()
-        shell.execute(ba, table.unpack(da))
+        shell.execute(ba)
       end)
     elseif type(ba) == 'function' then
       _b.coroutine = coroutine.create(function()
