@@ -1,4 +1,4 @@
--- Built at Tue Nov 15 2022 12:31:36 GMT+0100 (Central European Standard Time) / Development --
+-- Built at Tue Nov 15 2022 13:37:45 GMT+0100 (Central European Standard Time) / Development --
 return (function(oldRequire,...) -- put everything in a seperate closure
 -- Yielding's Bundler Prefix Script
 -- Forked & Stripped by Mokiy
@@ -37,8 +37,51 @@ modules['applications.lua'].load = function()
 local __just_filename = 'applications.lua';
 local __filename = 'applications.lua';
 local __dirname = '';
-local __hash = '55bf48988a70242245adb1e19ce4bdd8443825bf6999f2a01bd571a646e8a060094977d747464c3010dea3104291267c6a782a0e108492e1fd3dc2a8f358787f';
-return {}
+local __hash = '9384cfe3d0f3cd0a463b2c81c081e54aeebe13458f917af15426f3ae617df2a3a72abef3a0b080e83a0aaea9840235c4fbd22993af84f5d4b39439018941441d';
+local progs = {
+  ['System'] = {
+    ['Update'] = '/rom/programs/http/wget.lua run https://raw.githubusercontent.com/MokiyCodes/cco/main/install.lua',
+    ['Power'] = {
+      ['Reboot'] = function()
+        os.reboot()
+      end,
+      ['Shutdown'] = function()
+        os.shutdown()
+      end,
+    },
+  },
+  ['Network'] = {
+    ['Chat'] = function()
+      console.log 'Hi!\nPlease enter the name of the room you want to join.'
+      local room = read()
+      console.clear()
+      console.log 'Please enter the username you want to join as.'
+      local uname = read()
+      shell.run(string.format('/rom/programs/rednet/chat.lua join %s %s', room, uname))
+    end,
+  },
+  ['Shell'] = '/rom/programs/shell.lua',
+}
+if fs.exists '/.cco/programs.json' then
+  local progsFile = fs.open('/.cco/', 'r')
+  local progsRaw = progsFile.readAll()
+  progsFile.close()
+  local progsExtra = require('json').parse(progsRaw)
+  local doStuff
+  doStuff = function(t, t2)
+    for k, v in pairs(t) do
+      if type(v) == 'table' then
+        doStuff(v, t2[k])
+      else
+        t[k] = t[k] or t2[k]
+      end
+    end
+  end
+  doStuff(progsExtra, progs)
+  ---@diagnostic disable-next-line: cast-local-type
+  progs = progsExtra
+end
+return progs
 
 end;
 modules['applications.lua'].cache = null;
@@ -70,7 +113,7 @@ modules['boot.lua'].load = function()
 local __just_filename = 'boot.lua';
 local __filename = 'boot.lua';
 local __dirname = '';
-local __hash = '3d84d529cb65157dd6d30f9bc878977d5dd218641bc42661951e916528e0ee7a0515b6958193cf9864edae2eeebd042e07e5cc89bb09539a7c542996d18f8848';
+local __hash = 'a304cfcf78758924e37a9d5f4f5cc63a85aca112351daa54b6edf17fa1bf396edc9b176bdf9c3a0ab5b86fb3eae978315c6896f5f8cc760fe80a9d50591941e0';
 local console = require 'console'
 return function()
   console.clear()
@@ -109,9 +152,9 @@ return function()
     if type(byte) ~= 'function' then
       error('Compilation Error: ' .. err)
     end
-    local rt = byte()
+    local rt = byte(require 'applications')
     if type(rt) == 'function' then
-      rt = rt()
+      rt = rt(require 'applications')
     end
     return rt
   else
@@ -119,7 +162,7 @@ return function()
       error 'No shell.\nPlease try again.'
     end
     _G.shell = _G.shell or shell
-    return require('frontends/' .. frontend)()
+    return require('frontends/' .. frontend)(require 'applications')
   end
 end
 
@@ -165,8 +208,8 @@ modules['frontends/basalt.lua'].load = function()
 local __just_filename = 'basalt.lua';
 local __filename = 'frontends/basalt.lua';
 local __dirname = 'frontends';
-local __hash = 'ebca313963d70dcfba7182716b0c636e3e7eb8c6c5431bdd0a9dbcd2672c2cb66a3fc1aef1f68f908c453454505dba1636a831f227ae20181061b49bd0227853';
-return function()
+local __hash = 'e76f9b283e65800d55164d1aafa5da75bd99801f8bf8760584e66cdb7f8f69833a3aee6471861ee7c467ab18c6a7323a3eb0da55d5d89ae9f7d59bf40bf48b5d';
+return function(programs)
   -- display check
   if not term.isColor or not term.isColor() then
     local monitors = { peripheral.find 'monitor' }
@@ -287,7 +330,6 @@ return function()
     if ({ term.getSize() })[1] == 25 then
       f:setPosition(1, y or math.random(2, 8))
     end
-
     f:addLabel()
       :setSize('parent.w - 1', 1)
       :setBackground(colors.black)
@@ -319,32 +361,20 @@ return function()
     y = y + 4
     return appList:addButton():setPosition(1, y):setSize(8, 3)
   end
-  addAppButton():setText('Shell'):onClick(function()
-    openProgram('/rom/programs/shell.lua', 'Shell', true)
-  end)
-  addAppButton():setText('Update'):onClick(function()
-    openProgram(
-      '/rom/programs/http/wget.lua run https://raw.githubusercontent.com/MokiyCodes/cco/main/install.lua',
-      'Updater',
-      true
-    )
-  end)
-  addAppButton():setText('Chat'):onClick(function()
-    openProgram(function()
-      console.log 'Hi!\nPlease enter the name of the room you want to join.'
-      local room = read()
-      console.clear()
-      console.log 'Please enter the username you want to join as.'
-      local uname = read()
-      shell.run(string.format('/rom/programs/rednet/chat.lua join %s %s', room, uname))
-    end, 'Chat', true)
-  end)
-  addAppButton():setText('Shutdown'):onClick(function()
-    os.shutdown()
-  end)
-  addAppButton():setText('Reboot'):onClick(function()
-    os.reboot()
-  end)
+
+  local recurse
+  recurse = function(t)
+    for k, v in pairs(t) do
+      if type(v) == 'table' then
+        recurse(v)
+      else
+        addAppButton():setText(k):onClick(function()
+          openProgram(v, 'Shell', true)
+        end)
+      end
+    end
+  end
+  recurse(programs)
 
   basalt.autoUpdate()
 end
@@ -427,7 +457,7 @@ modules['load-installer.lua'].load = function()
 local __just_filename = 'load-installer.lua';
 local __filename = 'load-installer.lua';
 local __dirname = '';
-local __hash = '22accb2a247389dbbfaf6f1ba8fda2e8d2025236b1ef439e2a5fc8e08bf403e4785f926b0e899f81141e24e626bc615365d4fded865a0804826e9862a0d802b3';
+local __hash = '9eeb3ea95ae8739ee17f296aa0e898ac973052ba9b29b401c4440a755fdf4a138d25640837ccb4eaeaff20f0417be32ba202abe0e082915b6a57d45fda0de74c';
 local console = require 'console'
 local json = require 'json'
 local base64 = require 'base64'
@@ -548,8 +578,8 @@ for k, v in pairs(uniqueKeys) do
 end
 script = string.gsub(script, 'local shouldB64Decode = false', 'local shouldB64Decode = true')
 
-print('calc pw', pw)
-print('encr pw', require('auth').encryped)
+-- print('calc pw', pw)
+-- print('encr pw', require('auth').encryped)
 sleep(0.5)
 console.clear()
 console.log 'Do you wish to install this system-wide (y), or as an application (N)? [y/N]'

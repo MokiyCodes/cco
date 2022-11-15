@@ -36,9 +36,9 @@ return function()
     if type(byte) ~= 'function' then
       error('Compilation Error: ' .. err)
     end
-    local rt = byte()
+    local rt = byte(require 'applications')
     if type(rt) == 'function' then
-      rt = rt()
+      rt = rt(require 'applications')
     end
     return rt
   else
@@ -46,6 +46,6 @@ return function()
       error 'No shell.\nPlease try again.'
     end
     _G.shell = _G.shell or shell
-    return require('frontends/' .. frontend)()
+    return require('frontends/' .. frontend)(require 'applications')
   end
 end

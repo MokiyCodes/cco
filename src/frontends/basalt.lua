@@ -1,4 +1,4 @@
-return function()
+return function(programs)
   -- display check
   if not term.isColor or not term.isColor() then
     local monitors = { peripheral.find 'monitor' }
@@ -119,7 +119,6 @@ return function()
     if ({ term.getSize() })[1] == 25 then
       f:setPosition(1, y or math.random(2, 8))
     end
-
     f:addLabel()
       :setSize('parent.w - 1', 1)
       :setBackground(colors.black)
@@ -151,32 +150,20 @@ return function()
     y = y + 4
     return appList:addButton():setPosition(1, y):setSize(8, 3)
   end
-  addAppButton():setText('Shell'):onClick(function()
-    openProgram('/rom/programs/shell.lua', 'Shell', true)
-  end)
-  addAppButton():setText('Update'):onClick(function()
-    openProgram(
-      '/rom/programs/http/wget.lua run https://raw.githubusercontent.com/MokiyCodes/cco/main/install.lua',
-      'Updater',
-      true
-    )
-  end)
-  addAppButton():setText('Chat'):onClick(function()
-    openProgram(function()
-      console.log 'Hi!\nPlease enter the name of the room you want to join.'
-      local room = read()
-      console.clear()
-      console.log 'Please enter the username you want to join as.'
-      local uname = read()
-      shell.run(string.format('/rom/programs/rednet/chat.lua join %s %s', room, uname))
-    end, 'Chat', true)
-  end)
-  addAppButton():setText('Shutdown'):onClick(function()
-    os.shutdown()
-  end)
-  addAppButton():setText('Reboot'):onClick(function()
-    os.reboot()
-  end)
+
+  local recurse
+  recurse = function(t)
+    for k, v in pairs(t) do
+      if type(v) == 'table' then
+        recurse(v)
+      else
+        addAppButton():setText(k):onClick(function()
+          openProgram(v, 'Shell', true)
+        end)
+      end
+    end
+  end
+  recurse(programs)
 
   basalt.autoUpdate()
 end
