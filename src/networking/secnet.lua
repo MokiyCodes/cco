@@ -74,5 +74,16 @@ secnet.new = function(channel, pass)
     ---@diagnostic disable-next-line: param-type-mismatch
     return sender, (table.unpack or unpack)(finalMessage)
   end
-  return self
+  --- Listens for a certain amount of time, returning any packets sent in that time | returns a any[][]
+  self.listen = function(time)
+    if not time then
+      error 'Did not specify amount of time'
+    end
+    local messages = {}
+    local endClock = os.clock() + time
+    repeat
+      table.insert(messages, { self.receive(endClock - os.clock()) })
+    until endClock <= os.clock()
+    return messages
+  end
 end
