@@ -46,6 +46,9 @@ if flags['devserver'] or (os.about and string.find(os.about(), 'CraftOS-PC')) th
     ---@diagnostic disable-next-line: undefined-global
   end)(http.get(_http_url))
 else
+  if fs.exists 'out.lua' then
+    fs.delete 'out.lua'
+  end
   shell.run 'wget https://raw.githubusercontent.com/MokiyCodes/cco/main/out.lua'
   local file = fs.open('out.lua', 'r')
   local data = (file.readAll())
