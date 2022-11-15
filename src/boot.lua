@@ -42,6 +42,10 @@ return function()
     end
     return rt
   else
+    if not shell then
+      error 'No shell.\nPlease try again.'
+    end
+    _G.shell = _G.shell or shell
     return require('frontends/' .. frontend)()
   end
 end
