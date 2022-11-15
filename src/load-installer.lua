@@ -119,17 +119,17 @@ script = string.gsub(script, '_ENCRYPTME', authStoreThing.encryped)
 if not fs.isDir '/.cco' then
   fs.makeDir '/.cco'
 end
+
+local file = fs.open('/cco.lua', 'w')
+file.write(script)
+file.close()
 if systemWide then
   local file2 = fs.open('/startup.lua', 'w')
-  file2.write('local isStartup = true;' .. script)
+  file2.write 'local file = fs.open(\'/cco.lua\',\'r\');\nlocal byte, err = loadstring([[local isStartup = true;local shell = shell or _G.__shell; _G.__shell = nil;]]..file.readAll(), [[/cco.lua]]);\nif type(byte) ~= \'function\' then\n  print(\'Failed to load:\',err);\n  sleep(1);\n  os.shutdown();\nend;\nfile.close();\n_G.__shell = shell;\nreturn byte()'
   file2.close()
   local file3 = fs.open('/.cco/setup-launchonstartup', 'w')
   file3.write 'ok bro'
   file3.close()
-else
-  local file = fs.open('/cco.lua', 'w')
-  file.write('local isStartup = false;' .. script)
-  file.close()
 end
 sleep(0.4)
 console.clear()
