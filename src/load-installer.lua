@@ -27,6 +27,7 @@ local getNewPw = function()
     print 'First, we\'re gonna need you to set a password.\n\nRemember it; the device will be unsuable without it.\n\nMust be 8 characters or more.\n'
     console.logNoNl 'Password => '
     pw = requestPassword()
+    break
   end
 
   -- password validation

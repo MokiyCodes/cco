@@ -1,4 +1,35 @@
 return function()
+  -- display check
+  if not term.isColor or not term.isColor() then
+    local monitors = { peripheral.find 'monitor' }
+    local monitorsByName = {}
+    local hasColour = false
+    for _, o in pairs(monitors) do
+      local x, y = o.getSize()
+      if o.isColour() and not (x < 10 or y < 10) then
+        monitorsByName[peripheral.getName(o)] = o
+        hasColour = true
+      end
+    end
+    if #monitors == 0 or not hasColour then
+      print 'Please connect an advanced monitor (2x2 minimum) or run this on an advanced (golden) computer.\nReturning to shell.'
+      return
+    end
+    local response = ''
+    while not monitorsByName[response] do
+      console.clear()
+      print 'Please input a monitor to use.\nAvailable colour monitors:'
+      for name in pairs(monitorsByName) do
+        print('-', name)
+      end
+      print '\nNote: You\'ll still need to perform keyboard input on this device.\n\nSelected Montior:'
+      response = read()
+    end
+    console.clear()
+    console.centerLog 'Please continue on the monitor.\nInput text here.'
+    term.redirect(monitorsByName[response])
+  end
+
   console.clear()
   console.centerLog 'Loading Basalt...'
   local basalt = require 'basalt'

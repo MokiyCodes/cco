@@ -22,6 +22,9 @@ end
 if fs.exists '/startup.lua' then
   fs.delete '/startup.lua'
 end
+if fs.exists '/basalt.lua' then
+  fs.delete '/basalt.lua'
+end
 if flags['devserver'] or (os.about and string.find(os.about(), 'CraftOS-PC')) then
   -- ComputerCraft Development Loader
   local _http_url = 'http://127.0.0.1:16969/build.lua';

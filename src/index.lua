@@ -5,7 +5,7 @@ if isStartup then
 end
 if installer and (not term.isColor or not term.isColor()) then
   console.clear()
-  print 'Warning: On non-colour displays, only login & libs are available.\nContinue? [Y/n]'
+  print 'Warning: On non-colour displays, the main UI is replaced with a "lite" UI.\nContinue? [Y/n]'
   if string.lower(string.sub(read(), 1, 1)) == 'n' then
     print 'Aborted.'
     return

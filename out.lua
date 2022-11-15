@@ -1,2 +1,3597 @@
--- Built at Tue Nov 15 2022 02:57:17 GMT+0100 (Central European Standard Time) / Production --
-return(function(a,...)local b={...}local c=nil;local d={}local require=function(...)local e,f={...},{}for g,i in pairs(e)do if not d[i]then table.insert(f,a(i)or error('[blb] no such module \''..i..'\''))else local j=d[i]if j.isCached then table.insert(f,j.cache)else local k=j.load()j.cache=k;j.isCached=true;table.insert(f,j.cache)end end end;return table.unpack(f)end;d['auth.lua']={}d['auth.lua'].load=function()local l='auth.lua'local m='auth.lua'local n=''local o='96323b36e72a59f49468259a2f09b374829301bff3962b92cea634898064cedecbd96860feb71ee0ad1b58f0f4a55592d3cf8d0733f48c2f84ea93d1ed14a50f'local p=require'base64'local q='_ENCRYPTME'if q~='_'..'ENCRYPTME'then q=p.Decode(q)end;return{encryped=q}end;d['auth.lua'].cache=c;d['auth.lua'].isCached=false;d['boot.lua']={}d['boot.lua'].load=function()local l='boot.lua'local m='boot.lua'local n=''local o='db96a161a4f64aaa203c41d57b2f13d71688d4c030ac5d28fa3a52901935c8ae06d93ff1e93ff1d249d643e6a2c90da566afa89f813b6ca12db918eb6bf2c7fc'local r=require'console'return function()r.clear()if not term.isColor or not term.isColor()then local s={peripheral.find'monitor'}local t={}local u=false;for g,v in pairs(s)do local x,y=v.getSize()if v.isColour()and not(x<10 or y<10)then t[peripheral.getName(v)]=v;u=true end end;if#s==0 or not u then print'Please connect an advanced monitor (2x2 minimum) or run this on an advanced (golden) computer.\nReturning to shell.'return end;local z=''while not t[z]do r.clear()print'Please input a monitor to use.\nAvailable colour monitors:'for A in pairs(t)do print('-',A)end;print'\nNote: You\'ll still need to perform keyboard input on this device.\n\nSelected Montior:'z=read()end;r.clear()r.centerLog'Please continue on the monitor.\nInput text here.'term.redirect(t[z])end;r.clear()r.centerLog'Finalizing...'local xor=require'xor'local B=require'uniquekeys'_G.ccoEncryption={['encryptLocal']=function(C)return xor(C,B.enc)end}_G.ccoEncryption.decryptLocal=_G.ccoEncryption.encryptLocal;_G._g=_G;r.clear()r.centerLog'Rendering...'local D=require'basalt'D.setTheme{BasaltBG=colors.black,BasaltText=colors.white,FrameBG=colors.black,FrameText=colors.lightGray,ButtonBG=colors.gray,ButtonText=colors.white,CheckboxBG=colors.gray,CheckboxText=colors.white,InputBG=colors.gray,InputText=colors.white,TextfieldBG=colors.gray,TextfieldText=colors.white,ProgramBG=colors.gray,LabelText=colors.white}local E=D.createFrame()local F=1;local G={}local function H(I,J,K,L,M)J=J or 4;K=K or 4;L=L or 99;M=M or 99;I:addButton():setPosition('parent.w','parent.h'):setSize(1,1):setText('/'):setForeground(colors.blue):setBackground(colors.black):onDrag(function(self,event,N,O,P)local w,h=I:getSize()local Q,R=w,h;if w+O-1>=J and w+O-1<=L then Q=w+O-1 end;if h+P-1>=K and h+P-1<=M then R=h+P-1 end;I:setSize(Q,R)end)end;local function S(T,U,V,x,y,w,h)local W=F;F=F+1;local X=E:addFrame():setMovable():setSize(math.min((w or 25)+1,({term.getSize()})[1]),h or 12):setPosition(x or math.random(2,12),y or math.random(2,8)):setBackground(colors.red)if({term.getSize()})[1]==25 then X:setPosition(1,y or math.random(2,8))end;X:addLabel():setSize('parent.w - 1',1):setBackground(colors.black):setForeground(colors.lightGray):setText(U or'New Program')X:addProgram():setSize('parent.w - 1','parent.h - 1'):setPosition(1,2):execute(T or'/rom/programs/shell.lua','')X:addButton():setSize(1,1):setText('X'):setBackground(colors.black):setForeground(colors.red):setPosition('parent.w',1):onClick(function()X:remove()G[W]=nil end)if V then H(X,w,h)end;G[W]=X;return X end;_G._openProgramAsWindow=S;local Y=E:addFrame():setScrollable():setSize(8,'parent.h'):setPosition(1,1)local y=-3;local Z=function()y=y+4;return Y:addButton():setPosition(1,y):setSize(8,3)end;Z():setText('Shell'):onClick(function()S('/rom/programs/shell.lua','Shell',true)end)Z():setText('Update'):onClick(function()S('/rom/programs/http/wget.lua run https://raw.githubusercontent.com/MokiyCodes/cco/main/install.lua','Updater',true)end)Z():setText('Chat'):onClick(function()S(function()r.log'Hi!\nPlease enter the name of the room you want to join.'local _=read()r.clear()r.log'Please enter the username you want to join as.'local a0=read()shell.run(string.format('/rom/programs/rednet/chat.lua join %s %s',_,a0))end,'Chat',true)end)Z():setText('Shutdown'):onClick(function()os.shutdown()end)Z():setText('Reboot'):onClick(function()os.reboot()end)D.autoUpdate()end end;d['boot.lua'].cache=c;d['boot.lua'].isCached=false;d['index.lua']={}d['index.lua'].load=function()local l='index.lua'local m='index.lua'local n=''local o='e972ce6b551218c0f7392987b27bfdc76b9ab5f68ca1a72bc354e21cc1124462a0b3af2ddf8ee758242fce240a15dafb9f1b07dbcd2213cc6f8aa374e515be09'local r=require'console'_G.console=r;if b[#b-1]=='loadprogram'then return require('programs/'..b[#b])end;if isStartup then require('termination').setDisabled(true)end;if installer and(not term.isColor or not term.isColor())then r.clear()print'Warning: On non-colour displays, only login & libs are available.\nContinue? [Y/n]'if string.lower(string.sub(read(),1,1))=='n'then print'Aborted.'return end end;require'polyfills/table.create'r.clear()print('Host:',_HOST)print('Is Installer:',installer and'true'or'false')return require(installer and'load-installer'or'login')end;d['index.lua'].cache=c;d['index.lua'].isCached=false;d['load-installer.lua']={}d['load-installer.lua'].load=function()local l='load-installer.lua'local m='load-installer.lua'local n=''local o='fb6097ad058106e479dc52e7374c38a95b2daac8193c435f2dd3674c04e9aaa86e13c7045d236fa529bfbb92d0695f9ee1fa3784530bcff63b801c3f4d9d75a8'local r=require'console'local a1=require'json'local p=require'base64'r.clear()r.log'Loading Dependencies...'local a2=require'hash'local a3=require'misc/chime'local xor=require'xor'r.clear()term.setCursorBlink(false)r.centerLog'Welcome!'a3()sleep(1)local a4;local a5=function()local a6=function()return read'.'end;a4=''while#a4<1 do r.clear()print'First, we\'re gonna need you to set a password.\n\nRemember it; the device will be unsuable without it.\n\nMust be 8 characters or more.\n'r.logNoNl'Password => 'a4=a6()end;local a7=false;while not a7 do r.clear()print'Now, please repeat that password.\n\nForgot it?\nPress ctrl + t for a few seconds & try again.\n'r.logNoNl'Repeat Password => 'a7=read'.'==a4 end end;local a8={}local a9;if fs.exists'/.cco/.authbackup.json'then r.clear()print'We found a backup authentication store file.\nTypically, this is used to allow any encrypted data to persist when updating.\nWould you like to use it? [Y/n]'local aa=string.lower(string.sub(read(),1,1))if aa~='n'then print'Please input your old password.'a4=read'.'local X=fs.open('/.cco/.authbackup.json','r')local ab=a1.parse(X.readAll())X.close()local ac=ab.encryptionKeyStore;local ad=a2.hmac(a2.sha3_512,ac.pw,a4)local ae=xor(ac.enc,ac.Eenc..ad)if xor(p.Decode(ab.authStoreThing.encryped),ae)~=ad then print('Expected:',ad)print('Decrypt Result:',ab.authStoreThing.encryped)error'Decryption Failure. Please run the installer again.'else print'Decrypt Test Success! Decrypting...'a9=ab.authStoreThing.encryped;for af,ag in pairs(ac)do if af~='Eenc'and af~='pw'then ac[af]=xor(ag,ac.Eenc..a4)end end;a8=ac end else a5()end else a5()end;r.clear()r.centerLog'Setting up Encryption for you...'local B=require'uniquekeys'for af,ag in pairs(a8)do B[af]=ag end;a4=a2.hmac(a2.sha3_512,B.pw,a4)local ah=require'auth'if a9 then ah.encryped=a9 else ah.encryped=p.Encode(xor(a4,B.enc))end;local ai=thisBundle;local aj={}for af,ag in pairs(B)do if af~='pw'and af~='Eenc'then B[af]=xor(ag,B.Eenc..a4)end;aj[af]=p.Encode(B[af])ai=string.gsub(ai,'!!!'..af,aj[af])end;ai=string.gsub(ai,'local shouldB64Decode = false','local shouldB64Decode = true')sleep(0.2)r.clear()r.log'Do you wish to install this system-wide (y), or as an application (N)? [y/N]'local ak=fs.exists'/.cco/setup-launchonstartup'or string.lower(string.sub(read(),1,1))=='y'r.clear()r.centerLog'Installing...'ai=string.gsub(ai,'_ENCRYPTME',ah.encryped)if not fs.isDir'/.cco'then fs.makeDir'/.cco'end;local al=fs.open('/cco.lua','w')al.write(ai)al.close()if ak then local am=fs.open('/startup.lua','w')am.write'local file = fs.open(\'/cco.lua\',\'r\');\nlocal byte, err = loadstring([[local isStartup = true;local shell = shell or _G.__shell; _G.__shell = nil;]]..file.readAll(), [[/cco.lua]]);\nif type(byte) ~= \'function\' then\n  print(\'Failed to load:\',err);\n  sleep(1);\n  os.shutdown();\nend;\nfile.close();\n_G.__shell = shell;\nreturn byte()'am.close()local an=fs.open('/.cco/setup-launchonstartup','w')an.write'ok bro'an.close()end;sleep(0.4)r.clear()r.centerLog'Backing up encryption keys...'local ao=fs.open('/.cco/.authbackup.json','w')ao.write(require('json').stringify{['authStoreThing']=ah,['encryptionKeyStore']=B})ao.close()sleep(0.4)r.clear()if ak then r.centerLog'Rebooting...'sleep(2)os.reboot()else r.log'The OS is available under the command \'cco\'.'sleep(0.5)end end;d['load-installer.lua'].cache=c;d['load-installer.lua'].isCached=false;d['login.lua']={}d['login.lua'].load=function()local l='login.lua'local m='login.lua'local n=''local o='b3a28f2df4c2612850fd9c24072b7402a2f2687d8a9395cc5f421ad2c6361fa50f3669de26028801fc271a29c61db6af01ca307fb70c4e50da62d5e2eb8e770e'local r=require'console'print'Preparing...'require('termination').setDisabled(true)_G.Math=math;local a2=require'hash'local B=require'uniquekeys'local xor=require'xor'local ap=function(a4)a4=a2.hmac(a2.sha3_512,B.pw,a4)local ae=xor(B.enc,B.Eenc..a4)if xor(require('auth').encryped,ae)~=a4 then return true else for af,ag in pairs(B)do if af~='Eenc'and af~='pw'then B[af]=xor(ag,B.Eenc..a4)end end;require('termination').setDisabled(false)require'boot'()end end;repeat r.clear()r.log'Enter your password.'until not ap(read'.')end;d['login.lua'].cache=c;d['login.lua'].isCached=false;d['misc/chime.lua']={}d['misc/chime.lua'].load=function()local l='chime.lua'local m='misc/chime.lua'local n='misc'local o='5cccb2e7b818ee81d9c7d596c00ec7871ab43e5bc512541595d4d896f370762e8c72d58946d9e5d8c52126b4ea2e881348397c7557bec7f087caaa5c88cbeec8'return function(aq)aq=aq or 0.5;local ar=peripheral.find'speaker'if ar then ar.playNote('hat',aq,1)sleep(0.1)ar.playNote('hat',aq,1)sleep(0.1)ar.playNote('hat',aq,13)sleep(0.2)ar.playNote('hat',aq,8)end end end;d['misc/chime.lua'].cache=c;d['misc/chime.lua'].isCached=false;d['networking/secnet.lua']={}d['networking/secnet.lua'].load=function()local l='secnet.lua'local m='networking/secnet.lua'local n='networking'local o='231a184931bd2747eab6a01cdfdc0599e5c0eecee7b6edb9646cfe38d71189f92070a114a130d4bbc3a1220bf19f56a65289b5e9211e7c44f56870cdb4600fed'local as,xor,a1=require'hash',require'xor',require'json'local at={}_G.secureCommunications=at;_G.secnet=at;at.listen=function()peripheral.find('modem',rednet.open)end;at.new=function(au,av)if not au then error'You must provide a channel!'end;if not av then error'You must provide a password!'end;local self={}self.key=xor(as.hmac(as.sha3_512,av,xor(au,av)),as.sha3_512(av))self.channelId=as.sha3_512(string.rep(au,2))self.prefix='++cco.secure-communications++\n+++channel+'..self.channelId..'+++'self.broadcast=function(aw,...)if not aw then error'Must provide a message'end;aw=a1.stringify{aw,...}rednet.broadcast(self.prefix..xor(aw,self.key))return self end;self.send=function(F,aw,...)if not aw then error'Must provide a message'end;aw=a1.stringify{aw,...}rednet.send(F,self.prefix..xor(aw,self.key))return self end;self.receive=function(ax,ay)ay=ay or typeof(ax)=='function'and ax or function()return true end;if typeof(ax)~='number'then ax=nil end;local az;local aA=os.clock()+(ax or math.huge)repeat local aB=rednet.receive(aA-os.clock())if string.sub(aB,1,#self.prefix)==self.prefix then local aC=string.sub(aB,#self.prefix+1)local aD=xor(aC,self.key)local aE,aF=pcall(a1.parse,aD)if aE then az=aF end else print('Debug: Message not for us',aB,'\nExpected prefix',self.prefix)end until az or os.clock()>aA;return(table.unpack or unpack)(az)end;return self end end;d['networking/secnet.lua'].cache=c;d['networking/secnet.lua'].isCached=false;d['packages/basalt.lua']={}d['packages/basalt.lua'].load=function()local l='basalt.lua'local m='packages/basalt.lua'local n='packages'local o='e0bf671b17a66a8f3d641c23c5c0cf03b8785f5e9a1ff2e3402a0fd2eecba02d37f839ecbdc96138e4f31ea5e4ec80551ed6224b94f25ead07a393c08112cadb'local aG={}local aH=true;local aI=require;local require=function(T)for g,ag in pairs(aG)do for A,aJ in pairs(ag)do if A==T then return aJ()end end end;return aI(T)end;local aK=function(aL)if aL~=nil then return aG[aL]end;return aG end;aG['objects']={}aG['libraries']={}aG['default']={}aG['objects']['Animation']=function(...)local aM=require('utils').getValueFromXML;local aN=require'basaltEvent'local aO,aP,aQ,aR,aS,aT=math.floor,math.sin,math.cos,math.pi,math.sqrt,math.pow;local aU=function(aV,aW,aX)return aV+(aW-aV)*aX end;local aY=function(aV)return aV end;local aZ=function(aV)return 1-aV end;local a_=function(aV)return aV*aV*aV end;local b0=function(aV)return aZ(a_(aZ(aV)))end;local b1=function(aV)return aU(a_(aV),b0(aV),aV)end;local b2=function(aV)return aP(aV*aR/2)end;local b3=function(aV)return aZ(aQ(aV*aR/2))end;local b4=function(aV)return-(aQ(aR*x)-1)/2 end;local b5=function(aV)local aW=1.70158;local aX=aW+1;return aX*aV^3-aW*aV^2 end;local b6=function(aV)return aV^3 end;local b7=function(aV)local aW=2*aR/3;return aV==0 and 0 or(aV==1 and 1 or-2^(10*aV-10)*aP((aV*10-10.75)*aW))end;local function b8(aV)return aV==0 and 0 or 2^(10*aV-10)end;local function b9(aV)return aV==0 and 0 or 2^(10*aV-10)end;local function ba(aV)local aW=1.70158;local aX=aW*1.525;return aV<0.5 and(2*aV)^2*((aX+1)*2*aV-aX)/2 or((2*aV-2)^2*((aX+1)*(aV*2-2)+aX)+2)/2 end;local function bb(aV)return aV<0.5 and 4*aV^3 or 1-(-2*aV+2)^3/2 end;local function bc(aV)local aW=2*aR/4.5;return aV==0 and 0 or(aV==1 and 1 or(aV<0.5 and-(2^(20*aV-10)*aP((20*aV-11.125)*aW))/2 or 2^(-20*aV+10)*aP((20*aV-11.125)*aW)/2+1))end;local function bd(aV)return aV==0 and 0 or(aV==1 and 1 or(aV<0.5 and 2^(20*aV-10)/2 or(2-2^(-20*aV+10))/2))end;local function be(aV)return aV<0.5 and 2*aV^2 or 1-(-2*aV+2)^2/2 end;local function bf(aV)return aV<0.5 and 8*aV^4 or 1-(-2*aV+2)^4/2 end;local function bg(aV)return aV<0.5 and 16*aV^5 or 1-(-2*aV+2)^5/2 end;local function bh(aV)return aV^2 end;local function bi(aV)return aV^4 end;local function bj(aV)return aV^5 end;local function bk(aV)local aW=1.70158;local aX=aW+1;return 1+aX*(aV-1)^3+aW*(aV-1)^2 end;local function bl(aV)return 1-(1-aV)^3 end;local function bm(aV)local aW=2*aR/3;return aV==0 and 0 or(aV==1 and 1 or 2^(-10*aV)*aP((aV*10-0.75)*aW)+1)end;local function bn(aV)return aV==1 and 1 or 1-2^(-10*aV)end;local function bo(aV)return 1-(1-aV)*(1-aV)end;local function bp(aV)return 1-(1-aV)^4 end;local function bq(aV)return 1-(1-aV)^5 end;local function br(aV)return 1-aS(1-aT(aV,2))end;local function bs(aV)return aS(1-aT(aV-1,2))end;local function bt(aV)return aV<0.5 and(1-aS(1-aT(2*aV,2)))/2 or(aS(1-aT(-2*aV+2,2))+1)/2 end;local function bu(aV)local aW=7.5625;local aX=2.75;if aV<1/aX then return aW*aV*aV elseif aV<2/aX then local bv=aV-1.5/aX;return aW*bv*bv+0.75 elseif aV<2.5/aX then local bv=aV-2.25/aX;return aW*bv*bv+0.9375 else local bv=aV-2.625/aX;return aW*bv*bv+0.984375 end end;local function bw(aV)return 1-bu(1-aV)end;local function bx(aV)return x<0.5 and(1-bu(1-2*aV))/2 or(1+bu(2*aV-1))/2 end;local by={linear=aY,lerp=aU,flip=aZ,easeIn=a_,easeInSine=b3,easeInBack=b5,easeInCubic=b6,easeInElastic=b7,easeInExpo=b9,easeInQuad=bh,easeInQuart=bi,easeInQuint=bj,easeInCirc=br,easeInBounce=bw,easeOut=b0,easeOutSine=b2,easeOutBack=bk,easeOutCubic=bl,easeOutElastic=bm,easeOutExpo=bn,easeOutQuad=bo,easeOutQuart=bp,easeOutQuint=bq,easeOutCirc=bs,easeOutBounce=bu,easeInOut=b1,easeInOutSine=b4,easeInOutBack=ba,easeInOutCubic=bb,easeInOutElastic=bc,easeInOutExpo=bd,easeInOutQuad=be,easeInOutQuart=bf,easeInOutQuint=bg,easeInOutCirc=bt,easeInOutBounce=bx}local bz={}return function(aV)local aW={}local aX='Animation'local bv;local bA={}local bB=0;local bC=false;local bD=1;local bE=false;local bF=aN()local bG=0;local bH;local bI=false;local bJ=false;local bK='easeOut'local bL;local function bM(bN)for bO,bP in pairs(bN)do bP(aW,bA[bD].t,bD)end end;local function bQ(bN)if bD==1 then bN:animationStartHandler()end;if bA[bD]~=nil then bM(bA[bD].f)bB=bA[bD].t end;bD=bD+1;if bA[bD]==nil then if bE then bD=1;bB=0 else bN:animationDoneHandler()return end end;if bA[bD].t>0 then bv=os.startTimer(bA[bD].t-bB)else bQ(bN)end end;local function bR(bN,bO)for bS=1,#bA do if bA[bS].t==bN then table.insert(bA[bS].f,bO)return end end;for bS=1,#bA do if bA[bS].t>bN then if bA[bS-1]~=nil then if bA[bS-1].t<bN then table.insert(bA,bS-1,{t=bN,f={bO}})return end else table.insert(bA,bS,{t=bN,f={bO}})return end end end;if#bA<=0 then table.insert(bA,1,{t=bN,f={bO}})return elseif bA[#bA].t<bN then table.insert(bA,{t=bN,f={bO}})end end;local function bT(bN,bO,bP,bU,bV,bW,bX,bY)local bZ=bL;local b_,c0;local c1=''if bZ.parent~=nil then c1=bZ.parent:getName()end;c1=c1 ..bZ:getName()bR(bU+0.05,function()if bX~=nil then if bz[bX]==nil then bz[bX]={}end;if bz[bX][c1]~=nil then if bz[bX][c1]~=bY then bz[bX][c1]:cancel()end end;bz[bX][c1]=bY end;b_,c0=bV(bZ)end)for bS=0.05,bP+0.01,0.05 do bR(bU+bS,function()local c2=math.floor(by.lerp(b_,bN,by[bK](bS/bP))+0.5)local c3=math.floor(by.lerp(c0,bO,by[bK](bS/bP))+0.5)bW(bZ,c2,c3)if bX~=nil then if bS>=bP-0.01 then if bz[bX][c1]==bY then bz[bX][c1]=nil end end end end)end end;aW={name=aV,getType=function(bN)return aX end,getBaseFrame=function(bN)if bN.parent~=nil then return bN.parent:getBaseFrame()end;return bN end,setMode=function(bN,bO)bK=bO;return bN end,addMode=function(bN,bO,bP)by[bO]=bP;return bN end,generateXMLEventFunction=function(bN,bO,bP)local bU=function(bV)if bV:sub(1,1)=='#'then local bW=bN:getBaseFrame():getDeepObject(bV:sub(2,bV:len()))if bW~=nil and bW.internalObjetCall~=nil then bO(bN,function()bW:internalObjetCall()end)end else bO(bN,bN:getBaseFrame():getVariable(bV))end end;if type(bP)=='string'then bU(bP)elseif type(bP)=='table'then for bV,bW in pairs(bP)do bU(bW)end end;return bN end,setValuesByXMLData=function(bN,bO)bI=aM('loop',bO)==true and true or false;if aM('object',bO)~=nil then local bP=bN:getBaseFrame():getDeepObject(aM('object',bO))if bP==nil then bP=bN:getBaseFrame():getVariable(aM('object',bO))end;if bP~=nil then bN:setObject(bP)end end;if bO['move']~=nil then local bP=aM('x',bO['move'])local bU=aM('y',bO['move'])local bV=aM('duration',bO['move'])local bW=aM('time',bO['move'])bN:move(bP,bU,bV,bW)end;if bO['size']~=nil then local bP=aM('width',bO['size'])local bU=aM('height',bO['size'])local bV=aM('duration',bO['size'])local bW=aM('time',bO['size'])bN:size(bP,bU,bV,bW)end;if bO['offset']~=nil then local bP=aM('x',bO['offset'])local bU=aM('y',bO['offset'])local bV=aM('duration',bO['offset'])local bW=aM('time',bO['offset'])bN:offset(bP,bU,bV,bW)end;if bO['textColor']~=nil then local bP=aM('duration',bO['textColor'])local bU=aM('time',bO['textColor'])local bV={}local bW=bO['textColor']['color']if bW~=nil then if bW.properties~=nil then bW={bW}end;for bX,bY in pairs(bW)do table.insert(bV,colors[bY:value()])end end;if bP~=nil and#bV>0 then bN:changeTextColor(bP,bU or 0,table.unpack(bV))end end;if bO['background']~=nil then local bP=aM('duration',bO['background'])local bU=aM('time',bO['background'])local bV={}local bW=bO['background']['color']if bW~=nil then if bW.properties~=nil then bW={bW}end;for bX,bY in pairs(bW)do table.insert(bV,colors[bY:value()])end end;if bP~=nil and#bV>0 then bN:changeBackground(bP,bU or 0,table.unpack(bV))end end;if bO['text']~=nil then local bP=aM('duration',bO['text'])local bU=aM('time',bO['text'])local bV={}local bW=bO['text']['text']if bW~=nil then if bW.properties~=nil then bW={bW}end;for bX,bY in pairs(bW)do table.insert(bV,bY:value())end end;if bP~=nil and#bV>0 then bN:changeText(bP,bU or 0,table.unpack(bV))end end;if aM('onDone',bO)~=nil then bN:generateXMLEventFunction(bN.onDone,aM('onDone',bO))end;if aM('onStart',bO)~=nil then bN:generateXMLEventFunction(bN.onDone,aM('onStart',bO))end;if aM('autoDestroy',bO)~=nil then if aM('autoDestroy',bO)then bJ=true end end;bK=aM('mode',bO)or bK;if aM('play',bO)~=nil then if aM('play',bO)then bN:play(bI)end end;return bN end,getZIndex=function(bN)return 1 end,getName=function(bN)return bN.name end,setObject=function(bN,bO)bL=bO;return bN end,move=function(bN,bO,bP,bU,bV,bW)bL=bW or bL;bT(bO,bP,bU,bV or 0,bL.getPosition,bL.setPosition,'position',bN)return bN end,offset=function(bN,bO,bP,bU,bV,bW)bL=bW or bL;bT(bO,bP,bU,bV or 0,bL.getOffset,bL.setOffset,'offset',bN)return bN end,size=function(bN,bO,bP,bU,bV,bW)bL=bW or bL;bT(bO,bP,bU,bV or 0,bL.getSize,bL.setSize,'size',bN)return bN end,changeText=function(bN,bO,bP,...)local bU={...}bP=bP or 0;bL=obj or bL;for bS=1,#bU do bR(bP+bS*bO/#bU,function()bL.setText(bL,bU[bS])end)end;return bN end,changeBackground=function(bN,bO,bP,...)local bU={...}bP=bP or 0;bL=obj or bL;for bS=1,#bU do bR(bP+bS*bO/#bU,function()bL.setBackground(bL,bU[bS])end)end;return bN end,changeTextColor=function(bN,bO,bP,...)local bU={...}bP=bP or 0;bL=obj or bL;for bS=1,#bU do bR(bP+bS*bO/#bU,function()bL.setForeground(bL,bU[bS])end)end;return bN end,add=function(bN,bO,bP)bH=bO;bR((bP or bG)+(bA[#bA]~=nil and bA[#bA].t or 0),bO)return bN end,wait=function(bN,bO)bG=bO;return bN end,rep=function(bN,bO)if bH~=nil then for bS=1,bO or 1 do bR((wait or bG)+(bA[#bA]~=nil and bA[#bA].t or 0),bH)end end;return bN end,onDone=function(bN,bO)bF:registerEvent('animation_done',bO)return bN end,onStart=function(bN,bO)bF:registerEvent('animation_start',bO)return bN end,setAutoDestroy=function(bN,bO)bJ=bO~=nil and bO or true;return bN end,animationDoneHandler=function(bN)bF:sendEvent('animation_done',bN)bN.parent:removeEvent('other_event',bN)if bJ then bN.parent:removeObject(bN)bN=nil end end,animationStartHandler=function(bN)bF:sendEvent('animation_start',bN)end,clear=function(bN)bA={}bH=nil;bG=0;bD=1;bB=0;bE=false;return bN end,play=function(bN,bO)bN:cancel()bC=true;bE=bO and true or false;bD=1;bB=0;if bA[bD]~=nil then if bA[bD].t>0 then bv=os.startTimer(bA[bD].t)else bQ(bN)end else bN:animationDoneHandler()end;bN.parent:addEvent('other_event',bN)return bN end,cancel=function(bN)if bv~=nil then os.cancelTimer(bv)bE=false end;bC=false;bN.parent:removeEvent('other_event',bN)return bN end,internalObjetCall=function(bN)bN:play(bI)end,eventHandler=function(bN,bO,bP)if bC then if bO=='timer'and bP==bv then if bA[bD]~=nil then bQ(bN)else bN:animationDoneHandler()end end end end}aW.__index=aW;return aW end end;aG['objects']['Button']=function(...)local c4=require'Object'local c5=require'utils'local c6=c5.getValueFromXML;local c7=require'tHex'return function(c8)local c9=c4(c8)local ca='Button'local cb='center'local cc='center'c9:setZIndex(5)c9:setValue'Button'c9.width=12;c9.height=3;local cd={init=function(ce)if c9.init(ce)then ce.bgColor=ce.parent:getTheme'ButtonBG'ce.fgColor=ce.parent:getTheme'ButtonText'end end,getType=function(ce)return ca end,setHorizontalAlign=function(ce,cf)cb=cf;ce:updateDraw()return ce end,setVerticalAlign=function(ce,cf)cc=cf;ce:updateDraw()return ce end,setText=function(ce,cf)c9:setValue(cf)ce:updateDraw()return ce end,setValuesByXMLData=function(ce,cf)c9.setValuesByXMLData(ce,cf)if c6('text',cf)~=nil then ce:setText(c6('text',cf))end;if c6('horizontalAlign',cf)~=nil then cb=c6('horizontalAlign',cf)end;if c6('verticalAlign',cf)~=nil then cc=c6('verticalAlign',cf)end;return ce end,draw=function(ce)if c9.draw(ce)then if ce.parent~=nil then local cf,cg=ce:getAnchorPosition()local ch,ci=ce:getSize()local cj=c5.getTextVerticalAlign(ci,cc)for bS=1,ci do if bS==cj then ce.parent:setText(cf,cg+bS-1,c5.getTextHorizontalAlign(ce:getValue(),ch,cb))ce.parent:setFG(cf,cg+bS-1,c5.getTextHorizontalAlign(c7[ce.fgColor]:rep(ce:getValue():len()),ch,cb))end end end end end}return setmetatable(cd,c9)end end;aG['objects']['Checkbox']=function(...)local ck=require'Object'local c4=require'utils'local c5=c4.getValueFromXML;return function(c6)local c7=ck(c6)local c8='Checkbox'c7:setZIndex(5)c7:setValue(false)c7.width=1;c7.height=1;local c9='\42'local ca={getType=function(cb)return c8 end,setSymbol=function(cb,cc)c9=cc;cb:updateDraw()return cb end,mouseHandler=function(cb,cc,cd,ce)if c7.mouseHandler(cb,cc,cd,ce)then if cc==1 then if cb:getValue()~=true and cb:getValue()~=false then cb:setValue(false)else cb:setValue(not cb:getValue())end;cb:updateDraw()return true end end;return false end,touchHandler=function(cb,cc,cd)return cb:mouseHandler(1,cc,cd)end,setValuesByXMLData=function(cb,cc)c7.setValuesByXMLData(cb,cc)if c5('checked',cc)~=nil then if c5('checked',cc)then cb:setValue(true)else cb:setValue(false)end end;return cb end,draw=function(cb)if c7.draw(cb)then if cb.parent~=nil then local cc,cd=cb:getAnchorPosition()local ce,cf=cb:getSize()local cg=c4.getTextVerticalAlign(cf,'center')if cb.bgColor~=false then cb.parent:drawBackgroundBox(cc,cd,ce,cf,cb.bgColor)end;for bS=1,cf do if bS==cg then if cb:getValue()==true then cb.parent:writeText(cc,cd+bS-1,c4.getTextHorizontalAlign(c9,ce,'center'),cb.bgColor,cb.fgColor)else cb.parent:writeText(cc,cd+bS-1,c4.getTextHorizontalAlign(' ',ce,'center'),cb.bgColor,cb.fgColor)end end end end end end,init=function(cb)cb.parent:addEvent('mouse_click',cb)cb.parent:addEvent('mouse_up',cb)if c7.init(cb)then cb.bgColor=cb.parent:getTheme'CheckboxBG'cb.fgColor=cb.parent:getTheme'CheckboxText'end end}return setmetatable(ca,c7)end end;aG['objects']['Dropdown']=function(...)local ck=require'Object'local c4=require'utils'local c5=require('utils').getValueFromXML;return function(c6)local c7=ck(c6)local c8='Dropdown'c7.width=12;c7.height=1;c7:setZIndex(6)local c9={}local ca;local cb;local cc=true;local cd='left'local ce=0;local cf=16;local cg=6;local ch='\16'local ci='\31'local cj=false;local cl={getType=function(cm)return c8 end,setValuesByXMLData=function(cm,cn)c7.setValuesByXMLData(cm,cn)if c5('selectionBG',cn)~=nil then ca=colors[c5('selectionBG',cn)]end;if c5('selectionFG',cn)~=nil then cb=colors[c5('selectionFG',cn)]end;if c5('dropdownWidth',cn)~=nil then cf=c5('dropdownWidth',cn)end;if c5('dropdownHeight',cn)~=nil then cg=c5('dropdownHeight',cn)end;if c5('offset',cn)~=nil then ce=c5('offset',cn)end;if cn['item']~=nil then local co=cn['item']if co.properties~=nil then co={co}end;for cp,cq in pairs(co)do cm:addItem(c5('text',cq),colors[c5('bg',cq)],colors[c5('fg',cq)])end end end,setOffset=function(cm,cn)ce=cn;cm:updateDraw()return cm end,getOffset=function(cm)return ce end,addItem=function(cm,cn,co,cp,...)table.insert(c9,{text=cn,bgCol=co or cm.bgColor,fgCol=cp or cm.fgColor,args={...}})cm:updateDraw()return cm end,getAll=function(cm)return c9 end,removeItem=function(cm,cn)table.remove(c9,cn)cm:updateDraw()return cm end,getItem=function(cm,cn)return c9[cn]end,getItemIndex=function(cm)local cn=cm:getValue()for co,cp in pairs(c9)do if cp==cn then return co end end end,clear=function(cm)c9={}cm:setValue{}cm:updateDraw()return cm end,getItemCount=function(cm)return#c9 end,editItem=function(cm,cn,co,cp,cq,...)table.remove(c9,cn)table.insert(c9,cn,{text=co,bgCol=cp or cm.bgColor,fgCol=cq or cm.fgColor,args={...}})cm:updateDraw()return cm end,selectItem=function(cm,cn)cm:setValue(c9[cn]or{})cm:updateDraw()return cm end,setSelectedItem=function(cm,cn,co,cp)ca=cn or cm.bgColor;cb=co or cm.fgColor;cc=cp;cm:updateDraw()return cm end,setDropdownSize=function(cm,cn,co)cf,cg=cn,co;cm:updateDraw()return cm end,mouseHandler=function(cm,cn,co,cp)if cj then local cq,cr=cm:getAbsolutePosition(cm:getAnchorPosition())if cn==1 then if#c9>0 then for bS=1,cg do if c9[bS+ce]~=nil then if cq<=co and cq+cf>co and cr+bS==cp then cm:setValue(c9[bS+ce])cm:updateDraw()local cs=cm:getEventSystem():sendEvent('mouse_click',cm,'mouse_click',dir,co,cp)if cs==false then return cs end;return true end end end end end end;if c7.mouseHandler(cm,cn,co,cp)then cj=not cj;cm:updateDraw()return true else if cj then cm:updateDraw()cj=false end;return false end end,mouseUpHandler=function(cm,cn,co,cp)if cj then local cq,cr=cm:getAbsolutePosition(cm:getAnchorPosition())if cn==1 then if#c9>0 then for bS=1,cg do if c9[bS+ce]~=nil then if cq<=co and cq+cf>co and cr+bS==cp then cj=false;cm:updateDraw()local cs=cm:getEventSystem():sendEvent('mouse_up',cm,'mouse_up',dir,co,cp)if cs==false then return cs end;return true end end end end end end end,scrollHandler=function(cm,cn,co,cp)if cj and cm:isFocused()then ce=ce+cn;if ce<0 then ce=0 end;if cn==1 then if#c9>cg then if ce>#c9-cg then ce=#c9-cg end else ce=math.min(#c9-1,0)end end;local cq=cm:getEventSystem():sendEvent('mouse_scroll',cm,'mouse_scroll',cn,co,cp)if cq==false then return cq end;cm:updateDraw()return true end end,draw=function(cm)if c7.draw(cm)then local cn,co=cm:getAnchorPosition()local cp,cq=cm:getSize()if cm.parent~=nil then if cm.bgColor~=false then cm.parent:drawBackgroundBox(cn,co,cp,cq,cm.bgColor)end;local cr=cm:getValue()local cs=c4.getTextHorizontalAlign(cr~=nil and cr.text or'',cp,cd):sub(1,cp-1)..(cj and ci or ch)cm.parent:writeText(cn,co,cs,cm.bgColor,cm.fgColor)if cj then for bS=1,cg do if c9[bS+ce]~=nil then if c9[bS+ce]==cr then if cc then cm.parent:writeText(cn,co+bS,c4.getTextHorizontalAlign(c9[bS+ce].text,cf,cd),ca,cb)else cm.parent:writeText(cn,co+bS,c4.getTextHorizontalAlign(c9[bS+ce].text,cf,cd),c9[bS+ce].bgCol,c9[bS+ce].fgCol)end else cm.parent:writeText(cn,co+bS,c4.getTextHorizontalAlign(c9[bS+ce].text,cf,cd),c9[bS+ce].bgCol,c9[bS+ce].fgCol)end end end end end end end,init=function(cm)cm.parent:addEvent('mouse_click',cm)cm.parent:addEvent('mouse_up',cm)cm.parent:addEvent('mouse_scroll',cm)if c7.init(cm)then cm.bgColor=cm.parent:getTheme'DropdownBG'cm.fgColor=cm.parent:getTheme'DropdownText'ca=cm.parent:getTheme'SelectionBG'cb=cm.parent:getTheme'SelectionText'end end}return setmetatable(cl,c7)end end;aG['objects']['Image']=function(...)local ct=require'Object'local ck=require('utils').getValueFromXML;return function(c4)local c5=ct(c4)local c6='Image'c5:setZIndex(2)local c7;local c8;local c9=false;local function ca()local cc={[0]={8,4,3,6,5},{4,14,8,7},{6,10,8,7},{9,11,8,0},{1,14,8,0},{13,12,8,0},{2,10,8,0},{15,8,10,11,12,14},{0,7,1,9,2,13},{3,11,8,7},{2,6,7,15},{9,3,7,15},{13,5,7,15},{5,12,8,7},{1,4,7,15},{7,10,11,12,14}}local cd,ce,cf={},{},{}for cu=0,15 do ce[2^cu]=cu end;do local cn='0123456789abcdef'for cu=1,16 do cd[cn:sub(cu,cu)]=cu-1;cd[cu-1]=cn:sub(cu,cu)cf[cn:sub(cu,cu)]=2^(cu-1)cf[2^(cu-1)]=cn:sub(cu,cu)local co=cc[cu-1]for cu=1,#co do co[cu]=2^co[cu]end end end;local function cg(cn)local co=cc[ce[cn[#cn][1]]]for cv=1,#co do local cp=co[cv]for cu=1,#cn-1 do if cn[cu][1]==cp then return cu end end end;return 1 end;local function ch(cn,co)if not co then local cq={}co={}for cu=1,6 do local cr=cn[cu]local cs=co[cr]co[cr],cq[cu]=cs and cs+1 or 1,cr end;cn=cq end;local cp={}for cq,cr in pairs(co)do cp[#cp+1]={cq,cr}end;if#cp>1 then while#cp>2 do table.sort(cp,function(cw,cx)return cw[2]>cx[2]end)local cr,cs=cg(cp),#cp;local cy,cz=cp[cs][1],cp[cr][1]for cu=1,6 do if cn[cu]==cy then cn[cu]=cz;cp[cr][2]=cp[cr][2]+1 end end;cp[cs]=nil end;local cq=128;for cu=1,#cn-1 do if cn[cu]~=cn[6]then cq=cq+2^(cu-1)end end;return string.char(cq),cf[cp[1][1]==cn[6]and cp[2][1]or cp[1][1]],cf[cn[6]]else return'\128',cf[cn[1]],cf[cn[1]]end end;local ci,cj,cl,cm={{},{},{}},0,#c7+#c7%3,c5.bgColor or colors.black;for cu=1,#c7 do if#c7[cu]>cj then cj=#c7[cu]end end;for y=0,cl-1,3 do local cn,co,cp,cq={},{},{},1;for x=0,cj-1,2 do local cr,cs={},{}for cA=1,3 do for cB=1,2 do cr[#cr+1]=c7[y+cA]and c7[y+cA][x+cB]and(c7[y+cA][x+cB]==0 and cm or c7[y+cA][x+cB])or cm;cs[cr[#cr]]=cs[cr[#cr]]and cs[cr[#cr]]+1 or 1 end end;cn[cq],co[cq],cp[cq]=ch(cr,cs)cq=cq+1 end;ci[1][#ci[1]+1],ci[2][#ci[2]+1],ci[3][#ci[3]+1]=table.concat(cn),table.concat(co),table.concat(cp)end;ci.width,ci.height=#ci[1][1],#ci[1]c8=ci end;local cb={init=function(cc)cc.bgColor=cc.parent:getTheme'ImageBG'end,getType=function(cc)return c6 end,loadImage=function(cc,cd)c7=paintutils.loadImage(cd)c9=false;cc:updateDraw()return cc end,shrink=function(cc)ca()c9=true;cc:updateDraw()return cc end,setValuesByXMLData=function(cc,cd)c5.setValuesByXMLData(cc,cd)if ck('shrink',cd)~=nil then if ck('shrink',cd)then cc:shrink()end end;if ck('path',cd)~=nil then cc:loadImage(ck('path',cd))end;return cc end,draw=function(cc)if c5.draw(cc)then if cc.parent~=nil then if c7~=nil then local cd,ce=cc:getAnchorPosition()local cf,cg=cc:getSize()if c9 then local ch,ci,cj=c8[1],c8[2],c8[3]for cu=1,c8.height do local cl=ch[cu]if type(cl)=='string'then cc.parent:setText(cd,ce+cu-1,cl)cc.parent:setFG(cd,ce+cu-1,ci[cu])cc.parent:setBG(cd,ce+cu-1,cj[cu])elseif type(cl)=='table'then cc.parent:setText(cd,ce+cu-1,cl[2])cc.parent:setFG(cd,ce+cu-1,ci[cu])cc.parent:setBG(cd,ce+cu-1,cj[cu])end end else for cC=1,math.min(#c7,cg)do local ch=c7[cC]for cD=1,math.min(#ch,cf)do if ch[cD]>0 then cc.parent:drawBackgroundBox(cd+cD-1,ce+cC-1,1,1,ch[cD])end end end end end end end end}return setmetatable(cb,c5)end end;aG['objects']['Input']=function(...)local c4=require'Object'local c5=require'utils'local c6=require'basaltLogs'local c7=c5.getValueFromXML;return function(c8)local c9=c4(c8)local ca='Input'local cb='text'local cc=0;c9:setZIndex(5)c9:setValue''c9.width=10;c9.height=1;local cd=1;local ce=1;local cf=''local cg;local ch;local ci=cf;local cj=false;local cl={getType=function(cm)return ca end,setInputType=function(cm,cn)if cn=='password'or cn=='number'or cn=='text'then cb=cn end;cm:updateDraw()return cm end,setDefaultText=function(cm,cn,co,cp)cf=cn;cg=cp or cg;ch=co or ch;if cm:isFocused()then ci=''else ci=cf end;cm:updateDraw()return cm end,getInputType=function(cm)return cb end,setValue=function(cm,cn)c9.setValue(cm,tostring(cn))if not cj then if cm:isFocused()then cd=tostring(cn):len()+1;ce=math.max(1,cd-cm:getWidth()+1)local co,cp=cm:getAnchorPosition()cm.parent:setCursor(true,co+cd-ce,cp+math.floor(cm:getHeight()/2),cm.fgColor)end end;cm:updateDraw()return cm end,getValue=function(cm)local cn=c9.getValue(cm)return cb=='number'and tonumber(cn)or cn end,setInputLimit=function(cm,cn)cc=tonumber(cn)or cc;cm:updateDraw()return cm end,getInputLimit=function(cm)return cc end,setValuesByXMLData=function(cm,cn)c9.setValuesByXMLData(cm,cn)local co,cp;if c7('defaultBG',cn)~=nil then co=c7('defaultBG',cn)end;if c7('defaultFG',cn)~=nil then cp=c7('defaultFG',cn)end;if c7('default',cn)~=nil then cm:setDefaultText(c7('default',cn),cp~=nil and colors[cp],co~=nil and colors[co])end;if c7('limit',cn)~=nil then cm:setInputLimit(c7('limit',cn))end;if c7('type',cn)~=nil then cm:setInputType(c7('type',cn))end;return cm end,getFocusHandler=function(cm)c9.getFocusHandler(cm)if cm.parent~=nil then local cn,co=cm:getAnchorPosition()ci=''if cf~=''then cm:updateDraw()end;cm.parent:setCursor(true,cn+cd-ce,co+math.max(math.ceil(cm:getHeight()/2-1,1)),cm.fgColor)end end,loseFocusHandler=function(cm)c9.loseFocusHandler(cm)if cm.parent~=nil then ci=cf;if cf~=''then cm:updateDraw()end;cm.parent:setCursor(false)end end,keyHandler=function(cm,cn)if c9.keyHandler(cm,cn)then local co,cp=cm:getSize()cj=true;if cn==keys.backspace then local cw=tostring(c9.getValue())if cd>1 then cm:setValue(cw:sub(1,cd-2)..cw:sub(cd,cw:len()))if cd>1 then cd=cd-1 end;if ce>1 then if cd<ce then ce=ce-1 end end end end;if cn==keys.enter then if cm.parent~=nil then end end;if cn==keys.right then local cw=tostring(c9.getValue()):len()cd=cd+1;if cd>cw then cd=cw+1 end;if cd<1 then cd=1 end;if cd<ce or cd>=co+ce then ce=cd-co+1 end;if ce<1 then ce=1 end end;if cn==keys.left then cd=cd-1;if cd>=1 then if cd<ce or cd>=co+ce then ce=cd end end;if cd<1 then cd=1 end;if ce<1 then ce=1 end end;local cq,cr=cm:getAnchorPosition()local cs=tostring(c9.getValue())local cy=(cd<=cs:len()and cd-1 or cs:len())-(ce-1)local cz=cm:getX()if cy>cz+co-1 then cy=cz+co-1 end;if cm.parent~=nil then cm.parent:setCursor(true,cq+cy,cr+math.max(math.ceil(cp/2-1,1)),cm.fgColor)end;cm:updateDraw()cj=false;return true end;return false end,charHandler=function(cm,cn)if c9.charHandler(cm,cn)then cj=true;local co,cp=cm:getSize()local cq=c9.getValue()if cq:len()<cc or cc<=0 then if cb=='number'then local cx=cq;if#cq==0 and cn=='-'or cn=='.'or tonumber(cn)~=nil then cm:setValue(cq:sub(1,cd-1)..cn..cq:sub(cd,cq:len()))cd=cd+1 end;if tonumber(c9.getValue())==nil then end else cm:setValue(cq:sub(1,cd-1)..cn..cq:sub(cd,cq:len()))cd=cd+1 end;if cd>=co+ce then ce=ce+1 end end;local cr,cs=cm:getAnchorPosition()local cy=tostring(c9.getValue())local cz=(cd<=cy:len()and cd-1 or cy:len())-(ce-1)local cw=cm:getX()if cz>cw+co-1 then cz=cw+co-1 end;if cm.parent~=nil then cm.parent:setCursor(true,cr+cz,cs+math.max(math.ceil(cp/2-1,1)),cm.fgColor)end;cj=false;cm:updateDraw()return true end;return false end,mouseHandler=function(cm,cn,co,cp)if c9.mouseHandler(cm,cn,co,cp)then local cq,cr=cm:getAnchorPosition()local cs,cy=cm:getAbsolutePosition(cq,cr)local cz,cw=cm:getSize()cd=co-cs+ce;local cx=c9.getValue()if cd>cx:len()then cd=cx:len()+1 end;if cd<ce then ce=cd-1;if ce<1 then ce=1 end end;cm.parent:setCursor(true,cq+cd-ce,cr+math.max(math.ceil(cw/2-1,1)),cm.fgColor)return true end end,dragHandler=function(cm,cn,co,cp,cq,cr)if cm:isFocused()then if cm:isCoordsInObject(co,cp)then if c9.dragHandler(cm,cn,co,cp,cq,cr)then return true end end;cm.parent:removeFocusedObject()end end,eventHandler=function(cm,cn,co,cp,cq,cr)if c9.eventHandler(cm,cn,co,cp,cq,cr)then if cn=='paste'then if cm:isFocused()then local cs=c9.getValue()local cy,cz=cm:getSize()cj=true;if cb=='number'then local cE=cs;if co=='.'or tonumber(co)~=nil then cm:setValue(cs:sub(1,cd-1)..co..cs:sub(cd,cs:len()))cd=cd+co:len()end;if tonumber(c9.getValue())==nil then cm:setValue(cE)end else cm:setValue(cs:sub(1,cd-1)..co..cs:sub(cd,cs:len()))cd=cd+co:len()end;if cd>=cy+ce then ce=cd+1-cy end;local cw,cx=cm:getAnchorPosition()local cF=tostring(c9.getValue())local cG=(cd<=cF:len()and cd-1 or cF:len())-(ce-1)local cH=cm:getX()if cG>cH+cy-1 then cG=cH+cy-1 end;if cm.parent~=nil then cm.parent:setCursor(true,cw+cG,cx+math.max(math.ceil(cz/2-1,1)),cm.fgColor)end;cm:updateDraw()cj=false end end end end,draw=function(cm)if c9.draw(cm)then if cm.parent~=nil then local cn,co=cm:getAnchorPosition()local cp,cq=cm:getSize()local cr=c5.getTextVerticalAlign(cq,'center')if cm.bgColor~=false then cm.parent:drawBackgroundBox(cn,co,cp,cq,cm.bgColor)end;for bS=1,cq do if bS==cr then local cs=tostring(c9.getValue())local cy=cm.bgColor;local cz=cm.fgColor;local cw;if cs:len()<=0 then cw=ci;cy=cg or cy;cz=ch or cz end;cw=ci;if cs~=''then cw=cs end;cw=cw:sub(ce,cp+ce-1)local cx=cp-cw:len()if cx<0 then cx=0 end;if cb=='password'and cs~=''then cw=string.rep('*',cw:len())end;cw=cw..string.rep(cm.bgSymbol,cx)cm.parent:writeText(cn,co+bS-1,cw,cy,cz)end end;if cm:isFocused()then cm.parent:setCursor(true,cn+cd-ce,co+math.floor(cm:getHeight()/2),cm.fgColor)end end end end,init=function(cm)if cm.parent~=nil then cm.parent:addEvent('mouse_click',cm)cm.parent:addEvent('key',cm)cm.parent:addEvent('char',cm)cm.parent:addEvent('other_event',cm)cm.parent:addEvent('mouse_drag',cm)end;if c9.init(cm)then cm.bgColor=cm.parent:getTheme'InputBG'cm.fgColor=cm.parent:getTheme'InputText'end end}return setmetatable(cl,c9)end end;aG['objects']['Label']=function(...)local c6=require'Object'local c7=require'utils'local c8=c7.getValueFromXML;local c9=c7.createText;local ca=require'tHex'local cb=require'bigfont'return function(cc)local cd=c6(cc)local ce='Label'cd:setZIndex(3)local cf=true;cd:setValue'Label'cd.width=5;local cg='left'local ch='top'local ci=0;local cj,cl=false,false;local cm={getType=function(cn)return ce end,setText=function(cn,co)co=tostring(co)cd:setValue(co)if cf then if co:len()+cn:getX()>cn.parent:getWidth()then local cp=cn.parent:getWidth()-cn:getX()cd.setSize(cn,cp,#c9(co,cp))else cd.setSize(cn,co:len(),1)end end;cn:updateDraw()return cn end,setBackground=function(cn,co)cd.setBackground(cn,co)cl=true;cn:updateDraw()return cn end,setForeground=function(cn,co)cd.setForeground(cn,co)cj=true;cn:updateDraw()return cn end,setTextAlign=function(cn,co,cp)cg=co or cg;ch=cp or ch;cn:updateDraw()return cn end,setFontSize=function(cn,co)if co>0 and co<=4 then ci=co-1 or 0 end;cn:updateDraw()return cn end,getFontSize=function(cn)return ci+1 end,setValuesByXMLData=function(cn,co)cd.setValuesByXMLData(cn,co)if c8('text',co)~=nil then cn:setText(c8('text',co))end;if c8('verticalAlign',co)~=nil then ch=c8('verticalAlign',co)end;if c8('horizontalAlign',co)~=nil then cg=c8('horizontalAlign',co)end;if c8('font',co)~=nil then cn:setFontSize(c8('font',co))end;return cn end,setSize=function(cn,co,cp,cq)cd.setSize(cn,co,cp,cq)cf=false;cn:updateDraw()return cn end,eventHandler=function(cn,co)if co=='basalt_resize'then if cf then local cp=cn:getValue()if cp:len()+cn:getX()>cn.parent:getWidth()then local cq=cn.parent:getWidth()-cn:getX()cd.setSize(cn,cq,#c9(cp,cq))else cd.setSize(cn,cp:len(),1)end else end end end,draw=function(cn)if cd.draw(cn)then if cn.parent~=nil then local co,cp=cn:getAnchorPosition()local cq,cr=cn:getSize()local cs=c7.getTextVerticalAlign(cr,ch)if ci==0 then if not cf then local cy=c9(cn:getValue(),cn:getWidth())for cz,cw in pairs(cy)do if cz<=cr then cn.parent:writeText(co,cp+cz-1,cw,cn.bgColor,cn.fgColor)end end else if#cn:getValue()+co>cn.parent:getWidth()then local cy=c9(cn:getValue(),cn:getWidth())for cz,cw in pairs(cy)do if cz<=cr then cn.parent:writeText(co,cp+cz-1,cw,cn.bgColor,cn.fgColor)end end else cn.parent:writeText(co,cp,cn:getValue(),cn.bgColor,cn.fgColor)end end else local cy=cb(ci,cn:getValue(),cn.fgColor,cn.bgColor or colors.lightGray)if cf then cn:setSize(#cy[1][1],#cy[1]-1)end;local cz,cw=cn.parent:getSize()local cx,cF=#cy[1][1],#cy[1]co=co or math.floor((cz-cx)/2)+1;cp=cp or math.floor((cw-cF)/2)+1;for cu=1,cF do cn.parent:setFG(co,cp+cu-1,cy[2][cu])cn.parent:setBG(co,cp+cu-1,cy[3][cu])cn.parent:setText(co,cp+cu-1,cy[1][cu])end end end end end,init=function(cn)cn.parent:addEvent('other_event',cn)if cd.init(cn)then cn.bgColor=cn.parent:getTheme'LabelBG'cn.fgColor=cn.parent:getTheme'LabelText'if cn.parent.bgColor==colors.black and cn.fgColor==colors.black then cn.fgColor=colors.lightGray end end end}return setmetatable(cm,cd)end end;aG['objects']['List']=function(...)local ck=require'Object'local c4=require'utils'local c5=c4.getValueFromXML;return function(c6)local c7=ck(c6)local c8='List'c7.width=16;c7.height=6;c7:setZIndex(5)local c9={}local ca;local cb;local cc=true;local cd='left'local ce=0;local cf=true;local cg={getType=function(ch)return c8 end,addItem=function(ch,ci,cj,cl,...)table.insert(c9,{text=ci,bgCol=cj or ch.bgColor,fgCol=cl or ch.fgColor,args={...}})if#c9==1 then ch:setValue(c9[1])end;ch:updateDraw()return ch end,setOffset=function(ch,ci)ce=ci;ch:updateDraw()return ch end,getOffset=function(ch)return ce end,removeItem=function(ch,ci)table.remove(c9,ci)ch:updateDraw()return ch end,getItem=function(ch,ci)return c9[ci]end,getAll=function(ch)return c9 end,getItemIndex=function(ch)local ci=ch:getValue()for cj,cl in pairs(c9)do if cl==ci then return cj end end end,clear=function(ch)c9={}ch:setValue{}ch:updateDraw()return ch end,getItemCount=function(ch)return#c9 end,editItem=function(ch,ci,cj,cl,cm,...)table.remove(c9,ci)table.insert(c9,ci,{text=cj,bgCol=cl or ch.bgColor,fgCol=cm or ch.fgColor,args={...}})ch:updateDraw()return ch end,selectItem=function(ch,ci)ch:setValue(c9[ci]or{})ch:updateDraw()return ch end,setSelectedItem=function(ch,ci,cj,cl)ca=ci or ch.bgColor;cb=cj or ch.fgColor;cc=cl~=nil and cl or true;ch:updateDraw()return ch end,setScrollable=function(ch,ci)cf=ci;if ci==nil then cf=true end;ch:updateDraw()return ch end,setValuesByXMLData=function(ch,ci)c7.setValuesByXMLData(ch,ci)if c5('selectionBG',ci)~=nil then ca=colors[c5('selectionBG',ci)]end;if c5('selectionFG',ci)~=nil then cb=colors[c5('selectionFG',ci)]end;if c5('scrollable',ci)~=nil then if c5('scrollable',ci)then ch:setScrollable(true)else ch:setScrollable(false)end end;if c5('offset',ci)~=nil then ce=c5('offset',ci)end;if ci['item']~=nil then local cj=ci['item']if cj.properties~=nil then cj={cj}end;for cl,cm in pairs(cj)do ch:addItem(c5('text',cm),colors[c5('bg',cm)],colors[c5('fg',cm)])end end;return ch end,scrollHandler=function(ch,ci,cj,cl)if c7.scrollHandler(ch,ci,cj,cl)then if cf then local cm,cn=ch:getSize()ce=ce+ci;if ce<0 then ce=0 end;if ci>=1 then if#c9>cn then if ce>#c9-cn then ce=#c9-cn end;if ce>=#c9 then ce=#c9-1 end else ce=ce-1 end end;ch:updateDraw()end;return true end;return false end,mouseHandler=function(ch,ci,cj,cl)if c7.mouseHandler(ch,ci,cj,cl)then local cm,cn=ch:getAbsolutePosition(ch:getAnchorPosition())local co,cp=ch:getSize()if#c9>0 then for bS=1,cp do if c9[bS+ce]~=nil then if cm<=cj and cm+co>cj and cn+bS-1==cl then ch:setValue(c9[bS+ce])ch:updateDraw()end end end end;return true end;return false end,dragHandler=function(ch,ci,cj,cl)return ch:mouseHandler(ci,cj,cl)end,touchHandler=function(ch,ci,cj)return ch:mouseHandler(1,ci,cj)end,draw=function(ch)if c7.draw(ch)then if ch.parent~=nil then local ci,cj=ch:getAnchorPosition()local cl,cm=ch:getSize()if ch.bgColor~=false then ch.parent:drawBackgroundBox(ci,cj,cl,cm,ch.bgColor)end;for bS=1,cm do if c9[bS+ce]~=nil then if c9[bS+ce]==ch:getValue()then if cc then ch.parent:writeText(ci,cj+bS-1,c4.getTextHorizontalAlign(c9[bS+ce].text,cl,cd),ca,cb)else ch.parent:writeText(ci,cj+bS-1,c4.getTextHorizontalAlign(c9[bS+ce].text,cl,cd),c9[bS+ce].bgCol,c9[bS+ce].fgCol)end else ch.parent:writeText(ci,cj+bS-1,c4.getTextHorizontalAlign(c9[bS+ce].text,cl,cd),c9[bS+ce].bgCol,c9[bS+ce].fgCol)end end end end end end,init=function(ch)ch.parent:addEvent('mouse_click',ch)ch.parent:addEvent('mouse_drag',ch)ch.parent:addEvent('mouse_scroll',ch)if c7.init(ch)then ch.bgColor=ch.parent:getTheme'ListBG'ch.fgColor=ch.parent:getTheme'ListText'ca=ch.parent:getTheme'SelectionBG'cb=ch.parent:getTheme'SelectionText'end end}return setmetatable(cg,c7)end end;aG['objects']['Menubar']=function(...)local c4=require'Object'local c5=require'utils'local c6=c5.getValueFromXML;local c7=require'tHex'return function(c8)local c9=c4(c8)local ca='Menubar'local cb={}c9.width=30;c9.height=1;c9:setZIndex(5)local cc={}local cd;local ce;local cf=true;local cg='left'local ch=0;local ci=1;local cj=false;local function cl()local cm=0;local cn=0;local co=cb:getWidth()for bS=1,#cc do if cn+cc[bS].text:len()+ci*2>co then if cn<co then cm=cm+cc[bS].text:len()+ci*2-(co-cn)else cm=cm+cc[bS].text:len()+ci*2 end end;cn=cn+cc[bS].text:len()+ci*2 end;return cm end;cb={getType=function(cm)return ca end,addItem=function(cm,cn,co,cp,...)table.insert(cc,{text=tostring(cn),bgCol=co or cm.bgColor,fgCol=cp or cm.fgColor,args={...}})if#cc==1 then cm:setValue(cc[1])end;cm:updateDraw()return cm end,getAll=function(cm)return cc end,getItemIndex=function(cm)local cn=cm:getValue()for co,cp in pairs(cc)do if cp==cn then return co end end end,clear=function(cm)cc={}cm:setValue{}cm:updateDraw()return cm end,setSpace=function(cm,cn)ci=cn or ci;cm:updateDraw()return cm end,setOffset=function(cm,cn)ch=cn or 0;if ch<0 then ch=0 end;local co=cl()if ch>co then ch=co end;cm:updateDraw()return cm end,getOffset=function(cm)return ch end,setScrollable=function(cm,cn)cj=cn;if cn==nil then cj=true end;return cm end,setValuesByXMLData=function(cm,cn)c9.setValuesByXMLData(cm,cn)if c6('selectionBG',cn)~=nil then cd=colors[c6('selectionBG',cn)]end;if c6('selectionFG',cn)~=nil then ce=colors[c6('selectionFG',cn)]end;if c6('scrollable',cn)~=nil then if c6('scrollable',cn)then cm:setScrollable(true)else cm:setScrollable(false)end end;if c6('offset',cn)~=nil then cm:setOffset(c6('offset',cn))end;if c6('space',cn)~=nil then ci=c6('space',cn)end;if cn['item']~=nil then local co=cn['item']if co.properties~=nil then co={co}end;for cp,cq in pairs(co)do cm:addItem(c6('text',cq),colors[c6('bg',cq)],colors[c6('fg',cq)])end end;return cm end,removeItem=function(cm,cn)table.remove(cc,cn)cm:updateDraw()return cm end,getItem=function(cm,cn)return cc[cn]end,getItemCount=function(cm)return#cc end,editItem=function(cm,cn,co,cp,cq,...)table.remove(cc,cn)table.insert(cc,cn,{text=co,bgCol=cp or cm.bgColor,fgCol=cq or cm.fgColor,args={...}})cm:updateDraw()return cm end,selectItem=function(cm,cn)cm:setValue(cc[cn]or{})cm:updateDraw()return cm end,setSelectedItem=function(cm,cn,co,cp)cd=cn or cm.bgColor;ce=co or cm.fgColor;cf=cp;cm:updateDraw()return cm end,mouseHandler=function(cm,cn,co,cp)if c9.mouseHandler(cm,cn,co,cp)then local cq,cr=cm:getAbsolutePosition(cm:getAnchorPosition())local cs,cy=cm:getSize()local cz=0;for bS=1,#cc do if cc[bS]~=nil then if cq+cz<=co+ch and cq+cz+cc[bS].text:len()+ci*2>co+ch and cr==cp then cm:setValue(cc[bS])cm:getEventSystem():sendEvent(event,cm,event,0,co,cp,cc[bS])end;cz=cz+cc[bS].text:len()+ci*2 end end;cm:updateDraw()return true end;return false end,scrollHandler=function(cm,cn,co,cp)if c9.scrollHandler(cm,cn,co,cp)then if cj then ch=ch+cn;if ch<0 then ch=0 end;local cq=cl()if ch>cq then ch=cq end;cm:updateDraw()end;return true end;return false end,draw=function(cm)if c9.draw(cm)then if cm.parent~=nil then local cn,co=cm:getAnchorPosition()local cp,cq=cm:getSize()if cm.bgColor~=false then cm.parent:drawBackgroundBox(cn,co,cp,cq,cm.bgColor)end;local cr=''local cs=''local cy=''for cz,cw in pairs(cc)do local cx=(' '):rep(ci)..cw.text..(' '):rep(ci)cr=cr..cx;if cw==cm:getValue()then cs=cs..c7[cd or cw.bgCol or cm.bgColor]:rep(cx:len())cy=cy..c7[ce or cw.FgCol or cm.fgColor]:rep(cx:len())else cs=cs..c7[cw.bgCol or cm.bgColor]:rep(cx:len())cy=cy..c7[cw.FgCol or cm.fgColor]:rep(cx:len())end end;cm.parent:setText(cn,co,cr:sub(ch+1,cp+ch))cm.parent:setBG(cn,co,cs:sub(ch+1,cp+ch))cm.parent:setFG(cn,co,cy:sub(ch+1,cp+ch))end end end,init=function(cm)cm.parent:addEvent('mouse_click',cm)cm.parent:addEvent('mouse_scroll',cm)if c9.init(cm)then cm.bgColor=cm.parent:getTheme'MenubarBG'cm.fgColor=cm.parent:getTheme'MenubarText'cd=cm.parent:getTheme'SelectionBG'ce=cm.parent:getTheme'SelectionText'end end}return setmetatable(cb,c9)end end;aG['objects']['Pane']=function(...)local ct=require'Object'local ck=require'basaltLogs'return function(c4)local c5=ct(c4)local c6='Pane'local c7={getType=function(c8)return c6 end,setBackground=function(c8,c9,ca,cb)c5.setBackground(c8,c9,ca,cb)return c8 end,init=function(c8)if c5.init(c8)then c8.bgColor=c8.parent:getTheme'PaneBG'c8.fgColor=c8.parent:getTheme'PaneBG'end end}return setmetatable(c7,c5)end end;aG['objects']['Program']=function(...)local c5=require'Object'local c6=require'tHex'local c7=require'process'local c8=require('utils').getValueFromXML;local c9=string.sub;return function(ca,cb)local cc=c5(ca)local cd='Program'cc:setZIndex(5)local ce;local cf;local cg={}local function ch(cr,cs,cy,cz,cw)local cx,cF=1,1;local cG,cH=colors.black,colors.white;local cE=false;local cI=false;local cJ={}local cK={}local cL={}local cM={}local cN;local cO={}for cu=0,15 do local aU=2^cu;cM[aU]={cb:getBasaltInstance().getBaseTerm().getPaletteColour(aU)}end;local function cP()cN=(' '):rep(cy)for bS=0,15 do local aU=2^bS;local aY=c6[aU]cO[aU]=aY:rep(cy)end end;local function cQ()cP()local aU=cN;local aY=cO[colors.white]local aZ=cO[colors.black]for bS=1,cz do cJ[bS]=c9(cJ[bS]==nil and aU or cJ[bS]..aU:sub(1,cy-cJ[bS]:len()),1,cy)cL[bS]=c9(cL[bS]==nil and aY or cL[bS]..aY:sub(1,cy-cL[bS]:len()),1,cy)cK[bS]=c9(cK[bS]==nil and aZ or cK[bS]..aZ:sub(1,cy-cK[bS]:len()),1,cy)end;cc.updateDraw(cc)end;cQ()local function cR()if cx>=1 and cF>=1 and cx<=cy and cF<=cz then else end end;local function cS(aU,aY,aZ)local a_=cx;local b0=a_+#aU-1;if cF>=1 and cF<=cz then if a_<=cy and b0>=1 then if a_==1 and b0==cy then cJ[cF]=aU;cL[cF]=aY;cK[cF]=aZ else local b1,b2,b3;if a_<1 then local ba=1-a_+1;local bb=cy-a_+1;b1=c9(aU,ba,bb)b2=c9(aY,ba,bb)b3=c9(aZ,ba,bb)elseif b0>cy then local ba=cy-a_+1;b1=c9(aU,1,ba)b2=c9(aY,1,ba)b3=c9(aZ,1,ba)else b1=aU;b2=aY;b3=aZ end;local b4=cJ[cF]local b5=cL[cF]local b6=cK[cF]local b7,b8,b9;if a_>1 then local ba=a_-1;b7=c9(b4,1,ba)..b1;b8=c9(b5,1,ba)..b2;b9=c9(b6,1,ba)..b3 else b7=b1;b8=b2;b9=b3 end;if b0<cy then local ba=b0+1;b7=b7 ..c9(b4,ba,cy)b8=b8 ..c9(b5,ba,cy)b9=b9 ..c9(b6,ba,cy)end;cJ[cF]=b7;cL[cF]=b8;cK[cF]=b9 end;ce:updateDraw()end;cx=b0+1;if cI then cR()end end end;local function aM(aU,aY,aZ)if aZ~=nil then local a_=cJ[aY]if a_~=nil then cJ[aY]=c9(a_:sub(1,aU-1)..aZ..a_:sub(aU+aZ:len(),cy),1,cy)end end;ce:updateDraw()end;local function aN(aU,aY,aZ)if aZ~=nil then local a_=cK[aY]if a_~=nil then cK[aY]=c9(a_:sub(1,aU-1)..aZ..a_:sub(aU+aZ:len(),cy),1,cy)end end;ce:updateDraw()end;local function aO(aU,aY,aZ)if aZ~=nil then local a_=cL[aY]if a_~=nil then cL[aY]=c9(a_:sub(1,aU-1)..aZ..a_:sub(aU+aZ:len(),cy),1,cy)end end;ce:updateDraw()end;local aP=function(aU)if type(aU)~='number'then error('bad argument #1 (expected number, got '..type(aU)..')',2)elseif c6[aU]==nil then error('Invalid color (got '..aU..')',2)end;cH=aU end;local aQ=function(aU)if type(aU)~='number'then error('bad argument #1 (expected number, got '..type(aU)..')',2)elseif c6[aU]==nil then error('Invalid color (got '..aU..')',2)end;cG=aU end;local aR=function(aU,aY,aZ,a_)if type(aU)~='number'then error('bad argument #1 (expected number, got '..type(aU)..')',2)end;if c6[aU]==nil then error('Invalid color (got '..aU..')',2)end;local b0;if type(aY)=='number'and aZ==nil and a_==nil then b0={colours.rgb8(aY)}cM[aU]=b0 else if type(aY)~='number'then error('bad argument #2 (expected number, got '..type(aY)..')',2)end;if type(aZ)~='number'then error('bad argument #3 (expected number, got '..type(aZ)..')',2)end;if type(a_)~='number'then error('bad argument #4 (expected number, got '..type(a_)..')',2)end;b0=cM[aU]b0[1]=aY;b0[2]=aZ;b0[3]=a_ end end;local aS=function(aU)if type(aU)~='number'then error('bad argument #1 (expected number, got '..type(aU)..')',2)end;if c6[aU]==nil then error('Invalid color (got '..aU..')',2)end;local aY=cM[aU]return aY[1],aY[2],aY[3]end;local aT={setCursorPos=function(aU,aY)if type(aU)~='number'then error('bad argument #1 (expected number, got '..type(aU)..')',2)end;if type(aY)~='number'then error('bad argument #2 (expected number, got '..type(aY)..')',2)end;cx=math.floor(aU)cF=math.floor(aY)if cI then cR()end end,getCursorPos=function()return cx,cF end,setCursorBlink=function(aU)if type(aU)~='boolean'then error('bad argument #1 (expected boolean, got '..type(aU)..')',2)end;cE=aU end,getCursorBlink=function()return cE end,getPaletteColor=aS,getPaletteColour=aS,setBackgroundColor=aQ,setBackgroundColour=aQ,setTextColor=aP,setTextColour=aP,setPaletteColor=aR,setPaletteColour=aR,getBackgroundColor=function()return cG end,getBackgroundColour=function()return cG end,getSize=function()return cy,cz end,getTextColor=function()return cH end,getTextColour=function()return cH end,basalt_resize=function(aU,aY)cy,cz=aU,aY;cQ()end,basalt_reposition=function(aU,aY)cr,cs=aU,aY end,basalt_setVisible=function(aU)cI=aU end,drawBackgroundBox=function(aU,aY,aZ,a_,b0)for bS=1,a_ do aN(aU,aY+bS-1,c6[b0]:rep(aZ))end end,drawForegroundBox=function(aU,aY,aZ,a_,b0)for bS=1,a_ do aO(aU,aY+bS-1,c6[b0]:rep(aZ))end end,drawTextBox=function(aU,aY,aZ,a_,b0)for bS=1,a_ do aM(aU,aY+bS-1,b0:rep(aZ))end end,writeText=function(aU,aY,aZ,a_,b0)a_=a_ or cG;b0=b0 or cH;aM(cr,aY,aZ)aN(aU,aY,c6[a_]:rep(aZ:len()))aO(aU,aY,c6[b0]:rep(aZ:len()))end,basalt_update=function()if cb~=nil then for bS=1,cz do cb:setText(cr,cs+bS-1,cJ[bS])cb:setBG(cr,cs+bS-1,cK[bS])cb:setFG(cr,cs+bS-1,cL[bS])end end end,scroll=function(aU)if type(aU)~='number'then error('bad argument #1 (expected number, got '..type(aU)..')',2)end;if aU~=0 then local aY=cN;local aZ=cO[cH]local a_=cO[cG]for cT=1,cz do local b0=cT+aU;if b0>=1 and b0<=cz then cJ[cT]=cJ[b0]cK[cT]=cK[b0]cL[cT]=cL[b0]else cJ[cT]=aY;cL[cT]=aZ;cK[cT]=a_ end end end;if cI then cR()end end,isColor=function()return cb:getBasaltInstance().getBaseTerm().isColor()end,isColour=function()return cb:getBasaltInstance().getBaseTerm().isColor()end,write=function(aU)aU=tostring(aU)if cI then cS(aU,c6[cH]:rep(aU:len()),c6[cG]:rep(aU:len()))end end,clearLine=function()if cI then aM(1,cF,(' '):rep(cy))aN(1,cF,c6[cG]:rep(cy))aO(1,cF,c6[cH]:rep(cy))end;if cI then cR()end end,clear=function()for bS=1,cz do aM(1,bS,(' '):rep(cy))aN(1,bS,c6[cG]:rep(cy))aO(1,bS,c6[cH]:rep(cy))end;if cI then cR()end end,blit=function(aU,aY,aZ)if type(aU)~='string'then error('bad argument #1 (expected string, got '..type(aU)..')',2)end;if type(aY)~='string'then error('bad argument #2 (expected string, got '..type(aY)..')',2)end;if type(aZ)~='string'then error('bad argument #3 (expected string, got '..type(aZ)..')',2)end;if#aY~=#aU or#aZ~=#aU then error('Arguments must be the same length',2)end;if cI then cS(aU,aY,aZ)end end}return aT end;cc.width=30;cc.height=12;local ci=ch(1,1,cc.width,cc.height)local cj;local cl=false;local cm={}local function cn(cr)local cs,cy=ci.getCursorPos()local cz,cw=cr:getAnchorPosition()local cx,cF=cr:getSize()if cz+cs-1>=1 and cz+cs-1<=cz+cx-1 and cy+cw-1>=1 and cy+cw-1<=cw+cF-1 then cr.parent:setCursor(cr:isFocused()and ci.getCursorBlink(),cz+cs-1,cy+cw-1,ci.getTextColor())end end;local function co(cr,cs,...)local cy,cz=cj:resume(cs,...)if cy==false and cz~=nil and cz~='Terminated'then local cw=cr:sendEvent('program_error',cz)if cw~=false then error('Basalt Program - '..cz)end end;if cj:getStatus()=='dead'then cr:sendEvent'program_done'end end;local function cp(cr,cs,cy,cz,cw)if cj==nil then return false end;if not cj:isDead()then if not cl then local cx,cF=cr:getAbsolutePosition(cr:getAnchorPosition(nil,nil,true))co(cr,cs,cy,cz-cx+1,cw-cF+1)cn(cr)end end end;local function cq(cr,cs,cy,cz)if cj==nil then return false end;if not cj:isDead()then if not cl then if cr.draw then co(cr,cs,cy,cz)cn(cr)end end end end;ce={getType=function(cr)return cd end,show=function(cr)cc.show(cr)ci.setBackgroundColor(cr.bgColor)ci.setTextColor(cr.fgColor)ci.basalt_setVisible(true)return cr end,hide=function(cr)cc.hide(cr)ci.basalt_setVisible(false)return cr end,setPosition=function(cr,cs,cy,cz)cc.setPosition(cr,cs,cy,cz)ci.basalt_reposition(cr:getAnchorPosition())return cr end,setValuesByXMLData=function(cr,cs)cc.setValuesByXMLData(cr,cs)if c8('path',cs)~=nil then cf=c8('path',cs)end;if c8('execute',cs)~=nil then if c8('execute',cs)then if cf~=nil then cr:execute(cf)end end end end,getBasaltWindow=function()return ci end,getBasaltProcess=function()return cj end,setSize=function(cr,cs,cy,cz)cc.setSize(cr,cs,cy,cz)ci.basalt_resize(cr:getWidth(),cr:getHeight())return cr end,getStatus=function(cr)if cj~=nil then return cj:getStatus()end;return'inactive'end,setEnviroment=function(cr,cs)cg=cs or{}return cr end,execute=function(cr,cs,...)cf=cs or cf;cj=c7:new(cf,ci,cg,...)ci.setBackgroundColor(colors.black)ci.setTextColor(colors.white)ci.clear()ci.setCursorPos(1,1)ci.setBackgroundColor(cr.bgColor)ci.setTextColor(cr.fgColor)ci.basalt_setVisible(true)co(cr)cl=false;if cr.parent~=nil then cr.parent:addEvent('mouse_click',cr)cr.parent:addEvent('mouse_up',cr)cr.parent:addEvent('mouse_drag',cr)cr.parent:addEvent('mouse_scroll',cr)cr.parent:addEvent('key',cr)cr.parent:addEvent('key_up',cr)cr.parent:addEvent('char',cr)cr.parent:addEvent('other_event',cr)end;return cr end,stop=function(cr)if cj~=nil then if not cj:isDead()then co(cr,'terminate')if cj:isDead()then if cr.parent~=nil then cr.parent:setCursor(false)end end end end;cr.parent:removeEvents(cr)return cr end,pause=function(cr,cs)cl=cs or not cl;if cj~=nil then if not cj:isDead()then if not cl then cr:injectEvents(cm)cm={}end end end;return cr end,isPaused=function(cr)return cl end,injectEvent=function(cr,cs,cy,cz,cw,cx,cF)if cj~=nil then if not cj:isDead()then if cl==false or cF then co(cr,cs,cy,cz,cw,cx)else table.insert(cm,{event=cs,args={cy,cz,cw,cx}})end end end;return cr end,getQueuedEvents=function(cr)return cm end,updateQueuedEvents=function(cr,cs)cm=cs or cm;return cr end,injectEvents=function(cr,cs)if cj~=nil then if not cj:isDead()then for cy,cz in pairs(cs)do co(cr,cz.event,table.unpack(cz.args))end end end;return cr end,mouseHandler=function(cr,cs,cy,cz)if cc.mouseHandler(cr,cs,cy,cz)then cp(cr,'mouse_click',cs,cy,cz)return true end;return false end,mouseUpHandler=function(cr,cs,cy,cz)if cc.mouseUpHandler(cr,cs,cy,cz)then cp(cr,'mouse_up',cs,cy,cz)return true end;return false end,scrollHandler=function(cr,cs,cy,cz)if cc.scrollHandler(cr,cs,cy,cz)then cp(cr,'mouse_scroll',cs,cy,cz)return true end;return false end,dragHandler=function(cr,cs,cy,cz)if cc.dragHandler(cr,cs,cy,cz)then cp(cr,'mouse_drag',cs,cy,cz)return true end;return false end,keyHandler=function(cr,cs,cy)if cc.keyHandler(cr,cs,cy)then cq(cr,'key',cs,cy)return true end;return false end,keyUpHandler=function(cr,cs)if cc.keyUpHandler(cr,cs)then cq(cr,'key_up',cs)return true end;return false end,charHandler=function(cr,cs)if cc.charHandler(cr,cs)then cq(cr,'char',cs)return true end;return false end,getFocusHandler=function(cr)cc.getFocusHandler(cr)if cj~=nil then if not cj:isDead()then if not cl then if cr.parent~=nil then local cs,cy=ci.getCursorPos()local cz,cw=cr:getAnchorPosition()local cx,cF=cr:getSize()if cz+cs-1>=1 and cz+cs-1<=cz+cx-1 and cy+cw-1>=1 and cy+cw-1<=cw+cF-1 then cr.parent:setCursor(ci.getCursorBlink(),cz+cs-1,cy+cw-1,ci.getTextColor())end end end end end end,loseFocusHandler=function(cr)cc.loseFocusHandler(cr)if cj~=nil then if not cj:isDead()then if cr.parent~=nil then cr.parent:setCursor(false)end end end end,eventHandler=function(cr,cs,cy,cz,cw,cx)if cc.eventHandler(cr,cs,cy,cz,cw,cx)then if cj==nil then return end;if cs=='dynamicValueEvent'then local cF,cG=ci.getSize()local cH,cE=cr:getSize()if cF~=cH or cG~=cE then ci.basalt_resize(cH,cE)if not cj:isDead()then co(cr,'term_resize')end end;ci.basalt_reposition(cr:getAnchorPosition())end;if not cj:isDead()then if not cl then if cs~='terminate'then co(cr,cs,cy,cz,cw,cx)end;if cr:isFocused()then local cF,cG=cr:getAnchorPosition()local cH,cE=ci.getCursorPos()if cr.parent~=nil then local cI,cJ=cr:getSize()if cF+cH-1>=1 and cF+cH-1<=cF+cI-1 and cE+cG-1>=1 and cE+cG-1<=cG+cJ-1 then cr.parent:setCursor(ci.getCursorBlink(),cF+cH-1,cE+cG-1,ci.getTextColor())end end;if cs=='terminate'then co(cr,cs)cr.parent:setCursor(false)return true end end else table.insert(cm,{event=cs,args={cy,cz,cw,cx}})end end;return false end end,draw=function(cr)if cc.draw(cr)then if cr.parent~=nil then local cs,cy=cr:getAnchorPosition()local cz,cw=ci.getCursorPos()local cx,cF=cr:getSize()ci.basalt_reposition(cs,cy)ci.basalt_update()if cs+cz-1>=1 and cs+cz-1<=cs+cx-1 and cw+cy-1>=1 and cw+cy-1<=cy+cF-1 then cr.parent:setCursor(cr:isFocused()and ci.getCursorBlink(),cs+cz-1,cw+cy-1,ci.getTextColor())end end end end,onError=function(cr,...)for cs,cy in pairs(table.pack(...))do if type(cy)=='function'then cr:registerEvent('program_error',cy)end end;if cr.parent~=nil then cr.parent:addEvent('other_event',cr)end;return cr end,onDone=function(cr,...)for cs,cy in pairs(table.pack(...))do if type(cy)=='function'then cr:registerEvent('program_done',cy)end end;if cr.parent~=nil then cr.parent:addEvent('other_event',cr)end;return cr end,init=function(cr)if cc.init(cr)then pcall(function()elf.bgColor=cr.parent:getTheme'ProgramBG'end)end end}return setmetatable(ce,cc)end end;aG['objects']['Progressbar']=function(...)local ct=require'Object'local ck=require('utils').getValueFromXML;return function(c4)local c5=ct(c4)local c6='Progressbar'local c7=0;c5:setZIndex(5)c5:setValue(false)c5.width=25;c5.height=1;local c8;local c9=''local ca=colors.white;local cb=''local cc=0;local cd={init=function(ce)if c5.init(ce)then ce.bgColor=ce.parent:getTheme'ProgressbarBG'ce.fgColor=ce.parent:getTheme'ProgressbarText'c8=ce.parent:getTheme'ProgressbarActiveBG'end end,getType=function(ce)return c6 end,setValuesByXMLData=function(ce,cf)c5.setValuesByXMLData(ce,cf)if ck('direction',cf)~=nil then cc=ck('direction',cf)end;if ck('progressColor',cf)~=nil then c8=colors[ck('progressColor',cf)]end;if ck('progressSymbol',cf)~=nil then c9=ck('progressSymbol',cf)end;if ck('backgroundSymbol',cf)~=nil then cb=ck('backgroundSymbol',cf)end;if ck('progressSymbolColor',cf)~=nil then ca=colors[ck('progressSymbolColor',cf)]end;if ck('onDone',cf)~=nil then ce:generateXMLEventFunction(ce.onProgressDone,ck('onDone',cf))end;return ce end,setDirection=function(ce,cf)cc=cf;ce:updateDraw()return ce end,setProgressBar=function(ce,cf,cg,ch)c8=cf or c8;c9=cg or c9;ca=ch or ca;ce:updateDraw()return ce end,setBackgroundSymbol=function(ce,cf)cb=cf:sub(1,1)ce:updateDraw()return ce end,setProgress=function(ce,cf)if cf>=0 and cf<=100 and c7~=cf then c7=cf;ce:setValue(c7)if c7==100 then ce:progressDoneHandler()end end;ce:updateDraw()return ce end,getProgress=function(ce)return c7 end,onProgressDone=function(ce,cf)ce:registerEvent('progress_done',cf)return ce end,progressDoneHandler=function(ce)ce:sendEvent('progress_done',ce)end,draw=function(ce)if c5.draw(ce)then if ce.parent~=nil then local cf,cg=ce:getAnchorPosition()local ch,ci=ce:getSize()if ce.bgColor~=false then ce.parent:drawBackgroundBox(cf,cg,ch,ci,ce.bgColor)end;if cb~=''then ce.parent:drawTextBox(cf,cg,ch,ci,cb)end;if ce.fgColor~=false then ce.parent:drawForegroundBox(cf,cg,ch,ci,ce.fgColor)end;if cc==1 then ce.parent:drawBackgroundBox(cf,cg,ch,ci/100*c7,c8)ce.parent:drawForegroundBox(cf,cg,ch,ci/100*c7,ca)ce.parent:drawTextBox(cf,cg,ch,ci/100*c7,c9)elseif cc==2 then ce.parent:drawBackgroundBox(cf,cg+math.ceil(ci-ci/100*c7),ch,ci/100*c7,c8)ce.parent:drawForegroundBox(cf,cg+math.ceil(ci-ci/100*c7),ch,ci/100*c7,ca)ce.parent:drawTextBox(cf,cg+math.ceil(ci-ci/100*c7),ch,ci/100*c7,c9)elseif cc==3 then ce.parent:drawBackgroundBox(cf+math.ceil(ch-ch/100*c7),cg,ch/100*c7,ci,c8)ce.parent:drawForegroundBox(cf+math.ceil(ch-ch/100*c7),cg,ch/100*c7,ci,ca)ce.parent:drawTextBox(cf+math.ceil(ch-ch/100*c7),cg,ch/100*c7,ci,c9)else ce.parent:drawBackgroundBox(cf,cg,ch/100*c7,ci,c8)ce.parent:drawForegroundBox(cf,cg,ch/100*c7,ci,ca)ce.parent:drawTextBox(cf,cg,ch/100*c7,ci,c9)end end end end}return setmetatable(cd,c5)end end;aG['objects']['Radio']=function(...)local ck=require'Object'local c4=require'utils'local c5=c4.getValueFromXML;return function(c6)local c7=ck(c6)local c8='Radio'c7.width=8;c7:setZIndex(5)local c9={}local ca;local cb;local cc;local cd;local ce;local cf;local cg=true;local ch='\7'local ci='left'local cj={getType=function(cl)return c8 end,setValuesByXMLData=function(cl,cm)c7.setValuesByXMLData(cl,cm)if c5('selectionBG',cm)~=nil then ca=colors[c5('selectionBG',cm)]end;if c5('selectionFG',cm)~=nil then cb=colors[c5('selectionFG',cm)]end;if c5('boxBG',cm)~=nil then cc=colors[c5('boxBG',cm)]end;if c5('inactiveBoxBG',cm)~=nil then ce=colors[c5('inactiveBoxBG',cm)]end;if c5('inactiveBoxFG',cm)~=nil then cf=colors[c5('inactiveBoxFG',cm)]end;if c5('boxFG',cm)~=nil then cd=colors[c5('boxFG',cm)]end;if c5('symbol',cm)~=nil then ch=c5('symbol',cm)end;if cm['item']~=nil then local cn=cm['item']if cn.properties~=nil then cn={cn}end;for co,cp in pairs(cn)do cl:addItem(c5('text',cp),c5('x',cp),c5('y',cp),colors[c5('bg',cp)],colors[c5('fg',cp)])end end;return cl end,addItem=function(cl,cm,cn,co,cp,cq,...)table.insert(c9,{x=cn or 1,y=co or 1,text=cm,bgCol=cp or cl.bgColor,fgCol=cq or cl.fgColor,args={...}})if#c9==1 then cl:setValue(c9[1])end;cl:updateDraw()return cl end,getAll=function(cl)return c9 end,removeItem=function(cl,cm)table.remove(c9,cm)cl:updateDraw()return cl end,getItem=function(cl,cm)return c9[cm]end,getItemIndex=function(cl)local cm=cl:getValue()for cn,co in pairs(c9)do if co==cm then return cn end end end,clear=function(cl)c9={}cl:setValue{}cl:updateDraw()return cl end,getItemCount=function(cl)return#c9 end,editItem=function(cl,cm,cn,co,cp,cq,cr,...)table.remove(c9,cm)table.insert(c9,cm,{x=co or 1,y=cp or 1,text=cn,bgCol=cq or cl.bgColor,fgCol=cr or cl.fgColor,args={...}})cl:updateDraw()return cl end,selectItem=function(cl,cm)cl:setValue(c9[cm]or{})cl:updateDraw()return cl end,setActiveSymbol=function(cl,cm)ch=cm:sub(1,1)cl:updateDraw()return cl end,setSelectedItem=function(cl,cm,cn,co,cp,cq)ca=cm or ca;cb=cn or cb;cc=co or cc;cd=cp or cd;cg=cq~=nil and cq or true;cl:updateDraw()return cl end,mouseHandler=function(cl,cm,cn,co)if#c9>0 then local cp,cq=cl:getAbsolutePosition(cl:getAnchorPosition())for cr,cs in pairs(c9)do if cp+cs.x-1<=cn and cp+cs.x-1+cs.text:len()+1>=cn and cq+cs.y-1==co then cl:setValue(cs)local cy=cl:getEventSystem():sendEvent('mouse_click',cl,'mouse_click',cm,cn,co)if cy==false then return cy end;if cl.parent~=nil then cl.parent:setFocusedObject(cl)end;cl:updateDraw()return true end end end;return false end,draw=function(cl)if cl.parent~=nil then local cm,cn=cl:getAnchorPosition()for co,cp in pairs(c9)do if cp==cl:getValue()then if ci=='left'then cl.parent:writeText(cp.x+cm-1,cp.y+cn-1,ch,cc,cd)cl.parent:writeText(cp.x+2+cm-1,cp.y+cn-1,cp.text,ca,cb)end else cl.parent:drawBackgroundBox(cp.x+cm-1,cp.y+cn-1,1,1,ce or cl.bgColor)cl.parent:writeText(cp.x+2+cm-1,cp.y+cn-1,cp.text,cp.bgCol,cp.fgCol)end end;return true end end,init=function(cl)cl.parent:addEvent('mouse_click',cl)if c7.init(cl)then cl.bgColor=cl.parent:getTheme'MenubarBG'cl.fgColor=cl.parent:getTheme'MenubarFG'ca=cl.parent:getTheme'SelectionBG'cb=cl.parent:getTheme'SelectionText'cc=cl.parent:getTheme'MenubarBG'cd=cl.parent:getTheme'MenubarText'end end}return setmetatable(cj,c7)end end;aG['objects']['Scrollbar']=function(...)local ct=require'Object'local ck=require('utils').getValueFromXML;return function(c4)local c5=ct(c4)local c6='Scrollbar'c5.width=1;c5.height=8;c5:setValue(1)c5:setZIndex(2)local c7='vertical'local c8=' 'local c9;local ca='\127'local cb=c5.height;local cc=1;local cd=1;local function ce(cg,ch,ci,cj)local cl,cm=cg:getAbsolutePosition(cg:getAnchorPosition())local cn,co=cg:getSize()if c7=='horizontal'then for cU=0,cn do if cl+cU==ci and cm<=cj and cm+co>cj then cc=math.min(cU+1,cn-(cd-1))cg:setValue(cb/cn*cc)cg:updateDraw()end end end;if c7=='vertical'then for cU=0,co do if cm+cU==cj and cl<=ci and cl+cn>ci then cc=math.min(cU+1,co-(cd-1))cg:setValue(cb/co*cc)cg:updateDraw()end end end end;local cf={getType=function(cg)return c6 end,setSymbol=function(cg,ch)c8=ch:sub(1,1)cg:updateDraw()return cg end,setValuesByXMLData=function(cg,ch)c5.setValuesByXMLData(cg,ch)if ck('maxValue',ch)~=nil then cb=ck('maxValue',ch)end;if ck('backgroundSymbol',ch)~=nil then ca=ck('backgroundSymbol',ch):sub(1,1)end;if ck('symbol',ch)~=nil then c8=ck('symbol',ch):sub(1,1)end;if ck('barType',ch)~=nil then c7=ck('barType',ch):lower()end;if ck('symbolSize',ch)~=nil then cg:setSymbolSize(ck('symbolSize',ch))end;if ck('symbolColor',ch)~=nil then c9=colors[ck('symbolColor',ch)]end;if ck('index',ch)~=nil then cg:setIndex(ck('index',ch))end end,setIndex=function(cg,ch)cc=ch;if cc<1 then cc=1 end;local ci,cj=cg:getSize()cc=math.min(cc,(c7=='vertical'and cj or ci)-(cd-1))cg:setValue(cb/(c7=='vertical'and cj or ci)*cc)cg:updateDraw()return cg end,getIndex=function(cg)return cc end,setSymbolSize=function(cg,ch)cd=tonumber(ch)or 1;local ci,cj=cg:getSize()if c7=='vertical'then cg:setValue(cc-1*cb/(cj-(cd-1))-cb/(cj-(cd-1)))elseif c7=='horizontal'then cg:setValue(cc-1*cb/(ci-(cd-1))-cb/(ci-(cd-1)))end;cg:updateDraw()return cg end,setMaxValue=function(cg,ch)cb=ch;cg:updateDraw()return cg end,setBackgroundSymbol=function(cg,ch)ca=string.sub(ch,1,1)cg:updateDraw()return cg end,setSymbolColor=function(cg,ch)c9=ch;cg:updateDraw()return cg end,setBarType=function(cg,ch)c7=ch:lower()cg:updateDraw()return cg end,mouseHandler=function(cg,ch,ci,cj)if c5.mouseHandler(cg,ch,ci,cj)then ce(cg,ch,ci,cj)return true end;return false end,dragHandler=function(cg,ch,ci,cj)if c5.dragHandler(cg,ch,ci,cj)then ce(cg,ch,ci,cj)return true end;return false end,scrollHandler=function(cg,ch,ci,cj)if c5.scrollHandler(cg,ch,ci,cj)then local cl,cm=cg:getSize()cc=cc+ch;if cc<1 then cc=1 end;cc=math.min(cc,(c7=='vertical'and cm or cl)-(cd-1))cg:setValue(cb/(c7=='vertical'and cm or cl)*cc)cg:updateDraw()end end,draw=function(cg)if c5.draw(cg)then if cg.parent~=nil then local ch,ci=cg:getAnchorPosition()local cj,cl=cg:getSize()if c7=='horizontal'then cg.parent:writeText(ch,ci,ca:rep(cc-1),cg.bgColor,cg.fgColor)cg.parent:writeText(ch+cc-1,ci,c8:rep(cd),c9,c9)cg.parent:writeText(ch+cc+cd-1,ci,ca:rep(cj-(cc+cd-1)),cg.bgColor,cg.fgColor)end;if c7=='vertical'then for bS=0,cl-1 do if cc==bS+1 then for cV=0,math.min(cd-1,cl)do cg.parent:writeText(ch,ci+bS+cV,c8,c9,c9)end else if bS+1<cc or bS+1>cc-1+cd then cg.parent:writeText(ch,ci+bS,ca,cg.bgColor,cg.fgColor)end end end end end end end,init=function(cg)cg.parent:addEvent('mouse_click',cg)cg.parent:addEvent('mouse_drag',cg)cg.parent:addEvent('mouse_scroll',cg)if c5.init(cg)then cg.bgColor=cg.parent:getTheme'ScrollbarBG'cg.fgColor=cg.parent:getTheme'ScrollbarText'c9=cg.parent:getTheme'ScrollbarSymbolColor'end end}return setmetatable(cf,c5)end end;aG['objects']['Slider']=function(...)local ck=require'Object'local c4=require'basaltLogs'local c5=require('utils').getValueFromXML;return function(c6)local c7=ck(c6)local c8='Slider'c7.width=8;c7.height=1;c7:setValue(1)local c9='horizontal'local ca=' 'local cb;local cc='\140'local cd=c7.width;local ce=1;local cf=1;local function cg(ci,cj,cl,cm)local cn,co=ci:getAbsolutePosition(ci:getAnchorPosition())local cp,cq=ci:getSize()if c9=='horizontal'then for cU=0,cp do if cn+cU==cl and co<=cm and co+cq>cm then ce=math.min(cU+1,cp-(cf-1))ci:setValue(cd/cp*ce)ci:updateDraw()end end end;if c9=='vertical'then for cU=0,cq do if co+cU==cm and cn<=cl and cn+cp>cl then ce=math.min(cU+1,cq-(cf-1))ci:setValue(cd/cq*ce)ci:updateDraw()end end end end;local ch={getType=function(ci)return c8 end,setSymbol=function(ci,cj)ca=cj:sub(1,1)ci:updateDraw()return ci end,setValuesByXMLData=function(ci,cj)c7.setValuesByXMLData(ci,cj)if c5('maxValue',cj)~=nil then cd=c5('maxValue',cj)end;if c5('backgroundSymbol',cj)~=nil then cc=c5('backgroundSymbol',cj):sub(1,1)end;if c5('barType',cj)~=nil then c9=c5('barType',cj):lower()end;if c5('symbol',cj)~=nil then ca=c5('symbol',cj):sub(1,1)end;if c5('symbolSize',cj)~=nil then ci:setSymbolSize(c5('symbolSize',cj))end;if c5('symbolColor',cj)~=nil then cb=colors[c5('symbolColor',cj)]end;if c5('index',cj)~=nil then ci:setIndex(c5('index',cj))end end,setIndex=function(ci,cj)ce=cj;if ce<1 then ce=1 end;local cl,cm=ci:getSize()ce=math.min(ce,(c9=='vertical'and cm or cl)-(cf-1))ci:setValue(cd/(c9=='vertical'and cm or cl)*ce)ci:updateDraw()return ci end,getIndex=function(ci)return ce end,setSymbolSize=function(ci,cj)cf=tonumber(cj)or 1;if c9=='vertical'then ci:setValue(ce-1*cd/(h-(cf-1))-cd/(h-(cf-1)))elseif c9=='horizontal'then ci:setValue(ce-1*cd/(w-(cf-1))-cd/(w-(cf-1)))end;ci:updateDraw()return ci end,setMaxValue=function(ci,cj)cd=cj;return ci end,setBackgroundSymbol=function(ci,cj)cc=string.sub(cj,1,1)ci:updateDraw()return ci end,setSymbolColor=function(ci,cj)cb=cj;ci:updateDraw()return ci end,setBarType=function(ci,cj)c9=cj:lower()ci:updateDraw()return ci end,mouseHandler=function(ci,cj,cl,cm)if c7.mouseHandler(ci,cj,cl,cm)then cg(ci,cj,cl,cm)return true end;return false end,dragHandler=function(ci,cj,cl,cm)if c7.dragHandler(ci,cj,cl,cm)then cg(ci,cj,cl,cm)return true end;return false end,scrollHandler=function(ci,cj,cl,cm)if c7.scrollHandler(ci,cj,cl,cm)then local cn,co=ci:getSize()ce=ce+cj;if ce<1 then ce=1 end;ce=math.min(ce,(c9=='vertical'and co or cn)-(cf-1))ci:setValue(cd/(c9=='vertical'and co or cn)*ce)ci:updateDraw()return true end;return false end,draw=function(ci)if c7.draw(ci)then if ci.parent~=nil then local cj,cl=ci:getAnchorPosition()local cm,cn=ci:getSize()if c9=='horizontal'then ci.parent:writeText(cj,cl,cc:rep(ce-1),ci.bgColor,ci.fgColor)ci.parent:writeText(cj+ce-1,cl,ca:rep(cf),cb,cb)ci.parent:writeText(cj+ce+cf-1,cl,cc:rep(cm-(ce+cf-1)),ci.bgColor,ci.fgColor)end;if c9=='vertical'then for bS=0,cn-1 do if ce==bS+1 then for cV=0,math.min(cf-1,cn)do ci.parent:writeText(cj,cl+bS+cV,ca,cb,cb)end else if bS+1<ce or bS+1>ce-1+cf then ci.parent:writeText(cj,cl+bS,cc,ci.bgColor,ci.fgColor)end end end end end end end,init=function(ci)ci.parent:addEvent('mouse_click',ci)ci.parent:addEvent('mouse_drag',ci)ci.parent:addEvent('mouse_scroll',ci)if c7.init(ci)then ci.bgColor=ci.parent:getTheme'SliderBG'ci.fgColor=ci.parent:getTheme'SliderText'cb=ci.parent:getTheme'SliderSymbolColor'end end}return setmetatable(ch,c7)end end;aG['objects']['Switch']=function(...)local ct=require'Object'local ck=require('utils').getValueFromXML;return function(c4)local c5=ct(c4)local c6='Switch'c5.width=2;c5.height=1;c5.bgColor=colors.lightGray;c5.fgColor=colors.gray;c5:setValue(false)c5:setZIndex(5)local c7=colors.black;local c8=colors.red;local c9=colors.green;local ca={getType=function(cb)return c6 end,setSymbolColor=function(cb,cc)c7=cc;cb:updateDraw()return cb end,setActiveBackground=function(cb,cc)c9=cc;cb:updateDraw()return cb end,setInactiveBackground=function(cb,cc)c8=cc;cb:updateDraw()return cb end,setValuesByXMLData=function(cb,cc)c5.setValuesByXMLData(cb,cc)if ck('inactiveBG',cc)~=nil then c8=colors[ck('inactiveBG',cc)]end;if ck('activeBG',cc)~=nil then c9=colors[ck('activeBG',cc)]end;if ck('symbolColor',cc)~=nil then c7=colors[ck('symbolColor',cc)]end end,mouseHandler=function(cb,cc,cd,ce)if c5.mouseHandler(cb,cc,cd,ce)then local cf,cg=cb:getAbsolutePosition(cb:getAnchorPosition())cb:setValue(not cb:getValue())cb:updateDraw()return true end end,draw=function(cb)if c5.draw(cb)then if cb.parent~=nil then local cc,cd=cb:getAnchorPosition()local ce,cf=cb:getSize()cb.parent:drawBackgroundBox(cc,cd,ce,cf,cb.bgColor)if cb:getValue()then cb.parent:drawBackgroundBox(cc,cd,1,cf,c9)cb.parent:drawBackgroundBox(cc+1,cd,1,cf,c7)else cb.parent:drawBackgroundBox(cc,cd,1,cf,c7)cb.parent:drawBackgroundBox(cc+1,cd,1,cf,c8)end end end end,init=function(cb)cb.parent:addEvent('mouse_click',cb)if c5.init(cb)then cb.bgColor=cb.parent:getTheme'SwitchBG'cb.fgColor=cb.parent:getTheme'SwitchText'c7=cb.parent:getTheme'SwitchBGSymbol'c8=cb.parent:getTheme'SwitchInactive'c9=cb.parent:getTheme'SwitchActive'end end}return setmetatable(ca,c5)end end;aG['objects']['Textfield']=function(...)local c5=require'Object'local c6=require'tHex'local c7=require'basaltLogs'local c8=require('utils').getValueFromXML;local c9=string.rep;return function(ca)local cb=c5(ca)local cc='Textfield'local cd,ce,cf,cg=1,1,1,1;local ch={''}local ci={''}local cj={''}local cl={}local cm={}cb.width=30;cb.height=12;cb:setZIndex(5)local function cn(cr,cs)local cy={}if cr:len()>0 then for cz in string.gmatch(cr,cs)do local cw,cx=string.find(cr,cz)if cw~=nil and cx~=nil then table.insert(cy,cw)table.insert(cy,cx)local cF=string.sub(cr,1,cw-1)local cG=string.sub(cr,cx+1,cr:len())cr=cF..(':'):rep(cz:len())..cG end end end;return cy end;local function co(cr,cs)cs=cs or cg;local cy=c6[cr.fgColor]:rep(cj[cs]:len())local cz=c6[cr.bgColor]:rep(ci[cs]:len())for cw,cx in pairs(cm)do local cF=cn(ch[cs],cx[1])if#cF>0 then for x=1,#cF/2 do local cG=x*2-1;if cx[2]~=nil then cy=cy:sub(1,cF[cG]-1)..c6[cx[2]]:rep(cF[cG+1]-(cF[cG]-1))..cy:sub(cF[cG+1]+1,cy:len())end;if cx[3]~=nil then cz=cz:sub(1,cF[cG]-1)..c6[cx[3]]:rep(cF[cG+1]-(cF[cG]-1))..cz:sub(cF[cG+1]+1,cz:len())end end end end;for cw,cx in pairs(cl)do for cF,cG in pairs(cx)do local cH=cn(ch[cs],cG)if#cH>0 then for x=1,#cH/2 do local cE=x*2-1;cy=cy:sub(1,cH[cE]-1)..c6[cw]:rep(cH[cE+1]-(cH[cE]-1))..cy:sub(cH[cE+1]+1,cy:len())end end end end;cj[cs]=cy;ci[cs]=cz;cr:updateDraw()end;local function cp(cr)for bS=1,#ch do co(cr,bS)end end;local cq={getType=function(cr)return cc end,setBackground=function(cr,cs)cb.setBackground(cr,cs)cp(cr)return cr end,setForeground=function(cr,cs)cb.setForeground(cr,cs)cp(cr)return cr end,setValuesByXMLData=function(cr,cs)cb.setValuesByXMLData(cr,cs)if cs['lines']~=nil then local cy=cs['lines']['line']if cy.properties~=nil then cy={cy}end;for cz,cw in pairs(cy)do cr:addLine(cw:value())end end;if cs['keywords']~=nil then for cy,cz in pairs(cs['keywords'])do if colors[cy]~=nil then local cw=cz;if cw.properties~=nil then cw={cw}end;local cx={}for cF,cG in pairs(cw)do local cH=cG['keyword']if cG['keyword'].properties~=nil then cH={cG['keyword']}end;for cE,cI in pairs(cH)do table.insert(cx,cI:value())end end;cr:addKeywords(colors[cy],cx)end end end;if cs['rules']~=nil then if cs['rules']['rule']~=nil then local cy=cs['rules']['rule']if cs['rules']['rule'].properties~=nil then cy={cs['rules']['rule']}end;for cz,cw in pairs(cy)do if c8('pattern',cw)~=nil then cr:addRule(c8('pattern',cw),colors[c8('fg',cw)],colors[c8('bg',cw)])end end end end end,getLines=function(cr)return ch end,getLine=function(cr,cs)return ch[cs]end,editLine=function(cr,cs,cy)ch[cs]=cy or ch[cs]co(cr,cs)cr:updateDraw()return cr end,clear=function(cr)ch={''}ci={''}cj={''}cd,ce,cf,cg=1,1,1,1;cr:updateDraw()return cr end,addLine=function(cr,cs,cy)if cs~=nil then if#ch==1 and ch[1]==''then ch[1]=cs;ci[1]=c6[cr.bgColor]:rep(cs:len())cj[1]=c6[cr.fgColor]:rep(cs:len())co(cr,1)return cr end;if cy~=nil then table.insert(ch,cy,cs)table.insert(ci,cy,c6[cr.bgColor]:rep(cs:len()))table.insert(cj,cy,c6[cr.fgColor]:rep(cs:len()))else table.insert(ch,cs)table.insert(ci,c6[cr.bgColor]:rep(cs:len()))table.insert(cj,c6[cr.fgColor]:rep(cs:len()))end end;co(cr,cy or#ch)cr:updateDraw()return cr end,addKeywords=function(cr,cs,cy)if cl[cs]==nil then cl[cs]={}end;for cz,cw in pairs(cy)do table.insert(cl[cs],cw)end;cr:updateDraw()return cr end,addRule=function(cr,cs,cy,cz)table.insert(cm,{cs,cy,cz})cr:updateDraw()return cr end,editRule=function(cr,cs,cy,cz)for cw,cx in pairs(cm)do if cx[1]==cs then cm[cw][2]=cy;cm[cw][3]=cz end end;cr:updateDraw()return cr end,removeRule=function(cr,cs)for cy,cz in pairs(cm)do if cz[1]==cs then table.remove(cm,cy)end end;cr:updateDraw()return cr end,setKeywords=function(cr,cs,cy)cl[cs]=cy;cr:updateDraw()return cr end,removeLine=function(cr,cs)table.remove(ch,cs or#ch)if#ch<=0 then table.insert(ch,'')end;cr:updateDraw()return cr end,getTextCursor=function(cr)return cf,cg end,getFocusHandler=function(cr)cb.getFocusHandler(cr)if cr.parent~=nil then local cs,cy=cr:getAnchorPosition()if cr.parent~=nil then cr.parent:setCursor(true,cs+cf-ce,cy+cg-cd,cr.fgColor)end end end,loseFocusHandler=function(cr)cb.loseFocusHandler(cr)if cr.parent~=nil then cr.parent:setCursor(false)end end,keyHandler=function(cr,cs)if cb.keyHandler(cr,event,cs)then local cy,cz=cr:getAnchorPosition()local cw,cx=cr:getSize()if cs==keys.backspace then if ch[cg]==''then if cg>1 then table.remove(ch,cg)table.remove(cj,cg)table.remove(ci,cg)cf=ch[cg-1]:len()+1;ce=cf-cw+1;if ce<1 then ce=1 end;cg=cg-1 end elseif cf<=1 then if cg>1 then cf=ch[cg-1]:len()+1;ce=cf-cw+1;if ce<1 then ce=1 end;ch[cg-1]=ch[cg-1]..ch[cg]cj[cg-1]=cj[cg-1]..cj[cg]ci[cg-1]=ci[cg-1]..ci[cg]table.remove(ch,cg)table.remove(cj,cg)table.remove(ci,cg)cg=cg-1 end else ch[cg]=ch[cg]:sub(1,cf-2)..ch[cg]:sub(cf,ch[cg]:len())cj[cg]=cj[cg]:sub(1,cf-2)..cj[cg]:sub(cf,cj[cg]:len())ci[cg]=ci[cg]:sub(1,cf-2)..ci[cg]:sub(cf,ci[cg]:len())if cf>1 then cf=cf-1 end;if ce>1 then if cf<ce then ce=ce-1 end end end;if cg<cd then cd=cd-1 end;co(cr)cr:setValue''end;if cs==keys.delete then if cf>ch[cg]:len()then if ch[cg+1]~=nil then ch[cg]=ch[cg]..ch[cg+1]table.remove(ch,cg+1)table.remove(ci,cg+1)table.remove(cj,cg+1)end else ch[cg]=ch[cg]:sub(1,cf-1)..ch[cg]:sub(cf+1,ch[cg]:len())cj[cg]=cj[cg]:sub(1,cf-1)..cj[cg]:sub(cf+1,cj[cg]:len())ci[cg]=ci[cg]:sub(1,cf-1)..ci[cg]:sub(cf+1,ci[cg]:len())end;co(cr)end;if cs==keys.enter then table.insert(ch,cg+1,ch[cg]:sub(cf,ch[cg]:len()))table.insert(cj,cg+1,cj[cg]:sub(cf,cj[cg]:len()))table.insert(ci,cg+1,ci[cg]:sub(cf,ci[cg]:len()))ch[cg]=ch[cg]:sub(1,cf-1)cj[cg]=cj[cg]:sub(1,cf-1)ci[cg]=ci[cg]:sub(1,cf-1)cg=cg+1;cf=1;ce=1;if cg-cd>=cx then cd=cd+1 end;cr:setValue''end;if cs==keys.up then if cg>1 then cg=cg-1;if cf>ch[cg]:len()+1 then cf=ch[cg]:len()+1 end;if ce>1 then if cf<ce then ce=cf-cw+1;if ce<1 then ce=1 end end end;if cd>1 then if cg<cd then cd=cd-1 end end end end;if cs==keys.down then if cg<#ch then cg=cg+1;if cf>ch[cg]:len()+1 then cf=ch[cg]:len()+1 end;if ce>1 then if cf<ce then ce=cf-cw+1;if ce<1 then ce=1 end end end;if cg>=cd+cx then cd=cd+1 end end end;if cs==keys.right then cf=cf+1;if cg<#ch then if cf>ch[cg]:len()+1 then cf=1;cg=cg+1 end elseif cf>ch[cg]:len()then cf=ch[cg]:len()+1 end;if cf<1 then cf=1 end;if cf<ce or cf>=cw+ce then ce=cf-cw+1 end;if ce<1 then ce=1 end end;if cs==keys.left then cf=cf-1;if cf>=1 then if cf<ce or cf>=cw+ce then ce=cf end end;if cg>1 then if cf<1 then cg=cg-1;cf=ch[cg]:len()+1;ce=cf-cw+1 end end;if cf<1 then cf=1 end;if ce<1 then ce=1 end end;local cF=(cf<=ch[cg]:len()and cf-1 or ch[cg]:len())-(ce-1)if cF>cr.x+cw-1 then cF=cr.x+cw-1 end;local cG=cg-cd<cx and cg-cd or cg-cd-1;if cF<1 then cF=0 end;cr.parent:setCursor(true,cy+cF,cz+cG,cr.fgColor)cr:updateDraw()return true end end,charHandler=function(cr,cs)if cb.charHandler(cr,cs)then local cy,cz=cr:getAnchorPosition()local cw,cx=cr:getSize()ch[cg]=ch[cg]:sub(1,cf-1)..cs..ch[cg]:sub(cf,ch[cg]:len())cj[cg]=cj[cg]:sub(1,cf-1)..c6[cr.fgColor]..cj[cg]:sub(cf,cj[cg]:len())ci[cg]=ci[cg]:sub(1,cf-1)..c6[cr.bgColor]..ci[cg]:sub(cf,ci[cg]:len())cf=cf+1;if cf>=cw+ce then ce=ce+1 end;co(cr)cr:setValue''local cF=(cf<=ch[cg]:len()and cf-1 or ch[cg]:len())-(ce-1)if cF>cr.x+cw-1 then cF=cr.x+cw-1 end;local cG=cg-cd<cx and cg-cd or cg-cd-1;if cF<1 then cF=0 end;cr.parent:setCursor(true,cy+cF,cz+cG,cr.fgColor)cr:updateDraw()return true end end,dragHandler=function(cr,cs,cy,cz)if cb.dragHandler(cr,cs,cy,cz)then local cw,cx=cr:getAbsolutePosition(cr:getAnchorPosition())local cF,cG=cr:getAnchorPosition()local cH,cE=cr:getSize()if ch[cz-cx+cd]~=nil then if cF+cH>cF+cy-(cw+1)+ce and cF<cF+cy-cw+ce then cf=cy-cw+ce;cg=cz-cx+cd;if cf>ch[cg]:len()then cf=ch[cg]:len()+1 end;if cf<ce then ce=cf-1;if ce<1 then ce=1 end end;if cr.parent~=nil then cr.parent:setCursor(true,cF+cf-ce,cG+cg-cd,cr.fgColor)end;cr:updateDraw()end end;return true end end,scrollHandler=function(cr,cs,cy,cz)if cb.scrollHandler(cr,cs,cy,cz)then local cw,cx=cr:getAbsolutePosition(cr:getAnchorPosition())local cF,cG=cr:getAnchorPosition()local cH,cE=cr:getSize()cd=cd+cs;if cd>#ch-(cE-1)then cd=#ch-(cE-1)end;if cd<1 then cd=1 end;if cr.parent~=nil then if cw+cf-ce>=cw and cw+cf-ce<cw+cH and(cx+cg-cd>=cx and cx+cg-cd<cx+cE)then cr.parent:setCursor(true,cF+cf-ce,cG+cg-cd,cr.fgColor)else cr.parent:setCursor(false)end end;cr:updateDraw()return true end end,mouseHandler=function(cr,cs,cy,cz)if cb.mouseHandler(cr,cs,cy,cz)then local cw,cx=cr:getAbsolutePosition(cr:getAnchorPosition())local cF,cG=cr:getAnchorPosition()if ch[cz-cx+cd]~=nil then cf=cy-cw+ce;cg=cz-cx+cd;if cf>ch[cg]:len()then cf=ch[cg]:len()+1 end;if cf<ce then ce=cf-1;if ce<1 then ce=1 end end end;if cr.parent~=nil then cr.parent:setCursor(true,cF+cf-ce,cG+cg-cd,cr.fgColor)end;return true end end,eventHandler=function(cr,cs,cy,cz,cw,cx)if cb.eventHandler(cr,cs,cy,cz,cw,cx)then if cs=='paste'then if cr:isFocused()then local cF,cG=cr:getSize()ch[cg]=ch[cg]:sub(1,cf-1)..cy..ch[cg]:sub(cf,ch[cg]:len())cj[cg]=cj[cg]:sub(1,cf-1)..c6[cr.fgColor]:rep(cy:len())..cj[cg]:sub(cf,cj[cg]:len())ci[cg]=ci[cg]:sub(1,cf-1)..c6[cr.bgColor]:rep(cy:len())..ci[cg]:sub(cf,ci[cg]:len())cf=cf+cy:len()if cf>=cF+ce then ce=cf+1-cF end;local cH,cE=cr:getAnchorPosition()cr.parent:setCursor(true,cH+cf-ce,cE+cg-cd,cr.fgColor)co(cr)cr:updateDraw()end end end end,draw=function(cr)if cb.draw(cr)then if cr.parent~=nil then local cs,cy=cr:getAnchorPosition()local cz,cw=cr:getSize()for bS=1,cw do local cx=''local cF=''local cG=''if ch[bS+cd-1]~=nil then cx=ch[bS+cd-1]cG=cj[bS+cd-1]cF=ci[bS+cd-1]end;cx=cx:sub(ce,cz+ce-1)cF=cF:sub(ce,cz+ce-1)cG=cG:sub(ce,cz+ce-1)local cH=cz-cx:len()if cH<0 then cH=0 end;cx=cx..c9(cr.bgSymbol,cH)cF=cF..c9(c6[cr.bgColor],cH)cG=cG..c9(c6[cr.fgColor],cH)cr.parent:setText(cs,cy+bS-1,cx)cr.parent:setBG(cs,cy+bS-1,cF)cr.parent:setFG(cs,cy+bS-1,cG)end;if cr:isFocused()then local cx,cF=cr:getAnchorPosition()cr.parent:setCursor(true,cx+cf-ce,cF+cg-cd,cr.fgColor)end end end end,init=function(cr)cr.parent:addEvent('mouse_click',cr)cr.parent:addEvent('mouse_scroll',cr)cr.parent:addEvent('mouse_drag',cr)cr.parent:addEvent('key',cr)cr.parent:addEvent('char',cr)cr.parent:addEvent('other_event',cr)if cb.init(cr)then cr.bgColor=cr.parent:getTheme'TextfieldBG'cr.fgColor=cr.parent:getTheme'TextfieldText'end end}return setmetatable(cq,cb)end end;aG['objects']['Thread']=function(...)local aJ=require('utils').getValueFromXML;return function(ct)local ck;local c4='Thread'local c5;local c6;local c7=false;local c8=function(c9,ca)if ca:sub(1,1)=='#'then local cb=c9:getBaseFrame():getDeepObject(ca:sub(2,ca:len()))if cb~=nil and cb.internalObjetCall~=nil then return function()cb:internalObjetCall()end end else return c9:getBaseFrame():getVariable(ca)end;return c9 end;ck={name=ct,getType=function(c9)return c4 end,getZIndex=function(c9)return 1 end,getName=function(c9)return c9.name end,getBaseFrame=function(c9)if c9.parent~=nil then return c9.parent:getBaseFrame()end;return c9 end,setValuesByXMLData=function(c9,ca)local cb;if aJ('thread',ca)~=nil then cb=c8(c9,aJ('thread',ca))end;if aJ('start',ca)~=nil then if aJ('start',ca)and cb~=nil then c9:start(cb)end end;return c9 end,start=function(c9,ca)if ca==nil then error'Function provided to thread is nil'end;c5=ca;c6=coroutine.create(c5)c7=true;local cb,cc=coroutine.resume(c6)if not cb then if cc~='Terminated'then error('Thread Error Occurred - '..cc)end end;c9.parent:addEvent('other_event',c9)return c9 end,getStatus=function(c9,ca)if c6~=nil then return coroutine.status(c6)end;return nil end,stop=function(c9,ca)c7=false;c9.parent:removeEvent('other_event',c9)return c9 end,eventHandler=function(c9,ca,cb,cc,cd)if c7 then if coroutine.status(c6)~='dead'then local ce,cf=coroutine.resume(c6,ca,cb,cc,cd)if not ce then if cf~='Terminated'then error('Thread Error Occurred - '..cf)end end else c7=false end end end}ck.__index=ck;return ck end end;aG['objects']['Timer']=function(...)local ct=require'basaltEvent'local ck=require('utils').getValueFromXML;return function(c4)local c5='Timer'local c6=0;local c7=0;local c8=0;local c9;local ca=ct()local cb=false;local cc=function(ce,cf,cg)local ch=function(ci)if ci:sub(1,1)=='#'then local cj=ce:getBaseFrame():getDeepObject(ci:sub(2,ci:len()))if cj~=nil and cj.internalObjetCall~=nil then cf(ce,function()cj:internalObjetCall()end)end else cf(ce,ce:getBaseFrame():getVariable(ci))end end;if type(cg)=='string'then ch(cg)elseif type(cg)=='table'then for ci,cj in pairs(cg)do ch(cj)end end;return ce end;local cd={name=c4,getType=function(ce)return c5 end,setValuesByXMLData=function(ce,cf)if ck('time',cf)~=nil then c6=ck('time',cf)end;if ck('repeat',cf)~=nil then c7=ck('repeat',cf)end;if ck('start',cf)~=nil then if ck('start',cf)then ce:start()end end;if ck('onCall',cf)~=nil then cc(ce,ce.onCall,ck('onCall',cf))end;return ce end,getBaseFrame=function(ce)if ce.parent~=nil then return ce.parent:getBaseFrame()end;return ce end,getZIndex=function(ce)return 1 end,getName=function(ce)return ce.name end,setTime=function(ce,cf,cg)c6=cf or 0;c7=cg or 1;return ce end,start=function(ce)if cb then os.cancelTimer(c9)end;c8=c7;c9=os.startTimer(c6)cb=true;ce.parent:addEvent('other_event',ce)return ce end,isActive=function(ce)return cb end,cancel=function(ce)if c9~=nil then os.cancelTimer(c9)end;cb=false;ce.parent:removeEvent('other_event',ce)return ce end,onCall=function(ce,cf)ca:registerEvent('timed_event',cf)return ce end,eventHandler=function(ce,cf,cg)if cf=='timer'and cg==c9 and cb then ca:sendEvent('timed_event',ce)if c8>=1 then c8=c8-1;if c8>=1 then c9=os.startTimer(c6)end elseif c8==-1 then c9=os.startTimer(c6)end end end}cd.__index=cd;return cd end end;aG['libraries']['basaltDraw']=function(...)local ck=require'tHex'local c4,c5=string.sub,string.rep;return function(c6)local c7=c6 or term.current()local c8;local c9,ca=c7.getSize()local cb={}local cc={}local cd={}local ce={}local cf={}local cg={}local ch;local ci={}local function cj()ch=c5(' ',c9)for bS=0,15 do local cq=2^bS;local cr=ck[cq]ci[cq]=c5(cr,c9)end end;cj()local function cl()cj()local cq=ch;local cr=ci[colors.white]local cs=ci[colors.black]for cW=1,ca do cb[cW]=c4(cb[cW]==nil and cq or cb[cW]..cq:sub(1,c9-cb[cW]:len()),1,c9)cd[cW]=c4(cd[cW]==nil and cr or cd[cW]..cr:sub(1,c9-cd[cW]:len()),1,c9)cc[cW]=c4(cc[cW]==nil and cs or cc[cW]..cs:sub(1,c9-cc[cW]:len()),1,c9)end end;cl()local function cm(cq,cr,cs)if cr>=1 and cr<=ca then if cq+cs:len()>0 and cq<=c9 then local cy=cb[cr]local cz;local cw=cq+#cs-1;if cq<1 then local cx=1-cq+1;local cF=c9-cq+1;cs=c4(cs,cx,cF)elseif cw>c9 then local cx=c9-cq+1;cs=c4(cs,1,cx)end;if cq>1 then local cx=cq-1;cz=c4(cy,1,cx)..cs else cz=cs end;if cw<c9 then cz=cz..c4(cy,cw+1,c9)end;cb[cr]=cz end end end;local function cn(cq,cr,cs)if cr>=1 and cr<=ca then if cq+cs:len()>0 and cq<=c9 then local cy=cc[cr]local cz;local cw=cq+#cs-1;if cq<1 then cs=c4(cs,1-cq+1,c9-cq+1)elseif cw>c9 then cs=c4(cs,1,c9-cq+1)end;if cq>1 then cz=c4(cy,1,cq-1)..cs else cz=cs end;if cw<c9 then cz=cz..c4(cy,cw+1,c9)end;cc[cr]=cz end end end;local function co(cq,cr,cs)if cr>=1 and cr<=ca then if cq+cs:len()>0 and cq<=c9 then local cy=cd[cr]local cz;local cw=cq+#cs-1;if cq<1 then local cx=1-cq+1;local cF=c9-cq+1;cs=c4(cs,cx,cF)elseif cw>c9 then local cx=c9-cq+1;cs=c4(cs,1,cx)end;if cq>1 then local cx=cq-1;cz=c4(cy,1,cx)..cs else cz=cs end;if cw<c9 then cz=cz..c4(cy,cw+1,c9)end;cd[cr]=cz end end end;local cp={setSize=function(cq,cr)c9,ca=cq,cr;cl()end,setMirror=function(cq)c8=cq end,setBG=function(cq,cr,cs)cn(cq,cr,cs)end,setText=function(cq,cr,cs)cm(cq,cr,cs)end,setFG=function(cq,cr,cs)co(cq,cr,cs)end,drawBackgroundBox=function(cq,cr,cs,cy,cz)for bS=1,cy do cn(cq,cr+bS-1,c5(ck[cz],cs))end end,drawForegroundBox=function(cq,cr,cs,cy,cz)for bS=1,cy do co(cq,cr+bS-1,c5(ck[cz],cs))end end,drawTextBox=function(cq,cr,cs,cy,cz)for bS=1,cy do cm(cq,cr+bS-1,c5(cz,cs))end end,writeText=function(cq,cr,cs,cy,cz)if cs~=nil then cm(cq,cr,cs)if cy~=nil and cy~=false then cn(cq,cr,c5(ck[cy],cs:len()))end;if cz~=nil and cz~=false then co(cq,cr,c5(ck[cz],cs:len()))end end end,update=function()local cq,cr=c7.getCursorPos()local cs=false;if c7.getCursorBlink~=nil then cs=c7.getCursorBlink()end;c7.setCursorBlink(false)if c8~=nil then c8.setCursorBlink(false)end;for bS=1,ca do c7.setCursorPos(1,bS)c7.blit(cb[bS],cd[bS],cc[bS])if c8~=nil then c8.setCursorPos(1,bS)c8.blit(cb[bS],cd[bS],cc[bS])end end;c7.setBackgroundColor(colors.black)c7.setCursorBlink(cs)c7.setCursorPos(cq,cr)if c8~=nil then c8.setBackgroundColor(colors.black)c8.setCursorBlink(cs)c8.setCursorPos(cq,cr)end end,setTerm=function(cq)c7=cq end}return cp end end;aG['libraries']['basaltEvent']=function(...)return function()local cX={}local aJ={}local ct={registerEvent=function(ck,c4,c5)if cX[c4]==nil then cX[c4]={}aJ[c4]=1 end;cX[c4][aJ[c4]]=c5;aJ[c4]=aJ[c4]+1;return aJ[c4]-1 end,removeEvent=function(ck,c4,c5)cX[c4][c5[c4]]=nil end,sendEvent=function(ck,c4,...)local c5;if cX[c4]~=nil then for c6,c7 in pairs(cX[c4])do local c8=c7(...)if c8==false then c5=c8 end end end;return c5 end}ct.__index=ct;return ct end end;aG['libraries']['basaltLogs']=function(...)local c4=''local c5='basaltLog.txt'local c6='Debug'fs.delete(c4~=''and c4 ..'/'..c5 or c5)local c7={__call=function(c8,c9,ca)if c9==nil then return end;local cb=c4~=''and c4 ..'/'..c5 or c5;local cc=fs.open(cb,fs.exists(cb)and'a'or'w')cc.writeLine('[Basalt]['..(ca and ca or c6)..']: '..tostring(c9))cc.close()end}return setmetatable({},c7)end;aG['libraries']['basaltMon']=function(...)local c5={[colors.white]='0',[colors.orange]='1',[colors.magenta]='2',[colors.lightBlue]='3',[colors.yellow]='4',[colors.lime]='5',[colors.pink]='6',[colors.gray]='7',[colors.lightGray]='8',[colors.cyan]='9',[colors.purple]='a',[colors.blue]='b',[colors.brown]='c',[colors.green]='d',[colors.red]='e',[colors.black]='f'}local c6,c7,c8,c9=type,string.len,string.rep,string.sub;return function(ca)local cb={}for cz,cw in pairs(ca)do cb[cz]={}for cx,cF in pairs(cw)do local cG=peripheral.wrap(cF)if cG==nil then error('Unable to find monitor '..cF)end;cb[cz][cx]=cG;cb[cz][cx].name=cF end end;local cc,cd,ce,cf,cg,ch,ci,cj=1,1,1,1,0,0,0,0;local cl,cm=false,1;local cn,co=colors.white,colors.black;local function cp()local cz,cw=0,0;for cx,cF in pairs(cb)do local cG,cH=0,0;for cE,cI in pairs(cF)do local cJ,cK=cI.getSize()cG=cG+cJ;cH=cK>cH and cK or cH end;cz=cz>cG and cz or cG;cw=cw+cH end;ci,cj=cz,cw end;cp()local function cq()local cz=0;local cw,cx=0,0;for cF,cG in pairs(cb)do local cH=0;local cE=0;for cI,cJ in pairs(cG)do local cK,cL=cJ.getSize()if cc-cH>=1 and cc-cH<=cK then cw=cI end;cJ.setCursorPos(cc-cH,cd-cz)cH=cH+cK;if cE<cL then cE=cL end end;if cd-cz>=1 and cd-cz<=cE then cx=cF end;cz=cz+cE end;ce,cf=cw,cx end;cq()local function cr(cz,...)local cw={...}return function()for cx,cF in pairs(cb)do for cG,cH in pairs(cF)do cH[cz](table.unpack(cw))end end end end;local function cs()cr('setCursorBlink',false)()if not cl then return end;if cb[cf]==nil then return end;local cz=cb[cf][ce]if cz==nil then return end;cz.setCursorBlink(cl)end;local function cy(cz,cw,cx)if cb[cf]==nil then return end;local cF=cb[cf][ce]if cF==nil then return end;cF.blit(cz,cw,cx)local cG,cH=cF.getSize()if c7(cz)+cc>cG then local cE=cb[cf][ce+1]if cE~=nil then cE.blit(cz,cw,cx)ce=ce+1;cc=cc+c7(cz)end end;cq()end;return{clear=cr'clear',setCursorBlink=function(cz)cl=cz;cs()end,getCursorBlink=function()return cl end,getCursorPos=function()return cc,cd end,setCursorPos=function(cz,cw)cc,cd=cz,cw;cq()cs()end,setTextScale=function(cz)cr('setTextScale',cz)()cp()cq()cm=cz end,getTextScale=function()return cm end,blit=function(cz,cw,cx)cy(cz,cw,cx)end,write=function(cz)cz=tostring(cz)local cw=c7(cz)cy(cz,c8(c5[cn],cw),c8(c5[co],cw))end,getSize=function()return ci,cj end,setBackgroundColor=function(cz)cr('setBackgroundColor',cz)()co=cz end,setTextColor=function(cz)cr('setTextColor',cz)()cn=cz end,calculateClick=function(cz,cw,cx)local cF=0;for cG,cH in pairs(cb)do local cE=0;local cI=0;for cJ,cK in pairs(cH)do local cL,cM=cK.getSize()if cK.name==cz then return cw+cE,cx+cF end;cE=cE+cL;if cM>cI then cI=cM end end;cF=cF+cI end;return cw,cx end}end end;aG['libraries']['bigfont']=function(...)local c6=require'tHex'local c7={{'\32\32\32\137\156\148\158\159\148\135\135\144\159\139\32\136\157\32\159\139\32\32\143\32\32\143\32\32\32\32\32\32\32\32\147\148\150\131\148\32\32\32\151\140\148\151\140\147','\32\32\32\149\132\149\136\156\149\144\32\133\139\159\129\143\159\133\143\159\133\138\32\133\138\32\133\32\32\32\32\32\32\150\150\129\137\156\129\32\32\32\133\131\129\133\131\132','\32\32\32\130\131\32\130\131\32\32\129\32\32\32\32\130\131\32\130\131\32\32\32\32\143\143\143\32\32\32\32\32\32\130\129\32\130\135\32\32\32\32\131\32\32\131\32\131','\139\144\32\32\143\148\135\130\144\149\32\149\150\151\149\158\140\129\32\32\32\135\130\144\135\130\144\32\149\32\32\139\32\159\148\32\32\32\32\159\32\144\32\148\32\147\131\132','\159\135\129\131\143\149\143\138\144\138\32\133\130\149\149\137\155\149\159\143\144\147\130\132\32\149\32\147\130\132\131\159\129\139\151\129\148\32\32\139\131\135\133\32\144\130\151\32','\32\32\32\32\32\32\130\135\32\130\32\129\32\129\129\131\131\32\130\131\129\140\141\132\32\129\32\32\129\32\32\32\32\32\32\32\131\131\129\32\32\32\32\32\32\32\32\32','\32\32\32\32\149\32\159\154\133\133\133\144\152\141\132\133\151\129\136\153\32\32\154\32\159\134\129\130\137\144\159\32\144\32\148\32\32\32\32\32\32\32\32\32\32\32\151\129','\32\32\32\32\133\32\32\32\32\145\145\132\141\140\132\151\129\144\150\146\129\32\32\32\138\144\32\32\159\133\136\131\132\131\151\129\32\144\32\131\131\129\32\144\32\151\129\32','\32\32\32\32\129\32\32\32\32\130\130\32\32\129\32\129\32\129\130\129\129\32\32\32\32\130\129\130\129\32\32\32\32\32\32\32\32\133\32\32\32\32\32\129\32\129\32\32','\150\156\148\136\149\32\134\131\148\134\131\148\159\134\149\136\140\129\152\131\32\135\131\149\150\131\148\150\131\148\32\148\32\32\148\32\32\152\129\143\143\144\130\155\32\134\131\148','\157\129\149\32\149\32\152\131\144\144\131\148\141\140\149\144\32\149\151\131\148\32\150\32\150\131\148\130\156\133\32\144\32\32\144\32\130\155\32\143\143\144\32\152\129\32\134\32','\130\131\32\131\131\129\131\131\129\130\131\32\32\32\129\130\131\32\130\131\32\32\129\32\130\131\32\130\129\32\32\129\32\32\133\32\32\32\129\32\32\32\130\32\32\32\129\32','\150\140\150\137\140\148\136\140\132\150\131\132\151\131\148\136\147\129\136\147\129\150\156\145\138\143\149\130\151\32\32\32\149\138\152\129\149\32\32\157\152\149\157\144\149\150\131\148','\149\143\142\149\32\149\149\32\149\149\32\144\149\32\149\149\32\32\149\32\32\149\32\149\149\32\149\32\149\32\144\32\149\149\130\148\149\32\32\149\32\149\149\130\149\149\32\149','\130\131\129\129\32\129\131\131\32\130\131\32\131\131\32\131\131\129\129\32\32\130\131\32\129\32\129\130\131\32\130\131\32\129\32\129\131\131\129\129\32\129\129\32\129\130\131\32','\136\140\132\150\131\148\136\140\132\153\140\129\131\151\129\149\32\149\149\32\149\149\32\149\137\152\129\137\152\129\131\156\133\149\131\32\150\32\32\130\148\32\152\137\144\32\32\32','\149\32\32\149\159\133\149\32\149\144\32\149\32\149\32\149\32\149\150\151\129\138\155\149\150\130\148\32\149\32\152\129\32\149\32\32\32\150\32\32\149\32\32\32\32\32\32\32','\129\32\32\130\129\129\129\32\129\130\131\32\32\129\32\130\131\32\32\129\32\129\32\129\129\32\129\32\129\32\131\131\129\130\131\32\32\32\129\130\131\32\32\32\32\140\140\132','\32\154\32\159\143\32\149\143\32\159\143\32\159\144\149\159\143\32\159\137\145\159\143\144\149\143\32\32\145\32\32\32\145\149\32\144\32\149\32\143\159\32\143\143\32\159\143\32','\32\32\32\152\140\149\151\32\149\149\32\145\149\130\149\157\140\133\32\149\32\154\143\149\151\32\149\32\149\32\144\32\149\149\153\32\32\149\32\149\133\149\149\32\149\149\32\149','\32\32\32\130\131\129\131\131\32\130\131\32\130\131\129\130\131\129\32\129\32\140\140\129\129\32\129\32\129\32\137\140\129\130\32\129\32\130\32\129\32\129\129\32\129\130\131\32','\144\143\32\159\144\144\144\143\32\159\143\144\159\138\32\144\32\144\144\32\144\144\32\144\144\32\144\144\32\144\143\143\144\32\150\129\32\149\32\130\150\32\134\137\134\134\131\148','\136\143\133\154\141\149\151\32\129\137\140\144\32\149\32\149\32\149\154\159\133\149\148\149\157\153\32\154\143\149\159\134\32\130\148\32\32\149\32\32\151\129\32\32\32\32\134\32','\133\32\32\32\32\133\129\32\32\131\131\32\32\130\32\130\131\129\32\129\32\130\131\129\129\32\129\140\140\129\131\131\129\32\130\129\32\129\32\130\129\32\32\32\32\32\129\32','\32\32\32\32\149\32\32\149\32\32\32\32\32\32\32\32\149\32\32\149\32\32\32\32\32\32\32\32\149\32\32\149\32\32\32\32\32\32\32\32\149\32\32\149\32\32\32\32','\32\32\32\32\32\32\32\32\32\32\32\32\32\149\32\32\149\32\32\149\32\32\149\32\32\149\32\32\149\32\32\149\32\32\149\32\32\32\32\32\32\32\32\32\32\32\32\32','\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32\32','\32\32\32\32\149\32\32\149\32\32\32\32\32\32\32\32\149\32\32\149\32\32\32\32\32\32\32\32\149\32\32\149\32\32\32\32\32\32\32\32\149\32\32\149\32\32\32\32','\32\32\32\32\32\32\32\32\32\32\32\32\32\149\32\32\149\32\32\149\32\32\149\32\32\149\32\32\149\32\32\149\32\32\149\32\32\32\32\32\32\32\32\32\32\32\32\32','\32\149\32\32\149\32\32\149\32\32\149\32\32\149\32\32\149\32\32\149\32\32\149\32\32\149\32\32\149\32\32\149\32\32\149\32\32\149\32\32\149\32\32\149\32\32\149\32','\32\32\32\32\145\32\159\139\32\151\131\132\155\143\132\134\135\145\32\149\32\158\140\129\130\130\32\152\147\155\157\134\32\32\144\144\32\32\32\32\32\32\152\131\155\131\131\129','\32\32\32\32\149\32\149\32\145\148\131\32\149\32\149\140\157\132\32\148\32\137\155\149\32\32\32\149\154\149\137\142\32\153\153\32\131\131\149\131\131\129\149\135\145\32\32\32','\32\32\32\32\129\32\130\135\32\131\131\129\134\131\132\32\129\32\32\129\32\131\131\32\32\32\32\130\131\129\32\32\32\32\129\129\32\32\32\32\32\32\130\131\129\32\32\32','\150\150\32\32\148\32\134\32\32\132\32\32\134\32\32\144\32\144\150\151\149\32\32\32\32\32\32\145\32\32\152\140\144\144\144\32\133\151\129\133\151\129\132\151\129\32\145\32','\130\129\32\131\151\129\141\32\32\142\32\32\32\32\32\149\32\149\130\149\149\32\143\32\32\32\32\142\132\32\154\143\133\157\153\132\151\150\148\151\158\132\151\150\148\144\130\148','\32\32\32\140\140\132\32\32\32\32\32\32\32\32\32\151\131\32\32\129\129\32\32\32\32\134\32\32\32\32\32\32\32\129\129\32\129\32\129\129\130\129\129\32\129\130\131\32','\156\143\32\159\141\129\153\140\132\153\137\32\157\141\32\159\142\32\150\151\129\150\131\132\140\143\144\143\141\145\137\140\148\141\141\144\157\142\32\159\140\32\151\134\32\157\141\32','\157\140\149\157\140\149\157\140\149\157\140\149\157\140\149\157\140\149\151\151\32\154\143\132\157\140\32\157\140\32\157\140\32\157\140\32\32\149\32\32\149\32\32\149\32\32\149\32','\129\32\129\129\32\129\129\32\129\129\32\129\129\32\129\129\32\129\129\131\129\32\134\32\131\131\129\131\131\129\131\131\129\131\131\129\130\131\32\130\131\32\130\131\32\130\131\32','\151\131\148\152\137\145\155\140\144\152\142\145\153\140\132\153\137\32\154\142\144\155\159\132\150\156\148\147\32\144\144\130\145\136\137\32\146\130\144\144\130\145\130\136\32\151\140\132','\151\32\149\151\155\149\149\32\149\149\32\149\149\32\149\149\32\149\149\32\149\152\137\144\157\129\149\149\32\149\149\32\149\149\32\149\149\32\149\130\150\32\32\157\129\149\32\149','\131\131\32\129\32\129\130\131\32\130\131\32\130\131\32\130\131\32\130\131\32\32\32\32\130\131\32\130\131\32\130\131\32\130\131\32\130\131\32\32\129\32\130\131\32\133\131\32','\156\143\32\159\141\129\153\140\132\153\137\32\157\141\32\159\142\32\159\159\144\152\140\144\156\143\32\159\141\129\153\140\132\157\141\32\130\145\32\32\147\32\136\153\32\130\146\32','\152\140\149\152\140\149\152\140\149\152\140\149\152\140\149\152\140\149\149\157\134\154\143\132\157\140\133\157\140\133\157\140\133\157\140\133\32\149\32\32\149\32\32\149\32\32\149\32','\130\131\129\130\131\129\130\131\129\130\131\129\130\131\129\130\131\129\130\130\131\32\134\32\130\131\129\130\131\129\130\131\129\130\131\129\32\129\32\32\129\32\32\129\32\32\129\32','\159\134\144\137\137\32\156\143\32\159\141\129\153\140\132\153\137\32\157\141\32\32\132\32\159\143\32\147\32\144\144\130\145\136\137\32\146\130\144\144\130\145\130\138\32\146\130\144','\149\32\149\149\32\149\149\32\149\149\32\149\149\32\149\149\32\149\149\32\149\131\147\129\138\134\149\149\32\149\149\32\149\149\32\149\149\32\149\154\143\149\32\157\129\154\143\149','\130\131\32\129\32\129\130\131\32\130\131\32\130\131\32\130\131\32\130\131\32\32\32\32\130\131\32\130\131\129\130\131\129\130\131\129\130\131\129\140\140\129\130\131\32\140\140\129'},{'000110000110110000110010101000000010000000100101','000000110110000000000010101000000010000000100101','000000000000000000000000000000000000000000000000','100010110100000010000110110000010100000100000110','000000110000000010110110000110000000000000110000','000000000000000000000000000000000000000000000000','000000110110000010000000100000100000000000000010','000000000110110100010000000010000000000000000100','000000000000000000000000000000000000000000000000','010000000000100110000000000000000000000110010000','000000000000000000000000000010000000010110000000','000000000000000000000000000000000000000000000000','011110110000000100100010110000000100000000000000','000000000000000000000000000000000000000000000000','000000000000000000000000000000000000000000000000','110000110110000000000000000000010100100010000000','000010000000000000110110000000000100010010000000','000000000000000000000000000000000000000000000000','010110010110100110110110010000000100000110110110','000000000000000000000110000000000110000000000000','000000000000000000000000000000000000000000000000','010100010110110000000000000000110000000010000000','110110000000000000110000110110100000000010000000','000000000000000000000000000000000000000000000000','000100011111000100011111000100011111000100011111','000000000000100100100100011011011011111111111111','000000000000000000000000000000000000000000000000','000100011111000100011111000100011111000100011111','000000000000100100100100011011011011111111111111','100100100100100100100100100100100100100100100100','000000110100110110000010000011110000000000011000','000000000100000000000010000011000110000000001000','000000000000000000000000000000000000000000000000','010000100100000000000000000100000000010010110000','000000000000000000000000000000110110110110110000','000000000000000000000000000000000000000000000000','110110110110110110000000110110110110110110110110','000000000000000000000110000000000000000000000000','000000000000000000000000000000000000000000000000','000000000000110110000110010000000000000000010010','000010000000000000000000000000000000000000000000','000000000000000000000000000000000000000000000000','110110110110110110110000110110110110000000000000','000000000000000000000110000000000000000000000000','000000000000000000000000000000000000000000000000','110110110110110110110000110000000000000000010000','000000000000000000000000100000000000000110000110','000000000000000000000000000000000000000000000000'}}local c8={}local c9={}do local cc=0;local cd=#c7[1]local ce=#c7[1][1]for cu=1,cd,3 do for cv=1,ce,3 do local cf=string.char(cc)local cg={}cg[1]=c7[1][cu]:sub(cv,cv+2)cg[2]=c7[1][cu+1]:sub(cv,cv+2)cg[3]=c7[1][cu+2]:sub(cv,cv+2)local ch={}ch[1]=c7[2][cu]:sub(cv,cv+2)ch[2]=c7[2][cu+1]:sub(cv,cv+2)ch[3]=c7[2][cu+2]:sub(cv,cv+2)c9[cf]={cg,ch}cc=cc+1 end end;c8[1]=c9 end;local function ca(cc,cd)local ce={['0']='1',['1']='0'}if cc<=#c8 then return true end;for X=#c8+1,cc do local cf={}local cg=c8[X-1]for cY=0,255 do local ch=string.char(cY)local ci={}local cj={}local cl=cg[ch][1]local cm=cg[ch][2]for cu=1,#cl do local cn,co,cp,cq,cr,cs={},{},{},{},{},{}for cv=1,#cl[1]do local cy=c9[cl[cu]:sub(cv,cv)][1]table.insert(cn,cy[1])table.insert(co,cy[2])table.insert(cp,cy[3])local cz=c9[cl[cu]:sub(cv,cv)][2]if cm[cu]:sub(cv,cv)=='1'then table.insert(cq,cz[1]:gsub('[01]',ce))table.insert(cr,cz[2]:gsub('[01]',ce))table.insert(cs,cz[3]:gsub('[01]',ce))else table.insert(cq,cz[1])table.insert(cr,cz[2])table.insert(cs,cz[3])end end;table.insert(ci,table.concat(cn))table.insert(ci,table.concat(co))table.insert(ci,table.concat(cp))table.insert(cj,table.concat(cq))table.insert(cj,table.concat(cr))table.insert(cj,table.concat(cs))end;cf[ch]={ci,cj}if cd then cd='Font'..X..'Yeld'..cY;os.queueEvent(cd)os.pullEvent(cd)end end;c8[X]=cf end;return true end;local function cb(cc,cd,ce,cf,cg)if not type(cd)=='string'then error('Not a String',3)end;local ch=type(ce)=='string'and ce:sub(1,1)or c6[ce]or error('Wrong Front Color',3)local ci=type(cf)=='string'and cf:sub(1,1)or c6[cf]or error('Wrong Back Color',3)if c8[cc]==nil then ca(3,false)end;local cj=c8[cc]or error('Wrong font size selected',3)if cd==''then return{{''},{''},{''}}end;local cl={}for cs in cd:gmatch'.'do table.insert(cl,cs)end;local cm={}local cn=#cj[cl[1]][1]for cZ=1,cn do local cs={}for cu=1,#cl do cs[cu]=cj[cl[cu]]and cj[cl[cu]][1][cZ]or''end;cm[cZ]=table.concat(cs)end;local co={}local cp={}local cq={['0']=ch,['1']=ci}local cr={['0']=ci,['1']=ch}for cZ=1,cn do local cs={}local cy={}for cu=1,#cl do local cz=cj[cl[cu]]and cj[cl[cu]][2][cZ]or''cs[cu]=cz:gsub('[01]',cg and{['0']=ce:sub(cu,cu),['1']=cf:sub(cu,cu)}or cq)cy[cu]=cz:gsub('[01]',cg and{['0']=cf:sub(cu,cu),['1']=ce:sub(cu,cu)}or cr)end;co[cZ]=table.concat(cs)cp[cZ]=table.concat(cy)end;return{cm,co,cp}end;return cb end;aG['libraries']['layout']=function(...)local function ct(c4)local c5={}c5.___value=nil;c5.___name=c4;c5.___children={}c5.___props={}function c5:value()return self.___value end;function c5:setValue(c6)self.___value=c6 end;function c5:name()return self.___name end;function c5:setName(c6)self.___name=c6 end;function c5:children()return self.___children end;function c5:numChildren()return#self.___children end;function c5:addChild(c6)if self[c6:name()]~=nil then if type(self[c6:name()].name)=='function'then local c7={}table.insert(c7,self[c6:name()])self[c6:name()]=c7 end;table.insert(self[c6:name()],c6)else self[c6:name()]=c6 end;table.insert(self.___children,c6)end;function c5:properties()return self.___props end;function c5:numProperties()return#self.___props end;function c5:addProperty(c6,c7)local c8='@'..c6;if self[c8]~=nil then if type(self[c8])=='string'then local c9={}table.insert(c9,self[c8])self[c8]=c9 end;table.insert(self[c8],c7)else self[c8]=c7 end;table.insert(self.___props,{name=c6,value=self[c6]})end;return c5 end;local ck={}function ck:ToXmlString(c4)c4=string.gsub(c4,'&','&amp;')c4=string.gsub(c4,'<','&lt;')c4=string.gsub(c4,'>','&gt;')c4=string.gsub(c4,'"','&quot;')c4=string.gsub(c4,'([^%w%&%;%p%\t% ])',function(c5)return string.format('&#x%X;',string.byte(c5))end)return c4 end;function ck:FromXmlString(c4)c4=string.gsub(c4,'&#x([%x]+)%;',function(c5)return string.char(tonumber(c5,16))end)c4=string.gsub(c4,'&#([0-9]+)%;',function(c5)return string.char(tonumber(c5,10))end)c4=string.gsub(c4,'&quot;','"')c4=string.gsub(c4,'&apos;','\'')c4=string.gsub(c4,'&gt;','>')c4=string.gsub(c4,'&lt;','<')c4=string.gsub(c4,'&amp;','&')return c4 end;function ck:ParseArgs(c4,c5)string.gsub(c5,'(%w+)=(["\'])(.-)%2',function(c6,c7,c8)c4:addProperty(c6,self:FromXmlString(c8))end)end;function ck:ParseXmlText(c4)local c5={}local c6=ct()table.insert(c5,c6)local c7,c8,c9,ca,cb;local cc,cd=1,1;while true do c7,cd,c8,c9,ca,cb=string.find(c4,'<(%/?)([%w_:]+)(.-)(%/?)>',cc)if not c7 then break end;local cf=string.sub(c4,cc,c7-1)if not string.find(cf,'^%s*$')then local cg=(c6:value()or'')..self:FromXmlString(cf)c5[#c5]:setValue(cg)end;if cb=='/'then local cg=ct(c9)self:ParseArgs(cg,ca)c6:addChild(cg)elseif c8==''then local cg=ct(c9)self:ParseArgs(cg,ca)table.insert(c5,cg)c6=cg else local cg=table.remove(c5)c6=c5[#c5]if#c5<1 then error('XmlParser: nothing to close with '..c9)end;if cg:name()~=c9 then error('XmlParser: trying to close '..cg.name..' with '..c9)end;c6:addChild(cg)end;cc=cd+1 end;local ce=string.sub(c4,cc)if#c5>1 then error('XmlParser: unclosed '..c5[#c5]:name())end;return c6 end;function ck:loadFile(c4,c5)if not c5 then c5=system.ResourceDirectory end;local c6=system.pathForFile(c4,c5)local c7,c8=io.open(c6,'r')if c7 and not c8 then local c9=c7:read'*a'io.close(c7)return self:ParseXmlText(c9),nil else print(c8)return nil end end;return ck end;aG['libraries']['module']=function(...)return function(cX)local aJ,ct=pcall(require,cX)return aJ and ct or nil end end;aG['libraries']['process']=function(...)local ck={}local c4={}local c5=0;function c4:new(c6,c7,...)local c8={...}local c9=setmetatable({path=c6},{__index=self})c9.window=c7;c9.processId=c5;if type(c6)=='string'then c9.coroutine=coroutine.create(function()shell.run(c6)end)elseif type(c6)=='function'then c9.coroutine=coroutine.create(function()c6(table.unpack(c8))end)else return end;ck[c5]=c9;c5=c5+1;return c9 end;function c4:resume(c6,...)term.redirect(self.window)if self.filter~=nil then if c6~=self.filter then return end;self.filter=nil end;local c7,c8=coroutine.resume(self.coroutine,c6,...)if c7 then self.filter=c8 else error(c8)end end;function c4:isDead()if self.coroutine~=nil then if coroutine.status(self.coroutine)=='dead'then table.remove(ck,self.processId)return true end else return true end;return false end;function c4:getStatus()if self.coroutine~=nil then return coroutine.status(self.coroutine)end;return nil end;function c4:start()coroutine.resume(self.coroutine)end;return c4 end;aG['libraries']['tHex']=function(...)return{[colors.white]='0',[colors.orange]='1',[colors.magenta]='2',[colors.lightBlue]='3',[colors.yellow]='4',[colors.lime]='5',[colors.pink]='6',[colors.gray]='7',[colors.lightGray]='8',[colors.cyan]='9',[colors.purple]='a',[colors.blue]='b',[colors.brown]='c',[colors.green]='d',[colors.red]='e',[colors.black]='f'}end;aG['libraries']['utils']=function(...)local aJ=function(ct,ck)if ck==nil then ck='%s'end;local c4={}for c5 in string.gmatch(ct,'([^'..ck..']+)')do table.insert(c4,c5)end;return c4 end;return{getTextHorizontalAlign=function(ct,ck,c4,c5)ct=string.sub(ct,1,ck)local c6=ck-string.len(ct)if c4=='right'then ct=string.rep(c5 or' ',c6)..ct elseif c4=='center'then ct=string.rep(c5 or' ',math.floor(c6/2))..ct..string.rep(c5 or' ',math.floor(c6/2))ct=ct..(string.len(ct)<ck and(c5 or' ')or'')else ct=ct..string.rep(c5 or' ',c6)end;return ct end,getTextVerticalAlign=function(ct,ck)local c4=0;if ck=='center'then c4=math.ceil(ct/2)if c4<1 then c4=1 end end;if ck=='bottom'then c4=ct end;if c4<1 then c4=1 end;return c4 end,rpairs=function(ct)return function(ck,c4)c4=c4-1;if c4~=0 then return c4,ck[c4]end end,ct,#ct+1 end,tableCount=function(ct)local ck=0;if ct~=nil then for c4,c5 in pairs(ct)do ck=ck+1 end end;return ck end,splitString=aJ,createText=function(ct,ck)local c4=aJ(ct,'\n')local c5={}for c6,c7 in pairs(c4)do local c8=''local c9=aJ(c7,' ')for ca,cb in pairs(c9)do if#c8+#cb<=ck then c8=c8==''and cb or c8 ..' '..cb;if ca==#c9 then table.insert(c5,c8)end else table.insert(c5,c8)c8=cb:sub(1,ck)if ca==#c9 then table.insert(c5,c8)end end end end;return c5 end,getValueFromXML=function(ct,ck)local c4;if type(ck)~='table'then return end;if ck[ct]~=nil then if type(ck[ct])=='table'then if ck[ct].value~=nil then c4=ck[ct]:value()end end end;if c4==nil then c4=ck['@'..ct]end;if c4=='true'then c4=true elseif c4=='false'then c4=false elseif tonumber(c4)~=nil then c4=tonumber(c4)end;return c4 end,numberFromString=function(ct)return load('return '..ct)()end,uuid=function()local ct=math.random;local function ck()local c4='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'return string.gsub(c4,'[xy]',function(c5)local c6=c5=='x'and ct(0,0xf)or ct(8,0xb)return string.format('%x',c6)end)end;return ck()end}end;aG['default']['Frame']=function(...)local ce=require'module'local cf=require'Object'local cg=require'loadObjects'local ch=require'basaltDraw'local ci=require'utils'local cj=ce'layout'local cl=ce'basaltMon'local cm=ci.uuid;local cn=ci.rpairs;local co=ci.getValueFromXML;local cp=ci.tableCount;local cq,cr,cs=string.sub,math.min,math.max;return function(cy,cz,cw,cx)local cF=cf(cy)local cG='Frame'local cH={}local cE={}local cI={}local cJ={}local cK={}local cL={}local cM={}local cN={}local cO=0;local cP=cw or term.current()local cQ=''local cR=false;local cS=false;local aM=false;local aN=0;local aO=0;local aP=false;local aQ=0;local aR=false;local aS=false;local aT=''local aU=false;local aY=false;local aZ;local a_;local b0=true;local b1=true;local b2=false;local b3={}cF:setZIndex(10)local b4=ch(cP)local b5=false;local b6=1;local b7=1;local b8=colors.white;local b9,ba=0,0;local bb={}local function bc(bt,bu)if bu~=nil then bu:setValuesByXMLData(bt)end end;local function bd(bt,bu,bw)if bt~=nil then if bt.properties~=nil then bt={bt}end;for bx,by in pairs(bt)do local bz=bu(bw,by['@id']or cm())table.insert(bb,bz)bc(by,bz)end end end;local function be(bt)for bu,bw in pairs(cH)do for bx,by in pairs(bw)do if by:getName()==bt then return by end end end end;local function bf(bt)local bu=be(bt)if bu~=nil then return bu end;for bw,bx in pairs(cH)do for by,bz in pairs(bx)do if bz:getType()=='Frame'then local aV=bz:getDeepObject(bt)if aV~=nil then return aV end end end end end;local function bg(bt)local bu=bt:getZIndex()if be(bt.name)~=nil then return nil end;if cH[bu]==nil then for x=1,#cE+1 do if cE[x]~=nil then if bu==cE[x]then break end;if bu>cE[x]then table.insert(cE,x,bu)break end else table.insert(cE,bu)end end;if#cE<=0 then table.insert(cE,bu)end;cH[bu]={}end;bt.parent=cI;if bt.init~=nil then bt:init()end;table.insert(cH[bu],bt)return bt end;local function bh(bt,bu)for bw,bx in pairs(cJ)do for by,bz in pairs(bx)do for aV,aW in pairs(bz)do if aW==bu then table.remove(cJ[bw][by],aV)if bt.parent~=nil then if cp(cJ[bw])<=0 then bt.parent:removeEvent(bw,bt)end end end end end end end;local function bi(bt,bu)for bw,bx in pairs(cH)do for by,bz in pairs(bx)do if type(bu)=='string'then if bz:getName()==bu then table.remove(cH[bw],by)bh(cI,bz)bt:updateDraw()return true end else if bz==bu then table.remove(cH[bw],by)bh(cI,bz)bt:updateDraw()return true end end end end;return false end;local function bj(bt,bu,bw)for bx,by in pairs(cJ[bu])do for bz,aV in pairs(by)do if aV:getName()==bw then return aV end end end end;local function bk(bt,bu,bw)local bx=bw:getZIndex()if cJ[bu]==nil then cJ[bu]={}end;if cK[bu]==nil then cK[bu]={}end;if bj(bt,bu,bw.name)~=nil then return nil end;if bt.parent~=nil then bt.parent:addEvent(bu,bt)end;b3[bu]=true;if cJ[bu][bx]==nil then for x=1,#cK[bu]+1 do if cK[bu][x]~=nil then if bx==cK[bu][x]then break end;if bx>cK[bu][x]then table.insert(cK[bu],x,bx)break end else table.insert(cK[bu],bx)end end;if#cK[bu]<=0 then table.insert(cK[bu],bx)end;cJ[bu][bx]={}end;table.insert(cJ[bu][bx],bw)return bw end;local function bl(bt,bu,bw)if cJ[bu]~=nil then for bx,by in pairs(cJ[bu])do for bz,aV in pairs(by)do if aV==bw then table.remove(cJ[bu][bx],bz)if#cJ[bu][bx]<=0 then cJ[bu][bx]=nil;if bt.parent~=nil then if cp(cJ[bu])<=0 then b3[bu]=false;bt.parent:removeEvent(bu,bt)end end end;return true end end end end;return false end;local function bm(bt)local bu,bw=pcall(load('return '..bt))if not bu then error(bt..' is not a valid dynamic code')end;return load('return '..bt)()end;local function bn(bt,bu,bw)for bx,by in pairs(cN)do if by[2]==bw and by[4]==bu then return by end end;cO=cO+1;cN[cO]={0,bw,{},bu,cO}return cN[cO]end;local function bo(bt,bu)local bw={}local bx={}for by in bu:gmatch'%a+%.x'do local bz=by:gsub('%.x','')if bz~='self'and bz~='parent'then table.insert(bw,bz)end end;for by in bu:gmatch'%w+%.y'do local bz=by:gsub('%.y','')if bz~='self'and bz~='parent'then table.insert(bw,bz)end end;for by in bu:gmatch'%a+%.w'do local bz=by:gsub('%.w','')if bz~='self'and bz~='parent'then table.insert(bw,bz)end end;for by in bu:gmatch'%a+%.h'do local bz=by:gsub('%.h','')if bz~='self'and bz~='parent'then table.insert(bw,bz)end end;for by,bz in pairs(bw)do bx[bz]=be(bz)if bx[bz]==nil then error('Dynamic Values - unable to find object '..bz)end end;bx['self']=bt;bx['parent']=bt:getParent()return bx end;local function bp(bt,bu)local bw=bt;for bx in bt:gmatch'%w+%.x'do bw=bw:gsub(bx,bu[bx:gsub('%.x','')]:getX())end;for bx in bt:gmatch'%w+%.y'do bw=bw:gsub(bx,bu[bx:gsub('%.y','')]:getY())end;for bx in bt:gmatch'%w+%.w'do bw=bw:gsub(bx,bu[bx:gsub('%.w','')]:getWidth())end;for bx in bt:gmatch'%w+%.h'do bw=bw:gsub(bx,bu[bx:gsub('%.h','')]:getHeight())end;return bw end;local function bq(bt)if#cN>0 then for bS=1,cO do if cN[bS]~=nil then local bu;if#cN[bS][3]<=0 then cN[bS][3]=bo(cN[bS][4],cN[bS][2])end;bu=bp(cN[bS][2],cN[bS][3])cN[bS][1]=bm(bu)if cN[bS][4]:getType()=='Frame'then cN[bS][4]:recalculateDynamicValues()end end end;for bu,bw in pairs(cE)do if cH[bw]~=nil then for bx,by in pairs(cH[bw])do if by.eventHandler~=nil then by:eventHandler('dynamicValueEvent',bt)end end end end end end;local function br(bt)return cN[bt][1]end;local function bs(bt)for bu,bw in pairs(cH)do for bx,by in pairs(bw)do if by.getHeight~=nil and by.getY~=nil then local bz,aV=by:getHeight(),by:getY()if bz+aV-bt:getHeight()>aQ then aQ=cs(bz+aV-bt:getHeight(),0)end end end end end;cI={barActive=false,barBackground=colors.gray,barTextcolor=colors.black,barText='New Frame',barTextAlign='left',addEvent=bk,removeEvent=bl,removeEvents=bh,getEvent=bj,newDynamicValue=bn,recalculateDynamicValues=bq,getDynamicValue=br,getType=function(bt)return cG end,setFocusedObject=function(bt,bu)if a_~=bu then if a_~=nil then a_:loseFocusHandler()end;if bu~=nil then bu:getFocusHandler()end;a_=bu end;return bt end,getVariable=function(bt,bu)return cx.getVariable(bu)end,setSize=function(bt,bu,bw,bx)cF.setSize(bt,bu,bw,bx)if bt.parent==nil then b4=ch(cP)end;for by,bz in pairs(cE)do if cH[bz]~=nil then for aV,aW in pairs(cH[bz])do if aW.eventHandler~=nil then aW:eventHandler('basalt_resize',aW,bt)end end end end;bt:recalculateDynamicValues()b0=false;return bt end,setTheme=function(bt,bu,bw)if type(bu)=='table'then cM=bu elseif type(bu)=='string'then cM[bu]=bw end;bt:updateDraw()return bt end,getTheme=function(bt,bu)return cM[bu]or(bt.parent~=nil and bt.parent:getTheme(bu)or cx.getTheme(bu))end,setPosition=function(bt,bu,bw,bx)cF.setPosition(bt,bu,bw,bx)for by,bz in pairs(cE)do if cH[bz]~=nil then for aV,aW in pairs(cH[bz])do if aW.eventHandler~=nil then aW:eventHandler('basalt_reposition',aW,bt)end end end end;bt:recalculateDynamicValues()return bt end,getBasaltInstance=function(bt)return cx end,setOffset=function(bt,bu,bw)b9=bu~=nil and math.floor(bu<0 and math.abs(bu)or-bu)or b9;ba=bw~=nil and math.floor(bw<0 and math.abs(bw)or-bw)or ba;bt:updateDraw()return bt end,getOffsetInternal=function(bt)return b9,ba end,getOffset=function(bt)return b9<0 and math.abs(b9)or-b9,ba<0 and math.abs(ba)or-ba end,removeFocusedObject=function(bt)if a_~=nil then a_:loseFocusHandler()end;a_=nil;return bt end,getFocusedObject=function(bt)return a_ end,setCursor=function(bt,bu,bw,bx,by)if bt.parent~=nil then local bz,aV=bt:getAnchorPosition()bt.parent:setCursor(bu or false,(bw or 0)+bz-1,(bx or 0)+aV-1,by or b8)else local bz,aV=bt:getAbsolutePosition(bt:getAnchorPosition(bt:getX(),bt:getY(),true))b5=bu or false;if bw~=nil then b6=bz+bw-1 end;if bx~=nil then b7=aV+bx-1 end;b8=by or b8;if b5 then cP.setTextColor(b8)cP.setCursorPos(b6,b7)cP.setCursorBlink(b5)else cP.setCursorBlink(false)end end;return bt end,setMovable=function(bt,bu)if bt.parent~=nil then aU=bu or not aU;bt.parent:addEvent('mouse_click',bt)b3['mouse_click']=true;bt.parent:addEvent('mouse_up',bt)b3['mouse_up']=true;bt.parent:addEvent('mouse_drag',bt)b3['mouse_drag']=true end;return bt end,setScrollable=function(bt,bu)aP=(bu or bu==nil)and true or false;if bt.parent~=nil then bt.parent:addEvent('mouse_scroll',bt)end;b3['mouse_scroll']=true;return bt end,setScrollAmount=function(bt,bu)aQ=bu or aQ;b1=false;return bt end,getScrollAmount=function(bt)return b1 and bs(bt)or aQ end,show=function(bt)cF.show(bt)if bt.parent==nil then cx.setActiveFrame(bt)if cR and not cS then cx.setMonitorFrame(cQ,bt)elseif cS then cx.setMonitorFrame(bt:getName(),bt,cQ)else cx.setMainFrame(bt)end end;return bt end,hide=function(bt)cF.hide(bt)if bt.parent==nil then if activeFrame==bt then activeFrame=nil end;if cR and not cS then if cx.getMonitorFrame(cQ)==bt then cx.setActiveFrame(nil)end elseif cS then if cx.getMonitorFrame(bt:getName())==bt then cx.setActiveFrame(nil)end else if cx.getMainFrame()==bt then cx.setMainFrame(nil)end end end;return bt end,addLayout=function(bt,bu)if bu~=nil then if fs.exists(bu)then local bw=fs.open(bu,'r')local bx=cj:ParseXmlText(bw.readAll())bw.close()bb={}bt:setValuesByXMLData(bx)end end;return bt end,getLastLayout=function(bt)return bb end,addLayoutFromString=function(bt,bu)if bu~=nil then local bw=cj:ParseXmlText(bu)bt:setValuesByXMLData(bw)end;return bt end,setValuesByXMLData=function(bt,bu)cF.setValuesByXMLData(bt,bu)if co('movable',bu)~=nil then if co('movable',bu)then bt:setMovable(true)end end;if co('scrollable',bu)~=nil then if co('scrollable',bu)then bt:setScrollable(true)end end;if co('monitor',bu)~=nil then bt:setMonitor(co('monitor',bu)):show()end;if co('mirror',bu)~=nil then bt:setMirror(co('mirror',bu))end;if co('bar',bu)~=nil then if co('bar',bu)then bt:showBar(true)else bt:showBar(false)end end;if co('barText',bu)~=nil then bt.barText=co('barText',bu)end;if co('barBG',bu)~=nil then bt.barBackground=colors[co('barBG',bu)]end;if co('barFG',bu)~=nil then bt.barTextcolor=colors[co('barFG',bu)]end;if co('barAlign',bu)~=nil then bt.barTextAlign=co('barAlign',bu)end;if co('layout',bu)~=nil then bt:addLayout(co('layout',bu))end;if co('xOffset',bu)~=nil then bt:setOffset(co('xOffset',bu),ba)end;if co('yOffset',bu)~=nil then bt:setOffset(ba,co('yOffset',bu))end;if co('scrollAmount',bu)~=nil then bt:setScrollAmount(co('scrollAmount',bu))end;local bw=bu:children()for bx,by in pairs(bw)do if by.___name~='animation'then local bz=by.___name:gsub('^%l',string.upper)if cg[bz]~=nil then bd(by,bt['add'..bz],bt)end end end;bd(bu['frame'],bt.addFrame,bt)bd(bu['animation'],bt.addAnimation,bt)return bt end,showBar=function(bt,bu)bt.barActive=bu or not bt.barActive;bt:updateDraw()return bt end,setBar=function(bt,bu,bw,bx)bt.barText=bu or''bt.barBackground=bw or bt.barBackground;bt.barTextcolor=bx or bt.barTextcolor;bt:updateDraw()return bt end,setBarTextAlign=function(bt,bu)bt.barTextAlign=bu or'left'bt:updateDraw()return bt end,setMirror=function(bt,bu)if bt.parent~=nil then error'Frame has to be a base frame in order to attach a mirror.'end;aT=bu;if mirror~=nil then b4.setMirror(mirror)end;aR=true;return bt end,removeMirror=function(bt)mirror=nil;aR=false;b4.setMirror(nil)return bt end,setMonitorScale=function(bt,bu)if cR then cP.setTextScale(bu)end;return bt end,setMonitor=function(bt,bu,bw)if bu~=nil and bu~=false then if type(bu)=='string'then if peripheral.getType(bu)=='monitor'then cP=peripheral.wrap(bu)aM=true end;if bt.parent~=nil then bt.parent:removeObject(bt)end;cR=true;cx.setMonitorFrame(bu,bt)elseif type(bu)=='table'then cP=cl(bu)aM=true;cR=true;cS=true;cx.setMonitorFrame(bt:getName(),bt,true)end else cP=parentTerminal;cR=false;cS=false;if type(cQ)=='string'then if cx.getMonitorFrame(cQ)==bt then cx.setMonitorFrame(cQ,nil)end else if cx.getMonitorFrame(bt:getName())==bt then cx.setMonitorFrame(bt:getName(),nil)end end end;if bw~=nil then cP.setTextScale(bw)end;b4=ch(cP)bt:setSize(cP.getSize())b0=true;cQ=bu or nil;bt:updateDraw()return bt end,loseFocusHandler=function(bt)cF.loseFocusHandler(bt)if a_~=nil then a_:loseFocusHandler()a_=nil end end,getFocusHandler=function(bt)cF.getFocusHandler(bt)if bt.parent~=nil then if aU then bt.parent:removeEvents(bt)bt.parent:removeObject(bt)bt.parent:addObject(bt)for bu,bw in pairs(b3)do if bw then bt.parent:addEvent(bu,bt)end end;bt:updateDraw()end end;if a_~=nil then a_:getFocusHandler()end end,eventHandler=function(bt,bu,...)cF.eventHandler(bt,bu,...)if cJ['other_event']~=nil then for bw,bx in ipairs(cK['other_event'])do if cJ['other_event'][bx]~=nil then for by,bz in cn(cJ['other_event'][bx])do if bz.eventHandler~=nil then if bz:eventHandler(bu,...)then return true end end end end end end;if b0 and not cR then if bt.parent==nil then if bu=='term_resize'then bt:setSize(cP.getSize())b0=true end end end;if cR then if b0 then if bu=='monitor_resize'then if type(cQ)=='string'then bt:setSize(cP.getSize())elseif type(cQ)=='table'then for bw,bx in pairs(cQ)do for by,bz in pairs(bx)do if p1==bz then bt:setSize(cP.getSize())end end end end;b0=true;bt:updateDraw()end end;if bu=='peripheral'and p1==cQ then if peripheral.getType(cQ)=='monitor'then aM=true;cP=peripheral.wrap(cQ)b4=ch(cP)bt:updateDraw()end end;if bu=='peripheral_detach'and p1==cQ then aM=false end end;if aR then if peripheral.getType(aT)=='monitor'then aS=true;b4.setMirror(peripheral.wrap(aT))end;if bu=='peripheral_detach'and p1==aT then aM=false end;if bu=='monitor_touch'and aT==p1 then bt:mouseHandler(1,p2,p3,true)end end;if bu=='terminate'and bt.parent==nil then cx.stop()end end,mouseHandler=function(bt,bu,bw,bx,by,bz)if cS then if cP.calculateClick~=nil then bw,bx=cP.calculateClick(bz,bw,bx)end end;if cF.mouseHandler(bt,bu,bw,bx)then if cJ['mouse_click']~=nil then bt:setCursor(false)for aV,aW in ipairs(cK['mouse_click'])do if cJ['mouse_click'][aW]~=nil then for aX,bv in cn(cJ['mouse_click'][aW])do if bv.mouseHandler~=nil then if bv:mouseHandler(bu,bw,bx)then return true end end end end end end;if aU then local aV,aW=bt:getAbsolutePosition(bt:getAnchorPosition())if bw>=aV and bw<=aV+bt:getWidth()-1 and bx==aW then aY=true;aN=aV-bw;aO=yOff and 1 or 0 end end;bt:removeFocusedObject()return true end;return false end,mouseUpHandler=function(bt,bu,bw,bx)if aY then aY=false end;if cF.mouseUpHandler(bt,bu,bw,bx)then if cJ['mouse_up']~=nil then for by,bz in ipairs(cK['mouse_up'])do if cJ['mouse_up'][bz]~=nil then for aV,aW in cn(cJ['mouse_up'][bz])do if aW.mouseUpHandler~=nil then if aW:mouseUpHandler(bu,bw,bx)then return true end end end end end end;return true end;return false end,scrollHandler=function(bt,bu,bw,bx)if cF.scrollHandler(bt,bu,bw,bx)then if cJ['mouse_scroll']~=nil then for bz,aV in pairs(cK['mouse_scroll'])do if cJ['mouse_scroll'][aV]~=nil then for aW,aX in cn(cJ['mouse_scroll'][aV])do if aX.scrollHandler~=nil then if aX:scrollHandler(bu,bw,bx)then return true end end end end end end;local by=ba;if aP then bs(bt)if bu>0 or bu<0 then ba=cs(cr(ba-bu,0),-aQ)bt:updateDraw()end end;bt:removeFocusedObject()if ba==by then return false end;return true end;return false end,hoverHandler=function(bt,bu,bw,bx)if cF.hoverHandler(bt,bu,bw,bx)then if cJ['mouse_move']~=nil then for by,bz in pairs(cK['mouse_move'])do if cJ['mouse_move'][bz]~=nil then for aV,aW in cn(cJ['mouse_move'][bz])do if aW.hoverHandler~=nil then if aW:hoverHandler(bu,bw,bx)then return true end end end end end end end;return false end,dragHandler=function(bt,bu,bw,bx)if aY then local by,bz=bt.parent:getOffsetInternal()by=by<0 and math.abs(by)or-by;bz=bz<0 and math.abs(bz)or-bz;local aV=1;local aW=1;if bt.parent~=nil then aV,aW=bt.parent:getAbsolutePosition(bt.parent:getAnchorPosition())end;bt:setPosition(bw+aN-(aV-1)+by,bx+aO-(aW-1)+bz)bt:updateDraw()return true end;if bt:isVisible()and bt:isEnabled()then if cJ['mouse_drag']~=nil then for by,bz in ipairs(cK['mouse_drag'])do if cJ['mouse_drag'][bz]~=nil then for aV,aW in cn(cJ['mouse_drag'][bz])do if aW.dragHandler~=nil then if aW:dragHandler(bu,bw,bx)then return true end end end end end end end;cF.dragHandler(bt,bu,bw,bx)return false end,keyHandler=function(bt,bu,bw)if bt:isFocused()or bt.parent==nil then local bx=bt:getEventSystem():sendEvent('key',bt,'key',bu)if bx==false then return false end;if cJ['key']~=nil then for by,bz in pairs(cK['key'])do if cJ['key'][bz]~=nil then for aV,aW in cn(cJ['key'][bz])do if aW.keyHandler~=nil then if aW:keyHandler(bu,bw)then return true end end end end end end end;return false end,keyUpHandler=function(bt,bu)if bt:isFocused()or bt.parent==nil then local bw=bt:getEventSystem():sendEvent('key_up',bt,'key_up',bu)if bw==false then return false end;if cJ['key_up']~=nil then for bx,by in pairs(cK['key_up'])do if cJ['key_up'][by]~=nil then for bz,aV in cn(cJ['key_up'][by])do if aV.keyUpHandler~=nil then if aV:keyUpHandler(bu)then return true end end end end end end end;return false end,charHandler=function(bt,bu)if bt:isFocused()or bt.parent==nil then local bw=bt:getEventSystem():sendEvent('char',bt,'char',bu)if bw==false then return false end;if cJ['char']~=nil then for bx,by in pairs(cK['char'])do if cJ['char'][by]~=nil then for bz,aV in cn(cJ['char'][by])do if aV.charHandler~=nil then if aV:charHandler(bu)then return true end end end end end end end;return false end,setText=function(bt,bu,bw,bx)local by,bz=bt:getAnchorPosition()if bw>=1 and bw<=bt:getHeight()then if bt.parent~=nil then bt.parent:setText(cs(bu+by-1,by),bz+bw-1,cq(bx,cs(1-bu+1,1),cs(bt:getWidth()-bu+1,1)))else b4.setText(cs(bu+by-1,by),bz+bw-1,cq(bx,cs(1-bu+1,1),cs(bt:getWidth()-bu+1,1)))end end end,setBG=function(bt,bu,bw,bx)local by,bz=bt:getAnchorPosition()if bw>=1 and bw<=bt:getHeight()then if bt.parent~=nil then bt.parent:setBG(cs(bu+by-1,by),bz+bw-1,cq(bx,cs(1-bu+1,1),cs(bt:getWidth()-bu+1,1)))else b4.setBG(cs(bu+by-1,by),bz+bw-1,cq(bx,cs(1-bu+1,1),cs(bt:getWidth()-bu+1,1)))end end end,setFG=function(bt,bu,bw,bx)local by,bz=bt:getAnchorPosition()if bw>=1 and bw<=bt:getHeight()then if bt.parent~=nil then bt.parent:setFG(cs(bu+by-1,by),bz+bw-1,cq(bx,cs(1-bu+1,1),cs(bt:getWidth()-bu+1,1)))else b4.setFG(cs(bu+by-1,by),bz+bw-1,cq(bx,cs(1-bu+1,1),cs(bt:getWidth()-bu+1,1)))end end end,writeText=function(bt,bu,bw,bx,by,bz)local aV,aW=bt:getAnchorPosition()if bw>=1 and bw<=bt:getHeight()then if bt.parent~=nil then bt.parent:writeText(cs(bu+aV-1,aV),aW+bw-1,cq(bx,cs(1-bu+1,1),bt:getWidth()-bu+1),by,bz)else b4.writeText(cs(bu+aV-1,aV),aW+bw-1,cq(bx,cs(1-bu+1,1),cs(bt:getWidth()-bu+1,1)),by,bz)end end end,blit=function(bt,bu,bw,bx,by,bz)local aV,aW=bt:getAnchorPosition()if bw>=1 and bw<=bt:getHeight()then local aX=bt:getWidth()if bt.parent~=nil then bx=cq(bx,cs(1-bu+1,1),aX-bu+1)by=cq(by,cs(1-bu+1,1),aX-bu+1)bz=cq(bz,cs(1-bu+1,1),aX-bu+1)bt.parent:blit(cs(bu+aV-1,aV),aW+bw-1,bx,by,bz)else bx=cq(bx,cs(1-bu+1,1),cs(aX-bu+1,1))by=cq(by,cs(1-bu+1,1),cs(aX-bu+1,1))bz=cq(bz,cs(1-bu+1,1),cs(aX-bu+1,1))b4.blit(cs(bu+aV-1,aV),aW+bw-1,bx,by,bz)end end end,drawBackgroundBox=function(bt,bu,bw,bx,by,bz)local aV,aW=bt:getAnchorPosition()by=bw<1 and(by+bw>bt:getHeight()and bt:getHeight()or by+bw-1)or(by+bw>bt:getHeight()and bt:getHeight()-bw+1 or by)bx=bu<1 and(bx+bu>bt:getWidth()and bt:getWidth()or bx+bu-1)or(bx+bu>bt:getWidth()and bt:getWidth()-bu+1 or bx)if bt.parent~=nil then bt.parent:drawBackgroundBox(cs(bu+aV-1,aV),cs(bw+aW-1,aW),bx,by,bz)else b4.drawBackgroundBox(cs(bu+aV-1,aV),cs(bw+aW-1,aW),bx,by,bz)end end,drawTextBox=function(bt,bu,bw,bx,by,bz)local aV,aW=bt:getAnchorPosition()by=bw<1 and(by+bw>bt:getHeight()and bt:getHeight()or by+bw-1)or(by+bw>bt:getHeight()and bt:getHeight()-bw+1 or by)bx=bu<1 and(bx+bu>bt:getWidth()and bt:getWidth()or bx+bu-1)or(bx+bu>bt:getWidth()and bt:getWidth()-bu+1 or bx)if bt.parent~=nil then bt.parent:drawTextBox(cs(bu+aV-1,aV),cs(bw+aW-1,aW),bx,by,cq(bz,1,1))else b4.drawTextBox(cs(bu+aV-1,aV),cs(bw+aW-1,aW),bx,by,cq(bz,1,1))end end,drawForegroundBox=function(bt,bu,bw,bx,by,bz)local aV,aW=bt:getAnchorPosition()by=bw<1 and(by+bw>bt:getHeight()and bt:getHeight()or by+bw-1)or(by+bw>bt:getHeight()and bt:getHeight()-bw+1 or by)bx=bu<1 and(bx+bu>bt:getWidth()and bt:getWidth()or bx+bu-1)or(bx+bu>bt:getWidth()and bt:getWidth()-bu+1 or bx)if bt.parent~=nil then bt.parent:drawForegroundBox(cs(bu+aV-1,aV),cs(bw+aW-1,aW),bx,by,bz)else b4.drawForegroundBox(cs(bu+aV-1,aV),cs(bw+aW-1,aW),bx,by,bz)end end,draw=function(bt,bu)if cR and not aM then return false end;if bt.parent==nil then if bt:getDraw()==false then return false end end;if cF.draw(bt)then local bw,bx=bt:getAbsolutePosition(bt:getAnchorPosition())local by,bz=bt:getAnchorPosition()local aV,aW=bt:getSize()if bt.parent==nil then if bt.bgColor~=false then b4.drawBackgroundBox(by,bz,aV,aW,bt.bgColor)b4.drawTextBox(by,bz,aV,aW,' ')end;if bt.fgColor~=false then b4.drawForegroundBox(by,bz,aV,aW,bt.fgColor)end end;if bt.barActive then if bt.parent~=nil then bt.parent:writeText(by,bz,ci.getTextHorizontalAlign(bt.barText,aV,bt.barTextAlign),bt.barBackground,bt.barTextcolor)else b4.writeText(by,bz,ci.getTextHorizontalAlign(bt.barText,aV,bt.barTextAlign),bt.barBackground,bt.barTextcolor)end;if bt:getBorder'left'then if bt.parent~=nil then bt.parent:drawBackgroundBox(by-1,bz,1,1,bt.barBackground)if bt.bgColor~=false then bt.parent:drawBackgroundBox(by-1,bz+1,1,aW-1,bt.bgColor)end end end;if bt:getBorder'top'then if bt.parent~=nil then bt.parent:drawBackgroundBox(by-1,bz-1,aV+1,1,bt.barBackground)end end end;for aX,bv in cn(cE)do if cH[bv]~=nil then for bA,bB in pairs(cH[bv])do if bB.draw~=nil then bB:draw()end end end end end end,updateTerm=function(bt)if cR and not aM then return false end;b4.update()end,addObject=function(bt,bu)return bg(bu)end,removeObject=bi,getObject=function(bt,bu)return be(bu)end,getDeepObject=function(bt,bu)return bf(bu)end,addFrame=function(bt,bu)local bw=cx.newFrame(bu or cm(),bt,nil,cx)return bg(bw)end,init=function(bt)if not b2 then if cz~=nil then cF.width,cF.height=cz:getSize()bt:setBackground(cz:getTheme'FrameBG')bt:setForeground(cz:getTheme'FrameText')else cF.width,cF.height=cP.getSize()bt:setBackground(cx.getTheme'BasaltBG')bt:setForeground(cx.getTheme'BasaltText')end;b2=true end end}for bt,bu in pairs(cg)do cI['add'..bt]=function(bw,bx)return bg(bu(bx or cm(),bw))end end;setmetatable(cI,cF)return cI end end;aG['default']['loadObjects']=function(...)local ck={}if aH then for c6,c7 in pairs(aK'objects')do ck[c6]=c7()end;return ck end;local c4=table.pack(...)local c5=fs.getDir(c4[2]or'Basalt')if c5==nil then error('Unable to find directory '..c4[2]..' please report this bug to our discord.')end;for c6,c7 in pairs(fs.list(fs.combine(c5,'objects')))do if c7~='example.lua'then local c8=c7:gsub('.lua','')ck[c8]=require(c8)end end;return ck end;aG['default']['Object']=function(...)local c5=require'basaltEvent'local c6=require'utils'local c7=c6.splitString;local c8=c6.numberFromString;local c9=c6.getValueFromXML;return function(ca)local cb='Object'local cc={}local cd=1;local ce;local cf='topLeft'local cg=false;local ch=true;local ci=false;local cj=false;local cl=false;local cm=false;local cn={left=false,right=false,top=false,bottom=false}local co=colors.black;local cp=true;local cq=false;local cr,cs,cy,cz=0,0,0,0;local cw=true;local cx={}local cF=c5()cc={x=1,y=1,width=1,height=1,bgColor=colors.black,bgSymbol=' ',bgSymbolColor=colors.black,fgColor=colors.white,transparentColor=false,name=ca or'Object',parent=nil,show=function(cG)ch=true;cG:updateDraw()return cG end,hide=function(cG)ch=false;cG:updateDraw()return cG end,enable=function(cG)cp=true;return cG end,disable=function(cG)cp=false;return cG end,isEnabled=function(cG)return cp end,generateXMLEventFunction=function(cG,cH,cE)local cI=function(cJ)if cJ:sub(1,1)=='#'then local cK=cG:getBaseFrame():getDeepObject(cJ:sub(2,cJ:len()))if cK~=nil and cK.internalObjetCall~=nil then cH(cG,function()cK:internalObjetCall()end)end else cH(cG,cG:getBaseFrame():getVariable(cJ))end end;if type(cE)=='string'then cI(cE)elseif type(cE)=='table'then for cJ,cK in pairs(cE)do cI(cK)end end;return cG end,setValuesByXMLData=function(cG,cH)local cE=cG:getBaseFrame()if c9('x',cH)~=nil then cG:setPosition(c9('x',cH),cG.y)end;if c9('y',cH)~=nil then cG:setPosition(cG.x,c9('y',cH))end;if c9('width',cH)~=nil then cG:setSize(c9('width',cH),cG.height)end;if c9('height',cH)~=nil then cG:setSize(cG.width,c9('height',cH))end;if c9('bg',cH)~=nil then cG:setBackground(colors[c9('bg',cH)])end;if c9('fg',cH)~=nil then cG:setForeground(colors[c9('fg',cH)])end;if c9('value',cH)~=nil then cG:setValue(colors[c9('value',cH)])end;if c9('visible',cH)~=nil then if c9('visible',cH)then cG:show()else cG:hide()end end;if c9('enabled',cH)~=nil then if c9('enabled',cH)then cG:enable()else cG:disable()end end;if c9('zIndex',cH)~=nil then cG:setZIndex(c9('zIndex',cH))end;if c9('anchor',cH)~=nil then cG:setAnchor(c9('anchor',cH))end;if c9('shadowColor',cH)~=nil then cG:setShadow(colors[c9('shadowColor',cH)])end;if c9('border',cH)~=nil then cG:setBorder(colors[c9('border',cH)])end;if c9('borderLeft',cH)~=nil then cn['left']=c9('borderLeft',cH)end;if c9('borderTop',cH)~=nil then cn['top']=c9('borderTop',cH)end;if c9('borderRight',cH)~=nil then cn['right']=c9('borderRight',cH)end;if c9('borderBottom',cH)~=nil then cn['bottom']=c9('borderBottom',cH)end;if c9('borderColor',cH)~=nil then cG:setBorder(colors[c9('borderColor',cH)])end;if c9('ignoreOffset',cH)~=nil then if c9('ignoreOffset',cH)then cG:ignoreOffset(true)end end;if c9('onClick',cH)~=nil then cG:generateXMLEventFunction(cG.onClick,c9('onClick',cH))end;if c9('onClickUp',cH)~=nil then cG:generateXMLEventFunction(cG.onClickUp,c9('onClickUp',cH))end;if c9('onScroll',cH)~=nil then cG:generateXMLEventFunction(cG.onScroll,c9('onScroll',cH))end;if c9('onDrag',cH)~=nil then cG:generateXMLEventFunction(cG.onDrag,c9('onDrag',cH))end;if c9('onHover',cH)~=nil then cG:generateXMLEventFunction(cG.onHover,c9('onHover',cH))end;if c9('onLeave',cH)~=nil then cG:generateXMLEventFunction(cG.onLeave,c9('onLeave',cH))end;if c9('onKey',cH)~=nil then cG:generateXMLEventFunction(cG.onKey,c9('onKey',cH))end;if c9('onKeyUp',cH)~=nil then cG:generateXMLEventFunction(cG.onKeyUp,c9('onKeyUp',cH))end;if c9('onChange',cH)~=nil then cG:generateXMLEventFunction(cG.onChange,c9('onChange',cH))end;if c9('onResize',cH)~=nil then cG:generateXMLEventFunction(cG.onResize,c9('onResize',cH))end;if c9('onReposition',cH)~=nil then cG:generateXMLEventFunction(cG.onReposition,c9('onReposition',cH))end;if c9('onEvent',cH)~=nil then cG:generateXMLEventFunction(cG.onEvent,c9('onEvent',cH))end;if c9('onGetFocus',cH)~=nil then cG:generateXMLEventFunction(cG.onGetFocus,c9('onGetFocus',cH))end;if c9('onLoseFocus',cH)~=nil then cG:generateXMLEventFunction(cG.onLoseFocus,c9('onLoseFocus',cH))end;cG:updateDraw()return cG end,isVisible=function(cG)return ch end,setFocus=function(cG)if cG.parent~=nil then cG.parent:setFocusedObject(cG)end;return cG end,setZIndex=function(cG,cH)cd=cH;if cG.parent~=nil then cG.parent:removeObject(cG)cG.parent:addObject(cG)cG:updateEventHandlers()end;return cG end,updateEventHandlers=function(cG)for cH,cE in pairs(cx)do if cE then cG.parent:addEvent(cH,cG)end end end,getZIndex=function(cG)return cd end,getType=function(cG)return cb end,getName=function(cG)return cG.name end,remove=function(cG)if cG.parent~=nil then cG.parent:removeObject(cG)end;cG:updateDraw()return cG end,setParent=function(cG,cH)if cH.getType~=nil and cH:getType()=='Frame'then cG:remove()cH:addObject(cG)if cG.draw then cG:show()end end;return cG end,setValue=function(cG,cH)if ce~=cH then ce=cH;cG:updateDraw()cG:valueChangedHandler()end;return cG end,getValue=function(cG)return ce end,getDraw=function(cG)return cw end,updateDraw=function(cG,cH)cw=cH;if cH==nil then cw=true end;if cw then if cG.parent~=nil then cG.parent:updateDraw()end end;return cG end,getEventSystem=function(cG)return cF end,getParent=function(cG)return cG.parent end,setPosition=function(cG,cH,cE,cI)if type(cH)=='number'then cG.x=cI and cG:getX()+cH or cH end;if type(cE)=='number'then cG.y=cI and cG:getY()+cE or cE end;if cG.parent~=nil then if type(cH)=='string'then cG.x=cG.parent:newDynamicValue(cG,cH)end;if type(cE)=='string'then cG.y=cG.parent:newDynamicValue(cG,cE)end;cG.parent:recalculateDynamicValues()end;cF:sendEvent('basalt_reposition',cG)cG:updateDraw()return cG end,getX=function(cG)return type(cG.x)=='number'and cG.x or math.floor(cG.x[1]+0.5)end,getY=function(cG)return type(cG.y)=='number'and cG.y or math.floor(cG.y[1]+0.5)end,getPosition=function(cG)return cG:getX(),cG:getY()end,getVisibility=function(cG)return ch end,setVisibility=function(cG,cH)ch=cH or not ch;cG:updateDraw()return cG end,setSize=function(cG,cH,cE,cI)if type(cH)=='number'then cG.width=cI and cG:getWidth()+cH or cH end;if type(cE)=='number'then cG.height=cI and cG:getHeight()+cE or cE end;if cG.parent~=nil then if type(cH)=='string'then cG.width=cG.parent:newDynamicValue(cG,cH)end;if type(cE)=='string'then cG.height=cG.parent:newDynamicValue(cG,cE)end;cG.parent:recalculateDynamicValues()end;cF:sendEvent('basalt_resize',cG)cG:updateDraw()return cG end,getHeight=function(cG)return type(cG.height)=='number'and cG.height or math.floor(cG.height[1]+0.5)end,getWidth=function(cG)return type(cG.width)=='number'and cG.width or math.floor(cG.width[1]+0.5)end,getSize=function(cG)return cG:getWidth(),cG:getHeight()end,calculateDynamicValues=function(cG)if type(cG.width)=='table'then cG.width:calculate()end;if type(cG.height)=='table'then cG.height:calculate()end;if type(cG.x)=='table'then cG.x:calculate()end;if type(cG.y)=='table'then cG.y:calculate()end;cG:updateDraw()return cG end,setBackground=function(cG,cH,cE,cI)cG.bgColor=cH or false;cG.bgSymbol=cE or(cG.bgColor~=false and cG.bgSymbol or false)cG.bgSymbolColor=cI or cG.bgSymbolColor;cG:updateDraw()return cG end,setTransparent=function(cG,cH)cG.transparentColor=cH or false;cG.bgSymbol=false;cG.bgSymbolColor=false;cG:updateDraw()return cG end,getBackground=function(cG)return cG.bgColor end,setForeground=function(cG,cH)cG.fgColor=cH or false;cG:updateDraw()return cG end,getForeground=function(cG)return cG.fgColor end,setShadow=function(cG,cH)if cH==false then cm=false else co=cH;cm=true end;cG:updateDraw()return cG end,isShadowActive=function(cG)return cm end,setBorder=function(cG,...)if...~=nil then local cH={...}for cE,cI in pairs(cH)do if cI=='left'or#cH==1 then cn['left']=cH[1]end;if cI=='top'or#cH==1 then cn['top']=cH[1]end;if cI=='right'or#cH==1 then cn['right']=cH[1]end;if cI=='bottom'or#cH==1 then cn['bottom']=cH[1]end end end;cG:updateDraw()return cG end,getBorder=function(cG,cH)if cH=='left'then return borderLeft end;if cH=='top'then return borderTop end;if cH=='right'then return borderRight end;if cH=='bottom'then return borderBottom end end,draw=function(cG)if ch then if cG.parent~=nil then local cH,cE=cG:getAnchorPosition()local cI,cJ=cG:getSize()local cK,cL=cG.parent:getSize()if cH+cI<1 or cH>cK or cE+cJ<1 or cE>cL then return false end;if cG.transparentColor~=false then cG.parent:drawForegroundBox(cH,cE,cI,cJ,cG.transparentColor)end;if cG.bgColor~=false then cG.parent:drawBackgroundBox(cH,cE,cI,cJ,cG.bgColor)end;if cG.bgSymbol~=false then cG.parent:drawTextBox(cH,cE,cI,cJ,cG.bgSymbol)if cG.bgSymbol~=' 'then cG.parent:drawForegroundBox(cH,cE,cI,cJ,cG.bgSymbolColor)end end;if cm then cG.parent:drawBackgroundBox(cH+1,cE+cJ,cI,1,co)cG.parent:drawBackgroundBox(cH+cI,cE+1,1,cJ,co)cG.parent:drawForegroundBox(cH+1,cE+cJ,cI,1,co)cG.parent:drawForegroundBox(cH+cI,cE+1,1,cJ,co)end;local cM=cG.bgColor;if cn['left']~=false then cG.parent:drawTextBox(cH,cE,1,cJ,'\149')if cM~=false then cG.parent:drawBackgroundBox(cH,cE,1,cJ,cG.bgColor)end;cG.parent:drawForegroundBox(cH,cE,1,cJ,cn['left'])end;if cn['top']~=false then cG.parent:drawTextBox(cH,cE,cI,1,'\131')if cM~=false then cG.parent:drawBackgroundBox(cH,cE,cI,1,cG.bgColor)end;cG.parent:drawForegroundBox(cH,cE,cI,1,cn['top'])end;if cn['left']~=false and cn['top']~=false then cG.parent:drawTextBox(cH,cE,1,1,'\151')if cM~=false then cG.parent:drawBackgroundBox(cH,cE,1,1,cG.bgColor)end;cG.parent:drawForegroundBox(cH,cE,1,1,cn['left'])end;if cn['right']~=false then cG.parent:drawTextBox(cH+cI-1,cE,1,cJ,'\149')if cM~=false then cG.parent:drawForegroundBox(cH+cI-1,cE,1,cJ,cG.bgColor)end;cG.parent:drawBackgroundBox(cH+cI-1,cE,1,cJ,cn['right'])end;if cn['bottom']~=false then cG.parent:drawTextBox(cH,cE+cJ-1,cI,1,'\143')if cM~=false then cG.parent:drawForegroundBox(cH,cE+cJ-1,cI,1,cG.bgColor)end;cG.parent:drawBackgroundBox(cH,cE+cJ-1,cI,1,cn['bottom'])end;if cn['top']~=false and cn['right']~=false then cG.parent:drawTextBox(cH+cI-1,cE,1,1,'\148')if cM~=false then cG.parent:drawForegroundBox(cH+cI-1,cE,1,1,cG.bgColor)end;cG.parent:drawBackgroundBox(cH+cI-1,cE,1,1,cn['right'])end;if cn['right']~=false and cn['bottom']~=false then cG.parent:drawTextBox(cH+cI-1,cE+cJ-1,1,1,'\133')if cM~=false then cG.parent:drawForegroundBox(cH+cI-1,cE+cJ-1,1,1,cG.bgColor)end;cG.parent:drawBackgroundBox(cH+cI-1,cE+cJ-1,1,1,cn['right'])end;if cn['bottom']~=false and cn['left']~=false then cG.parent:drawTextBox(cH,cE+cJ-1,1,1,'\138')if cM~=false then cG.parent:drawForegroundBox(cH-1,cE+cJ-1,1,1,cG.bgColor)end;cG.parent:drawBackgroundBox(cH,cE+cJ-1,1,1,cn['left'])end end;cw=false;return true end;return false end,getAbsolutePosition=function(cG,cH,cE)if cH==nil or cE==nil then cH,cE=cG:getAnchorPosition()end;if cG.parent~=nil then local cI,cJ=cG.parent:getAbsolutePosition()cH=cI+cH-1;cE=cJ+cE-1 end;return cH,cE end,getAnchorPosition=function(cG,cH,cE,cI)if cH==nil then cH=cG:getX()end;if cE==nil then cE=cG:getY()end;if cG.parent~=nil then local cJ,cK=cG.parent:getSize()if cf=='top'then cH=math.floor(cJ/2)+cH-1 elseif cf=='topRight'then cH=cJ+cH-1 elseif cf=='right'then cH=cJ+cH-1;cE=math.floor(cK/2)+cE-1 elseif cf=='bottomRight'then cH=cJ+cH-1;cE=cK+cE-1 elseif cf=='bottom'then cH=math.floor(cJ/2)+cH-1;cE=cK+cE-1 elseif cf=='bottomLeft'then cE=cK+cE-1 elseif cf=='left'then cE=math.floor(cK/2)+cE-1 elseif cf=='center'then cH=math.floor(cJ/2)+cH-1;cE=math.floor(cK/2)+cE-1 end;local cL,cM=cG.parent:getOffsetInternal()if not(cg or cI)then return cH+cL,cE+cM end end;return cH,cE end,ignoreOffset=function(cG,cH)cg=cH;if cH==nil then cg=true end;return cG end,getBaseFrame=function(cG)if cG.parent~=nil then return cG.parent:getBaseFrame()end;return cG end,setAnchor=function(cG,cH)cf=cH;cG:updateDraw()return cG end,getAnchor=function(cG)return cf end,onChange=function(cG,...)for cH,cE in pairs(table.pack(...))do if type(cE)=='function'then cG:registerEvent('value_changed',cE)end end;return cG end,onClick=function(cG,...)for cH,cE in pairs(table.pack(...))do if type(cE)=='function'then cG:registerEvent('mouse_click',cE)end end;if cG.parent~=nil then cG.parent:addEvent('mouse_click',cG)cx['mouse_click']=true;cG.parent:addEvent('mouse_up',cG)cx['mouse_up']=true end;return cG end,onClickUp=function(cG,...)for cH,cE in pairs(table.pack(...))do if type(cE)=='function'then cG:registerEvent('mouse_up',cE)end end;if cG.parent~=nil then cG.parent:addEvent('mouse_click',cG)cx['mouse_click']=true;cG.parent:addEvent('mouse_up',cG)cx['mouse_up']=true end;return cG end,onRelease=function(cG,...)for cH,cE in pairs(table.pack(...))do if type(cE)=='function'then cG:registerEvent('mouse_release',cE)end end;if cG.parent~=nil then cG.parent:addEvent('mouse_click',cG)cx['mouse_click']=true;cG.parent:addEvent('mouse_up',cG)cx['mouse_up']=true end;return cG end,onScroll=function(cG,...)for cH,cE in pairs(table.pack(...))do if type(cE)=='function'then cG:registerEvent('mouse_scroll',cE)end end;if cG.parent~=nil then cG.parent:addEvent('mouse_scroll',cG)cx['mouse_scroll']=true end;return cG end,onHover=function(cG,...)for cH,cE in pairs(table.pack(...))do if type(cE)=='function'then cG:registerEvent('mouse_hover',cE)end end;if cG.parent~=nil then cG.parent:addEvent('mouse_move',cG)cx['mouse_move']=true end;return cG end,onLeave=function(cG,...)for cH,cE in pairs(table.pack(...))do if type(cE)=='function'then cG:registerEvent('mouse_leave',cE)end end;if cG.parent~=nil then cG.parent:addEvent('mouse_move',cG)cx['mouse_move']=true end;return cG end,onDrag=function(cG,...)for cH,cE in pairs(table.pack(...))do if type(cE)=='function'then cG:registerEvent('mouse_drag',cE)end end;if cG.parent~=nil then cG.parent:addEvent('mouse_drag',cG)cx['mouse_drag']=true;cG.parent:addEvent('mouse_click',cG)cx['mouse_click']=true;cG.parent:addEvent('mouse_up',cG)cx['mouse_up']=true end;return cG end,onEvent=function(cG,...)for cH,cE in pairs(table.pack(...))do if type(cE)=='function'then cG:registerEvent('other_event',cE)end end;if cG.parent~=nil then cG.parent:addEvent('other_event',cG)cx['other_event']=true end;return cG end,onKey=function(cG,...)if cp then for cH,cE in pairs(table.pack(...))do if type(cE)=='function'then cG:registerEvent('key',cE)end end;if cG.parent~=nil then cG.parent:addEvent('key',cG)cx['key']=true end end;return cG end,onChar=function(cG,...)if cp then for cH,cE in pairs(table.pack(...))do if type(cE)=='function'then cG:registerEvent('char',cE)end end;if cG.parent~=nil then cG.parent:addEvent('char',cG)cx['char']=true end end;return cG end,onResize=function(cG,...)for cH,cE in pairs(table.pack(...))do if type(cE)=='function'then cG:registerEvent('basalt_resize',cE)end end;return cG end,onReposition=function(cG,...)for cH,cE in pairs(table.pack(...))do if type(cE)=='function'then cG:registerEvent('basalt_reposition',cE)end end;return cG end,onKeyUp=function(cG,...)for cH,cE in pairs(table.pack(...))do if type(cE)=='function'then cG:registerEvent('key_up',cE)end end;if cG.parent~=nil then cG.parent:addEvent('key_up',cG)cx['key_up']=true end;return cG end,isFocused=function(cG)if cG.parent~=nil then return cG.parent:getFocusedObject()==cG end;return false end,onGetFocus=function(cG,...)for cH,cE in pairs(table.pack(...))do if type(cE)=='function'then cG:registerEvent('get_focus',cE)end end;if cG.parent~=nil then cG.parent:addEvent('mouse_click',cG)cx['mouse_click']=true end;return cG end,onLoseFocus=function(cG,...)for cH,cE in pairs(table.pack(...))do if type(cE)=='function'then cG:registerEvent('lose_focus',cE)end end;if cG.parent~=nil then cG.parent:addEvent('mouse_click',cG)cx['mouse_click']=true end;return cG end,registerEvent=function(cG,cH,cE)return cF:registerEvent(cH,cE)end,removeEvent=function(cG,cH,cE)return cF:removeEvent(cH,cE)end,sendEvent=function(cG,cH,...)return cF:sendEvent(cH,cG,...)end,isCoordsInObject=function(cG,cH,cE)if ch and cp then if cH==nil or cE==nil then return false end;local cI,cJ=cG:getAbsolutePosition()local cK,cL=cG:getSize()if cI<=cH and cI+cK>cH and cJ<=cE and cJ+cL>cE then return true end end;return false end,mouseHandler=function(cG,cH,cE,cI,cJ)if cG:isCoordsInObject(cE,cI)then local cK,cL=cG:getAbsolutePosition()local cM=cF:sendEvent('mouse_click',cG,'mouse_click',cH,cE-(cK-1),cI-(cL-1),cJ)if cM==false then return false end;if cG.parent~=nil then cG.parent:setFocusedObject(cG)end;cl=true;cq=true;cr,cs=cE,cI;return true end;return false end,mouseUpHandler=function(cG,cH,cE,cI)cq=false;if cl then local cJ,cK=cG:getAbsolutePosition()local cL=cF:sendEvent('mouse_release',cG,'mouse_release',cH,cE-(cJ-1),cI-(cK-1))cl=false end;if cG:isCoordsInObject(cE,cI)then local cJ,cK=cG:getAbsolutePosition()local cL=cF:sendEvent('mouse_up',cG,'mouse_up',cH,cE-(cJ-1),cI-(cK-1))if cL==false then return false end;return true end;return false end,dragHandler=function(cG,cH,cE,cI)if cq then local cJ,cK=cG:getAbsolutePosition()local cL=cF:sendEvent('mouse_drag',cG,'mouse_drag',cH,cE-(cJ-1),cI-(cK-1),cr-cE,cs-cI,cE,cI)cr,cs=cE,cI;if cL~=nil then return cL end;if cG.parent~=nil then cG.parent:setFocusedObject(cG)end;return true end;if cG:isCoordsInObject(cE,cI)then local cJ,cK=cG:getAbsolutePosition(cG:getAnchorPosition())cr,cs=cE,cI;cy,cz=cJ-cE,cK-cI end;return false end,scrollHandler=function(cG,cH,cE,cI)if cG:isCoordsInObject(cE,cI)then local cJ,cK=cG:getAbsolutePosition()local cL=cF:sendEvent('mouse_scroll',cG,'mouse_scroll',cH,cE-(cJ-1),cI-(cK-1))if cL==false then return false end;if cG.parent~=nil then cG.parent:setFocusedObject(cG)end;return true end;return false end,hoverHandler=function(cG,cH,cE,cI)if cG:isCoordsInObject(cH,cE)then local cJ=cF:sendEvent('mouse_hover',cG,'mouse_hover',cH,cE,cI)if cJ==false then return false end;cj=true;return true end;if cj then local cJ=cF:sendEvent('mouse_leave',cG,'mouse_leave',cH,cE,cI)if cJ==false then return false end;cj=false end;return false end,keyHandler=function(cG,cH,cE)if cp and ch then if cG:isFocused()then local cI=cF:sendEvent('key',cG,'key',cH,cE)if cI==false then return false end;return true end end;return false end,keyUpHandler=function(cG,cH)if cp and ch then if cG:isFocused()then local cE=cF:sendEvent('key_up',cG,'key_up',cH)if cE==false then return false end;return true end end;return false end,charHandler=function(cG,cH)if cp and ch then if cG:isFocused()then local cE=cF:sendEvent('char',cG,'char',cH)if cE==false then return false end;return true end end;return false end,valueChangedHandler=function(cG)cF:sendEvent('value_changed',cG,ce)end,eventHandler=function(cG,cH,cE,cI,cJ,cK)local cL=cF:sendEvent('other_event',cG,cH,cE,cI,cJ,cK)if cL~=nil then return cL end;return true end,getFocusHandler=function(cG)local cH=cF:sendEvent('get_focus',cG)if cH~=nil then return cH end;return true end,loseFocusHandler=function(cG)cq=false;local cH=cF:sendEvent('lose_focus',cG)if cH~=nil then return cH end;return true end,init=function(cG)if cG.parent~=nil then for cH,cE in pairs(cx)do if cE then cG.parent:addEvent(cH,cG)end end end;if not ci then ci=true;return true end;return false end}cc.__index=cc;return cc end end;aG['default']['theme']=function(...)return{BasaltBG=colors.lightGray,BasaltText=colors.black,FrameBG=colors.gray,FrameText=colors.black,ButtonBG=colors.gray,ButtonText=colors.black,CheckboxBG=colors.gray,CheckboxText=colors.black,InputBG=colors.gray,InputText=colors.black,TextfieldBG=colors.gray,TextfieldText=colors.black,ListBG=colors.gray,ListText=colors.black,MenubarBG=colors.gray,MenubarText=colors.black,DropdownBG=colors.gray,DropdownText=colors.black,RadioBG=colors.gray,RadioText=colors.black,SelectionBG=colors.black,SelectionText=colors.lightGray,GraphicBG=colors.black,ImageBG=colors.black,PaneBG=colors.black,ProgramBG=colors.black,ProgressbarBG=colors.gray,ProgressbarText=colors.black,ProgressbarActiveBG=colors.black,ScrollbarBG=colors.lightGray,ScrollbarText=colors.gray,ScrollbarSymbolColor=colors.black,SliderBG=false,SliderText=colors.gray,SliderSymbolColor=colors.black,SwitchBG=colors.lightGray,SwitchText=colors.gray,SwitchBGSymbol=colors.black,SwitchInactive=colors.red,SwitchActive=colors.green,LabelBG=false,LabelText=colors.black}end;local aM=require'basaltEvent'()local aN=require'Frame'local aO=require'theme'local aP=require'utils'local aQ=require'basaltLogs'local aR=aP.uuid;local aS=aP.createText;local aT=aP.tableCount;local aU=300;local aY=50;local aZ=term.current()local a_='1.6.2'local b0=fs.getDir''local b1,b2,b3,b4,b5,b6={},{},{},{},{},{}local b7,b8,b9,ba;local bb={}if not term.isColor or not term.isColor()then error('Basalt requires an advanced (golden) computer to run.',0)end;local function bc()ba=false;aZ.clear()aZ.setCursorPos(1,1)end;local bd=function(aV)aZ.clear()aZ.setBackgroundColor(colors.black)aZ.setTextColor(colors.red)local aW,aX=aZ.getSize()if bb.logging then aQ(aV,'Error')end;local bv=aS('Basalt error: '..aV,aW)local bA=1;for bB,bC in pairs(bv)do aZ.setCursorPos(1,bA)aZ.write(bC)bA=bA+1 end;aZ.setCursorPos(1,bA+1)ba=false end;local function be(aV)assert(aV~='function','Schedule needs a function in order to work!')return function(...)local aW=coroutine.create(aV)local aX,bv=coroutine.resume(aW,...)if aX then table.insert(b6,aW)else bd(bv)end end end;local bf=function(aV,aW)b5[aV]=aW end;local bg=function(aV)return b5[aV]end;local bh=function(aV)aO=aV end;local bi=function(aV)return aO[aV]end;local bj={getMainFrame=function()return b7 end,setVariable=bf,getVariable=bg,getTheme=bi,setMainFrame=function(aV)b7=aV end,getActiveFrame=function()return b8 end,setActiveFrame=function(aV)b8=aV end,getFocusedObject=function()return b9 end,setFocusedObject=function(aV)b9=aV end,getMonitorFrame=function(aV)return b3[aV]or b4[aV][1]end,setMonitorFrame=function(aV,aW,aX)if b7==aW then b7=nil end;if aX then b4[aV]={aW,sides}else b3[aV]=aW end;if aW==nil then b4[aV]=nil end end,getBaseTerm=function()return aZ end,schedule=be,stop=bc,newFrame=aN,getDirectory=function()return b0 end}local function bk(aV,aW,aX,bv,bA)if#b6>0 then local bB={}for bS=1,#b6 do if b6[bS]~=nil then if coroutine.status(b6[bS])=='suspended'then local bC,bD=coroutine.resume(b6[bS],aV,aW,aX,bv,bA)if not bC then bd(bD)end else table.insert(bB,bS)end end end;for bS=1,#bB do table.remove(b6,bB[bS]-(bS-1))end end end;local function bl()if ba==false then return end;if b7~=nil then b7:draw()b7:updateTerm()end;for aV,aW in pairs(b3)do aW:draw()aW:updateTerm()end;for aV,aW in pairs(b4)do aW[1]:draw()aW[1]:updateTerm()end end;local bm,bn,bo=nil,nil,nil;local bp=nil;local function bq(aV,aW,aX)bm,bn,bo=bm,aW,aX;if bp==nil then bp=os.startTimer(aU/1000)end end;local function br()bp=nil;b7:hoverHandler(bn,bo,bm)b8=b7 end;local bs,bt,bu=nil,nil,nil;local bw=nil;local function bx()bw=nil;b7:dragHandler(bs,bt,bu)b8=b7 end;local function by(aV,aW,aX)bs,bt,bu=aV,aW,aX;if aY<50 then bx()else if bw==nil then bw=os.startTimer(aY/1000)end end end;local function bz(aV,aW,aX,bv,bA)if aM:sendEvent('basaltEventCycle',aV,aW,aX,bv,bA)==false then return end;if b7~=nil then if aV=='mouse_click'then b7:mouseHandler(aW,aX,bv,false)b8=b7 elseif aV=='mouse_drag'then by(aW,aX,bv)elseif aV=='mouse_up'then b7:mouseUpHandler(aW,aX,bv,bA)b8=b7 elseif aV=='mouse_scroll'then b7:scrollHandler(aW,aX,bv,bA)b8=b7 elseif aV=='mouse_move'then bq(aW,aX,bv)end end;if aV=='monitor_touch'then if b3[aW]~=nil then b3[aW]:mouseHandler(1,aX,bv,true)b8=b3[aW]end;if aT(b4)>0 then for bB,bC in pairs(b4)do bC[1]:mouseHandler(1,aX,bv,true,aW)end end end;if aV=='char'then if b8~=nil then b8:charHandler(aW)end end;if aV=='key_up'then if b8~=nil then b8:keyUpHandler(aW)end;b1[aW]=false end;if aV=='key'then if b8~=nil then b8:keyHandler(aW,aX)end;b1[aW]=true end;if aV=='terminate'then if b8~=nil then b8:eventHandler(aV)if ba==false then return end end end;if aV~='mouse_click'and aV~='mouse_up'and aV~='mouse_scroll'and aV~='mouse_drag'and aV~='mouse_move'and aV~='key'and aV~='key_up'and aV~='char'and aV~='terminate'then if aV=='timer'and aW==bp then br()elseif aV=='timer'and aW==bw then bx()else for bB,bC in pairs(b2)do bC:eventHandler(aV,aW,aX,bv,bA)end end end;bk(aV,aW,aX,bv,bA)bl()end;bb={logging=false,setTheme=bh,getTheme=bi,drawFrames=bl,getVersion=function()return a_ end,setVariable=bf,getVariable=bg,setBaseTerm=function(aV)aZ=aV end,log=function(...)aQ(...)end,setMouseMoveThrottle=function(aV)if _HOST:find'CraftOS%-PC'then if config.get'mouse_move_throttle'~=10 then config.set('mouse_move_throttle',10)end;if aV<100 then aU=100 else aU=aV end;return true end;return false end,setMouseDragThrottle=function(aV)if aV<=0 then aY=0 else bw=nil;aY=aV end end,autoUpdate=function(aV)ba=aV;if aV==nil then ba=true end;local function aW()bl()while ba do bz(os.pullEventRaw())end end;local aX,bv=xpcall(aW,debug.traceback)if not aX then bd(bv)return end end,update=function(aV,aW,aX,bv,bA)if aV~=nil then local bB,bC=xpcall(bz,debug.traceback,aV,aW,aX,bv,bA)if not bB then bd(bC)return end end end,stop=bc,stopUpdate=bc,isKeyDown=function(aV)if b1[aV]==nil then return false end;return b1[aV]end,getFrame=function(aV)for aW,aX in pairs(b2)do if aX.name==aV then return aX end end end,getActiveFrame=function()return b8 end,setActiveFrame=function(aV)if aV:getType()=='Frame'then b8=aV;return true end;return false end,onEvent=function(...)for aV,aW in pairs(table.pack(...))do if type(aW)=='function'then aM:registerEvent('basaltEventCycle',aW)end end end,schedule=be,createFrame=function(aV)aV=aV or aR()for aX,bv in pairs(b2)do if bv.name==aV then return nil end end;local aW=aN(aV,nil,nil,bj)aW:init()table.insert(b2,aW)if b7==nil and aW:getName()~='basaltDebuggingFrame'then aW:show()end;return aW end,removeFrame=function(aV)b2[aV]=nil end,setProjectDir=function(aV)b0=aV end,debug=function(...)local aV={...}if b7==nil then print(...)return end;if b7.name~='basaltDebuggingFrame'then if b7~=bb.debugFrame then bb.debugLabel:setParent(b7)end end;local aW=''for aX,bv in pairs(aV)do aW=aW..tostring(bv)..(#aV~=aX and', 'or'')end;bb.debugLabel:setText('[Debug] '..aW)for aX,bv in pairs(aS(aW,bb.debugList:getWidth()))do bb.debugList:addItem(bv)end;if bb.debugList:getItemCount()>50 then bb.debugList:removeItem(1)end;bb.debugList:setValue(bb.debugList:getItem(bb.debugList:getItemCount()))if bb.debugList.getItemCount()>bb.debugList:getHeight()then bb.debugList:setOffset(bb.debugList:getItemCount()-bb.debugList:getHeight())end;bb.debugLabel:show()end}bb.debugFrame=bb.createFrame('basaltDebuggingFrame'):showBar():setBackground(colors.lightGray):setBar('Debug',colors.black,colors.gray)bb.debugFrame:addButton('back'):setAnchor('topRight'):setSize(1,1):setText('\22'):onClick(function()if bb.oldFrame~=nil then bb.oldFrame:show()end end):setBackground(colors.red):show()bb.debugList=bb.debugFrame:addList('debugList'):setSize('parent.w - 2','parent.h - 3'):setPosition(2,3):setScrollable(true):show()bb.debugLabel=bb.debugFrame:addLabel('debugLabel'):onClick(function()bb.oldFrame=b7;bb.debugFrame:show()end):setBackground(colors.black):setForeground(colors.white):setAnchor('bottomLeft'):ignoreOffset():setZIndex(20):show()return bb end;d['packages/basalt.lua'].cache=c;d['packages/basalt.lua'].isCached=false;d['packages/base64.lua']={}d['packages/base64.lua'].load=function()local l='base64.lua'local m='packages/base64.lua'local n='packages'local o='abb838d74919d0c924ed1acf353dcf667886b064e70a109c7bd514b0e96f38c168e23adf930d75cfc288dad437591d485b8a35ce11fa4f8dc08a8090956796bd'local c_={}local d0={}for d1=65,90 do table.insert(c_,d1)end;for d1=97,122 do table.insert(c_,d1)end;for d1=48,57 do table.insert(c_,d1)end;table.insert(c_,43)table.insert(c_,47)for d1,d2 in ipairs(c_)do d0[d2]=d1 end;local d3={}local d4=bit32.rshift;local d5=bit32.lshift;local d6=bit32.band;function d3.Encode(d7)local d8={}local d9=0;for d1=1,#d7,3 do local da,db,dc=string.byte(d7,d1,d1+2)local dd=d4(da,2)local de=d5(d6(da,3),4)+d4(db or 0,4)local df=d5(d6(db or 0,15),2)+d4(dc or 0,6)local dg=d6(dc or 0,63)d9=d9+1;d8[d9]=c_[dd+1]d9=d9+1;d8[d9]=c_[de+1]d9=d9+1;d8[d9]=db and c_[df+1]or 61;d9=d9+1;d8[d9]=dc and c_[dg+1]or 61 end;local dh={}local di=0;local dj;for d1=1,d9,4096 do di=di+1;dj=d1+4096-1;dh[di]=string.char(table.unpack(d8,d1,dj>d9 and d9 or dj))end;return table.concat(dh)end;function d3.Decode(d7)local d8={}local d9=0;for d1=1,#d7,4 do local da,db,dc,dk=string.byte(d7,d1,d1+3)local dl=d0[da]-1;local dm=d0[db]-1;local dn=(d0[dc]or 1)-1;local dp=(d0[dk]or 1)-1;local dd=d5(dl,2)+d4(dm,4)local de=d5(d6(dm,15),4)+d4(dn,2)local df=d5(d6(dn,3),6)+dp;d9=d9+1;d8[d9]=dd;if dc~=61 then d9=d9+1;d8[d9]=de end;if dk~=61 then d9=d9+1;d8[d9]=df end end;local dh={}local di=0;local dj;for d1=1,d9,4096 do di=di+1;dj=d1+4096-1;dh[di]=string.char(table.unpack(d8,d1,dj>d9 and d9 or dj))end;return table.concat(dh)end;return d3 end;d['packages/base64.lua'].cache=c;d['packages/base64.lua'].isCached=false;d['packages/bitop.lua']={}d['packages/bitop.lua'].load=function()local l='bitop.lua'local m='packages/bitop.lua'local n='packages'local o='3eb8138fba20e6efce960c977bd8b3d0120aa7c230bc95a3ec462484610b8433d05a6035ad08c36f43925f6af3d63338fcde5ed1956391b382b49546ed9e245b'local dq={_TYPE='module',_NAME='bitop.funcs',_VERSION='1.0-0'}local dr=math.floor;local ds=2^32;local dt=ds-1;local function du(X)local dv={}local dw=setmetatable({},dv)function dv:__index(af)local ag=X(af)dw[af]=ag;return ag end;return dw end;local function dx(dw,dy)local function dz(cX,aJ)local dA,dB=0,1;while cX~=0 and aJ~=0 do local dC,dD=cX%dy,aJ%dy;dA=dA+dw[dC][dD]*dB;cX=(cX-dC)/dy;aJ=(aJ-dD)/dy;dB=dB*dy end;dA=dA+(cX+aJ)*dB;return dA end;return dz end;local function dE(dw)local dF=dx(dw,2^1)local dG=du(function(cX)return du(function(aJ)return dF(cX,aJ)end)end)return dx(dG,2^(dw.n or 1))end;function dq.tobit(x)return x%2^32 end;dq.bxor=dE{[0]={[0]=0,[1]=1},[1]={[0]=1,[1]=0},n=4}local dH=dq.bxor;function dq.bnot(cX)return dt-cX end;local dI=dq.bnot;function dq.band(cX,aJ)return(cX+aJ-dH(cX,aJ))/2 end;local dJ=dq.band;function dq.bor(cX,aJ)return dt-dJ(dt-cX,dt-aJ)end;local dK=dq.bor;local dL,dM;function dq.rshift(cX,dN)if dN<0 then return dL(cX,-dN)end;return dr(cX%2^32/2^dN)end;dM=dq.rshift;function dq.lshift(cX,dN)if dN<0 then return dM(cX,-dN)end;return cX*2^dN%2^32 end;dL=dq.lshift;function dq.tohex(x,bS)bS=bS or 8;local dO;if bS<=0 then if bS==0 then return''end;dO=true;bS=-bS end;x=dJ(x,16^bS-1)return('%0'..bS..(dO and'X'or'x')):format(x)end;local dP=dq.tohex;function dq.extract(bS,dQ,dR)dR=dR or 1;return dJ(dM(bS,dQ),2^dR-1)end;local dS=dq.extract;function dq.replace(bS,ag,dQ,dR)dR=dR or 1;local dT=2^dR-1;ag=dJ(ag,dT)local dU=dI(dL(dT,dQ))return dJ(bS,dU)+dL(ag,dQ)end;local dV=dq.replace;function dq.bswap(x)local cX=dJ(x,0xff)x=dM(x,8)local aJ=dJ(x,0xff)x=dM(x,8)local ct=dJ(x,0xff)x=dM(x,8)local ck=dJ(x,0xff)return dL(dL(dL(cX,8)+aJ,8)+ct,8)+ck end;local dW=dq.bswap;function dq.rrotate(x,dN)dN=dN%32;local dX=dJ(x,2^dN-1)return dM(x,dN)+dL(dX,32-dN)end;local dY=dq.rrotate;function dq.lrotate(x,dN)return dY(x,-dN)end;local dZ=dq.lrotate;dq.rol=dq.lrotate;dq.ror=dq.rrotate;function dq.arshift(x,dN)local d_=dM(x,dN)if x>=0x80000000 then d_=d_+dL(2^dN-1,32-dN)end;return d_ end;local e0=dq.arshift;function dq.btest(x,y)return dJ(x,y)~=0 end;dq.bit32={}local function e1(x)return(-1-x)%ds end;dq.bit32.bnot=e1;local function e2(cX,aJ,ct,...)local d_;if aJ then cX=cX%ds;aJ=aJ%ds;d_=dH(cX,aJ)if ct then d_=e2(d_,ct,...)end;return d_ elseif cX then return cX%ds else return 0 end end;dq.bit32.bxor=e2;local function d6(cX,aJ,ct,...)local d_;if aJ then cX=cX%ds;aJ=aJ%ds;d_=(cX+aJ-dH(cX,aJ))/2;if ct then d_=d6(d_,ct,...)end;return d_ elseif cX then return cX%ds else return dt end end;dq.bit32.band=d6;local function e3(cX,aJ,ct,...)local d_;if aJ then cX=cX%ds;aJ=aJ%ds;d_=dt-dJ(dt-cX,dt-aJ)if ct then d_=e3(d_,ct,...)end;return d_ elseif cX then return cX%ds else return 0 end end;dq.bit32.bor=e3;function dq.bit32.btest(...)return d6(...)~=0 end;function dq.bit32.lrotate(x,dN)return dZ(x%ds,dN)end;function dq.bit32.rrotate(x,dN)return dY(x%ds,dN)end;function dq.bit32.lshift(x,dN)if dN>31 or dN<-31 then return 0 end;return dL(x%ds,dN)end;function dq.bit32.rshift(x,dN)if dN>31 or dN<-31 then return 0 end;return dM(x%ds,dN)end;function dq.bit32.arshift(x,dN)x=x%ds;if dN>=0 then if dN>31 then return x>=0x80000000 and dt or 0 else local d_=dM(x,dN)if x>=0x80000000 then d_=d_+dL(2^dN-1,32-dN)end;return d_ end else return dL(x,-dN)end end;function dq.bit32.extract(x,dQ,...)local dR=...or 1;if dQ<0 or dQ>31 or dR<0 or dQ+dR>32 then error'out of range'end;x=x%ds;return dS(x,dQ,...)end;function dq.bit32.replace(x,ag,dQ,...)local dR=...or 1;if dQ<0 or dQ>31 or dR<0 or dQ+dR>32 then error'out of range'end;x=x%ds;ag=ag%ds;return dV(x,ag,dQ,...)end;dq.bit={}function dq.bit.tobit(x)x=x%ds;if x>=0x80000000 then x=x-ds end;return x end;local e4=dq.bit.tobit;function dq.bit.tohex(x,...)return dP(x%ds,...)end;function dq.bit.bnot(x)return e4(dI(x%ds))end;local function e5(cX,aJ,ct,...)if ct then return e5(e5(cX,aJ),ct,...)elseif aJ then return e4(dK(cX%ds,aJ%ds))else return e4(cX)end end;dq.bit.bor=e5;local function e6(cX,aJ,ct,...)if ct then return e6(e6(cX,aJ),ct,...)elseif aJ then return e4(dJ(cX%ds,aJ%ds))else return e4(cX)end end;dq.bit.band=e6;local function e7(cX,aJ,ct,...)if ct then return e7(e7(cX,aJ),ct,...)elseif aJ then return e4(dH(cX%ds,aJ%ds))else return e4(cX)end end;dq.bit.bxor=e7;function dq.bit.lshift(x,bS)return e4(dL(x%ds,bS%32))end;function dq.bit.rshift(x,bS)return e4(dM(x%ds,bS%32))end;function dq.bit.arshift(x,bS)return e4(e0(x%ds,bS%32))end;function dq.bit.rol(x,bS)return e4(dZ(x%ds,bS%32))end;function dq.bit.ror(x,bS)return e4(dY(x%ds,bS%32))end;function dq.bit.bswap(x)return e4(dW(x%ds))end;return dq end;d['packages/bitop.lua'].cache=c;d['packages/bitop.lua'].isCached=false;d['packages/child_process.lua']={}d['packages/child_process.lua'].load=function()local l='child_process.lua'local m='packages/child_process.lua'local n='packages'local o='d4d9127b6d57470743431b879789e451653aa26ade0fc0440567f71aefbaddd05601ce4fcf995065ff2ebe3c70eb5c88c380ea8d1bc7015a06f330e14d75b5fc'local e8=0;return{['execSync']=function(e9,...)error'non-functional as of now'end,['execLuaSync']=function(ea,eb)e8=e8+1;local ct,ec=loadstring(ea,eb or'Unknown Chunk Name - Chunk #'..tostring(e8))if not ct then error('Compilation Error: '..ec)end;return ct()end}end;d['packages/child_process.lua'].cache=c;d['packages/child_process.lua'].isCached=false;d['packages/console.lua']={}d['packages/console.lua'].load=function()local l='console.lua'local m='packages/console.lua'local n='packages'local o='4680436d6f199fd8fcb61ecc496c4bf33dbe7448eb2eefe36f8d0ab419726c0183db12921807d96b6d921011909418ca6d6ed8156e4a53ec2a0adee832c88a11'return{['clear']=function()term.clear()term.setCursorPos(1,1)end,['log']=print,['warn']=print,['error']=print,['centerLog']=function(ed)local ee,ef=term.getSize()local g,eg=ed:gsub('\n','')term.setCursorPos(math.floor(ee/2)-math.floor(#ed/2),math.floor(ef/2)-math.floor(eg/2))print(ed)end,['logNoNl']=function(ed)local x,y=term.getCursorPos()term.write(ed)term.setCursorPos(x+#ed,y)end}end;d['packages/console.lua'].cache=c;d['packages/console.lua'].isCached=false;d['packages/forceyield.lua']={}d['packages/forceyield.lua'].load=function()local l='forceyield.lua'local m='packages/forceyield.lua'local n='packages'local o='eb04b7f3c25eb022ecf4eb6d4cd49852ba4d34df8f91b9a51667256940f57f740f52dc3c6b3e3630b96f26bc12fee62fb72ed3f7ecc9608960b9727b447b964a'return function()os.queueEvent'fakeEvent'os.pullEvent()end end;d['packages/forceyield.lua'].cache=c;d['packages/forceyield.lua'].isCached=false;d['packages/hash.lua']={}d['packages/hash.lua'].load=function()local l='hash.lua'local m='packages/hash.lua'local n='packages'local o='634545ee941dd77783331999bdf495b4922468b96b61595d91f7b6bb76a09319f23ec27b6cf379889b8fd528366d47aa45563bcf1f5a3bfe2e5f5cbb385b3d66'local d3=require'base64'local ipairs=ipairs;local d6=bit32.band;local e3=bit32.bor;local e2=bit32.bxor;local d5=bit32.lshift;local d4=bit32.rshift;local eh=bit32.lrotate;local ei=bit32.rrotate;local ej,ek,el,em,en,eo={},{},{},{},{},{}local ep={[224]={},[256]=em}local eq,er={[384]={},[512]=el},{[384]={},[512]=em}local es,et={},{0x67452301,0xEFCDAB89,0x98BADCFE,0x10325476,0xC3D2E1F0}local eu={0,0,0,0,0,0,0,0,28,25,26,27,0,0,10,9,11,12,0,15,16,17,18,0,20,22,23,21}local ev,ew,ex;local ey={}local ez,eA,eB=4294967296,0,0;local eC=2^-56;local eD=2^-17;local eE=2^2;local eF=2^3;local eG=2^4;local eH=2^5;local eI=2^6;local eJ=2^7;local eK=2^8;local eL=2^9;local eM=2^10;local eN=2^11;local eO=2^12;local eP=2^13;local eQ=2^14;local eR=2^15;local eS=2^16;local eT=2^17;local eU=2^18;local eV=2^19;local eW=2^20;local eX=2^21;local eY=2^22;local eZ=2^23;local e_=2^24;local f0=2^25;local f1=2^26;local f2=2^27;local f3=2^28;local f4=2^29;local f5=2^30;local f6=2^31;local f7=2^32;local f8=2^40;local f9=256^7;local function fa(fb,fc,fd,fe)local ff,fg=ey,ek;local fh,fi,fj,fk,fl,fm,fn,fo=fb[1],fb[2],fb[3],fb[4],fb[5],fb[6],fb[7],fb[8]for fp=fd,fd+fe-1,64 do for cv=1,16 do fp=fp+4;local cX,aJ,ct,ck=string.byte(fc,fp-3,fp)ff[cv]=((cX*256+aJ)*256+ct)*256+ck end;for cv=17,64 do local cX,aJ=ff[cv-15],ff[cv-2]ff[cv]=e2(ei(cX,7),eh(cX,14),d4(cX,3))+e2(eh(aJ,15),eh(aJ,13),d4(aJ,10))+ff[cv-7]+ff[cv-16]end;local cX,aJ,ct,ck,fq,X,fr,h=fh,fi,fj,fk,fl,fm,fn,fo;for cv=1,64 do local d_=e2(ei(fq,6),ei(fq,11),eh(fq,7))+d6(fq,X)+d6(-1-fq,fr)+h+fg[cv]+ff[cv]h=fr;fr=X;X=fq;fq=d_+ck;ck=ct;ct=aJ;aJ=cX;cX=d_+d6(ck,ct)+d6(cX,e2(ck,ct))+e2(ei(cX,2),ei(cX,13),eh(cX,10))end;fh,fi,fj,fk=(cX+fh)%4294967296,(aJ+fi)%4294967296,(ct+fj)%4294967296,(ck+fk)%4294967296;fl,fm,fn,fo=(fq+fl)%4294967296,(X+fm)%4294967296,(fr+fn)%4294967296,(h+fo)%4294967296 end;fb[1],fb[2],fb[3],fb[4],fb[5],fb[6],fb[7],fb[8]=fh,fi,fj,fk,fl,fm,fn,fo end;local function ft(fu,fv,fc,fd,fe)local ff,fw,fx=ey,ej,ek;local fy,fz,fA,fB,fC,fD,fE,fF=fu[1],fu[2],fu[3],fu[4],fu[5],fu[6],fu[7],fu[8]local fG,fH,fI,fJ,fK,fL,fM,fN=fv[1],fv[2],fv[3],fv[4],fv[5],fv[6],fv[7],fv[8]for fp=fd,fd+fe-1,128 do for cv=1,16*2 do fp=fp+4;local cX,aJ,ct,ck=string.byte(fc,fp-3,fp)ff[cv]=((cX*256+aJ)*256+ct)*256+ck end;for fO=34,160,2 do local fP,fQ,fR,fS=ff[fO-30],ff[fO-31],ff[fO-4],ff[fO-5]local fT=e2(d4(fP,1)+d5(fQ,31),d4(fP,8)+d5(fQ,24),d4(fP,7)+d5(fQ,25))%4294967296+e2(d4(fR,19)+d5(fS,13),d5(fR,3)+d4(fS,29),d4(fR,6)+d5(fS,26))%4294967296+ff[fO-14]+ff[fO-32]local fU=fT%4294967296;ff[fO-1]=e2(d4(fQ,1)+d5(fP,31),d4(fQ,8)+d5(fP,24),d4(fQ,7))+e2(d4(fS,19)+d5(fR,13),d5(fS,3)+d4(fR,29),d4(fS,6))+ff[fO-15]+ff[fO-33]+(fT-fU)/4294967296;ff[fO]=fU end;local fP,fR,fV,fW,fX,fY,fZ,f_=fy,fz,fA,fB,fC,fD,fE,fF;local fQ,fS,g0,g1,g2,g3,g4,g5=fG,fH,fI,fJ,fK,fL,fM,fN;for cv=1,80 do local fO=2*cv;local fT=e2(d4(fX,14)+d5(g2,18),d4(fX,18)+d5(g2,14),d5(fX,23)+d4(g2,9))%4294967296+(d6(fX,fY)+d6(-1-fX,fZ))%4294967296+f_+fw[cv]+ff[fO]local g6=fT%4294967296;local g7=e2(d4(g2,14)+d5(fX,18),d4(g2,18)+d5(fX,14),d5(g2,23)+d4(fX,9))+d6(g2,g3)+d6(-1-g2,g4)+g5+fx[cv]+ff[fO-1]+(fT-g6)/4294967296;f_=fZ;g5=g4;fZ=fY;g4=g3;fY=fX;g3=g2;fT=g6+fW;fX=fT%4294967296;g2=g7+g1+(fT-fX)/4294967296;fW=fV;g1=g0;fV=fR;g0=fS;fR=fP;fS=fQ;fT=g6+(d6(fW,fV)+d6(fR,e2(fW,fV)))%4294967296+e2(d4(fR,28)+d5(fS,4),d5(fR,30)+d4(fS,2),d5(fR,25)+d4(fS,7))%4294967296;fP=fT%4294967296;fQ=g7+d6(g1,g0)+d6(fS,e2(g1,g0))+e2(d4(fS,28)+d5(fR,4),d5(fS,30)+d4(fR,2),d5(fS,25)+d4(fR,7))+(fT-fP)/4294967296 end;fP=fy+fP;fy=fP%4294967296;fG=(fG+fQ+(fP-fy)/4294967296)%4294967296;fP=fz+fR;fz=fP%4294967296;fH=(fH+fS+(fP-fz)/4294967296)%4294967296;fP=fA+fV;fA=fP%4294967296;fI=(fI+g0+(fP-fA)/4294967296)%4294967296;fP=fB+fW;fB=fP%4294967296;fJ=(fJ+g1+(fP-fB)/4294967296)%4294967296;fP=fC+fX;fC=fP%4294967296;fK=(fK+g2+(fP-fC)/4294967296)%4294967296;fP=fD+fY;fD=fP%4294967296;fL=(fL+g3+(fP-fD)/4294967296)%4294967296;fP=fE+fZ;fE=fP%4294967296;fM=(fM+g4+(fP-fE)/4294967296)%4294967296;fP=fF+f_;fF=fP%4294967296;fN=(fN+g5+(fP-fF)/4294967296)%4294967296 end;fu[1],fu[2],fu[3],fu[4],fu[5],fu[6],fu[7],fu[8]=fy,fz,fA,fB,fC,fD,fE,fF;fv[1],fv[2],fv[3],fv[4],fv[5],fv[6],fv[7],fv[8]=fG,fH,fI,fJ,fK,fL,fM,fN end;local function g8(fb,fc,fd,fe)local ff,fg,eu=ey,es,eu;local fh,fi,fj,fk=fb[1],fb[2],fb[3],fb[4]for fp=fd,fd+fe-1,64 do for cv=1,16 do fp=fp+4;local cX,aJ,ct,ck=string.byte(fc,fp-3,fp)ff[cv]=((ck*256+ct)*256+aJ)*256+cX end;local cX,aJ,ct,ck=fh,fi,fj,fk;local aE=25;for cv=1,16 do local g9=ei(d6(aJ,ct)+d6(-1-aJ,ck)+cX+fg[cv]+ff[cv],aE)+aJ;aE=eu[aE]cX=ck;ck=ct;ct=aJ;aJ=g9 end;aE=27;for cv=17,32 do local g9=ei(d6(ck,aJ)+d6(-1-ck,ct)+cX+fg[cv]+ff[(5*cv-4)%16+1],aE)+aJ;aE=eu[aE]cX=ck;ck=ct;ct=aJ;aJ=g9 end;aE=28;for cv=33,48 do local g9=ei(e2(e2(aJ,ct),ck)+cX+fg[cv]+ff[(3*cv+2)%16+1],aE)+aJ;aE=eu[aE]cX=ck;ck=ct;ct=aJ;aJ=g9 end;aE=26;for cv=49,64 do local g9=ei(e2(ct,e3(aJ,-1-ck))+cX+fg[cv]+ff[(cv*7-7)%16+1],aE)+aJ;aE=eu[aE]cX=ck;ck=ct;ct=aJ;aJ=g9 end;fh=(cX+fh)%4294967296;fi=(aJ+fi)%4294967296;fj=(ct+fj)%4294967296;fk=(ck+fk)%4294967296 end;fb[1],fb[2],fb[3],fb[4]=fh,fi,fj,fk end;local function ga(fb,fc,fd,fe)local ff=ey;local fh,fi,fj,fk,fl=fb[1],fb[2],fb[3],fb[4],fb[5]for fp=fd,fd+fe-1,64 do for cv=1,16 do fp=fp+4;local cX,aJ,ct,ck=string.byte(fc,fp-3,fp)ff[cv]=((cX*256+aJ)*256+ct)*256+ck end;for cv=17,80 do ff[cv]=eh(e2(ff[cv-3],ff[cv-8],ff[cv-14],ff[cv-16]),1)end;local cX,aJ,ct,ck,fq=fh,fi,fj,fk,fl;for cv=1,20 do local d_=eh(cX,5)+d6(aJ,ct)+d6(-1-aJ,ck)+0x5A827999+ff[cv]+fq;fq=ck;ck=ct;ct=ei(aJ,2)aJ=cX;cX=d_ end;for cv=21,40 do local d_=eh(cX,5)+e2(aJ,ct,ck)+0x6ED9EBA1+ff[cv]+fq;fq=ck;ck=ct;ct=ei(aJ,2)aJ=cX;cX=d_ end;for cv=41,60 do local d_=eh(cX,5)+d6(ck,ct)+d6(aJ,e2(ck,ct))+0x8F1BBCDC+ff[cv]+fq;fq=ck;ck=ct;ct=ei(aJ,2)aJ=cX;cX=d_ end;for cv=61,80 do local d_=eh(cX,5)+e2(aJ,ct,ck)+0xCA62C1D6+ff[cv]+fq;fq=ck;ck=ct;ct=ei(aJ,2)aJ=cX;cX=d_ end;fh=(cX+fh)%4294967296;fi=(aJ+fi)%4294967296;fj=(ct+fj)%4294967296;fk=(ck+fk)%4294967296;fl=(fq+fl)%4294967296 end;fb[1],fb[2],fb[3],fb[4],fb[5]=fh,fi,fj,fk,fl end;local function gb(gc,gd,fc,fd,fe,ge)local gf,gg=en,eo;local gh=ge/8;for fp=fd,fd+fe-1,ge do for cv=1,gh do local cX,aJ,ct,ck=string.byte(fc,fp+1,fp+4)gc[cv]=e2(gc[cv],((ck*256+ct)*256+aJ)*256+cX)fp=fp+8;cX,aJ,ct,ck=string.byte(fc,fp-3,fp)gd[cv]=e2(gd[cv],((ck*256+ct)*256+aJ)*256+cX)end;local gi,gj,gk,gl,gm,gn,go,gp,gq,gr,gs,gt,gu,gv,gw,gx,gy,gz,gA,gB,gC,gD,gE,gF,gG,gH,gI,gJ,gK,gL,gM,gN,gO,gP,gQ,gR,gS,gT,gU,gV,gW,gX,gY,gZ,g_,h0,h1,h2,h3,h4=gc[1],gd[1],gc[2],gd[2],gc[3],gd[3],gc[4],gd[4],gc[5],gd[5],gc[6],gd[6],gc[7],gd[7],gc[8],gd[8],gc[9],gd[9],gc[10],gd[10],gc[11],gd[11],gc[12],gd[12],gc[13],gd[13],gc[14],gd[14],gc[15],gd[15],gc[16],gd[16],gc[17],gd[17],gc[18],gd[18],gc[19],gd[19],gc[20],gd[20],gc[21],gd[21],gc[22],gd[22],gc[23],gd[23],gc[24],gd[24],gc[25],gd[25]for h5=1,24 do local h6=e2(gi,gs,gC,gM,gW)local h7=e2(gj,gt,gD,gN,gX)local h8=e2(gk,gu,gE,gO,gY)local h9=e2(gl,gv,gF,gP,gZ)local ha=e2(gm,gw,gG,gQ,g_)local hb=e2(gn,gx,gH,gR,h0)local hc=e2(go,gy,gI,gS,h1)local hd=e2(gp,gz,gJ,gT,h2)local he=e2(gq,gA,gK,gU,h3)local hf=e2(gr,gB,gL,gV,h4)local hg=e2(h6,ha*2+(hb%f7-hb%f6)/f6)local hh=e2(h7,hb*2+(ha%f7-ha%f6)/f6)local hi=e2(hg,gk)local hj=e2(hh,gl)local hk=e2(hg,gu)local hl=e2(hh,gv)local hm=e2(hg,gE)local hn=e2(hh,gF)local ho=e2(hg,gO)local hp=e2(hh,gP)local hq=e2(hg,gY)local hr=e2(hh,gZ)gk=(hk%f7-hk%eW)/eW+hl*eO;gl=(hl%f7-hl%eW)/eW+hk*eO;gu=(ho%f7-ho%eV)/eV+hp*eP;gv=(hp%f7-hp%eV)/eV+ho*eP;gE=hi*2+(hj%f7-hj%f6)/f6;gF=hj*2+(hi%f7-hi%f6)/f6;gO=hm*eM+(hn%f7-hn%eY)/eY;gP=hn*eM+(hm%f7-hm%eY)/eY;gY=hq*eE+(hr%f7-hr%f5)/f5;gZ=hr*eE+(hq%f7-hq%f5)/f5;hg=e2(h8,hc*2+(hd%f7-hd%f6)/f6)hh=e2(h9,hd*2+(hc%f7-hc%f6)/f6)hi=e2(hg,gm)hj=e2(hh,gn)hk=e2(hg,gw)hl=e2(hh,gx)hm=e2(hg,gG)hn=e2(hh,gH)ho=e2(hg,gQ)hp=e2(hh,gR)hq=e2(hg,g_)hr=e2(hh,h0)gm=(hm%f7-hm%eX)/eX+hn*eN;gn=(hn%f7-hn%eX)/eX+hm*eN;gw=(hq%f7-hq%eF)/eF+hr*f4%f7;gx=(hr%f7-hr%eF)/eF+hq*f4%f7;gG=hk*eI+(hl%f7-hl%f1)/f1;gH=hl*eI+(hk%f7-hk%f1)/f1;gQ=ho*eR+(hp%f7-hp%eT)/eT;gR=hp*eR+(ho%f7-ho%eT)/eT;g_=(hi%f7-hi%eE)/eE+hj*f5%f7;h0=(hj%f7-hj%eE)/eE+hi*f5%f7;hg=e2(ha,he*2+(hf%f7-hf%f6)/f6)hh=e2(hb,hf*2+(he%f7-he%f6)/f6)hi=e2(hg,go)hj=e2(hh,gp)hk=e2(hg,gy)hl=e2(hh,gz)hm=e2(hg,gI)hn=e2(hh,gJ)ho=e2(hg,gS)hp=e2(hh,gT)hq=e2(hg,h1)hr=e2(hh,h2)go=ho*eX%f7+(hp%f7-hp%eN)/eN;gp=hp*eX%f7+(ho%f7-ho%eN)/eN;gy=hi*f3%f7+(hj%f7-hj%eG)/eG;gz=hj*f3%f7+(hi%f7-hi%eG)/eG;gI=hm*f0%f7+(hn%f7-hn%eJ)/eJ;gJ=hn*f0%f7+(hm%f7-hm%eJ)/eJ;gS=(hq%f7-hq%eK)/eK+hr*e_%f7;gT=(hr%f7-hr%eK)/eK+hq*e_%f7;h1=(hk%f7-hk%eL)/eL+hl*eZ%f7;h2=(hl%f7-hl%eL)/eL+hk*eZ%f7;hg=e2(hc,h6*2+(h7%f7-h7%f6)/f6)hh=e2(hd,h7*2+(h6%f7-h6%f6)/f6)hi=e2(hg,gq)hj=e2(hh,gr)hk=e2(hg,gA)hl=e2(hh,gB)hm=e2(hg,gK)hn=e2(hh,gL)ho=e2(hg,gU)hp=e2(hh,gV)hq=e2(hg,h3)hr=e2(hh,h4)gq=hq*eQ+(hr%f7-hr%eU)/eU;gr=hr*eQ+(hq%f7-hq%eU)/eU;gA=hk*eW%f7+(hl%f7-hl%eO)/eO;gB=hl*eW%f7+(hk%f7-hk%eO)/eO;gK=ho*eK+(hp%f7-hp%e_)/e_;gL=hp*eK+(ho%f7-ho%e_)/e_;gU=hi*f2%f7+(hj%f7-hj%eH)/eH;gV=hj*f2%f7+(hi%f7-hi%eH)/eH;h3=(hm%f7-hm%f0)/f0+hn*eJ;h4=(hn%f7-hn%f0)/f0+hm*eJ;hg=e2(he,h8*2+(h9%f7-h9%f6)/f6)hh=e2(hf,h9*2+(h8%f7-h8%f6)/f6)hk=e2(hg,gs)hl=e2(hh,gt)hm=e2(hg,gC)hn=e2(hh,gD)ho=e2(hg,gM)hp=e2(hh,gN)hq=e2(hg,gW)hr=e2(hh,gX)gs=hm*eF+(hn%f7-hn%f4)/f4;gt=hn*eF+(hm%f7-hm%f4)/f4;gC=hq*eU+(hr%f7-hr%eQ)/eQ;gD=hr*eU+(hq%f7-hq%eQ)/eQ;gM=(hk%f7-hk%f3)/f3+hl*eG;gN=(hl%f7-hl%f3)/f3+hk*eG;gW=(ho%f7-ho%eZ)/eZ+hp*eL;gX=(hp%f7-hp%eZ)/eZ+ho*eL;gi=e2(hg,gi)gj=e2(hh,gj)gi,gk,gm,go,gq=e2(gi,d6(-1-gk,gm)),e2(gk,d6(-1-gm,go)),e2(gm,d6(-1-go,gq)),e2(go,d6(-1-gq,gi)),e2(gq,d6(-1-gi,gk))gj,gl,gn,gp,gr=e2(gj,d6(-1-gl,gn)),e2(gl,d6(-1-gn,gp)),e2(gn,d6(-1-gp,gr)),e2(gp,d6(-1-gr,gj)),e2(gr,d6(-1-gj,gl))gs,gu,gw,gy,gA=e2(gy,d6(-1-gA,gs)),e2(gA,d6(-1-gs,gu)),e2(gs,d6(-1-gu,gw)),e2(gu,d6(-1-gw,gy)),e2(gw,d6(-1-gy,gA))gt,gv,gx,gz,gB=e2(gz,d6(-1-gB,gt)),e2(gB,d6(-1-gt,gv)),e2(gt,d6(-1-gv,gx)),e2(gv,d6(-1-gx,gz)),e2(gx,d6(-1-gz,gB))gC,gE,gG,gI,gK=e2(gE,d6(-1-gG,gI)),e2(gG,d6(-1-gI,gK)),e2(gI,d6(-1-gK,gC)),e2(gK,d6(-1-gC,gE)),e2(gC,d6(-1-gE,gG))gD,gF,gH,gJ,gL=e2(gF,d6(-1-gH,gJ)),e2(gH,d6(-1-gJ,gL)),e2(gJ,d6(-1-gL,gD)),e2(gL,d6(-1-gD,gF)),e2(gD,d6(-1-gF,gH))gM,gO,gQ,gS,gU=e2(gU,d6(-1-gM,gO)),e2(gM,d6(-1-gO,gQ)),e2(gO,d6(-1-gQ,gS)),e2(gQ,d6(-1-gS,gU)),e2(gS,d6(-1-gU,gM))gN,gP,gR,gT,gV=e2(gV,d6(-1-gN,gP)),e2(gN,d6(-1-gP,gR)),e2(gP,d6(-1-gR,gT)),e2(gR,d6(-1-gT,gV)),e2(gT,d6(-1-gV,gN))gW,gY,g_,h1,h3=e2(g_,d6(-1-h1,h3)),e2(h1,d6(-1-h3,gW)),e2(h3,d6(-1-gW,gY)),e2(gW,d6(-1-gY,g_)),e2(gY,d6(-1-g_,h1))gX,gZ,h0,h2,h4=e2(h0,d6(-1-h2,h4)),e2(h2,d6(-1-h4,gX)),e2(h4,d6(-1-gX,gZ)),e2(gX,d6(-1-gZ,h0)),e2(gZ,d6(-1-h0,h2))gi=e2(gi,gf[h5])gj=gj+gg[h5]end;gc[1]=gi;gd[1]=gj;gc[2]=gk;gd[2]=gl;gc[3]=gm;gd[3]=gn;gc[4]=go;gd[4]=gp;gc[5]=gq;gd[5]=gr;gc[6]=gs;gd[6]=gt;gc[7]=gu;gd[7]=gv;gc[8]=gw;gd[8]=gx;gc[9]=gy;gd[9]=gz;gc[10]=gA;gd[10]=gB;gc[11]=gC;gd[11]=gD;gc[12]=gE;gd[12]=gF;gc[13]=gG;gd[13]=gH;gc[14]=gI;gd[14]=gJ;gc[15]=gK;gd[15]=gL;gc[16]=gM;gd[16]=gN;gc[17]=gO;gd[17]=gP;gc[18]=gQ;gd[18]=gR;gc[19]=gS;gd[19]=gT;gc[20]=gU;gd[20]=gV;gc[21]=gW;gd[21]=gX;gc[22]=gY;gd[22]=gZ;gc[23]=g_;gd[23]=h0;gc[24]=h1;gd[24]=h2;gc[25]=h3;gd[25]=h4 end end;do local function hs(ht,hu,hv,hw)local result,hx,hy,hz=table.create(hw),0,0,1;for cv=1,hw do for af=math.max(1,cv+1-#hu),math.min(cv,#ht)do hx=hx+hv*ht[af]*hu[cv+1-af]end;local hA=hx%e_;result[cv]=math.floor(hA)hx=(hx-hA)/e_;hy=hy+hA*hz;hz=hz*e_ end;return result,hy end;local hB,hC,dB,hD,hE,hF=0,{4,1,2,-2,2},4,{1},em,el;repeat dB=dB+hC[dB%6]local ck=1;repeat ck=ck+hC[ck%6]if ck*ck>dB then local hG=dB^(1/3)local hH=hG*f8;hH=hs(table.create(1,math.floor(hH)),hD,1,2)local g,hI=hs(hH,hs(hH,hH,1,4),-1,4)local hJ=hH[2]%65536*65536+math.floor(hH[1]/256)local hK=hH[1]%256*16777216+math.floor(hI*eC/3*hG/dB)if hB<16 then hG=math.sqrt(dB)hH=hG*f8;hH=hs(table.create(1,math.floor(hH)),hD,1,2)g,hI=hs(hH,hH,-1,2)local hJ=hH[2]%65536*65536+math.floor(hH[1]/256)local hK=hH[1]%256*16777216+math.floor(hI*eD/hG)local hB=hB%8+1;ep[224][hB]=hK;hE[hB],hF[hB]=hJ,hK+hJ*eA;if hB>7 then hE,hF=er[384],eq[384]end end;hB=hB+1;ek[hB],ej[hB]=hJ,hK%ez+hJ*eA;break end until dB%ck==0 until hB>79 end;for dR=224,256,32 do local fu,fv={},nil;if ew then for cv=1,8 do fu[cv]=ew(el[cv])end else fv={}for cv=1,8 do fu[cv]=e2(el[cv],0xA5A5A5A5)%4294967296;fv[cv]=e2(em[cv],0xA5A5A5A5)%4294967296 end end;ft(fu,fv,'SHA-512/'..tostring(dR)..'\128'..string.rep('\0',115)..'\88',0,128)eq[dR]=fu;er[dR]=fv end;do for hB=1,64 do local hJ,hK=math.modf(math.abs(math.sin(hB))*eS)es[hB]=hJ*65536+math.floor(hK*eS)end end;do local hL=29;local function hM()local hN=hL%2;hL=e2((hL-hN)/2,142*hN)return hN end;for hB=1,24 do local hK,dy=0,nil;for g=1,6 do dy=dy and dy*dy*2 or 1;hK=hK+hM()*dy end;local hJ=hM()*dy;eo[hB],en[hB]=hJ,hK+hJ*eB end end;local function hO(dR,aw)local hP=ep[dR]local hQ,hR=0,''local fb=table.create(8)fb[1],fb[2],fb[3],fb[4],fb[5],fb[6],fb[7],fb[8]=hP[1],hP[2],hP[3],hP[4],hP[5],hP[6],hP[7],hP[8]local function hS(hT)if hT then local hU=#hT;if hR then hQ=hQ+hU;local fd=0;local hV=#hR;if hR~=''and hV+hU>=64 then fd=64-hV;fa(fb,hR..string.sub(hT,1,fd),0,64)hR=''end;local fe=hU-fd;local hW=fe%64;fa(fb,hT,fd,fe-hW)hR=hR..string.sub(hT,hU+1-hW)return hS else error('Adding more chunks is not allowed after receiving the result',2)end else if hR then local hX=table.create(10)hX[1]=hR;hX[2]='\128'hX[3]=string.rep('\0',(-9-hQ)%64+1)hR=nil;hQ=hQ*8/f9;for cv=4,10 do hQ=hQ%1*256;hX[cv]=string.char(math.floor(hQ))end;hX=table.concat(hX)fa(fb,hX,0,#hX)local hY=dR/32;for cv=1,hY do fb[cv]=string.format('%08x',fb[cv]%4294967296)end;fb=table.concat(fb,'',1,hY)end;return fb end end;if aw then return hS(aw)()else return hS end end;local function hZ(dR,aw)local hQ,hR,fu,fv=0,'',table.pack(table.unpack(eq[dR])),not ev and table.pack(table.unpack(er[dR]))local function hS(hT)if hT then local hU=#hT;if hR then hQ=hQ+hU;local fd=0;if hR~=''and#hR+hU>=128 then fd=128-#hR;ft(fu,fv,hR..string.sub(hT,1,fd),0,128)hR=''end;local fe=hU-fd;local hW=fe%128;ft(fu,fv,hT,fd,fe-hW)hR=hR..string.sub(hT,hU+1-hW)return hS else error('Adding more chunks is not allowed after receiving the result',2)end else if hR then local hX=table.create(3)hX[1]=hR;hX[2]='\128'hX[3]=string.rep('\0',(-17-hQ)%128+9)hR=nil;hQ=hQ*8/f9;for cv=4,10 do hQ=hQ%1*256;hX[cv]=string.char(math.floor(hQ))end;hX=table.concat(hX)ft(fu,fv,hX,0,#hX)local hY=math.ceil(dR/64)if ev then for cv=1,hY do fu[cv]=ev(fu[cv])end else for cv=1,hY do fu[cv]=string.format('%08x',fv[cv]%4294967296)..string.format('%08x',fu[cv]%4294967296)end;fv=nil end;fu=string.sub(table.concat(fu,'',1,hY),1,dR/4)end;return fu end end;if aw then return hS(aw)()else return hS end end;local function h_(aw)local fb,hQ,hR=table.create(4),0,''fb[1],fb[2],fb[3],fb[4]=et[1],et[2],et[3],et[4]local function hS(hT)if hT then local hU=#hT;if hR then hQ=hQ+hU;local fd=0;if hR~=''and#hR+hU>=64 then fd=64-#hR;g8(fb,hR..string.sub(hT,1,fd),0,64)hR=''end;local fe=hU-fd;local hW=fe%64;g8(fb,hT,fd,fe-hW)hR=hR..string.sub(hT,hU+1-hW)return hS else error('Adding more chunks is not allowed after receiving the result',2)end else if hR then local hX=table.create(3)hX[1]=hR;hX[2]='\128'hX[3]=string.rep('\0',(-9-hQ)%64)hR=nil;hQ=hQ*8;for cv=4,11 do local i0=hQ%256;hX[cv]=string.char(i0)hQ=(hQ-i0)/256 end;hX=table.concat(hX)g8(fb,hX,0,#hX)for cv=1,4 do fb[cv]=string.format('%08x',fb[cv]%4294967296)end;fb=string.gsub(table.concat(fb),'(..)(..)(..)(..)','%4%3%2%1')end;return fb end end;if aw then return hS(aw)()else return hS end end;local function i1(aw)local fb,hQ,hR=table.pack(table.unpack(et)),0,''local function hS(hT)if hT then local hU=#hT;if hR then hQ=hQ+hU;local fd=0;if hR~=''and#hR+hU>=64 then fd=64-#hR;ga(fb,hR..string.sub(hT,1,fd),0,64)hR=''end;local fe=hU-fd;local hW=fe%64;ga(fb,hT,fd,fe-hW)hR=hR..string.sub(hT,hU+1-hW)return hS else error('Adding more chunks is not allowed after receiving the result',2)end else if hR then local hX=table.create(10)hX[1]=hR;hX[2]='\128'hX[3]=string.rep('\0',(-9-hQ)%64+1)hR=nil;hQ=hQ*8/f9;for cv=4,10 do hQ=hQ%1*256;hX[cv]=string.char(math.floor(hQ))end;hX=table.concat(hX)ga(fb,hX,0,#hX)for cv=1,5 do fb[cv]=string.format('%08x',fb[cv]%4294967296)end;fb=table.concat(fb)end;return fb end end;if aw then return hS(aw)()else return hS end end;local function i2(ge,i3,i4,aw)if type(i3)~='number'then error('Argument \'digest_size_in_bytes\' must be a number',2)end;local hR,gc,gd='',table.create(25,0),eB==0 and table.create(25,0)local result;local function hS(hT)if hT then local hU=#hT;if hR then local fd=0;if hR~=''and#hR+hU>=ge then fd=ge-#hR;gb(gc,gd,hR..string.sub(hT,1,fd),0,ge,ge)hR=''end;local fe=hU-fd;local hW=fe%ge;gb(gc,gd,hT,fd,fe-hW,ge)hR=hR..string.sub(hT,hU+1-hW)return hS else error('Adding more chunks is not allowed after receiving the result',2)end else if hR then local i5=i4 and 31 or 6;hR=hR..(#hR+1==ge and string.char(i5+128)or string.char(i5)..string.rep('\0',(-2-#hR)%ge)..'\128')gb(gc,gd,hR,0,#hR,ge)hR=nil;local i6=0;local i7=math.floor(ge/8)local i8={}local function i9(gh)if i6>=i7 then gb(gc,gd,'\0\0\0\0\0\0\0\0',0,8,8)i6=0 end;gh=math.floor(math.min(gh,i7-i6))if eB~=0 then for cv=1,gh do i8[cv]=ev(gc[i6+cv-1+ex])end else for cv=1,gh do i8[cv]=string.format('%08x',gd[i6+cv]%4294967296)..string.format('%08x',gc[i6+cv]%4294967296)end end;i6=i6+gh;return string.gsub(table.concat(i8,'',1,gh),'(..)(..)(..)(..)(..)(..)(..)(..)','%8%7%6%5%4%3%2%1'),gh*8 end;local ia={}local ib,ic='',0;local function id(ie)ie=ie or 1;if ie<=ic then ic=ic-ie;local ig=ie*2;local result=string.sub(ib,1,ig)ib=string.sub(ib,ig+1)return result end;local ih=0;if ic>0 then ih=1;ia[ih]=ib;ie=ie-ic end;while ie>=8 do local ii,ij=i9(ie/8)ih=ih+1;ia[ih]=ii;ie=ie-ij end;if ie>0 then ib,ic=i9(1)ih=ih+1;ia[ih]=id(ie)else ib,ic='',0 end;return table.concat(ia,'',1,ih)end;if i3<0 then result=id else result=id(i3)end end;return result end end;if aw then return hS(aw)()else return hS end end;local function ik(il)return string.char(tonumber(il,16))end;local function im(ip)return string.gsub(ip,'%x%x',ik)end;local iq={['+']=62,['-']=62,[62]='+',['/']=63,['_']=63,[63]='/',['=']=-1,['.']=-1,[-1]='='}local ir=0;for cv,is in ipairs{'AZ','az','09'}do for it=string.byte(is),string.byte(is,2)do local iu=string.char(it)iq[iu]=ir;iq[ir]=iu;ir=ir+1 end end;local function iv(iw)local ix=#iw;local result=table.create(math.ceil(ix/3))local hQ=0;for fp=1,#iw,3 do local iy,iz,iA,iB=string.byte(string.sub(iw,fp,fp+2)..'\0',1,-1)hQ=hQ+1;result[hQ]=iq[math.floor(iy/4)]..iq[iy%4*16+math.floor(iz/16)]..iq[iA and iz%16*4+math.floor(iA/64)or-1]..iq[iB and iA%64 or-1]end;return table.concat(result)end;local function iC(iD)local result,iE={},3;for fp,iu in string.gmatch(string.gsub(iD,'%s+',''),'()(.)')do local iF=iq[iu]if iF<0 then iE=iE-1;iF=0 end;local hB=fp%4;if hB>0 then result[-hB]=iF else local iy=result[-1]*4+math.floor(result[-2]/16)local iz=result[-2]%16*16+math.floor(result[-3]/4)local iA=result[-3]%4*64+iF;result[#result+1]=string.sub(string.char(iy,iz,iA),1,iE)end end;return table.concat(result)end;local iG;local iH={}for d1=0,255 do iH[string.format('%02x',d1)]=string.char(d1)end;local function iI(iJ,iK,aw,iL)local iM=iG[iJ]if not iM then error('Unknown hash function',2)end;local iN=#iK;if iN>iM then iK=string.gsub(iJ(iK),'%x%x',ik)iN=#iK end;local iO=iJ()(string.gsub(iK,'.',function(ct)return string.char(e2(string.byte(ct),0x36))end)..string.rep('6',iM-iN))local result;local function hS(hT)if not hT then result=result or iJ(string.gsub(iK,'.',function(ct)return string.char(e2(string.byte(ct),0x5c))end)..string.rep('\\',iM-iN)..string.gsub(iO(),'%x%x',ik))return result elseif result then error('Adding more chunks is not allowed after receiving the result',2)else iO(hT)return hS end end;if aw then local iP=hS(aw)()return iL and string.gsub(iP,'%x%x',iH)or iP else return hS end end;local as={md5=h_,sha1=i1,sha224=function(aw)return hO(224,aw)end,sha256=function(aw)return hO(256,aw)end,sha512_224=function(aw)return hZ(224,aw)end,sha512_256=function(aw)return hZ(256,aw)end,sha384=function(aw)return hZ(384,aw)end,sha512=function(aw)return hZ(512,aw)end,sha3_224=function(aw)return i2((1600-2*224)/8,224/8,false,aw)end,sha3_256=function(aw)return i2((1600-2*256)/8,256/8,false,aw)end,sha3_384=function(aw)return i2((1600-2*384)/8,384/8,false,aw)end,sha3_512=function(aw)return i2((1600-2*512)/8,512/8,false,aw)end,shake128=function(aw,i3)return i2((1600-2*128)/8,i3,true,aw)end,shake256=function(aw,i3)return i2((1600-2*256)/8,i3,true,aw)end,hmac=iI,hex_to_bin=im,base64_to_bin=iC,bin_to_base64=iv,base64_encode=d3.Encode,base64_decode=d3.Decode}iG={[as.md5]=64,[as.sha1]=64,[as.sha224]=64,[as.sha256]=64,[as.sha512_224]=128,[as.sha512_256]=128,[as.sha384]=128,[as.sha512]=128,[as.sha3_224]=(1600-2*224)/8,[as.sha3_256]=(1600-2*256)/8,[as.sha3_384]=(1600-2*384)/8,[as.sha3_512]=(1600-2*512)/8}return as end;d['packages/hash.lua'].cache=c;d['packages/hash.lua'].isCached=false;d['packages/installationid.lua']={}d['packages/installationid.lua'].load=function()local l='installationid.lua'local m='packages/installationid.lua'local n='packages'local o='10146445b36d51a8d1210dd1992188627b636415a980ea5f1d2c10fcf0173fa5611870fc115b5b5ecdc684447560993e3d4718f2c33783d42362403c2dc140d8'local B,xor,a2=require'uniquekeys',require'xor',require'hash'local iQ={['get']=function()return a2.sha3_512(xor('installationid',B.uid))end,['set']=function()error'Cannot set installation id!'end}_G.InstallationID=iQ;return iQ end;d['packages/installationid.lua'].cache=c;d['packages/installationid.lua'].isCached=false;d['packages/json.lua']={}d['packages/json.lua'].load=function()local l='json.lua'local m='packages/json.lua'local n='packages'local o='4dc5f6c3b5bcd0f200b1ef9ff4a812b86e199331cbfa9858a9c73f2c8b513872a4d3fbd59b0a2d82a36115ac629be786085aa54cbe4d445b0ade77bea5350a86'local cX={}local function aJ(ct)if type(ct)~='table'then return type(ct)end;local ck=1;for fq in pairs(ct)do if ct[ck]~=nil then ck=ck+1 else return'table'end end;if ck==1 then return'table'else return'array'end end;local function X(fr)local h={'\\','"','/','\b','\f','\n','\r','\t'}local cu={'\\','"','/','b','f','n','r','t'}for ck,cv in ipairs(h)do fr=fr:gsub(cv,'\\'..cu[ck])end;return fr end;local function af(iR,dy,bS,v)dy=dy+#iR:match('^%s*',dy)if iR:sub(dy,dy)~=bS then if v then error('Expected '..bS..' near position '..dy)end;return dy,false end;return dy+1,true end;local function dB(iR,dy,iS)iS=iS or''local hN='End of input found while parsing string.'if dy>#iR then error(hN)end;local cv=iR:sub(dy,dy)if cv=='"'then return iS,dy+1 end;if cv~='\\'then return dB(iR,dy+1,iS..cv)end;local aE={b='\b',f='\f',n='\n',r='\r',t='\t'}local dw=iR:sub(dy+1,dy+1)if not dw then error(hN)end;return dB(iR,dy+2,iS..(aE[dw]or dw))end;local function iT(iR,dy)local ag=iR:match('^-?%d+%.?%d*[eE]?[+-]?%d*',dy)local iS=tonumber(ag)if not iS then error('Error parsing number at position '..dy..'.')end;return iS,dy+#ag end;function cX.stringify(ct,w)local fr={}local x=aJ(ct)if x=='array'then if w then error'Can\'t encode array as key.'end;fr[#fr+1]='['for ck,iS in ipairs(ct)do if ck>1 then fr[#fr+1]=', 'end;fr[#fr+1]=cX.stringify(iS)end;fr[#fr+1]=']'elseif x=='table'then if w then error'Can\'t encode table as key.'end;fr[#fr+1]='{'for y,d_ in pairs(ct)do if#fr>1 then fr[#fr+1]=', 'end;fr[#fr+1]=cX.stringify(y,true)fr[#fr+1]=':'fr[#fr+1]=cX.stringify(d_)end;fr[#fr+1]='}'elseif x=='string'then return'"'..X(ct)..'"'elseif x=='number'then if w then return'"'..tostring(ct)..'"'end;return tostring(ct)elseif x=='boolean'then return tostring(ct)elseif x=='nil'then return'null'else error('Unjsonifiable type: '..x..'.')end;return table.concat(fr)end;cX.null={}function cX.parse(iR,dy,dd)dy=dy or 1;if dy>#iR then error'Reached unexpected end of input.'end;local dy=dy+#iR:match('^%s*',dy)local de=iR:sub(dy,dy)if de=='{'then local ct,df,dg={},true,true;dy=dy+1;while true do df,dy=cX.parse(iR,dy,'}')if df==nil then return ct,dy end;if not dg then error'Comma missing between object items.'end;dy=af(iR,dy,':',true)ct[df],dy=cX.parse(iR,dy)dy,dg=af(iR,dy,',')end elseif de=='['then local iU,iS,dg={},true,true;dy=dy+1;while true do iS,dy=cX.parse(iR,dy,']')if iS==nil then return iU,dy end;if not dg then error'Comma missing between array items.'end;iU[#iU+1]=iS;dy,dg=af(iR,dy,',')end elseif de=='"'then return dB(iR,dy+1)elseif de=='-'or de:match'%d'then return iT(iR,dy)elseif de==dd then return nil,dy+1 else local g9={['true']=true,['false']=false,['null']=cX.null}for iV,fb in pairs(g9)do local iW=dy+#iV-1;if iR:sub(dy,iW)==iV then return fb,iW+1 end end;local iX='position '..dy..': '..iR:sub(dy,dy+10)error('Invalid json syntax starting at '..iX)end end;return cX end;d['packages/json.lua'].cache=c;d['packages/json.lua'].isCached=false;d['packages/polyfills/table.create.lua']={}d['packages/polyfills/table.create.lua'].load=function()local l='table.create.lua'local m='packages/polyfills/table.create.lua'local n='packages/polyfills'local o='19eaa311cabc2e4b53501a8cc4090692c36cbccc4e75a0d082e8cfa7543f48cf5f70db601dba94ede670a483e36bcd7a309d720e32921ef0fd000770c799fced'_G.table.create=table.create or function(iY,hy)local dw={}for cu=1,iY,1 do dw[cu]=hy end;return dw end end;d['packages/polyfills/table.create.lua'].cache=c;d['packages/polyfills/table.create.lua'].isCached=false;d['packages/rstr.lua']={}d['packages/rstr.lua'].load=function()local l='rstr.lua'local m='packages/rstr.lua'local n='packages'local o='3fbb599255778057fec55666068f44b9a1168c88fe0501982982796a7a4ed688899a4351a63875869b27a384b203df47f132982656b98423029bfe4e91d51645'local iZ=function(i_)i_=i_ or'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 'local j0=math.random(1,#i_)return i_:sub(j0,j0)end;return function(j1,i_)local fc=''for cu=1,j1,1 do fc=fc..iZ(i_)end;return fc end end;d['packages/rstr.lua'].cache=c;d['packages/rstr.lua'].isCached=false;d['packages/termination.lua']={}d['packages/termination.lua'].load=function()local l='termination.lua'local m='packages/termination.lua'local n='packages'local o='363f9ffadf1be9c7074c012ecb77d6377a0d2f277f09668eefa74399becf750fbce66eaa4c0b31af551d25107c01d0d99855051a8b4473e1a01b04f4ec019dd5'local j2=false;local j3=os.pullEvent;return{['setDisabled']=function(ag)if ag then if ag~=j2 then j3=os.pullEvent end;os.pullEvent=os.pullEventRaw else os.pullEvent=j3 end;j2=ag end,['getDisabled']=function()return j2 end}end;d['packages/termination.lua'].cache=c;d['packages/termination.lua'].isCached=false;d['packages/uniquekeys.lua']={}d['packages/uniquekeys.lua'].load=function()local l='uniquekeys.lua'local m='packages/uniquekeys.lua'local n='packages'local o='69341cef2a30278934e7e8d81147bab29d3997c1526d20da185bcbef19e3eb915fdc9d408f5c5c34c628d7f9cf672a4ecdb6fb1ac550f0d2a2581a735ed17d59'local j4=function(j5)return string.sub(j5,1,3)~='!!!'end;local keys={['pw']='!!!pw',['enc']='!!!enc',['Eenc']='!!!Eenc',['uid']='!!!uid'}for af,ag in pairs(keys)do if not j4(ag)then keys[af]=require'rstr'(512)end end;local j6=false;if j6 then for af,ag in pairs(keys)do keys[af]=require('base64').Decode(ag)end end;return keys end;d['packages/uniquekeys.lua'].cache=c;d['packages/uniquekeys.lua'].isCached=false;d['packages/xor.lua']={}d['packages/xor.lua'].load=function()local l='xor.lua'local m='packages/xor.lua'local n='packages'local o='12d0c046a9f96fd64280170a2c96a2a7f5260f2189c4756df9dc028a99a73a464037fc967316fb58d20cdf15f91533f94e69c163cf7c06b73c60472bc6528eb2'function repeat_key(iK,hQ)if#iK>=hQ then return iK:sub(1,hQ)end;times=math.floor(hQ/#iK)remain=hQ%#iK;result=''for cu=1,times do result=result..iK end;if remain>0 then result=result..iK:sub(1,remain)end;return result end;function xor(aw,iK)rkey=repeat_key(iK,#aw)result=''for cu=1,#aw do k_char=rkey:sub(cu,cu)m_char=aw:sub(cu,cu)k_byte=k_char:byte()m_byte=m_char:byte()xor_byte=require('bitop').bxor(m_byte,k_byte)xor_char=string.char(xor_byte)result=result..xor_char end;return result end;return xor end;d['packages/xor.lua'].cache=c;d['packages/xor.lua'].isCached=false;d['version.lua']={}d['version.lua'].load=function()local l='version.lua'local m='version.lua'local n=''local o='7a5cd8cbe43906f7f1c1d50eb18312aff11909772deab5fdcb3a901ad7a86384bebb471694b4760cc67147c5c541519eaba249f1e6426369a2d2db6a32eadfc4'return'1.0.0'end;d['version.lua'].cache=c;d['version.lua'].isCached=false;d['auth']=d['auth.lua']d['auth.lua']=d['auth.lua']d['auth']=d['auth.lua']d['/auth']=d['auth.lua']d['\\auth.lua']=d['auth.lua']d['\\auth']=d['auth.lua']d['boot']=d['boot.lua']d['boot.lua']=d['boot.lua']d['boot']=d['boot.lua']d['/boot']=d['boot.lua']d['\\boot.lua']=d['boot.lua']d['\\boot']=d['boot.lua']d['index']=d['index.lua']d['index.lua']=d['index.lua']d['index']=d['index.lua']d['/index']=d['index.lua']d['\\index.lua']=d['index.lua']d['\\index']=d['index.lua']d['']=d['index.lua']d['']=d['index.lua']d['']=d['index.lua']d['/']=d['index.lua']d['\\']=d['index.lua']d['\\']=d['index.lua']d['load-installer']=d['load-installer.lua']d['load-installer.lua']=d['load-installer.lua']d['load-installer']=d['load-installer.lua']d['/load-installer']=d['load-installer.lua']d['\\load-installer.lua']=d['load-installer.lua']d['\\load-installer']=d['load-installer.lua']d['login']=d['login.lua']d['login.lua']=d['login.lua']d['login']=d['login.lua']d['/login']=d['login.lua']d['\\login.lua']=d['login.lua']d['\\login']=d['login.lua']d['misc/chime']=d['misc/chime.lua']d['misc\\chime.lua']=d['misc/chime.lua']d['misc\\chime']=d['misc/chime.lua']d['/misc/chime']=d['misc/chime.lua']d['\\misc\\chime.lua']=d['misc/chime.lua']d['\\misc\\chime']=d['misc/chime.lua']d['networking/secnet']=d['networking/secnet.lua']d['networking\\secnet.lua']=d['networking/secnet.lua']d['networking\\secnet']=d['networking/secnet.lua']d['/networking/secnet']=d['networking/secnet.lua']d['\\networking\\secnet.lua']=d['networking/secnet.lua']d['\\networking\\secnet']=d['networking/secnet.lua']d['packages/basalt']=d['packages/basalt.lua']d['packages\\basalt.lua']=d['packages/basalt.lua']d['packages\\basalt']=d['packages/basalt.lua']d['basalt']=d['packages/basalt.lua']d['basalt.lua']=d['packages/basalt.lua']d['basalt']=d['packages/basalt.lua']d['/basalt']=d['packages/basalt.lua']d['\\basalt.lua']=d['packages/basalt.lua']d['\\basalt']=d['packages/basalt.lua']d['/packages/basalt']=d['packages/basalt.lua']d['\\packages\\basalt.lua']=d['packages/basalt.lua']d['\\packages\\basalt']=d['packages/basalt.lua']d['packages/base64']=d['packages/base64.lua']d['packages\\base64.lua']=d['packages/base64.lua']d['packages\\base64']=d['packages/base64.lua']d['base64']=d['packages/base64.lua']d['base64.lua']=d['packages/base64.lua']d['base64']=d['packages/base64.lua']d['/base64']=d['packages/base64.lua']d['\\base64.lua']=d['packages/base64.lua']d['\\base64']=d['packages/base64.lua']d['/packages/base64']=d['packages/base64.lua']d['\\packages\\base64.lua']=d['packages/base64.lua']d['\\packages\\base64']=d['packages/base64.lua']d['packages/bitop']=d['packages/bitop.lua']d['packages\\bitop.lua']=d['packages/bitop.lua']d['packages\\bitop']=d['packages/bitop.lua']d['bitop']=d['packages/bitop.lua']d['bitop.lua']=d['packages/bitop.lua']d['bitop']=d['packages/bitop.lua']d['/bitop']=d['packages/bitop.lua']d['\\bitop.lua']=d['packages/bitop.lua']d['\\bitop']=d['packages/bitop.lua']d['/packages/bitop']=d['packages/bitop.lua']d['\\packages\\bitop.lua']=d['packages/bitop.lua']d['\\packages\\bitop']=d['packages/bitop.lua']d['packages/child_process']=d['packages/child_process.lua']d['packages\\child_process.lua']=d['packages/child_process.lua']d['packages\\child_process']=d['packages/child_process.lua']d['child_process']=d['packages/child_process.lua']d['child_process.lua']=d['packages/child_process.lua']d['child_process']=d['packages/child_process.lua']d['/child_process']=d['packages/child_process.lua']d['\\child_process.lua']=d['packages/child_process.lua']d['\\child_process']=d['packages/child_process.lua']d['/packages/child_process']=d['packages/child_process.lua']d['\\packages\\child_process.lua']=d['packages/child_process.lua']d['\\packages\\child_process']=d['packages/child_process.lua']d['packages/console']=d['packages/console.lua']d['packages\\console.lua']=d['packages/console.lua']d['packages\\console']=d['packages/console.lua']d['console']=d['packages/console.lua']d['console.lua']=d['packages/console.lua']d['console']=d['packages/console.lua']d['/console']=d['packages/console.lua']d['\\console.lua']=d['packages/console.lua']d['\\console']=d['packages/console.lua']d['/packages/console']=d['packages/console.lua']d['\\packages\\console.lua']=d['packages/console.lua']d['\\packages\\console']=d['packages/console.lua']d['packages/forceyield']=d['packages/forceyield.lua']d['packages\\forceyield.lua']=d['packages/forceyield.lua']d['packages\\forceyield']=d['packages/forceyield.lua']d['forceyield']=d['packages/forceyield.lua']d['forceyield.lua']=d['packages/forceyield.lua']d['forceyield']=d['packages/forceyield.lua']d['/forceyield']=d['packages/forceyield.lua']d['\\forceyield.lua']=d['packages/forceyield.lua']d['\\forceyield']=d['packages/forceyield.lua']d['/packages/forceyield']=d['packages/forceyield.lua']d['\\packages\\forceyield.lua']=d['packages/forceyield.lua']d['\\packages\\forceyield']=d['packages/forceyield.lua']d['packages/hash']=d['packages/hash.lua']d['packages\\hash.lua']=d['packages/hash.lua']d['packages\\hash']=d['packages/hash.lua']d['hash']=d['packages/hash.lua']d['hash.lua']=d['packages/hash.lua']d['hash']=d['packages/hash.lua']d['/hash']=d['packages/hash.lua']d['\\hash.lua']=d['packages/hash.lua']d['\\hash']=d['packages/hash.lua']d['/packages/hash']=d['packages/hash.lua']d['\\packages\\hash.lua']=d['packages/hash.lua']d['\\packages\\hash']=d['packages/hash.lua']d['packages/installationid']=d['packages/installationid.lua']d['packages\\installationid.lua']=d['packages/installationid.lua']d['packages\\installationid']=d['packages/installationid.lua']d['installationid']=d['packages/installationid.lua']d['installationid.lua']=d['packages/installationid.lua']d['installationid']=d['packages/installationid.lua']d['/installationid']=d['packages/installationid.lua']d['\\installationid.lua']=d['packages/installationid.lua']d['\\installationid']=d['packages/installationid.lua']d['/packages/installationid']=d['packages/installationid.lua']d['\\packages\\installationid.lua']=d['packages/installationid.lua']d['\\packages\\installationid']=d['packages/installationid.lua']d['packages/json']=d['packages/json.lua']d['packages\\json.lua']=d['packages/json.lua']d['packages\\json']=d['packages/json.lua']d['json']=d['packages/json.lua']d['json.lua']=d['packages/json.lua']d['json']=d['packages/json.lua']d['/json']=d['packages/json.lua']d['\\json.lua']=d['packages/json.lua']d['\\json']=d['packages/json.lua']d['/packages/json']=d['packages/json.lua']d['\\packages\\json.lua']=d['packages/json.lua']d['\\packages\\json']=d['packages/json.lua']d['packages/polyfills/table.create']=d['packages/polyfills/table.create.lua']d['packages\\polyfills\\table.create.lua']=d['packages/polyfills/table.create.lua']d['packages\\polyfills\\table.create']=d['packages/polyfills/table.create.lua']d['polyfills/table.create']=d['packages/polyfills/table.create.lua']d['polyfills\\table.create.lua']=d['packages/polyfills/table.create.lua']d['polyfills\\table.create']=d['packages/polyfills/table.create.lua']d['/polyfills/table.create']=d['packages/polyfills/table.create.lua']d['\\polyfills\\table.create.lua']=d['packages/polyfills/table.create.lua']d['\\polyfills\\table.create']=d['packages/polyfills/table.create.lua']d['/packages/polyfills/table.create']=d['packages/polyfills/table.create.lua']d['\\packages\\polyfills\\table.create.lua']=d['packages/polyfills/table.create.lua']d['\\packages\\polyfills\\table.create']=d['packages/polyfills/table.create.lua']d['packages/rstr']=d['packages/rstr.lua']d['packages\\rstr.lua']=d['packages/rstr.lua']d['packages\\rstr']=d['packages/rstr.lua']d['rstr']=d['packages/rstr.lua']d['rstr.lua']=d['packages/rstr.lua']d['rstr']=d['packages/rstr.lua']d['/rstr']=d['packages/rstr.lua']d['\\rstr.lua']=d['packages/rstr.lua']d['\\rstr']=d['packages/rstr.lua']d['/packages/rstr']=d['packages/rstr.lua']d['\\packages\\rstr.lua']=d['packages/rstr.lua']d['\\packages\\rstr']=d['packages/rstr.lua']d['packages/termination']=d['packages/termination.lua']d['packages\\termination.lua']=d['packages/termination.lua']d['packages\\termination']=d['packages/termination.lua']d['termination']=d['packages/termination.lua']d['termination.lua']=d['packages/termination.lua']d['termination']=d['packages/termination.lua']d['/termination']=d['packages/termination.lua']d['\\termination.lua']=d['packages/termination.lua']d['\\termination']=d['packages/termination.lua']d['/packages/termination']=d['packages/termination.lua']d['\\packages\\termination.lua']=d['packages/termination.lua']d['\\packages\\termination']=d['packages/termination.lua']d['packages/uniquekeys']=d['packages/uniquekeys.lua']d['packages\\uniquekeys.lua']=d['packages/uniquekeys.lua']d['packages\\uniquekeys']=d['packages/uniquekeys.lua']d['uniquekeys']=d['packages/uniquekeys.lua']d['uniquekeys.lua']=d['packages/uniquekeys.lua']d['uniquekeys']=d['packages/uniquekeys.lua']d['/uniquekeys']=d['packages/uniquekeys.lua']d['\\uniquekeys.lua']=d['packages/uniquekeys.lua']d['\\uniquekeys']=d['packages/uniquekeys.lua']d['/packages/uniquekeys']=d['packages/uniquekeys.lua']d['\\packages\\uniquekeys.lua']=d['packages/uniquekeys.lua']d['\\packages\\uniquekeys']=d['packages/uniquekeys.lua']d['packages/xor']=d['packages/xor.lua']d['packages\\xor.lua']=d['packages/xor.lua']d['packages\\xor']=d['packages/xor.lua']d['xor']=d['packages/xor.lua']d['xor.lua']=d['packages/xor.lua']d['xor']=d['packages/xor.lua']d['/xor']=d['packages/xor.lua']d['\\xor.lua']=d['packages/xor.lua']d['\\xor']=d['packages/xor.lua']d['/packages/xor']=d['packages/xor.lua']d['\\packages\\xor.lua']=d['packages/xor.lua']d['\\packages\\xor']=d['packages/xor.lua']d['version']=d['version.lua']d['version.lua']=d['version.lua']d['version']=d['version.lua']d['/version']=d['version.lua']d['\\version.lua']=d['version.lua']d['\\version']=d['version.lua']return require'index'end)(require or function()end,...)
+-- Built at Tue Nov 15 2022 08:45:47 GMT+0100 (Central European Standard Time) / Development --
+return (function(oldRequire,...) -- put everything in a seperate closure
+-- Yielding's Bundler Prefix Script
+-- Forked & Stripped by Mokiy
+-- Copyright (c) 2022 YieldingExploiter.
+-- Copyright (c) 2022 MokiyCodes.
+-- MIT License
+
+local args = { ... }
+local null = nil -- null is better than nil, change my mind
+local modules = {} -- we will assign modules to here later
+local require = function(...) -- handle loading modules
+  local requested, returned = { ... }, {}
+  for _, filepath in pairs(requested) do
+    if not modules[filepath] then
+      table.insert(returned, oldRequire(filepath) or error('[blb] no such module \'' .. filepath .. '\''))
+    else
+      local module = modules[filepath]
+      if module.isCached then
+        table.insert(returned, module.cache)
+      else
+        local moduleValue = module.load()
+        module.cache = moduleValue
+        module.isCached = true
+        table.insert(returned, module.cache)
+      end
+    end
+  end
+  return table.unpack(returned)
+end
+
+
+--> BEGIN Initial Module Definitions <--
+
+modules['applications.lua'] = {};
+modules['applications.lua'].load = function()
+local __just_filename = 'applications.lua';
+local __filename = 'applications.lua';
+local __dirname = '';
+local __hash = 'cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e';
+
+end;
+modules['applications.lua'].cache = null;
+modules['applications.lua'].isCached = false;
+
+----
+
+modules['auth.lua'] = {};
+modules['auth.lua'].load = function()
+local __just_filename = 'auth.lua';
+local __filename = 'auth.lua';
+local __dirname = '';
+local __hash = '96323b36e72a59f49468259a2f09b374829301bff3962b92cea634898064cedecbd96860feb71ee0ad1b58f0f4a55592d3cf8d0733f48c2f84ea93d1ed14a50f';
+local base64 = require 'base64'
+local encrypted = '_ENCRYPTME'
+if encrypted ~= '_' .. 'ENCRYPTME' then
+  encrypted = base64.Decode(encrypted)
+end
+return { encryped = encrypted }
+
+end;
+modules['auth.lua'].cache = null;
+modules['auth.lua'].isCached = false;
+
+----
+
+modules['boot.lua'] = {};
+modules['boot.lua'].load = function()
+local __just_filename = 'boot.lua';
+local __filename = 'boot.lua';
+local __dirname = '';
+local __hash = '6b24ca91a8ff0143a670b4fe00aef004c75e9de0b89cc47f7b336b4d490090acc3bdaadd289a5a84f9d5000942ab7b97865f4b9215276b9c650e680bf7866e2a';
+local console = require 'console'
+return function()
+  console.clear()
+  console.centerLog 'Finalizing...'
+  -- provide encryption lib
+  local xor = require 'xor'
+  local uniqueKeys = require 'uniquekeys'
+  _G.ccoEncryption = {
+    -- Encrypts a string to securely store it locally
+    ['encryptLocal'] = function(data)
+      return xor(data, uniqueKeys.enc)
+    end,
+  }
+  _G.ccoEncryption.decryptLocal = _G.ccoEncryption.encryptLocal
+  _G._g = _G
+  console.clear()
+  console.centerLog 'Loading Frontend...'
+  if not fs.exists '.cco/setting-dm.txt' then
+    local f = fs.open('.cco/setting-dm.txt', 'w')
+    f.write 'basalt-or-lite'
+    f.close()
+  end
+  local frontend
+  local frontendFile = fs.open '.cco/setting-dm.txt'
+  frontend = frontendFile.readAll()
+  frontendFile.close()
+  require('frontends/' .. frontend)
+end
+
+end;
+modules['boot.lua'].cache = null;
+modules['boot.lua'].isCached = false;
+
+----
+
+modules['frontends/_error.lua'] = {};
+modules['frontends/_error.lua'].load = function()
+local __just_filename = '_error.lua';
+local __filename = 'frontends/_error.lua';
+local __dirname = 'frontends';
+local __hash = 'd825138b2031244e0b51fb8ada0f6820ba99b7913e62cbeb33262dd83ac0fc916217eef046df77f679858d5e44add7b1cdf24f2daac40e5eba0947a7c6541f22';
+return function()
+  printError 'An error has occurred while loading your Desktop Manager / Frontend.\n\nRestart using the \'reboot\' command.\nReset the frontend setting by running \'delete .cco/setting-dm.txt\' then rebooting.'
+end
+
+end;
+modules['frontends/_error.lua'].cache = null;
+modules['frontends/_error.lua'].isCached = false;
+
+----
+
+modules['frontends/basalt-or-lite.lua'] = {};
+modules['frontends/basalt-or-lite.lua'].load = function()
+local __just_filename = 'basalt-or-lite.lua';
+local __filename = 'frontends/basalt-or-lite.lua';
+local __dirname = 'frontends';
+local __hash = '23695980f5c1b4ae1150662633433a041962f8e4fa3885f93b676b3f2526236e771f904184a6f664cc8d00d9e6f709450aca5e0a962b2235e0e3f6ce04721da2';
+-- basalt if we're in color, otherwise use lite
+return (not term.isColor or not term.isColor()) and require 'frontends/lite' or require 'frontends/basalt'
+
+end;
+modules['frontends/basalt-or-lite.lua'].cache = null;
+modules['frontends/basalt-or-lite.lua'].isCached = false;
+
+----
+
+modules['frontends/basalt.lua'] = {};
+modules['frontends/basalt.lua'].load = function()
+local __just_filename = 'basalt.lua';
+local __filename = 'frontends/basalt.lua';
+local __dirname = 'frontends';
+local __hash = 'ebca313963d70dcfba7182716b0c636e3e7eb8c6c5431bdd0a9dbcd2672c2cb66a3fc1aef1f68f908c453454505dba1636a831f227ae20181061b49bd0227853';
+return function()
+  -- display check
+  if not term.isColor or not term.isColor() then
+    local monitors = { peripheral.find 'monitor' }
+    local monitorsByName = {}
+    local hasColour = false
+    for _, o in pairs(monitors) do
+      local x, y = o.getSize()
+      if o.isColour() and not (x < 10 or y < 10) then
+        monitorsByName[peripheral.getName(o)] = o
+        hasColour = true
+      end
+    end
+    if #monitors == 0 or not hasColour then
+      print 'Please connect an advanced monitor (2x2 minimum) or run this on an advanced (golden) computer.\nReturning to shell.'
+      return
+    end
+    local response = ''
+    while not monitorsByName[response] do
+      console.clear()
+      print 'Please input a monitor to use.\nAvailable colour monitors:'
+      for name in pairs(monitorsByName) do
+        print('-', name)
+      end
+      print '\nNote: You\'ll still need to perform keyboard input on this device.\n\nSelected Montior:'
+      response = read()
+    end
+    console.clear()
+    console.centerLog 'Please continue on the monitor.\nInput text here.'
+    term.redirect(monitorsByName[response])
+  end
+
+  console.clear()
+  console.centerLog 'Loading Basalt...'
+  local basalt = require 'basalt'
+  basalt.setTheme {
+    BasaltBG = colors.black,
+    BasaltText = colors.white,
+    FrameBG = colors.black,
+    FrameText = colors.lightGray,
+    ButtonBG = colors.gray,
+    ButtonText = colors.white,
+    CheckboxBG = colors.gray,
+    CheckboxText = colors.white,
+    InputBG = colors.gray,
+    InputText = colors.white,
+    TextfieldBG = colors.gray,
+    TextfieldText = colors.white,
+    -- ListBG = colors.gray,
+    -- ListText = colors.black,
+    -- MenubarBG = colors.gray,
+    -- MenubarText = colors.black,
+    -- DropdownBG = colors.gray,
+    -- DropdownText = colors.black,
+    -- RadioBG = colors.gray,
+    -- RadioText = colors.black,
+    -- SelectionBG = colors.black,
+    -- SelectionText = colors.lightGray,
+    -- GraphicBG = colors.black,
+    -- ImageBG = colors.black,
+    -- PaneBG = colors.black,
+    ProgramBG = colors.gray,
+    -- ProgressbarBG = colors.gray,
+    -- ProgressbarText = colors.black,
+    -- ProgressbarActiveBG = colors.black,
+    -- ScrollbarBG = colors.lightGray,
+    -- ScrollbarText = colors.gray,
+    -- ScrollbarSymbolColor = colors.black,
+    -- SliderBG = false,
+    -- SliderText = colors.gray,
+    -- SliderSymbolColor = colors.black,
+    -- SwitchBG = colors.lightGray,
+    -- SwitchText = colors.gray,
+    -- SwitchBGSymbol = colors.black,
+    -- SwitchInactive = colors.red,
+    -- SwitchActive = colors.green,
+    -- LabelBG = false,
+    LabelText = colors.white,
+  }
+
+  local main = basalt.createFrame()
+
+  -- https://basalt.madefor.cc/#/objects/Frame?id=movable-frames-with-a-program-object
+  local id = 1
+  local processes = {}
+  local function makeResizeable(frame, minW, minH, maxW, maxH)
+    minW = minW or 4
+    minH = minH or 4
+    maxW = maxW or 99
+    maxH = maxH or 99
+    frame
+      :addButton()
+      :setPosition('parent.w', 'parent.h')
+      :setSize(1, 1)
+      :setText('/')
+      :setForeground(colors.blue)
+      :setBackground(colors.black)
+      :onDrag(function(self, event, btn, xOffset, yOffset)
+        local w, h = frame:getSize()
+        local wOff, hOff = w, h
+        if (w + xOffset - 1 >= minW) and (w + xOffset - 1 <= maxW) then
+          wOff = w + xOffset - 1
+        end
+        if (h + yOffset - 1 >= minH) and (h + yOffset - 1 <= maxH) then
+          hOff = h + yOffset - 1
+        end
+        frame:setSize(wOff, hOff)
+      end)
+  end
+  local function openProgram(path, title, resizable, x, y, w, h)
+    local pId = id
+    id = id + 1
+    local f = main
+      :addFrame()
+      :setMovable()
+      :setSize(math.min((w or 25) + 1, ({ term.getSize() })[1]), (h or 12))
+      :setPosition(x or math.random(2, 12), y or math.random(2, 8))
+      :setBackground(colors.red)
+    if ({ term.getSize() })[1] == 25 then
+      f:setPosition(1, y or math.random(2, 8))
+    end
+
+    f:addLabel()
+      :setSize('parent.w - 1', 1)
+      :setBackground(colors.black)
+      :setForeground(colors.lightGray)
+      :setText(title or 'New Program')
+
+    f:addProgram():setSize('parent.w - 1', 'parent.h - 1'):setPosition(1, 2):execute(path or '/rom/programs/shell.lua', '')
+
+    f:addButton()
+      :setSize(1, 1)
+      :setText('X')
+      :setBackground(colors.black)
+      :setForeground(colors.red)
+      :setPosition('parent.w', 1)
+      :onClick(function()
+        f:remove()
+        processes[pId] = nil
+      end)
+    if resizable then
+      makeResizeable(f, w, h)
+    end
+    processes[pId] = f
+    return f
+  end
+  _G._openProgramAsWindow = openProgram
+  local appList = main:addFrame():setScrollable():setSize(8, 'parent.h'):setPosition(1, 1)
+  local y = -3
+  local addAppButton = function()
+    y = y + 4
+    return appList:addButton():setPosition(1, y):setSize(8, 3)
+  end
+  addAppButton():setText('Shell'):onClick(function()
+    openProgram('/rom/programs/shell.lua', 'Shell', true)
+  end)
+  addAppButton():setText('Update'):onClick(function()
+    openProgram(
+      '/rom/programs/http/wget.lua run https://raw.githubusercontent.com/MokiyCodes/cco/main/install.lua',
+      'Updater',
+      true
+    )
+  end)
+  addAppButton():setText('Chat'):onClick(function()
+    openProgram(function()
+      console.log 'Hi!\nPlease enter the name of the room you want to join.'
+      local room = read()
+      console.clear()
+      console.log 'Please enter the username you want to join as.'
+      local uname = read()
+      shell.run(string.format('/rom/programs/rednet/chat.lua join %s %s', room, uname))
+    end, 'Chat', true)
+  end)
+  addAppButton():setText('Shutdown'):onClick(function()
+    os.shutdown()
+  end)
+  addAppButton():setText('Reboot'):onClick(function()
+    os.reboot()
+  end)
+
+  basalt.autoUpdate()
+end
+
+end;
+modules['frontends/basalt.lua'].cache = null;
+modules['frontends/basalt.lua'].isCached = false;
+
+----
+
+modules['frontends/lite.lua'] = {};
+modules['frontends/lite.lua'].load = function()
+local __just_filename = 'lite.lua';
+local __filename = 'frontends/lite.lua';
+local __dirname = 'frontends';
+local __hash = 'cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e';
+
+end;
+modules['frontends/lite.lua'].cache = null;
+modules['frontends/lite.lua'].isCached = false;
+
+----
+
+modules['frontends/login-only.lua'] = {};
+modules['frontends/login-only.lua'].load = function()
+local __just_filename = 'login-only.lua';
+local __filename = 'frontends/login-only.lua';
+local __dirname = 'frontends';
+local __hash = '05240a0b1f5d7b14b78a66f714493a7399a27146d81d0b46df86cf8c2d072d523448427e49703ed80fc7fd66bf0ad62b59339b1300bac21b92e4fe1ecb98779a';
+return function()
+  print 'Login-Only Mode\nDropping you into a shell...'
+end
+
+end;
+modules['frontends/login-only.lua'].cache = null;
+modules['frontends/login-only.lua'].isCached = false;
+
+----
+
+modules['index.lua'] = {};
+modules['index.lua'].load = function()
+local __just_filename = 'index.lua';
+local __filename = 'index.lua';
+local __dirname = '';
+local __hash = 'f318ac9f245dcef8f763239dcf5e2af2703d775f2805d5e7b3affc4813fde2a1721f730d3b853947615b6e82f528a2f1c52487e3088a2f5a813a5a178933e832';
+local console = require 'console'
+_G.console = console
+if isStartup then
+  require('termination').setDisabled(true)
+end
+if installer and (not term.isColor or not term.isColor()) then
+  console.clear()
+  print 'Warning: On non-colour displays, the main UI is replaced with a "lite" UI.\nContinue? [Y/n]'
+  if string.lower(string.sub(read(), 1, 1)) == 'n' then
+    print 'Aborted.'
+    return
+  end
+end
+-- init script
+require 'polyfills/table.create'
+require 'networking/secnet'
+require 'installationid'
+_G.sha = require 'deepcopy'(require 'hash')
+console.clear()
+print('Host:', _HOST)
+print('Is Installer:', (installer and 'true' or 'false'))
+return require(installer and 'load-installer' or 'login')
+
+end;
+modules['index.lua'].cache = null;
+modules['index.lua'].isCached = false;
+
+----
+
+modules['load-installer.lua'] = {};
+modules['load-installer.lua'].load = function()
+local __just_filename = 'load-installer.lua';
+local __filename = 'load-installer.lua';
+local __dirname = '';
+local __hash = '564e3e8107aae1020a22bbd1d8329eda57c79ce083b1d8d26f2e3eb48ac4309b2d893fa989a906440aedcbda8717cbdca93e495f7c08f1f92711d42fcc6ab5aa';
+local console = require 'console'
+local json = require 'json'
+local base64 = require 'base64'
+-- Load Deps
+console.clear()
+console.log 'Loading Dependencies...'
+local hash = require 'hash'
+local chime = require 'misc/chime'
+local xor = require 'xor'
+console.clear()
+-- Play chime, say hello, all that jazz
+term.setCursorBlink(false)
+console.centerLog 'Welcome!'
+chime()
+sleep(1)
+
+local pw
+-- ask for new password
+local getNewPw = function()
+  -- password input
+  local requestPassword = function()
+    return read '.'
+  end
+  pw = ''
+  while #pw < 1 do
+    console.clear()
+    print 'First, we\'re gonna need you to set a password.\n\nRemember it; the device will be unsuable without it.\n\nMust be 8 characters or more.\n'
+    console.logNoNl 'Password => '
+    pw = requestPassword()
+    break
+  end
+
+  -- password validation
+  local success = false
+  while not success do
+    console.clear()
+    print 'Now, please repeat that password.\n\nForgot it?\nPress ctrl + t for a few seconds & try again.\n'
+    console.logNoNl 'Repeat Password => '
+    success = read '.' == pw
+  end
+end
+-- check for existing auth store
+local overwriteUniqueKeys = {}
+local overwriteAuthStoreThing
+if fs.exists '/.cco/.authbackup.json' then
+  console.clear()
+  print 'We found a backup authentication store file.\nTypically, this is used to allow any encrypted data to persist when updating.\nWould you like to use it? [Y/n]'
+  local rs = string.lower(string.sub(read(), 1, 1))
+  if rs ~= 'n' then
+    print 'Please input your old password.'
+    pw = read '.'
+    local f = fs.open('/.cco/.authbackup.json', 'r')
+    local content = json.parse(f.readAll())
+    f.close()
+    local oldUniqueKeys = content.encryptionKeyStore
+    local hpw = hash.hmac(hash.sha3_512, oldUniqueKeys.pw, pw)
+    local enc = xor(oldUniqueKeys.enc, oldUniqueKeys.Eenc .. hpw)
+    if xor(base64.Decode(content.authStoreThing.encryped), enc) ~= hpw then
+      print('Expected:', hpw)
+      print('Decrypt Result:', content.authStoreThing.encryped)
+      error 'Decryption Failure. Please run the installer again.'
+    else
+      print 'Decrypt Test Success! Decrypting...'
+      overwriteAuthStoreThing = content.authStoreThing.encryped
+      for k, v in pairs(oldUniqueKeys) do
+        if k ~= 'Eenc' and k ~= 'pw' then
+          oldUniqueKeys[k] = xor(v, oldUniqueKeys.Eenc .. pw)
+        end
+      end
+      overwriteUniqueKeys = oldUniqueKeys
+    end
+  else
+    getNewPw()
+  end
+else
+  getNewPw()
+end
+
+-- notify user what we're doing
+console.clear()
+console.centerLog 'Setting up Encryption for you...'
+
+-- unique device keys
+local uniqueKeys = require 'uniquekeys'
+
+-- load old keys if any
+for k, v in pairs(overwriteUniqueKeys) do
+  uniqueKeys[k] = v
+end
+
+-- hash password
+---@diagnostic disable-next-line: cast-local-type
+pw = hash.hmac(hash.sha3_512, uniqueKeys.pw, pw)
+
+-- encrypt keys
+local authStoreThing = require 'auth'
+if overwriteAuthStoreThing then
+  authStoreThing.encryped = overwriteAuthStoreThing
+else
+  authStoreThing.encryped = base64.Encode(xor(pw, uniqueKeys.enc))
+end
+local script = thisBundle
+local newUniqueKeys = {}
+for k, v in pairs(uniqueKeys) do
+  if k ~= 'pw' and k ~= 'Eenc' then
+    uniqueKeys[k] = xor(v, uniqueKeys.Eenc .. pw)
+  end
+  newUniqueKeys[k] = base64.Encode(uniqueKeys[k])
+  script = string.gsub(script, '!!!' .. k, newUniqueKeys[k])
+end
+script = string.gsub(script, 'local shouldB64Decode = false', 'local shouldB64Decode = true')
+
+sleep(0.2)
+console.clear()
+console.log 'Do you wish to install this system-wide (y), or as an application (N)? [y/N]'
+local systemWide = fs.exists '/.cco/setup-launchonstartup' or string.lower(string.sub(read(), 1, 1)) == 'y'
+console.clear()
+console.centerLog 'Installing...'
+script = string.gsub(script, '_ENCRYPTME', authStoreThing.encryped)
+if not fs.isDir '/.cco' then
+  fs.makeDir '/.cco'
+end
+
+local file = fs.open('/cco.lua', 'w')
+file.write(script)
+file.close()
+if systemWide then
+  local file2 = fs.open('/startup.lua', 'w')
+  file2.write 'local file = fs.open(\'/cco.lua\',\'r\');\nlocal byte, err = loadstring([[local isStartup = true;local shell = shell or _G.__shell; _G.__shell = nil;]]..file.readAll(), [[/cco.lua]]);\nif type(byte) ~= \'function\' then\n  print(\'Failed to load:\',err);\n  sleep(1);\n  os.shutdown();\nend;\nfile.close();\n_G.__shell = shell;\nreturn byte()'
+  file2.close()
+  local file3 = fs.open('/.cco/setup-launchonstartup', 'w')
+  file3.write 'ok bro'
+  file3.close()
+end
+sleep(0.4)
+console.clear()
+console.centerLog 'Backing up encryption keys...'
+local backupfile = fs.open('/.cco/.authbackup.json', 'w')
+backupfile.write(require('json').stringify {
+  ['authStoreThing'] = authStoreThing,
+  ['encryptionKeyStore'] = uniqueKeys,
+})
+backupfile.close()
+sleep(0.4)
+console.clear()
+if systemWide then
+  console.centerLog 'Rebooting...'
+  sleep(2)
+  os.reboot()
+else
+  console.log 'The OS is available under the command \'cco\'.'
+  sleep(0.5)
+  -- console.centerLog 'Performing Initial Boot...'
+  -- sleep(0.2)
+  -- console.clear()
+  -- require 'login'
+end
+
+end;
+modules['load-installer.lua'].cache = null;
+modules['load-installer.lua'].isCached = false;
+
+----
+
+modules['login.lua'] = {};
+modules['login.lua'].load = function()
+local __just_filename = 'login.lua';
+local __filename = 'login.lua';
+local __dirname = '';
+local __hash = 'b3a28f2df4c2612850fd9c24072b7402a2f2687d8a9395cc5f421ad2c6361fa50f3669de26028801fc271a29c61db6af01ca307fb70c4e50da62d5e2eb8e770e';
+local console = require 'console'
+-- load ui
+print 'Preparing...'
+require('termination').setDisabled(true)
+_G.Math = math
+local hash = require 'hash'
+local uniqueKeys = require 'uniquekeys'
+local xor = require 'xor'
+local tryAuth = function(pw)
+  pw = hash.hmac(hash.sha3_512, uniqueKeys.pw, pw)
+  local enc = xor(uniqueKeys.enc, uniqueKeys.Eenc .. pw)
+  if xor(require('auth').encryped, enc) ~= pw then
+    return true
+  else
+    for k, v in pairs(uniqueKeys) do
+      if k ~= 'Eenc' and k ~= 'pw' then
+        uniqueKeys[k] = xor(v, uniqueKeys.Eenc .. pw)
+      end
+    end
+    require('termination').setDisabled(false)
+    require 'boot'()
+  end
+end
+repeat
+  console.clear()
+  console.log 'Enter your password.'
+until not tryAuth(read '.')
+
+end;
+modules['login.lua'].cache = null;
+modules['login.lua'].isCached = false;
+
+----
+
+modules['misc/chime.lua'] = {};
+modules['misc/chime.lua'].load = function()
+local __just_filename = 'chime.lua';
+local __filename = 'misc/chime.lua';
+local __dirname = 'misc';
+local __hash = '5cccb2e7b818ee81d9c7d596c00ec7871ab43e5bc512541595d4d896f370762e8c72d58946d9e5d8c52126b4ea2e881348397c7557bec7f087caaa5c88cbeec8';
+return function(volume)
+  volume = volume or 0.5
+  local speaker = peripheral.find 'speaker'
+  if speaker then
+    speaker.playNote('hat', volume, 1)
+    sleep(0.1)
+    speaker.playNote('hat', volume, 1)
+    sleep(0.1)
+    speaker.playNote('hat', volume, 13)
+    sleep(0.2)
+    speaker.playNote('hat', volume, 8)
+  end
+end
+
+end;
+modules['misc/chime.lua'].cache = null;
+modules['misc/chime.lua'].isCached = false;
+
+----
+
+modules['networking/secnet.lua'] = {};
+modules['networking/secnet.lua'].load = function()
+local __just_filename = 'secnet.lua';
+local __filename = 'networking/secnet.lua';
+local __dirname = 'networking';
+local __hash = '1d4d92daf41521f6444cc02c3091805d1b87de8d8d7ece1bac7c6b6f1767ebbc55a24027400c436b1fdc2c142656ef8514e5190a7a763d86c969fbcdf0d32492';
+---@diagnostic disable: deprecated
+local sha, xor, json = require 'hash', require 'xor', require 'json'
+local secnet = {}
+_G.secureCommunications = secnet
+_G.secnet = secnet
+--- Starts listening on to rednet on all peripherals. If you only want to listen on specific ones, manually call rednet.open on those.
+secnet.listen = function()
+  peripheral.find('modem', rednet.open)
+end
+--- Creates and/or joins a new secnet channel, provides an API to interact with it | Channel & Password combinatiton matters to be able to receive data.
+secnet.new = function(channel, pass)
+  if not channel then
+    error 'You must provide a channel!'
+  end
+  if not pass then
+    error 'You must provide a password!'
+  end
+  local self = {}
+  --- Encryption Key. Derived from Channel & Password.
+  self.key = xor(sha.hmac(sha.sha3_512, pass, xor(channel, pass)), sha.sha3_512(pass))
+  --- Internal Channel ID to listen to; hash of the channel as to avoid leaking the channel name publicly in broadcasts
+  self.channelId = sha.sha3_512(string.rep(channel, 2))
+  self.prefix = '++cco.secure-communications++\n+++channel+' .. self.channelId .. '+++'
+  --- Broadcast message to all devices listening on channel
+  self.broadcast = function(message, ...)
+    if not message then
+      error 'Must provide a message'
+    end
+    message = json.stringify { message, ... }
+    rednet.broadcast(self.prefix .. xor(message, self.key))
+    return self
+  end
+  --- Send message to device with id listening on channel
+  self.send = function(id, message, ...)
+    if not message then
+      error 'Must provide a message'
+    end
+    message = json.stringify { message, ... }
+    rednet.send(id, self.prefix .. xor(message, self.key))
+    return self
+  end
+  --- Awaits a message with a specific timeout & an optional filter function | Ignores unparsable (/invalid password) entities | Returns sender, ...message
+  self.receive = function(timeout, filter)
+    filter = filter or (typeof(timeout) == 'function' and timeout) or function()
+      return true
+    end
+    if typeof(timeout) ~= 'number' then
+      timeout = nil
+    end
+    local finalMessage
+    local endTime = os.clock() + (timeout or math.huge)
+    local sender
+    repeat
+      -- wait for message
+      local senderId, encryptedMessageWithPrefix = rednet.receive(endTime - os.clock())
+      if encryptedMessageWithPrefix then
+        -- check if its for us
+        if string.sub(encryptedMessageWithPrefix, 1, #self.prefix) == self.prefix then
+          -- strip prefix
+          local encryptedMessage = string.sub(encryptedMessageWithPrefix, #self.prefix + 1)
+          -- decrypt
+          local decryptedMessage = xor(encryptedMessage, self.key)
+          -- parse
+          local s, rt = pcall(json.parse, decryptedMessage)
+          if s then
+            finalMessage = rt
+            sender = senderId
+          end
+          -- else
+          --   print('Debug: Message not for us', encryptedMessageWithPrefix, '\nExpected prefix', self.prefix)
+        end
+      end
+    until finalMessage or os.clock() >= endTime
+    ---@diagnostic disable-next-line: param-type-mismatch
+    return sender, (table.unpack or unpack)(finalMessage)
+  end
+  return self
+end
+
+end;
+modules['networking/secnet.lua'].cache = null;
+modules['networking/secnet.lua'].isCached = false;
+
+----
+
+modules['packages/basalt.lua'] = {};
+modules['packages/basalt.lua'].load = function()
+local __just_filename = 'basalt.lua';
+local __filename = 'packages/basalt.lua';
+local __dirname = 'packages';
+local __hash = 'a0aec13284aad4cc27ecd4aa8e43823a4f8a771b14bf7b314029d51fb3fe5096db8b336e9d5afa7bfe49d1fe37610df0f0e789e9a157c7609736c1ba817b5627';
+if not fs.exists '/basalt.lua' then
+  local url = 'https://raw.githubusercontent.com/MokiyCodes/cco/main/basalt.lua'
+  local f = fs.open('/basalt.lua', 'w')
+  local rq = http.get(url)
+  f.write(rq.readAll())
+  f.close()
+  rq.close()
+end
+local file = fs.open('/basalt.lua', 'r')
+---@diagnostic disable-next-line: deprecated
+local chunk, err = (load or loadstring)(file.readAll())
+file.close()
+if not chunk then
+  error(err)
+end
+return chunk()
+
+end;
+modules['packages/basalt.lua'].cache = null;
+modules['packages/basalt.lua'].isCached = false;
+
+----
+
+modules['packages/base64.lua'] = {};
+modules['packages/base64.lua'].load = function()
+local __just_filename = 'base64.lua';
+local __filename = 'packages/base64.lua';
+local __dirname = 'packages';
+local __hash = 'abb838d74919d0c924ed1acf353dcf667886b064e70a109c7bd514b0e96f38c168e23adf930d75cfc288dad437591d485b8a35ce11fa4f8dc08a8090956796bd';
+-- @original: https://gist.github.com/Reselim/40d62b17d138cc74335a1b0709e19ce2
+local Alphabet = {}
+local Indexes = {}
+
+-- A-Z
+for Index = 65, 90 do
+  table.insert(Alphabet, Index)
+end
+
+-- a-z
+for Index = 97, 122 do
+  table.insert(Alphabet, Index)
+end
+
+-- 0-9
+for Index = 48, 57 do
+  table.insert(Alphabet, Index)
+end
+
+table.insert(Alphabet, 43) -- +
+table.insert(Alphabet, 47) -- /
+
+for Index, Character in ipairs(Alphabet) do
+  Indexes[Character] = Index
+end
+
+local Base64 = {}
+
+local bit32_rshift = bit32.rshift
+local bit32_lshift = bit32.lshift
+local bit32_band = bit32.band
+
+--[[**
+	Encodes a string in Base64.
+	@param [t:string] Input The input string to encode.
+	@returns [t:string] The string encoded in Base64.
+**--]]
+function Base64.Encode(Input)
+  local Output = {}
+  local Length = 0
+
+  for Index = 1, #Input, 3 do
+    local C1, C2, C3 = string.byte(Input, Index, Index + 2)
+
+    local A = bit32_rshift(C1, 2)
+    local B = bit32_lshift(bit32_band(C1, 3), 4) + bit32_rshift(C2 or 0, 4)
+    local C = bit32_lshift(bit32_band(C2 or 0, 15), 2) + bit32_rshift(C3 or 0, 6)
+    local D = bit32_band(C3 or 0, 63)
+
+    Length = Length + 1
+    Output[Length] = Alphabet[A + 1]
+
+    Length = Length + 1
+    Output[Length] = Alphabet[B + 1]
+
+    Length = Length + 1
+    Output[Length] = C2 and Alphabet[C + 1] or 61
+
+    Length = Length + 1
+    Output[Length] = C3 and Alphabet[D + 1] or 61
+  end
+
+  local NewOutput = {}
+  local NewLength = 0
+  local IndexAdd4096Sub1
+
+  for Index = 1, Length, 4096 do
+    NewLength = NewLength + 1
+    IndexAdd4096Sub1 = Index + 4096 - 1
+
+    NewOutput[NewLength] = string.char(table.unpack(Output, Index, IndexAdd4096Sub1 > Length and Length or IndexAdd4096Sub1))
+  end
+
+  return table.concat(NewOutput)
+end
+
+--[[**
+	Decodes a string from Base64.
+	@param [t:string] Input The input string to decode.
+	@returns [t:string] The newly decoded string.
+**--]]
+function Base64.Decode(Input)
+  local Output = {}
+  local Length = 0
+
+  for Index = 1, #Input, 4 do
+    local C1, C2, C3, C4 = string.byte(Input, Index, Index + 3)
+
+    local I1 = Indexes[C1] - 1
+    local I2 = Indexes[C2] - 1
+    local I3 = (Indexes[C3] or 1) - 1
+    local I4 = (Indexes[C4] or 1) - 1
+
+    local A = bit32_lshift(I1, 2) + bit32_rshift(I2, 4)
+    local B = bit32_lshift(bit32_band(I2, 15), 4) + bit32_rshift(I3, 2)
+    local C = bit32_lshift(bit32_band(I3, 3), 6) + I4
+
+    Length = Length + 1
+    Output[Length] = A
+
+    if C3 ~= 61 then
+      Length = Length + 1
+      Output[Length] = B
+    end
+
+    if C4 ~= 61 then
+      Length = Length + 1
+      Output[Length] = C
+    end
+  end
+
+  local NewOutput = {}
+  local NewLength = 0
+  local IndexAdd4096Sub1
+
+  for Index = 1, Length, 4096 do
+    NewLength = NewLength + 1
+    IndexAdd4096Sub1 = Index + 4096 - 1
+
+    NewOutput[NewLength] = string.char(table.unpack(Output, Index, IndexAdd4096Sub1 > Length and Length or IndexAdd4096Sub1))
+  end
+
+  return table.concat(NewOutput)
+end
+
+return Base64
+
+end;
+modules['packages/base64.lua'].cache = null;
+modules['packages/base64.lua'].isCached = false;
+
+----
+
+modules['packages/bitop.lua'] = {};
+modules['packages/bitop.lua'].load = function()
+local __just_filename = 'bitop.lua';
+local __filename = 'packages/bitop.lua';
+local __dirname = 'packages';
+local __hash = '3eb8138fba20e6efce960c977bd8b3d0120aa7c230bc95a3ec462484610b8433d05a6035ad08c36f43925f6af3d63338fcde5ed1956391b382b49546ed9e245b';
+-- https://github.com/AlberTajuelo/bitop-lua
+-- MIT
+-- im only using this for bxor but it may be useful for smth else one day :shrug:
+local M = { _TYPE = 'module', _NAME = 'bitop.funcs', _VERSION = '1.0-0' }
+
+local floor = math.floor
+
+local MOD = 2 ^ 32
+local MODM = MOD - 1
+
+local function memoize(f)
+  local mt = {}
+  local t = setmetatable({}, mt)
+
+  function mt:__index(k)
+    local v = f(k)
+    t[k] = v
+    return v
+  end
+
+  return t
+end
+
+local function make_bitop_uncached(t, m)
+  local function bitop(a, b)
+    local res, p = 0, 1
+    while a ~= 0 and b ~= 0 do
+      local am, bm = a % m, b % m
+      res = res + t[am][bm] * p
+      a = (a - am) / m
+      b = (b - bm) / m
+      p = p * m
+    end
+    res = res + (a + b) * p
+    return res
+  end
+  return bitop
+end
+
+local function make_bitop(t)
+  local op1 = make_bitop_uncached(t, 2 ^ 1)
+  local op2 = memoize(function(a)
+    return memoize(function(b)
+      return op1(a, b)
+    end)
+  end)
+  return make_bitop_uncached(op2, 2 ^ (t.n or 1))
+end
+
+-- ok? probably not if running on a 32-bit int Lua number type platform
+function M.tobit(x)
+  return x % 2 ^ 32
+end
+
+M.bxor = make_bitop { [0] = { [0] = 0, [1] = 1 }, [1] = { [0] = 1, [1] = 0 }, n = 4 }
+local bxor = M.bxor
+
+function M.bnot(a)
+  return MODM - a
+end
+local bnot = M.bnot
+
+function M.band(a, b)
+  return ((a + b) - bxor(a, b)) / 2
+end
+local band = M.band
+
+function M.bor(a, b)
+  return MODM - band(MODM - a, MODM - b)
+end
+local bor = M.bor
+
+local lshift, rshift -- forward declare
+
+function M.rshift(a, disp) -- Lua5.2 insipred
+  if disp < 0 then
+    return lshift(a, -disp)
+  end
+  return floor(a % 2 ^ 32 / 2 ^ disp)
+end
+rshift = M.rshift
+
+function M.lshift(a, disp) -- Lua5.2 inspired
+  if disp < 0 then
+    return rshift(a, -disp)
+  end
+  return (a * 2 ^ disp) % 2 ^ 32
+end
+lshift = M.lshift
+
+function M.tohex(x, n) -- BitOp style
+  n = n or 8
+  local up
+  if n <= 0 then
+    if n == 0 then
+      return ''
+    end
+    up = true
+    n = -n
+  end
+  x = band(x, 16 ^ n - 1)
+  return ('%0' .. n .. (up and 'X' or 'x')):format(x)
+end
+local tohex = M.tohex
+
+function M.extract(n, field, width) -- Lua5.2 inspired
+  width = width or 1
+  return band(rshift(n, field), 2 ^ width - 1)
+end
+local extract = M.extract
+
+function M.replace(n, v, field, width) -- Lua5.2 inspired
+  width = width or 1
+  local mask1 = 2 ^ width - 1
+  v = band(v, mask1) -- required by spec?
+  local mask = bnot(lshift(mask1, field))
+  return band(n, mask) + lshift(v, field)
+end
+local replace = M.replace
+
+function M.bswap(x) -- BitOp style
+  local a = band(x, 0xff)
+  x = rshift(x, 8)
+  local b = band(x, 0xff)
+  x = rshift(x, 8)
+  local c = band(x, 0xff)
+  x = rshift(x, 8)
+  local d = band(x, 0xff)
+  return lshift(lshift(lshift(a, 8) + b, 8) + c, 8) + d
+end
+local bswap = M.bswap
+
+function M.rrotate(x, disp) -- Lua5.2 inspired
+  disp = disp % 32
+  local low = band(x, 2 ^ disp - 1)
+  return rshift(x, disp) + lshift(low, 32 - disp)
+end
+local rrotate = M.rrotate
+
+function M.lrotate(x, disp) -- Lua5.2 inspired
+  return rrotate(x, -disp)
+end
+local lrotate = M.lrotate
+
+M.rol = M.lrotate -- LuaOp inspired
+M.ror = M.rrotate -- LuaOp insipred
+
+function M.arshift(x, disp) -- Lua5.2 inspired
+  local z = rshift(x, disp)
+  if x >= 0x80000000 then
+    z = z + lshift(2 ^ disp - 1, 32 - disp)
+  end
+  return z
+end
+local arshift = M.arshift
+
+function M.btest(x, y) -- Lua5.2 inspired
+  return band(x, y) ~= 0
+end
+
+--
+-- Start Lua 5.2 "bit32" compat section.
+--
+
+M.bit32 = {} -- Lua 5.2 'bit32' compatibility
+
+local function bit32_bnot(x)
+  return (-1 - x) % MOD
+end
+M.bit32.bnot = bit32_bnot
+
+local function bit32_bxor(a, b, c, ...)
+  local z
+  if b then
+    a = a % MOD
+    b = b % MOD
+    z = bxor(a, b)
+    if c then
+      z = bit32_bxor(z, c, ...)
+    end
+    return z
+  elseif a then
+    return a % MOD
+  else
+    return 0
+  end
+end
+M.bit32.bxor = bit32_bxor
+
+local function bit32_band(a, b, c, ...)
+  local z
+  if b then
+    a = a % MOD
+    b = b % MOD
+    z = ((a + b) - bxor(a, b)) / 2
+    if c then
+      z = bit32_band(z, c, ...)
+    end
+    return z
+  elseif a then
+    return a % MOD
+  else
+    return MODM
+  end
+end
+M.bit32.band = bit32_band
+
+local function bit32_bor(a, b, c, ...)
+  local z
+  if b then
+    a = a % MOD
+    b = b % MOD
+    z = MODM - band(MODM - a, MODM - b)
+    if c then
+      z = bit32_bor(z, c, ...)
+    end
+    return z
+  elseif a then
+    return a % MOD
+  else
+    return 0
+  end
+end
+M.bit32.bor = bit32_bor
+
+function M.bit32.btest(...)
+  return bit32_band(...) ~= 0
+end
+
+function M.bit32.lrotate(x, disp)
+  return lrotate(x % MOD, disp)
+end
+
+function M.bit32.rrotate(x, disp)
+  return rrotate(x % MOD, disp)
+end
+
+function M.bit32.lshift(x, disp)
+  if disp > 31 or disp < -31 then
+    return 0
+  end
+  return lshift(x % MOD, disp)
+end
+
+function M.bit32.rshift(x, disp)
+  if disp > 31 or disp < -31 then
+    return 0
+  end
+  return rshift(x % MOD, disp)
+end
+
+function M.bit32.arshift(x, disp)
+  x = x % MOD
+  if disp >= 0 then
+    if disp > 31 then
+      return (x >= 0x80000000) and MODM or 0
+    else
+      local z = rshift(x, disp)
+      if x >= 0x80000000 then
+        z = z + lshift(2 ^ disp - 1, 32 - disp)
+      end
+      return z
+    end
+  else
+    return lshift(x, -disp)
+  end
+end
+
+function M.bit32.extract(x, field, ...)
+  local width = ... or 1
+  if field < 0 or field > 31 or width < 0 or field + width > 32 then
+    error 'out of range'
+  end
+  x = x % MOD
+  return extract(x, field, ...)
+end
+
+function M.bit32.replace(x, v, field, ...)
+  local width = ... or 1
+  if field < 0 or field > 31 or width < 0 or field + width > 32 then
+    error 'out of range'
+  end
+  x = x % MOD
+  v = v % MOD
+  return replace(x, v, field, ...)
+end
+
+--
+-- Start LuaBitOp "bit" compat section.
+--
+
+M.bit = {} -- LuaBitOp "bit" compatibility
+
+function M.bit.tobit(x)
+  x = x % MOD
+  if x >= 0x80000000 then
+    x = x - MOD
+  end
+  return x
+end
+local bit_tobit = M.bit.tobit
+
+function M.bit.tohex(x, ...)
+  return tohex(x % MOD, ...)
+end
+
+function M.bit.bnot(x)
+  return bit_tobit(bnot(x % MOD))
+end
+
+local function bit_bor(a, b, c, ...)
+  if c then
+    return bit_bor(bit_bor(a, b), c, ...)
+  elseif b then
+    return bit_tobit(bor(a % MOD, b % MOD))
+  else
+    return bit_tobit(a)
+  end
+end
+M.bit.bor = bit_bor
+
+local function bit_band(a, b, c, ...)
+  if c then
+    return bit_band(bit_band(a, b), c, ...)
+  elseif b then
+    return bit_tobit(band(a % MOD, b % MOD))
+  else
+    return bit_tobit(a)
+  end
+end
+M.bit.band = bit_band
+
+local function bit_bxor(a, b, c, ...)
+  if c then
+    return bit_bxor(bit_bxor(a, b), c, ...)
+  elseif b then
+    return bit_tobit(bxor(a % MOD, b % MOD))
+  else
+    return bit_tobit(a)
+  end
+end
+M.bit.bxor = bit_bxor
+
+function M.bit.lshift(x, n)
+  return bit_tobit(lshift(x % MOD, n % 32))
+end
+
+function M.bit.rshift(x, n)
+  return bit_tobit(rshift(x % MOD, n % 32))
+end
+
+function M.bit.arshift(x, n)
+  return bit_tobit(arshift(x % MOD, n % 32))
+end
+
+function M.bit.rol(x, n)
+  return bit_tobit(lrotate(x % MOD, n % 32))
+end
+
+function M.bit.ror(x, n)
+  return bit_tobit(rrotate(x % MOD, n % 32))
+end
+
+function M.bit.bswap(x)
+  return bit_tobit(bswap(x % MOD))
+end
+
+return M
+
+end;
+modules['packages/bitop.lua'].cache = null;
+modules['packages/bitop.lua'].isCached = false;
+
+----
+
+modules['packages/child_process.lua'] = {};
+modules['packages/child_process.lua'].load = function()
+local __just_filename = 'child_process.lua';
+local __filename = 'packages/child_process.lua';
+local __dirname = 'packages';
+local __hash = 'd4d9127b6d57470743431b879789e451653aa26ade0fc0440567f71aefbaddd05601ce4fcf995065ff2ebe3c70eb5c88c380ea8d1bc7015a06f330e14d75b5fc';
+---@diagnostic disable: deprecated
+local cid = 0
+return {
+  ['execSync'] = function(process, ...)
+    error 'non-functional as of now'
+    -- return shell.execute(process, ...)
+  end,
+  ['execLuaSync'] = function(lua, chunk)
+    cid = cid + 1
+    local c, ex = loadstring(lua, chunk or ('Unknown Chunk Name - Chunk #' .. tostring(cid)))
+    if not c then
+      error('Compilation Error: ' .. ex)
+    end
+    return c()
+  end,
+}
+
+end;
+modules['packages/child_process.lua'].cache = null;
+modules['packages/child_process.lua'].isCached = false;
+
+----
+
+modules['packages/console.lua'] = {};
+modules['packages/console.lua'].load = function()
+local __just_filename = 'console.lua';
+local __filename = 'packages/console.lua';
+local __dirname = 'packages';
+local __hash = '4680436d6f199fd8fcb61ecc496c4bf33dbe7448eb2eefe36f8d0ab419726c0183db12921807d96b6d921011909418ca6d6ed8156e4a53ec2a0adee832c88a11';
+-- attempt to reimplement the js console api
+return {
+  ['clear'] = function()
+    term.clear()
+    term.setCursorPos(1, 1)
+  end,
+  ['log'] = print,
+  -- todo replace with colour variants if term.isColour()
+  ['warn'] = print,
+  ['error'] = print,
+  -- custom apis
+  ['centerLog'] = function(text)
+    local sizeX, sizeY = term.getSize()
+    local _, guaranteedNewlines = text:gsub('\n', '')
+    term.setCursorPos(
+      math.floor(sizeX / 2) - math.floor(#text / 2),
+      math.floor(sizeY / 2) - math.floor(guaranteedNewlines / 2)
+    )
+    print(text)
+  end,
+  ['logNoNl'] = function(text)
+    local x, y = term.getCursorPos()
+    term.write(text)
+    term.setCursorPos(x + #text, y)
+  end,
+}
+
+end;
+modules['packages/console.lua'].cache = null;
+modules['packages/console.lua'].isCached = false;
+
+----
+
+modules['packages/deepcopy.lua'] = {};
+modules['packages/deepcopy.lua'].load = function()
+local __just_filename = 'deepcopy.lua';
+local __filename = 'packages/deepcopy.lua';
+local __dirname = 'packages';
+local __hash = '8b6fd8f13fcb736e172f5f42c443f0f4aa06ac56a3aa716cef7aef0c7d4e6a2c08d25e8626609d449428a1c45a2400c8189b96d8ac89244d626dcfc2f43c4cb1';
+-- https://lua-users.org/wiki/CopyTable
+local deepcopy = function(orig, copies)
+  copies = copies or {}
+  local orig_type = type(orig)
+  local copy
+  if orig_type == 'table' then
+    if copies[orig] then
+      copy = copies[orig]
+    else
+      copy = {}
+      copies[orig] = copy
+      for orig_key, orig_value in next, orig, nil do
+        copy[deepcopy(orig_key, copies)] = deepcopy(orig_value, copies)
+      end
+      setmetatable(copy, deepcopy(getmetatable(orig), copies))
+    end
+  else -- number, string, boolean, etc
+    copy = orig
+  end
+  return copy
+end
+_G.deepcopy = deepcopy
+return deepcopy
+
+end;
+modules['packages/deepcopy.lua'].cache = null;
+modules['packages/deepcopy.lua'].isCached = false;
+
+----
+
+modules['packages/forceyield.lua'] = {};
+modules['packages/forceyield.lua'].load = function()
+local __just_filename = 'forceyield.lua';
+local __filename = 'packages/forceyield.lua';
+local __dirname = 'packages';
+local __hash = 'eb04b7f3c25eb022ecf4eb6d4cd49852ba4d34df8f91b9a51667256940f57f740f52dc3c6b3e3630b96f26bc12fee62fb72ed3f7ecc9608960b9727b447b964a';
+return function()
+  os.queueEvent 'fakeEvent'
+  os.pullEvent()
+end
+
+end;
+modules['packages/forceyield.lua'].cache = null;
+modules['packages/forceyield.lua'].isCached = false;
+
+----
+
+modules['packages/hash.lua'] = {};
+modules['packages/hash.lua'].load = function()
+local __just_filename = 'hash.lua';
+local __filename = 'packages/hash.lua';
+local __dirname = 'packages';
+local __hash = '634545ee941dd77783331999bdf495b4922468b96b61595d91f7b6bb76a09319f23ec27b6cf379889b8fd528366d47aa45563bcf1f5a3bfe2e5f5cbb385b3d66';
+--[=[------------------------------------------------------------------------------------------------------------------------
+-- HashLib by Egor Skriptunoff, boatbomber, and howmanysmall
+
+Documentation here: https://devforum.roblox.com/t/open-source-hashlib/416732/1
+
+--------------------------------------------------------------------------------------------------------------------------
+
+Module was originally written by Egor Skriptunoff and distributed under an MIT license.
+It can be found here: https://github.com/Egor-Skriptunoff/pure_lua_SHA/blob/master/sha2.lua
+
+That version was around 3000 lines long, and supported Lua versions 5.1, 5.2, 5.3, and 5.4, and LuaJIT.
+Although that is super cool, Roblox only uses Lua 5.1, so that was extreme overkill.
+
+I, boatbomber, worked to port it to Roblox in a way that doesn't overcomplicate it with support of unreachable
+cases. Then, howmanysmall did some final optimizations that really squeeze out all the performance possible.
+It's gotten stupid fast, thanks to her!
+
+After quite a bit of work and benchmarking, this is what we were left with.
+Enjoy!
+
+--------------------------------------------------------------------------------------------------------------------------
+
+DESCRIPTION:
+	This module contains functions to calculate SHA digest:
+		MD5, SHA-1,
+		SHA-224, SHA-256, SHA-512/224, SHA-512/256, SHA-384, SHA-512,
+		SHA3-224, SHA3-256, SHA3-384, SHA3-512, SHAKE128, SHAKE256,
+		HMAC
+	Additionally, it has a few extra utility functions:
+		hex_to_bin
+		base64_to_bin
+		bin_to_base64
+	Written in pure Lua.
+USAGE:
+	Input data should be a string
+	Result (SHA digest) is returned in hexadecimal representation as a string of lowercase hex digits.
+	Simplest usage example:
+		local HashLib = require(script.HashLib)
+		local your_hash = HashLib.sha256("your string")
+API:
+		HashLib.md5
+		HashLib.sha1
+	SHA2 hash functions:
+		HashLib.sha224
+		HashLib.sha256
+		HashLib.sha512_224
+		HashLib.sha512_256
+		HashLib.sha384
+		HashLib.sha512
+	SHA3 hash functions:
+		HashLib.sha3_224
+		HashLib.sha3_256
+		HashLib.sha3_384
+		HashLib.sha3_512
+		HashLib.shake128
+		HashLib.shake256
+	Misc utilities:
+		HashLib.hmac (Applicable to any hash function from this module except SHAKE*)
+		HashLib.hex_to_bin
+		HashLib.base64_to_bin
+		HashLib.bin_to_base64
+
+--]=]
+---------------------------------------------------------------------------
+
+local Base64 = require 'base64'
+
+--------------------------------------------------------------------------------
+-- LOCALIZATION FOR VM OPTIMIZATIONS
+--------------------------------------------------------------------------------
+
+local ipairs = ipairs
+
+--------------------------------------------------------------------------------
+-- 32-BIT BITWISE FUNCTIONS
+--------------------------------------------------------------------------------
+-- Only low 32 bits of function arguments matter, high bits are ignored
+-- The result of all functions (except HEX) is an integer inside "correct range":
+-- for "bit" library:    (-TWO_POW_31)..(TWO_POW_31-1)
+-- for "bit32" library:        0..(TWO_POW_32-1)
+local bit32_band = bit32.band -- 2 arguments
+local bit32_bor = bit32.bor -- 2 arguments
+local bit32_bxor = bit32.bxor -- 2..5 arguments
+local bit32_lshift = bit32.lshift -- second argument is integer 0..31
+local bit32_rshift = bit32.rshift -- second argument is integer 0..31
+local bit32_lrotate = bit32.lrotate -- second argument is integer 0..31
+local bit32_rrotate = bit32.rrotate -- second argument is integer 0..31
+
+--------------------------------------------------------------------------------
+-- CREATING OPTIMIZED INNER LOOP
+--------------------------------------------------------------------------------
+-- Arrays of SHA2 "magic numbers" (in "INT64" and "FFI" branches "*_lo" arrays contain 64-bit values)
+local sha2_K_lo, sha2_K_hi, sha2_H_lo, sha2_H_hi, sha3_RC_lo, sha3_RC_hi = {}, {}, {}, {}, {}, {}
+local sha2_H_ext256 = {
+  [224] = {},
+  [256] = sha2_H_hi,
+}
+
+local sha2_H_ext512_lo, sha2_H_ext512_hi = {
+  [384] = {},
+  [512] = sha2_H_lo,
+}, {
+  [384] = {},
+  [512] = sha2_H_hi,
+}
+
+local md5_K, md5_sha1_H = {}, { 0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476, 0xC3D2E1F0 }
+local md5_next_shift = {
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  28,
+  25,
+  26,
+  27,
+  0,
+  0,
+  10,
+  9,
+  11,
+  12,
+  0,
+  15,
+  16,
+  17,
+  18,
+  0,
+  20,
+  22,
+  23,
+  21,
+}
+local HEX64, XOR64A5, lanes_index_base -- defined only for branches that internally use 64-bit integers: "INT64" and "FFI"
+local common_W = {} -- temporary table shared between all calculations (to avoid creating new temporary table every time)
+local K_lo_modulo, hi_factor, hi_factor_keccak = 4294967296, 0, 0
+
+local TWO_POW_NEG_56 = 2 ^ -56
+local TWO_POW_NEG_17 = 2 ^ -17
+
+local TWO_POW_2 = 2 ^ 2
+local TWO_POW_3 = 2 ^ 3
+local TWO_POW_4 = 2 ^ 4
+local TWO_POW_5 = 2 ^ 5
+local TWO_POW_6 = 2 ^ 6
+local TWO_POW_7 = 2 ^ 7
+local TWO_POW_8 = 2 ^ 8
+local TWO_POW_9 = 2 ^ 9
+local TWO_POW_10 = 2 ^ 10
+local TWO_POW_11 = 2 ^ 11
+local TWO_POW_12 = 2 ^ 12
+local TWO_POW_13 = 2 ^ 13
+local TWO_POW_14 = 2 ^ 14
+local TWO_POW_15 = 2 ^ 15
+local TWO_POW_16 = 2 ^ 16
+local TWO_POW_17 = 2 ^ 17
+local TWO_POW_18 = 2 ^ 18
+local TWO_POW_19 = 2 ^ 19
+local TWO_POW_20 = 2 ^ 20
+local TWO_POW_21 = 2 ^ 21
+local TWO_POW_22 = 2 ^ 22
+local TWO_POW_23 = 2 ^ 23
+local TWO_POW_24 = 2 ^ 24
+local TWO_POW_25 = 2 ^ 25
+local TWO_POW_26 = 2 ^ 26
+local TWO_POW_27 = 2 ^ 27
+local TWO_POW_28 = 2 ^ 28
+local TWO_POW_29 = 2 ^ 29
+local TWO_POW_30 = 2 ^ 30
+local TWO_POW_31 = 2 ^ 31
+local TWO_POW_32 = 2 ^ 32
+local TWO_POW_40 = 2 ^ 40
+
+local TWO56_POW_7 = 256 ^ 7
+
+-- Implementation for Lua 5.1/5.2 (with or without bitwise library available)
+local function sha256_feed_64(H, str, offs, size)
+  -- offs >= 0, size >= 0, size is multiple of 64
+  local W, K = common_W, sha2_K_hi
+  local h1, h2, h3, h4, h5, h6, h7, h8 = H[1], H[2], H[3], H[4], H[5], H[6], H[7], H[8]
+  for pos = offs, offs + size - 1, 64 do
+    for j = 1, 16 do
+      pos = pos + 4
+      local a, b, c, d = string.byte(str, pos - 3, pos)
+      W[j] = ((a * 256 + b) * 256 + c) * 256 + d
+    end
+
+    for j = 17, 64 do
+      local a, b = W[j - 15], W[j - 2]
+      W[j] = bit32_bxor(bit32_rrotate(a, 7), bit32_lrotate(a, 14), bit32_rshift(a, 3))
+        + bit32_bxor(bit32_lrotate(b, 15), bit32_lrotate(b, 13), bit32_rshift(b, 10))
+        + W[j - 7]
+        + W[j - 16]
+    end
+
+    local a, b, c, d, e, f, g, h = h1, h2, h3, h4, h5, h6, h7, h8
+    for j = 1, 64 do
+      local z = bit32_bxor(bit32_rrotate(e, 6), bit32_rrotate(e, 11), bit32_lrotate(e, 7))
+        + bit32_band(e, f)
+        + bit32_band(-1 - e, g)
+        + h
+        + K[j]
+        + W[j]
+      h = g
+      g = f
+      f = e
+      e = z + d
+      d = c
+      c = b
+      b = a
+      a = z
+        + bit32_band(d, c)
+        + bit32_band(a, bit32_bxor(d, c))
+        + bit32_bxor(bit32_rrotate(a, 2), bit32_rrotate(a, 13), bit32_lrotate(a, 10))
+    end
+
+    h1, h2, h3, h4 = (a + h1) % 4294967296, (b + h2) % 4294967296, (c + h3) % 4294967296, (d + h4) % 4294967296
+    h5, h6, h7, h8 = (e + h5) % 4294967296, (f + h6) % 4294967296, (g + h7) % 4294967296, (h + h8) % 4294967296
+  end
+
+  H[1], H[2], H[3], H[4], H[5], H[6], H[7], H[8] = h1, h2, h3, h4, h5, h6, h7, h8
+end
+
+local function sha512_feed_128(H_lo, H_hi, str, offs, size)
+  -- offs >= 0, size >= 0, size is multiple of 128
+  -- W1_hi, W1_lo, W2_hi, W2_lo, ...   Wk_hi = W[2*k-1], Wk_lo = W[2*k]
+  local W, K_lo, K_hi = common_W, sha2_K_lo, sha2_K_hi
+  local h1_lo, h2_lo, h3_lo, h4_lo, h5_lo, h6_lo, h7_lo, h8_lo =
+    H_lo[1], H_lo[2], H_lo[3], H_lo[4], H_lo[5], H_lo[6], H_lo[7], H_lo[8]
+  local h1_hi, h2_hi, h3_hi, h4_hi, h5_hi, h6_hi, h7_hi, h8_hi =
+    H_hi[1], H_hi[2], H_hi[3], H_hi[4], H_hi[5], H_hi[6], H_hi[7], H_hi[8]
+  for pos = offs, offs + size - 1, 128 do
+    for j = 1, 16 * 2 do
+      pos = pos + 4
+      local a, b, c, d = string.byte(str, pos - 3, pos)
+      W[j] = ((a * 256 + b) * 256 + c) * 256 + d
+    end
+
+    for jj = 34, 160, 2 do
+      local a_lo, a_hi, b_lo, b_hi = W[jj - 30], W[jj - 31], W[jj - 4], W[jj - 5]
+      local tmp1 = bit32_bxor(
+        bit32_rshift(a_lo, 1) + bit32_lshift(a_hi, 31),
+        bit32_rshift(a_lo, 8) + bit32_lshift(a_hi, 24),
+        bit32_rshift(a_lo, 7) + bit32_lshift(a_hi, 25)
+      ) % 4294967296 + bit32_bxor(
+        bit32_rshift(b_lo, 19) + bit32_lshift(b_hi, 13),
+        bit32_lshift(b_lo, 3) + bit32_rshift(b_hi, 29),
+        bit32_rshift(b_lo, 6) + bit32_lshift(b_hi, 26)
+      ) % 4294967296 + W[jj - 14] + W[jj - 32]
+
+      local tmp2 = tmp1 % 4294967296
+      W[jj - 1] = bit32_bxor(
+        bit32_rshift(a_hi, 1) + bit32_lshift(a_lo, 31),
+        bit32_rshift(a_hi, 8) + bit32_lshift(a_lo, 24),
+        bit32_rshift(a_hi, 7)
+      ) + bit32_bxor(
+        bit32_rshift(b_hi, 19) + bit32_lshift(b_lo, 13),
+        bit32_lshift(b_hi, 3) + bit32_rshift(b_lo, 29),
+        bit32_rshift(b_hi, 6)
+      ) + W[jj - 15] + W[jj - 33] + (tmp1 - tmp2) / 4294967296
+
+      W[jj] = tmp2
+    end
+
+    local a_lo, b_lo, c_lo, d_lo, e_lo, f_lo, g_lo, h_lo = h1_lo, h2_lo, h3_lo, h4_lo, h5_lo, h6_lo, h7_lo, h8_lo
+    local a_hi, b_hi, c_hi, d_hi, e_hi, f_hi, g_hi, h_hi = h1_hi, h2_hi, h3_hi, h4_hi, h5_hi, h6_hi, h7_hi, h8_hi
+    for j = 1, 80 do
+      local jj = 2 * j
+      local tmp1 = bit32_bxor(
+        bit32_rshift(e_lo, 14) + bit32_lshift(e_hi, 18),
+        bit32_rshift(e_lo, 18) + bit32_lshift(e_hi, 14),
+        bit32_lshift(e_lo, 23) + bit32_rshift(e_hi, 9)
+      ) % 4294967296 + (bit32_band(e_lo, f_lo) + bit32_band(-1 - e_lo, g_lo)) % 4294967296 + h_lo + K_lo[j] + W[jj]
+
+      local z_lo = tmp1 % 4294967296
+      local z_hi = bit32_bxor(
+        bit32_rshift(e_hi, 14) + bit32_lshift(e_lo, 18),
+        bit32_rshift(e_hi, 18) + bit32_lshift(e_lo, 14),
+        bit32_lshift(e_hi, 23) + bit32_rshift(e_lo, 9)
+      ) + bit32_band(e_hi, f_hi) + bit32_band(-1 - e_hi, g_hi) + h_hi + K_hi[j] + W[jj - 1] + (tmp1 - z_lo) / 4294967296
+
+      h_lo = g_lo
+      h_hi = g_hi
+      g_lo = f_lo
+      g_hi = f_hi
+      f_lo = e_lo
+      f_hi = e_hi
+      tmp1 = z_lo + d_lo
+      e_lo = tmp1 % 4294967296
+      e_hi = z_hi + d_hi + (tmp1 - e_lo) / 4294967296
+      d_lo = c_lo
+      d_hi = c_hi
+      c_lo = b_lo
+      c_hi = b_hi
+      b_lo = a_lo
+      b_hi = a_hi
+      tmp1 = z_lo
+        + (bit32_band(d_lo, c_lo) + bit32_band(b_lo, bit32_bxor(d_lo, c_lo))) % 4294967296
+        + bit32_bxor(
+            bit32_rshift(b_lo, 28) + bit32_lshift(b_hi, 4),
+            bit32_lshift(b_lo, 30) + bit32_rshift(b_hi, 2),
+            bit32_lshift(b_lo, 25) + bit32_rshift(b_hi, 7)
+          )
+          % 4294967296
+      a_lo = tmp1 % 4294967296
+      a_hi = z_hi
+        + (bit32_band(d_hi, c_hi) + bit32_band(b_hi, bit32_bxor(d_hi, c_hi)))
+        + bit32_bxor(
+          bit32_rshift(b_hi, 28) + bit32_lshift(b_lo, 4),
+          bit32_lshift(b_hi, 30) + bit32_rshift(b_lo, 2),
+          bit32_lshift(b_hi, 25) + bit32_rshift(b_lo, 7)
+        )
+        + (tmp1 - a_lo) / 4294967296
+    end
+
+    a_lo = h1_lo + a_lo
+    h1_lo = a_lo % 4294967296
+    h1_hi = (h1_hi + a_hi + (a_lo - h1_lo) / 4294967296) % 4294967296
+    a_lo = h2_lo + b_lo
+    h2_lo = a_lo % 4294967296
+    h2_hi = (h2_hi + b_hi + (a_lo - h2_lo) / 4294967296) % 4294967296
+    a_lo = h3_lo + c_lo
+    h3_lo = a_lo % 4294967296
+    h3_hi = (h3_hi + c_hi + (a_lo - h3_lo) / 4294967296) % 4294967296
+    a_lo = h4_lo + d_lo
+    h4_lo = a_lo % 4294967296
+    h4_hi = (h4_hi + d_hi + (a_lo - h4_lo) / 4294967296) % 4294967296
+    a_lo = h5_lo + e_lo
+    h5_lo = a_lo % 4294967296
+    h5_hi = (h5_hi + e_hi + (a_lo - h5_lo) / 4294967296) % 4294967296
+    a_lo = h6_lo + f_lo
+    h6_lo = a_lo % 4294967296
+    h6_hi = (h6_hi + f_hi + (a_lo - h6_lo) / 4294967296) % 4294967296
+    a_lo = h7_lo + g_lo
+    h7_lo = a_lo % 4294967296
+    h7_hi = (h7_hi + g_hi + (a_lo - h7_lo) / 4294967296) % 4294967296
+    a_lo = h8_lo + h_lo
+    h8_lo = a_lo % 4294967296
+    h8_hi = (h8_hi + h_hi + (a_lo - h8_lo) / 4294967296) % 4294967296
+  end
+
+  H_lo[1], H_lo[2], H_lo[3], H_lo[4], H_lo[5], H_lo[6], H_lo[7], H_lo[8] =
+    h1_lo, h2_lo, h3_lo, h4_lo, h5_lo, h6_lo, h7_lo, h8_lo
+  H_hi[1], H_hi[2], H_hi[3], H_hi[4], H_hi[5], H_hi[6], H_hi[7], H_hi[8] =
+    h1_hi, h2_hi, h3_hi, h4_hi, h5_hi, h6_hi, h7_hi, h8_hi
+end
+
+local function md5_feed_64(H, str, offs, size)
+  -- offs >= 0, size >= 0, size is multiple of 64
+  local W, K, md5_next_shift = common_W, md5_K, md5_next_shift
+  local h1, h2, h3, h4 = H[1], H[2], H[3], H[4]
+  for pos = offs, offs + size - 1, 64 do
+    for j = 1, 16 do
+      pos = pos + 4
+      local a, b, c, d = string.byte(str, pos - 3, pos)
+      W[j] = ((d * 256 + c) * 256 + b) * 256 + a
+    end
+
+    local a, b, c, d = h1, h2, h3, h4
+    local s = 25
+    for j = 1, 16 do
+      local F = bit32_rrotate(bit32_band(b, c) + bit32_band(-1 - b, d) + a + K[j] + W[j], s) + b
+      s = md5_next_shift[s]
+      a = d
+      d = c
+      c = b
+      b = F
+    end
+
+    s = 27
+    for j = 17, 32 do
+      local F = bit32_rrotate(bit32_band(d, b) + bit32_band(-1 - d, c) + a + K[j] + W[(5 * j - 4) % 16 + 1], s) + b
+      s = md5_next_shift[s]
+      a = d
+      d = c
+      c = b
+      b = F
+    end
+
+    s = 28
+    for j = 33, 48 do
+      local F = bit32_rrotate(bit32_bxor(bit32_bxor(b, c), d) + a + K[j] + W[(3 * j + 2) % 16 + 1], s) + b
+      s = md5_next_shift[s]
+      a = d
+      d = c
+      c = b
+      b = F
+    end
+
+    s = 26
+    for j = 49, 64 do
+      local F = bit32_rrotate(bit32_bxor(c, bit32_bor(b, -1 - d)) + a + K[j] + W[(j * 7 - 7) % 16 + 1], s) + b
+      s = md5_next_shift[s]
+      a = d
+      d = c
+      c = b
+      b = F
+    end
+
+    h1 = (a + h1) % 4294967296
+    h2 = (b + h2) % 4294967296
+    h3 = (c + h3) % 4294967296
+    h4 = (d + h4) % 4294967296
+  end
+
+  H[1], H[2], H[3], H[4] = h1, h2, h3, h4
+end
+
+local function sha1_feed_64(H, str, offs, size)
+  -- offs >= 0, size >= 0, size is multiple of 64
+  local W = common_W
+  local h1, h2, h3, h4, h5 = H[1], H[2], H[3], H[4], H[5]
+  for pos = offs, offs + size - 1, 64 do
+    for j = 1, 16 do
+      pos = pos + 4
+      local a, b, c, d = string.byte(str, pos - 3, pos)
+      W[j] = ((a * 256 + b) * 256 + c) * 256 + d
+    end
+
+    for j = 17, 80 do
+      W[j] = bit32_lrotate(bit32_bxor(W[j - 3], W[j - 8], W[j - 14], W[j - 16]), 1)
+    end
+
+    local a, b, c, d, e = h1, h2, h3, h4, h5
+    for j = 1, 20 do
+      local z = bit32_lrotate(a, 5) + bit32_band(b, c) + bit32_band(-1 - b, d) + 0x5A827999 + W[j] + e -- constant = math.floor(TWO_POW_30 * sqrt(2))
+      e = d
+      d = c
+      c = bit32_rrotate(b, 2)
+      b = a
+      a = z
+    end
+
+    for j = 21, 40 do
+      local z = bit32_lrotate(a, 5) + bit32_bxor(b, c, d) + 0x6ED9EBA1 + W[j] + e -- TWO_POW_30 * sqrt(3)
+      e = d
+      d = c
+      c = bit32_rrotate(b, 2)
+      b = a
+      a = z
+    end
+
+    for j = 41, 60 do
+      local z = bit32_lrotate(a, 5) + bit32_band(d, c) + bit32_band(b, bit32_bxor(d, c)) + 0x8F1BBCDC + W[j] + e -- TWO_POW_30 * sqrt(5)
+      e = d
+      d = c
+      c = bit32_rrotate(b, 2)
+      b = a
+      a = z
+    end
+
+    for j = 61, 80 do
+      local z = bit32_lrotate(a, 5) + bit32_bxor(b, c, d) + 0xCA62C1D6 + W[j] + e -- TWO_POW_30 * sqrt(10)
+      e = d
+      d = c
+      c = bit32_rrotate(b, 2)
+      b = a
+      a = z
+    end
+
+    h1 = (a + h1) % 4294967296
+    h2 = (b + h2) % 4294967296
+    h3 = (c + h3) % 4294967296
+    h4 = (d + h4) % 4294967296
+    h5 = (e + h5) % 4294967296
+  end
+
+  H[1], H[2], H[3], H[4], H[5] = h1, h2, h3, h4, h5
+end
+
+local function keccak_feed(lanes_lo, lanes_hi, str, offs, size, block_size_in_bytes)
+  -- This is an example of a Lua function having 79 local variables :-)
+  -- offs >= 0, size >= 0, size is multiple of block_size_in_bytes, block_size_in_bytes is positive multiple of 8
+  local RC_lo, RC_hi = sha3_RC_lo, sha3_RC_hi
+  local qwords_qty = block_size_in_bytes / 8
+  for pos = offs, offs + size - 1, block_size_in_bytes do
+    for j = 1, qwords_qty do
+      local a, b, c, d = string.byte(str, pos + 1, pos + 4)
+      lanes_lo[j] = bit32_bxor(lanes_lo[j], ((d * 256 + c) * 256 + b) * 256 + a)
+      pos = pos + 8
+      a, b, c, d = string.byte(str, pos - 3, pos)
+      lanes_hi[j] = bit32_bxor(lanes_hi[j], ((d * 256 + c) * 256 + b) * 256 + a)
+    end
+
+    local L01_lo, L01_hi, L02_lo, L02_hi, L03_lo, L03_hi, L04_lo, L04_hi, L05_lo, L05_hi, L06_lo, L06_hi, L07_lo, L07_hi, L08_lo, L08_hi, L09_lo, L09_hi, L10_lo, L10_hi, L11_lo, L11_hi, L12_lo, L12_hi, L13_lo, L13_hi, L14_lo, L14_hi, L15_lo, L15_hi, L16_lo, L16_hi, L17_lo, L17_hi, L18_lo, L18_hi, L19_lo, L19_hi, L20_lo, L20_hi, L21_lo, L21_hi, L22_lo, L22_hi, L23_lo, L23_hi, L24_lo, L24_hi, L25_lo, L25_hi =
+      lanes_lo[1],
+      lanes_hi[1],
+      lanes_lo[2],
+      lanes_hi[2],
+      lanes_lo[3],
+      lanes_hi[3],
+      lanes_lo[4],
+      lanes_hi[4],
+      lanes_lo[5],
+      lanes_hi[5],
+      lanes_lo[6],
+      lanes_hi[6],
+      lanes_lo[7],
+      lanes_hi[7],
+      lanes_lo[8],
+      lanes_hi[8],
+      lanes_lo[9],
+      lanes_hi[9],
+      lanes_lo[10],
+      lanes_hi[10],
+      lanes_lo[11],
+      lanes_hi[11],
+      lanes_lo[12],
+      lanes_hi[12],
+      lanes_lo[13],
+      lanes_hi[13],
+      lanes_lo[14],
+      lanes_hi[14],
+      lanes_lo[15],
+      lanes_hi[15],
+      lanes_lo[16],
+      lanes_hi[16],
+      lanes_lo[17],
+      lanes_hi[17],
+      lanes_lo[18],
+      lanes_hi[18],
+      lanes_lo[19],
+      lanes_hi[19],
+      lanes_lo[20],
+      lanes_hi[20],
+      lanes_lo[21],
+      lanes_hi[21],
+      lanes_lo[22],
+      lanes_hi[22],
+      lanes_lo[23],
+      lanes_hi[23],
+      lanes_lo[24],
+      lanes_hi[24],
+      lanes_lo[25],
+      lanes_hi[25]
+
+    for round_idx = 1, 24 do
+      local C1_lo = bit32_bxor(L01_lo, L06_lo, L11_lo, L16_lo, L21_lo)
+      local C1_hi = bit32_bxor(L01_hi, L06_hi, L11_hi, L16_hi, L21_hi)
+      local C2_lo = bit32_bxor(L02_lo, L07_lo, L12_lo, L17_lo, L22_lo)
+      local C2_hi = bit32_bxor(L02_hi, L07_hi, L12_hi, L17_hi, L22_hi)
+      local C3_lo = bit32_bxor(L03_lo, L08_lo, L13_lo, L18_lo, L23_lo)
+      local C3_hi = bit32_bxor(L03_hi, L08_hi, L13_hi, L18_hi, L23_hi)
+      local C4_lo = bit32_bxor(L04_lo, L09_lo, L14_lo, L19_lo, L24_lo)
+      local C4_hi = bit32_bxor(L04_hi, L09_hi, L14_hi, L19_hi, L24_hi)
+      local C5_lo = bit32_bxor(L05_lo, L10_lo, L15_lo, L20_lo, L25_lo)
+      local C5_hi = bit32_bxor(L05_hi, L10_hi, L15_hi, L20_hi, L25_hi)
+
+      local D_lo = bit32_bxor(C1_lo, C3_lo * 2 + (C3_hi % TWO_POW_32 - C3_hi % TWO_POW_31) / TWO_POW_31)
+      local D_hi = bit32_bxor(C1_hi, C3_hi * 2 + (C3_lo % TWO_POW_32 - C3_lo % TWO_POW_31) / TWO_POW_31)
+
+      local T0_lo = bit32_bxor(D_lo, L02_lo)
+      local T0_hi = bit32_bxor(D_hi, L02_hi)
+      local T1_lo = bit32_bxor(D_lo, L07_lo)
+      local T1_hi = bit32_bxor(D_hi, L07_hi)
+      local T2_lo = bit32_bxor(D_lo, L12_lo)
+      local T2_hi = bit32_bxor(D_hi, L12_hi)
+      local T3_lo = bit32_bxor(D_lo, L17_lo)
+      local T3_hi = bit32_bxor(D_hi, L17_hi)
+      local T4_lo = bit32_bxor(D_lo, L22_lo)
+      local T4_hi = bit32_bxor(D_hi, L22_hi)
+
+      L02_lo = (T1_lo % TWO_POW_32 - T1_lo % TWO_POW_20) / TWO_POW_20 + T1_hi * TWO_POW_12
+      L02_hi = (T1_hi % TWO_POW_32 - T1_hi % TWO_POW_20) / TWO_POW_20 + T1_lo * TWO_POW_12
+      L07_lo = (T3_lo % TWO_POW_32 - T3_lo % TWO_POW_19) / TWO_POW_19 + T3_hi * TWO_POW_13
+      L07_hi = (T3_hi % TWO_POW_32 - T3_hi % TWO_POW_19) / TWO_POW_19 + T3_lo * TWO_POW_13
+      L12_lo = T0_lo * 2 + (T0_hi % TWO_POW_32 - T0_hi % TWO_POW_31) / TWO_POW_31
+      L12_hi = T0_hi * 2 + (T0_lo % TWO_POW_32 - T0_lo % TWO_POW_31) / TWO_POW_31
+      L17_lo = T2_lo * TWO_POW_10 + (T2_hi % TWO_POW_32 - T2_hi % TWO_POW_22) / TWO_POW_22
+      L17_hi = T2_hi * TWO_POW_10 + (T2_lo % TWO_POW_32 - T2_lo % TWO_POW_22) / TWO_POW_22
+      L22_lo = T4_lo * TWO_POW_2 + (T4_hi % TWO_POW_32 - T4_hi % TWO_POW_30) / TWO_POW_30
+      L22_hi = T4_hi * TWO_POW_2 + (T4_lo % TWO_POW_32 - T4_lo % TWO_POW_30) / TWO_POW_30
+
+      D_lo = bit32_bxor(C2_lo, C4_lo * 2 + (C4_hi % TWO_POW_32 - C4_hi % TWO_POW_31) / TWO_POW_31)
+      D_hi = bit32_bxor(C2_hi, C4_hi * 2 + (C4_lo % TWO_POW_32 - C4_lo % TWO_POW_31) / TWO_POW_31)
+
+      T0_lo = bit32_bxor(D_lo, L03_lo)
+      T0_hi = bit32_bxor(D_hi, L03_hi)
+      T1_lo = bit32_bxor(D_lo, L08_lo)
+      T1_hi = bit32_bxor(D_hi, L08_hi)
+      T2_lo = bit32_bxor(D_lo, L13_lo)
+      T2_hi = bit32_bxor(D_hi, L13_hi)
+      T3_lo = bit32_bxor(D_lo, L18_lo)
+      T3_hi = bit32_bxor(D_hi, L18_hi)
+      T4_lo = bit32_bxor(D_lo, L23_lo)
+      T4_hi = bit32_bxor(D_hi, L23_hi)
+
+      L03_lo = (T2_lo % TWO_POW_32 - T2_lo % TWO_POW_21) / TWO_POW_21 + T2_hi * TWO_POW_11
+      L03_hi = (T2_hi % TWO_POW_32 - T2_hi % TWO_POW_21) / TWO_POW_21 + T2_lo * TWO_POW_11
+      L08_lo = (T4_lo % TWO_POW_32 - T4_lo % TWO_POW_3) / TWO_POW_3 + T4_hi * TWO_POW_29 % TWO_POW_32
+      L08_hi = (T4_hi % TWO_POW_32 - T4_hi % TWO_POW_3) / TWO_POW_3 + T4_lo * TWO_POW_29 % TWO_POW_32
+      L13_lo = T1_lo * TWO_POW_6 + (T1_hi % TWO_POW_32 - T1_hi % TWO_POW_26) / TWO_POW_26
+      L13_hi = T1_hi * TWO_POW_6 + (T1_lo % TWO_POW_32 - T1_lo % TWO_POW_26) / TWO_POW_26
+      L18_lo = T3_lo * TWO_POW_15 + (T3_hi % TWO_POW_32 - T3_hi % TWO_POW_17) / TWO_POW_17
+      L18_hi = T3_hi * TWO_POW_15 + (T3_lo % TWO_POW_32 - T3_lo % TWO_POW_17) / TWO_POW_17
+      L23_lo = (T0_lo % TWO_POW_32 - T0_lo % TWO_POW_2) / TWO_POW_2 + T0_hi * TWO_POW_30 % TWO_POW_32
+      L23_hi = (T0_hi % TWO_POW_32 - T0_hi % TWO_POW_2) / TWO_POW_2 + T0_lo * TWO_POW_30 % TWO_POW_32
+
+      D_lo = bit32_bxor(C3_lo, C5_lo * 2 + (C5_hi % TWO_POW_32 - C5_hi % TWO_POW_31) / TWO_POW_31)
+      D_hi = bit32_bxor(C3_hi, C5_hi * 2 + (C5_lo % TWO_POW_32 - C5_lo % TWO_POW_31) / TWO_POW_31)
+
+      T0_lo = bit32_bxor(D_lo, L04_lo)
+      T0_hi = bit32_bxor(D_hi, L04_hi)
+      T1_lo = bit32_bxor(D_lo, L09_lo)
+      T1_hi = bit32_bxor(D_hi, L09_hi)
+      T2_lo = bit32_bxor(D_lo, L14_lo)
+      T2_hi = bit32_bxor(D_hi, L14_hi)
+      T3_lo = bit32_bxor(D_lo, L19_lo)
+      T3_hi = bit32_bxor(D_hi, L19_hi)
+      T4_lo = bit32_bxor(D_lo, L24_lo)
+      T4_hi = bit32_bxor(D_hi, L24_hi)
+
+      L04_lo = T3_lo * TWO_POW_21 % TWO_POW_32 + (T3_hi % TWO_POW_32 - T3_hi % TWO_POW_11) / TWO_POW_11
+      L04_hi = T3_hi * TWO_POW_21 % TWO_POW_32 + (T3_lo % TWO_POW_32 - T3_lo % TWO_POW_11) / TWO_POW_11
+      L09_lo = T0_lo * TWO_POW_28 % TWO_POW_32 + (T0_hi % TWO_POW_32 - T0_hi % TWO_POW_4) / TWO_POW_4
+      L09_hi = T0_hi * TWO_POW_28 % TWO_POW_32 + (T0_lo % TWO_POW_32 - T0_lo % TWO_POW_4) / TWO_POW_4
+      L14_lo = T2_lo * TWO_POW_25 % TWO_POW_32 + (T2_hi % TWO_POW_32 - T2_hi % TWO_POW_7) / TWO_POW_7
+      L14_hi = T2_hi * TWO_POW_25 % TWO_POW_32 + (T2_lo % TWO_POW_32 - T2_lo % TWO_POW_7) / TWO_POW_7
+      L19_lo = (T4_lo % TWO_POW_32 - T4_lo % TWO_POW_8) / TWO_POW_8 + T4_hi * TWO_POW_24 % TWO_POW_32
+      L19_hi = (T4_hi % TWO_POW_32 - T4_hi % TWO_POW_8) / TWO_POW_8 + T4_lo * TWO_POW_24 % TWO_POW_32
+      L24_lo = (T1_lo % TWO_POW_32 - T1_lo % TWO_POW_9) / TWO_POW_9 + T1_hi * TWO_POW_23 % TWO_POW_32
+      L24_hi = (T1_hi % TWO_POW_32 - T1_hi % TWO_POW_9) / TWO_POW_9 + T1_lo * TWO_POW_23 % TWO_POW_32
+
+      D_lo = bit32_bxor(C4_lo, C1_lo * 2 + (C1_hi % TWO_POW_32 - C1_hi % TWO_POW_31) / TWO_POW_31)
+      D_hi = bit32_bxor(C4_hi, C1_hi * 2 + (C1_lo % TWO_POW_32 - C1_lo % TWO_POW_31) / TWO_POW_31)
+
+      T0_lo = bit32_bxor(D_lo, L05_lo)
+      T0_hi = bit32_bxor(D_hi, L05_hi)
+      T1_lo = bit32_bxor(D_lo, L10_lo)
+      T1_hi = bit32_bxor(D_hi, L10_hi)
+      T2_lo = bit32_bxor(D_lo, L15_lo)
+      T2_hi = bit32_bxor(D_hi, L15_hi)
+      T3_lo = bit32_bxor(D_lo, L20_lo)
+      T3_hi = bit32_bxor(D_hi, L20_hi)
+      T4_lo = bit32_bxor(D_lo, L25_lo)
+      T4_hi = bit32_bxor(D_hi, L25_hi)
+
+      L05_lo = T4_lo * TWO_POW_14 + (T4_hi % TWO_POW_32 - T4_hi % TWO_POW_18) / TWO_POW_18
+      L05_hi = T4_hi * TWO_POW_14 + (T4_lo % TWO_POW_32 - T4_lo % TWO_POW_18) / TWO_POW_18
+      L10_lo = T1_lo * TWO_POW_20 % TWO_POW_32 + (T1_hi % TWO_POW_32 - T1_hi % TWO_POW_12) / TWO_POW_12
+      L10_hi = T1_hi * TWO_POW_20 % TWO_POW_32 + (T1_lo % TWO_POW_32 - T1_lo % TWO_POW_12) / TWO_POW_12
+      L15_lo = T3_lo * TWO_POW_8 + (T3_hi % TWO_POW_32 - T3_hi % TWO_POW_24) / TWO_POW_24
+      L15_hi = T3_hi * TWO_POW_8 + (T3_lo % TWO_POW_32 - T3_lo % TWO_POW_24) / TWO_POW_24
+      L20_lo = T0_lo * TWO_POW_27 % TWO_POW_32 + (T0_hi % TWO_POW_32 - T0_hi % TWO_POW_5) / TWO_POW_5
+      L20_hi = T0_hi * TWO_POW_27 % TWO_POW_32 + (T0_lo % TWO_POW_32 - T0_lo % TWO_POW_5) / TWO_POW_5
+      L25_lo = (T2_lo % TWO_POW_32 - T2_lo % TWO_POW_25) / TWO_POW_25 + T2_hi * TWO_POW_7
+      L25_hi = (T2_hi % TWO_POW_32 - T2_hi % TWO_POW_25) / TWO_POW_25 + T2_lo * TWO_POW_7
+
+      D_lo = bit32_bxor(C5_lo, C2_lo * 2 + (C2_hi % TWO_POW_32 - C2_hi % TWO_POW_31) / TWO_POW_31)
+      D_hi = bit32_bxor(C5_hi, C2_hi * 2 + (C2_lo % TWO_POW_32 - C2_lo % TWO_POW_31) / TWO_POW_31)
+
+      T1_lo = bit32_bxor(D_lo, L06_lo)
+      T1_hi = bit32_bxor(D_hi, L06_hi)
+      T2_lo = bit32_bxor(D_lo, L11_lo)
+      T2_hi = bit32_bxor(D_hi, L11_hi)
+      T3_lo = bit32_bxor(D_lo, L16_lo)
+      T3_hi = bit32_bxor(D_hi, L16_hi)
+      T4_lo = bit32_bxor(D_lo, L21_lo)
+      T4_hi = bit32_bxor(D_hi, L21_hi)
+
+      L06_lo = T2_lo * TWO_POW_3 + (T2_hi % TWO_POW_32 - T2_hi % TWO_POW_29) / TWO_POW_29
+      L06_hi = T2_hi * TWO_POW_3 + (T2_lo % TWO_POW_32 - T2_lo % TWO_POW_29) / TWO_POW_29
+      L11_lo = T4_lo * TWO_POW_18 + (T4_hi % TWO_POW_32 - T4_hi % TWO_POW_14) / TWO_POW_14
+      L11_hi = T4_hi * TWO_POW_18 + (T4_lo % TWO_POW_32 - T4_lo % TWO_POW_14) / TWO_POW_14
+      L16_lo = (T1_lo % TWO_POW_32 - T1_lo % TWO_POW_28) / TWO_POW_28 + T1_hi * TWO_POW_4
+      L16_hi = (T1_hi % TWO_POW_32 - T1_hi % TWO_POW_28) / TWO_POW_28 + T1_lo * TWO_POW_4
+      L21_lo = (T3_lo % TWO_POW_32 - T3_lo % TWO_POW_23) / TWO_POW_23 + T3_hi * TWO_POW_9
+      L21_hi = (T3_hi % TWO_POW_32 - T3_hi % TWO_POW_23) / TWO_POW_23 + T3_lo * TWO_POW_9
+
+      L01_lo = bit32_bxor(D_lo, L01_lo)
+      L01_hi = bit32_bxor(D_hi, L01_hi)
+      L01_lo, L02_lo, L03_lo, L04_lo, L05_lo =
+        bit32_bxor(L01_lo, bit32_band(-1 - L02_lo, L03_lo)),
+        bit32_bxor(L02_lo, bit32_band(-1 - L03_lo, L04_lo)),
+        bit32_bxor(L03_lo, bit32_band(-1 - L04_lo, L05_lo)),
+        bit32_bxor(L04_lo, bit32_band(-1 - L05_lo, L01_lo)),
+        bit32_bxor(L05_lo, bit32_band(-1 - L01_lo, L02_lo))
+      L01_hi, L02_hi, L03_hi, L04_hi, L05_hi =
+        bit32_bxor(L01_hi, bit32_band(-1 - L02_hi, L03_hi)),
+        bit32_bxor(L02_hi, bit32_band(-1 - L03_hi, L04_hi)),
+        bit32_bxor(L03_hi, bit32_band(-1 - L04_hi, L05_hi)),
+        bit32_bxor(L04_hi, bit32_band(-1 - L05_hi, L01_hi)),
+        bit32_bxor(L05_hi, bit32_band(-1 - L01_hi, L02_hi))
+      L06_lo, L07_lo, L08_lo, L09_lo, L10_lo =
+        bit32_bxor(L09_lo, bit32_band(-1 - L10_lo, L06_lo)),
+        bit32_bxor(L10_lo, bit32_band(-1 - L06_lo, L07_lo)),
+        bit32_bxor(L06_lo, bit32_band(-1 - L07_lo, L08_lo)),
+        bit32_bxor(L07_lo, bit32_band(-1 - L08_lo, L09_lo)),
+        bit32_bxor(L08_lo, bit32_band(-1 - L09_lo, L10_lo))
+      L06_hi, L07_hi, L08_hi, L09_hi, L10_hi =
+        bit32_bxor(L09_hi, bit32_band(-1 - L10_hi, L06_hi)),
+        bit32_bxor(L10_hi, bit32_band(-1 - L06_hi, L07_hi)),
+        bit32_bxor(L06_hi, bit32_band(-1 - L07_hi, L08_hi)),
+        bit32_bxor(L07_hi, bit32_band(-1 - L08_hi, L09_hi)),
+        bit32_bxor(L08_hi, bit32_band(-1 - L09_hi, L10_hi))
+      L11_lo, L12_lo, L13_lo, L14_lo, L15_lo =
+        bit32_bxor(L12_lo, bit32_band(-1 - L13_lo, L14_lo)),
+        bit32_bxor(L13_lo, bit32_band(-1 - L14_lo, L15_lo)),
+        bit32_bxor(L14_lo, bit32_band(-1 - L15_lo, L11_lo)),
+        bit32_bxor(L15_lo, bit32_band(-1 - L11_lo, L12_lo)),
+        bit32_bxor(L11_lo, bit32_band(-1 - L12_lo, L13_lo))
+      L11_hi, L12_hi, L13_hi, L14_hi, L15_hi =
+        bit32_bxor(L12_hi, bit32_band(-1 - L13_hi, L14_hi)),
+        bit32_bxor(L13_hi, bit32_band(-1 - L14_hi, L15_hi)),
+        bit32_bxor(L14_hi, bit32_band(-1 - L15_hi, L11_hi)),
+        bit32_bxor(L15_hi, bit32_band(-1 - L11_hi, L12_hi)),
+        bit32_bxor(L11_hi, bit32_band(-1 - L12_hi, L13_hi))
+      L16_lo, L17_lo, L18_lo, L19_lo, L20_lo =
+        bit32_bxor(L20_lo, bit32_band(-1 - L16_lo, L17_lo)),
+        bit32_bxor(L16_lo, bit32_band(-1 - L17_lo, L18_lo)),
+        bit32_bxor(L17_lo, bit32_band(-1 - L18_lo, L19_lo)),
+        bit32_bxor(L18_lo, bit32_band(-1 - L19_lo, L20_lo)),
+        bit32_bxor(L19_lo, bit32_band(-1 - L20_lo, L16_lo))
+      L16_hi, L17_hi, L18_hi, L19_hi, L20_hi =
+        bit32_bxor(L20_hi, bit32_band(-1 - L16_hi, L17_hi)),
+        bit32_bxor(L16_hi, bit32_band(-1 - L17_hi, L18_hi)),
+        bit32_bxor(L17_hi, bit32_band(-1 - L18_hi, L19_hi)),
+        bit32_bxor(L18_hi, bit32_band(-1 - L19_hi, L20_hi)),
+        bit32_bxor(L19_hi, bit32_band(-1 - L20_hi, L16_hi))
+      L21_lo, L22_lo, L23_lo, L24_lo, L25_lo =
+        bit32_bxor(L23_lo, bit32_band(-1 - L24_lo, L25_lo)),
+        bit32_bxor(L24_lo, bit32_band(-1 - L25_lo, L21_lo)),
+        bit32_bxor(L25_lo, bit32_band(-1 - L21_lo, L22_lo)),
+        bit32_bxor(L21_lo, bit32_band(-1 - L22_lo, L23_lo)),
+        bit32_bxor(L22_lo, bit32_band(-1 - L23_lo, L24_lo))
+      L21_hi, L22_hi, L23_hi, L24_hi, L25_hi =
+        bit32_bxor(L23_hi, bit32_band(-1 - L24_hi, L25_hi)),
+        bit32_bxor(L24_hi, bit32_band(-1 - L25_hi, L21_hi)),
+        bit32_bxor(L25_hi, bit32_band(-1 - L21_hi, L22_hi)),
+        bit32_bxor(L21_hi, bit32_band(-1 - L22_hi, L23_hi)),
+        bit32_bxor(L22_hi, bit32_band(-1 - L23_hi, L24_hi))
+      L01_lo = bit32_bxor(L01_lo, RC_lo[round_idx])
+      L01_hi = L01_hi + RC_hi[round_idx] -- RC_hi[] is either 0 or 0x80000000, so we could use fast addition instead of slow XOR
+    end
+
+    lanes_lo[1] = L01_lo
+    lanes_hi[1] = L01_hi
+    lanes_lo[2] = L02_lo
+    lanes_hi[2] = L02_hi
+    lanes_lo[3] = L03_lo
+    lanes_hi[3] = L03_hi
+    lanes_lo[4] = L04_lo
+    lanes_hi[4] = L04_hi
+    lanes_lo[5] = L05_lo
+    lanes_hi[5] = L05_hi
+    lanes_lo[6] = L06_lo
+    lanes_hi[6] = L06_hi
+    lanes_lo[7] = L07_lo
+    lanes_hi[7] = L07_hi
+    lanes_lo[8] = L08_lo
+    lanes_hi[8] = L08_hi
+    lanes_lo[9] = L09_lo
+    lanes_hi[9] = L09_hi
+    lanes_lo[10] = L10_lo
+    lanes_hi[10] = L10_hi
+    lanes_lo[11] = L11_lo
+    lanes_hi[11] = L11_hi
+    lanes_lo[12] = L12_lo
+    lanes_hi[12] = L12_hi
+    lanes_lo[13] = L13_lo
+    lanes_hi[13] = L13_hi
+    lanes_lo[14] = L14_lo
+    lanes_hi[14] = L14_hi
+    lanes_lo[15] = L15_lo
+    lanes_hi[15] = L15_hi
+    lanes_lo[16] = L16_lo
+    lanes_hi[16] = L16_hi
+    lanes_lo[17] = L17_lo
+    lanes_hi[17] = L17_hi
+    lanes_lo[18] = L18_lo
+    lanes_hi[18] = L18_hi
+    lanes_lo[19] = L19_lo
+    lanes_hi[19] = L19_hi
+    lanes_lo[20] = L20_lo
+    lanes_hi[20] = L20_hi
+    lanes_lo[21] = L21_lo
+    lanes_hi[21] = L21_hi
+    lanes_lo[22] = L22_lo
+    lanes_hi[22] = L22_hi
+    lanes_lo[23] = L23_lo
+    lanes_hi[23] = L23_hi
+    lanes_lo[24] = L24_lo
+    lanes_hi[24] = L24_hi
+    lanes_lo[25] = L25_lo
+    lanes_hi[25] = L25_hi
+  end
+end
+
+--------------------------------------------------------------------------------
+-- MAGIC NUMBERS CALCULATOR
+--------------------------------------------------------------------------------
+-- Q:
+--    Is 53-bit "double" math enough to calculate square roots and cube roots of primes with 64 correct bits after decimal point?
+-- A:
+--    Yes, 53-bit "double" arithmetic is enough.
+--    We could obtain first 40 bits by direct calculation of p^(1/3) and next 40 bits by one step of Newton's method.
+do
+  local function mul(src1, src2, factor, result_length)
+    -- src1, src2 - long integers (arrays of digits in base TWO_POW_24)
+    -- factor - small integer
+    -- returns long integer result (src1 * src2 * factor) and its floating point approximation
+    local result, carry, value, weight = table.create(result_length), 0, 0, 1
+    for j = 1, result_length do
+      for k = math.max(1, j + 1 - #src2), math.min(j, #src1) do
+        carry = carry + factor * src1[k] * src2[j + 1 - k] -- "int32" is not enough for multiplication result, that's why "factor" must be of type "double"
+      end
+
+      local digit = carry % TWO_POW_24
+      result[j] = math.floor(digit)
+      carry = (carry - digit) / TWO_POW_24
+      value = value + digit * weight
+      weight = weight * TWO_POW_24
+    end
+
+    return result, value
+  end
+
+  local idx, step, p, one, sqrt_hi, sqrt_lo = 0, { 4, 1, 2, -2, 2 }, 4, { 1 }, sha2_H_hi, sha2_H_lo
+  repeat
+    p = p + step[p % 6]
+    local d = 1
+    repeat
+      d = d + step[d % 6]
+      if d * d > p then
+        -- next prime number is found
+        local root = p ^ (1 / 3)
+        local R = root * TWO_POW_40
+        R = mul(table.create(1, math.floor(R)), one, 1, 2)
+        local _, delta = mul(R, mul(R, R, 1, 4), -1, 4)
+        local hi = R[2] % 65536 * 65536 + math.floor(R[1] / 256)
+        local lo = R[1] % 256 * 16777216 + math.floor(delta * (TWO_POW_NEG_56 / 3) * root / p)
+
+        if idx < 16 then
+          root = math.sqrt(p)
+          R = root * TWO_POW_40
+          R = mul(table.create(1, math.floor(R)), one, 1, 2)
+          _, delta = mul(R, R, -1, 2)
+          local hi = R[2] % 65536 * 65536 + math.floor(R[1] / 256)
+          local lo = R[1] % 256 * 16777216 + math.floor(delta * TWO_POW_NEG_17 / root)
+          local idx = idx % 8 + 1
+          sha2_H_ext256[224][idx] = lo
+          sqrt_hi[idx], sqrt_lo[idx] = hi, lo + hi * hi_factor
+          if idx > 7 then
+            sqrt_hi, sqrt_lo = sha2_H_ext512_hi[384], sha2_H_ext512_lo[384]
+          end
+        end
+
+        idx = idx + 1
+        sha2_K_hi[idx], sha2_K_lo[idx] = hi, lo % K_lo_modulo + hi * hi_factor
+        break
+      end
+    until p % d == 0
+  until idx > 79
+end
+
+-- Calculating IVs for SHA512/224 and SHA512/256
+for width = 224, 256, 32 do
+  local H_lo, H_hi = {}, nil
+  if XOR64A5 then
+    for j = 1, 8 do
+      H_lo[j] = XOR64A5(sha2_H_lo[j])
+    end
+  else
+    H_hi = {}
+    for j = 1, 8 do
+      H_lo[j] = bit32_bxor(sha2_H_lo[j], 0xA5A5A5A5) % 4294967296
+      H_hi[j] = bit32_bxor(sha2_H_hi[j], 0xA5A5A5A5) % 4294967296
+    end
+  end
+
+  sha512_feed_128(H_lo, H_hi, 'SHA-512/' .. tostring(width) .. '\128' .. string.rep('\0', 115) .. '\88', 0, 128)
+  sha2_H_ext512_lo[width] = H_lo
+  sha2_H_ext512_hi[width] = H_hi
+end
+
+-- Constants for MD5
+do
+  for idx = 1, 64 do
+    -- we can't use formula math.floor(abs(sin(idx))*TWO_POW_32) because its result may be beyond integer range on Lua built with 32-bit integers
+    local hi, lo = math.modf(math.abs(math.sin(idx)) * TWO_POW_16)
+    md5_K[idx] = hi * 65536 + math.floor(lo * TWO_POW_16)
+  end
+end
+
+-- Constants for SHA3
+do
+  local sh_reg = 29
+  local function next_bit()
+    local r = sh_reg % 2
+    sh_reg = bit32_bxor((sh_reg - r) / 2, 142 * r)
+    return r
+  end
+
+  for idx = 1, 24 do
+    local lo, m = 0, nil
+    for _ = 1, 6 do
+      m = m and m * m * 2 or 1
+      lo = lo + next_bit() * m
+    end
+
+    local hi = next_bit() * m
+    sha3_RC_hi[idx], sha3_RC_lo[idx] = hi, lo + hi * hi_factor_keccak
+  end
+end
+
+--------------------------------------------------------------------------------
+-- MAIN FUNCTIONS
+--------------------------------------------------------------------------------
+local function sha256ext(width, message)
+  -- Create an instance (private objects for current calculation)
+  local Array256 = sha2_H_ext256[width] -- # == 8
+  local length, tail = 0, ''
+  local H = table.create(8)
+  H[1], H[2], H[3], H[4], H[5], H[6], H[7], H[8] =
+    Array256[1], Array256[2], Array256[3], Array256[4], Array256[5], Array256[6], Array256[7], Array256[8]
+
+  local function partial(message_part)
+    if message_part then
+      local partLength = #message_part
+      if tail then
+        length = length + partLength
+        local offs = 0
+        local tailLength = #tail
+        if tail ~= '' and tailLength + partLength >= 64 then
+          offs = 64 - tailLength
+          sha256_feed_64(H, tail .. string.sub(message_part, 1, offs), 0, 64)
+          tail = ''
+        end
+
+        local size = partLength - offs
+        local size_tail = size % 64
+        sha256_feed_64(H, message_part, offs, size - size_tail)
+        tail = tail .. string.sub(message_part, partLength + 1 - size_tail)
+        return partial
+      else
+        error('Adding more chunks is not allowed after receiving the result', 2)
+      end
+    else
+      if tail then
+        local final_blocks = table.create(10) --{tail, "\128", string.rep("\0", (-9 - length) % 64 + 1)}
+        final_blocks[1] = tail
+        final_blocks[2] = '\128'
+        final_blocks[3] = string.rep('\0', (-9 - length) % 64 + 1)
+
+        tail = nil
+        -- Assuming user data length is shorter than (TWO_POW_53)-9 bytes
+        -- Anyway, it looks very unrealistic that someone would spend more than a year of calculations to process TWO_POW_53 bytes of data by using this Lua script :-)
+        -- TWO_POW_53 bytes = TWO_POW_56 bits, so "bit-counter" fits in 7 bytes
+        length = length * (8 / TWO56_POW_7) -- convert "byte-counter" to "bit-counter" and move decimal point to the left
+        for j = 4, 10 do
+          length = length % 1 * 256
+          final_blocks[j] = string.char(math.floor(length))
+        end
+
+        final_blocks = table.concat(final_blocks)
+        sha256_feed_64(H, final_blocks, 0, #final_blocks)
+        local max_reg = width / 32
+        for j = 1, max_reg do
+          H[j] = string.format('%08x', H[j] % 4294967296)
+        end
+
+        H = table.concat(H, '', 1, max_reg)
+      end
+
+      return H
+    end
+  end
+
+  if message then
+    -- Actually perform calculations and return the SHA256 digest of a message
+    return partial(message)()
+  else
+    -- Return function for chunk-by-chunk loading
+    -- User should feed every chunk of input data as single argument to this function and finally get SHA256 digest by invoking this function without an argument
+    return partial
+  end
+end
+
+local function sha512ext(width, message)
+  -- Create an instance (private objects for current calculation)
+  local length, tail, H_lo, H_hi =
+    0, '', table.pack(table.unpack(sha2_H_ext512_lo[width])), not HEX64 and table.pack(table.unpack(sha2_H_ext512_hi[width]))
+
+  local function partial(message_part)
+    if message_part then
+      local partLength = #message_part
+      if tail then
+        length = length + partLength
+        local offs = 0
+        if tail ~= '' and #tail + partLength >= 128 then
+          offs = 128 - #tail
+          sha512_feed_128(H_lo, H_hi, tail .. string.sub(message_part, 1, offs), 0, 128)
+          tail = ''
+        end
+
+        local size = partLength - offs
+        local size_tail = size % 128
+        sha512_feed_128(H_lo, H_hi, message_part, offs, size - size_tail)
+        tail = tail .. string.sub(message_part, partLength + 1 - size_tail)
+        return partial
+      else
+        error('Adding more chunks is not allowed after receiving the result', 2)
+      end
+    else
+      if tail then
+        local final_blocks = table.create(3) --{tail, "\128", string.rep("\0", (-17-length) % 128 + 9)}
+        final_blocks[1] = tail
+        final_blocks[2] = '\128'
+        final_blocks[3] = string.rep('\0', (-17 - length) % 128 + 9)
+
+        tail = nil
+        -- Assuming user data length is shorter than (TWO_POW_53)-17 bytes
+        -- TWO_POW_53 bytes = TWO_POW_56 bits, so "bit-counter" fits in 7 bytes
+        length = length * (8 / TWO56_POW_7) -- convert "byte-counter" to "bit-counter" and move floating point to the left
+        for j = 4, 10 do
+          length = length % 1 * 256
+          final_blocks[j] = string.char(math.floor(length))
+        end
+
+        final_blocks = table.concat(final_blocks)
+        sha512_feed_128(H_lo, H_hi, final_blocks, 0, #final_blocks)
+        local max_reg = math.ceil(width / 64)
+
+        if HEX64 then
+          for j = 1, max_reg do
+            H_lo[j] = HEX64(H_lo[j])
+          end
+        else
+          for j = 1, max_reg do
+            H_lo[j] = string.format('%08x', H_hi[j] % 4294967296) .. string.format('%08x', H_lo[j] % 4294967296)
+          end
+
+          H_hi = nil
+        end
+
+        H_lo = string.sub(table.concat(H_lo, '', 1, max_reg), 1, width / 4)
+      end
+
+      return H_lo
+    end
+  end
+
+  if message then
+    -- Actually perform calculations and return the SHA512 digest of a message
+    return partial(message)()
+  else
+    -- Return function for chunk-by-chunk loading
+    -- User should feed every chunk of input data as single argument to this function and finally get SHA512 digest by invoking this function without an argument
+    return partial
+  end
+end
+
+local function md5(message)
+  -- Create an instance (private objects for current calculation)
+  local H, length, tail = table.create(4), 0, ''
+  H[1], H[2], H[3], H[4] = md5_sha1_H[1], md5_sha1_H[2], md5_sha1_H[3], md5_sha1_H[4]
+
+  local function partial(message_part)
+    if message_part then
+      local partLength = #message_part
+      if tail then
+        length = length + partLength
+        local offs = 0
+        if tail ~= '' and #tail + partLength >= 64 then
+          offs = 64 - #tail
+          md5_feed_64(H, tail .. string.sub(message_part, 1, offs), 0, 64)
+          tail = ''
+        end
+
+        local size = partLength - offs
+        local size_tail = size % 64
+        md5_feed_64(H, message_part, offs, size - size_tail)
+        tail = tail .. string.sub(message_part, partLength + 1 - size_tail)
+        return partial
+      else
+        error('Adding more chunks is not allowed after receiving the result', 2)
+      end
+    else
+      if tail then
+        local final_blocks = table.create(3) --{tail, "\128", string.rep("\0", (-9 - length) % 64)}
+        final_blocks[1] = tail
+        final_blocks[2] = '\128'
+        final_blocks[3] = string.rep('\0', (-9 - length) % 64)
+        tail = nil
+        length = length * 8 -- convert "byte-counter" to "bit-counter"
+        for j = 4, 11 do
+          local low_byte = length % 256
+          final_blocks[j] = string.char(low_byte)
+          length = (length - low_byte) / 256
+        end
+
+        final_blocks = table.concat(final_blocks)
+        md5_feed_64(H, final_blocks, 0, #final_blocks)
+        for j = 1, 4 do
+          H[j] = string.format('%08x', H[j] % 4294967296)
+        end
+
+        H = string.gsub(table.concat(H), '(..)(..)(..)(..)', '%4%3%2%1')
+      end
+
+      return H
+    end
+  end
+
+  if message then
+    -- Actually perform calculations and return the MD5 digest of a message
+    return partial(message)()
+  else
+    -- Return function for chunk-by-chunk loading
+    -- User should feed every chunk of input data as single argument to this function and finally get MD5 digest by invoking this function without an argument
+    return partial
+  end
+end
+
+local function sha1(message)
+  -- Create an instance (private objects for current calculation)
+  local H, length, tail = table.pack(table.unpack(md5_sha1_H)), 0, ''
+
+  local function partial(message_part)
+    if message_part then
+      local partLength = #message_part
+      if tail then
+        length = length + partLength
+        local offs = 0
+        if tail ~= '' and #tail + partLength >= 64 then
+          offs = 64 - #tail
+          sha1_feed_64(H, tail .. string.sub(message_part, 1, offs), 0, 64)
+          tail = ''
+        end
+
+        local size = partLength - offs
+        local size_tail = size % 64
+        sha1_feed_64(H, message_part, offs, size - size_tail)
+        tail = tail .. string.sub(message_part, partLength + 1 - size_tail)
+        return partial
+      else
+        error('Adding more chunks is not allowed after receiving the result', 2)
+      end
+    else
+      if tail then
+        local final_blocks = table.create(10) --{tail, "\128", string.rep("\0", (-9 - length) % 64 + 1)}
+        final_blocks[1] = tail
+        final_blocks[2] = '\128'
+        final_blocks[3] = string.rep('\0', (-9 - length) % 64 + 1)
+        tail = nil
+
+        -- Assuming user data length is shorter than (TWO_POW_53)-9 bytes
+        -- TWO_POW_53 bytes = TWO_POW_56 bits, so "bit-counter" fits in 7 bytes
+        length = length * (8 / TWO56_POW_7) -- convert "byte-counter" to "bit-counter" and move decimal point to the left
+        for j = 4, 10 do
+          length = length % 1 * 256
+          final_blocks[j] = string.char(math.floor(length))
+        end
+
+        final_blocks = table.concat(final_blocks)
+        sha1_feed_64(H, final_blocks, 0, #final_blocks)
+        for j = 1, 5 do
+          H[j] = string.format('%08x', H[j] % 4294967296)
+        end
+
+        H = table.concat(H)
+      end
+
+      return H
+    end
+  end
+
+  if message then
+    -- Actually perform calculations and return the SHA-1 digest of a message
+    return partial(message)()
+  else
+    -- Return function for chunk-by-chunk loading
+    -- User should feed every chunk of input data as single argument to this function and finally get SHA-1 digest by invoking this function without an argument
+    return partial
+  end
+end
+
+local function keccak(block_size_in_bytes, digest_size_in_bytes, is_SHAKE, message)
+  -- "block_size_in_bytes" is multiple of 8
+  if type(digest_size_in_bytes) ~= 'number' then
+    -- arguments in SHAKE are swapped:
+    --    NIST FIPS 202 defines SHAKE(message,num_bits)
+    --    this module   defines SHAKE(num_bytes,message)
+    -- it's easy to forget about this swap, hence the check
+    error('Argument \'digest_size_in_bytes\' must be a number', 2)
+  end
+
+  -- Create an instance (private objects for current calculation)
+  local tail, lanes_lo, lanes_hi = '', table.create(25, 0), hi_factor_keccak == 0 and table.create(25, 0)
+  local result
+
+  --~     pad the input N using the pad function, yielding a padded bit string P with a length divisible by r (such that n = len(P)/r is integer),
+  --~     break P into n consecutive r-bit pieces P0, ..., Pn-1 (last is zero-padded)
+  --~     initialize the state S to a string of b 0 bits.
+  --~     absorb the input into the state: For each block Pi,
+  --~         extend Pi at the end by a string of c 0 bits, yielding one of length b,
+  --~         XOR that with S and
+  --~         apply the block permutation f to the result, yielding a new state S
+  --~     initialize Z to be the empty string
+  --~     while the length of Z is less than d:
+  --~         append the first r bits of S to Z
+  --~         if Z is still less than d bits long, apply f to S, yielding a new state S.
+  --~     truncate Z to d bits
+  local function partial(message_part)
+    if message_part then
+      local partLength = #message_part
+      if tail then
+        local offs = 0
+        if tail ~= '' and #tail + partLength >= block_size_in_bytes then
+          offs = block_size_in_bytes - #tail
+          keccak_feed(
+            lanes_lo,
+            lanes_hi,
+            tail .. string.sub(message_part, 1, offs),
+            0,
+            block_size_in_bytes,
+            block_size_in_bytes
+          )
+          tail = ''
+        end
+
+        local size = partLength - offs
+        local size_tail = size % block_size_in_bytes
+        keccak_feed(lanes_lo, lanes_hi, message_part, offs, size - size_tail, block_size_in_bytes)
+        tail = tail .. string.sub(message_part, partLength + 1 - size_tail)
+        return partial
+      else
+        error('Adding more chunks is not allowed after receiving the result', 2)
+      end
+    else
+      if tail then
+        -- append the following bits to the message: for usual SHA3: 011(0*)1, for SHAKE: 11111(0*)1
+        local gap_start = is_SHAKE and 31 or 6
+        tail = tail
+          .. (
+            #tail + 1 == block_size_in_bytes and string.char(gap_start + 128)
+            or string.char(gap_start) .. string.rep('\0', (-2 - #tail) % block_size_in_bytes) .. '\128'
+          )
+        keccak_feed(lanes_lo, lanes_hi, tail, 0, #tail, block_size_in_bytes)
+        tail = nil
+
+        local lanes_used = 0
+        local total_lanes = math.floor(block_size_in_bytes / 8)
+        local qwords = {}
+
+        local function get_next_qwords_of_digest(qwords_qty)
+          -- returns not more than 'qwords_qty' qwords ('qwords_qty' might be non-integer)
+          -- doesn't go across keccak-buffer boundary
+          -- block_size_in_bytes is a multiple of 8, so, keccak-buffer contains integer number of qwords
+          if lanes_used >= total_lanes then
+            keccak_feed(lanes_lo, lanes_hi, '\0\0\0\0\0\0\0\0', 0, 8, 8)
+            lanes_used = 0
+          end
+
+          qwords_qty = math.floor(math.min(qwords_qty, total_lanes - lanes_used))
+          if hi_factor_keccak ~= 0 then
+            for j = 1, qwords_qty do
+              qwords[j] = HEX64(lanes_lo[lanes_used + j - 1 + lanes_index_base])
+            end
+          else
+            for j = 1, qwords_qty do
+              qwords[j] = string.format('%08x', lanes_hi[lanes_used + j] % 4294967296)
+                .. string.format('%08x', lanes_lo[lanes_used + j] % 4294967296)
+            end
+          end
+
+          lanes_used = lanes_used + qwords_qty
+          return string.gsub(table.concat(qwords, '', 1, qwords_qty), '(..)(..)(..)(..)(..)(..)(..)(..)', '%8%7%6%5%4%3%2%1'),
+            qwords_qty * 8
+        end
+
+        local parts = {} -- digest parts
+        local last_part, last_part_size = '', 0
+
+        local function get_next_part_of_digest(bytes_needed)
+          -- returns 'bytes_needed' bytes, for arbitrary integer 'bytes_needed'
+          bytes_needed = bytes_needed or 1
+          if bytes_needed <= last_part_size then
+            last_part_size = last_part_size - bytes_needed
+            local part_size_in_nibbles = bytes_needed * 2
+            local result = string.sub(last_part, 1, part_size_in_nibbles)
+            last_part = string.sub(last_part, part_size_in_nibbles + 1)
+            return result
+          end
+
+          local parts_qty = 0
+          if last_part_size > 0 then
+            parts_qty = 1
+            parts[parts_qty] = last_part
+            bytes_needed = bytes_needed - last_part_size
+          end
+
+          -- repeats until the length is enough
+          while bytes_needed >= 8 do
+            local next_part, next_part_size = get_next_qwords_of_digest(bytes_needed / 8)
+            parts_qty = parts_qty + 1
+            parts[parts_qty] = next_part
+            bytes_needed = bytes_needed - next_part_size
+          end
+
+          if bytes_needed > 0 then
+            last_part, last_part_size = get_next_qwords_of_digest(1)
+            parts_qty = parts_qty + 1
+            parts[parts_qty] = get_next_part_of_digest(bytes_needed)
+          else
+            last_part, last_part_size = '', 0
+          end
+
+          return table.concat(parts, '', 1, parts_qty)
+        end
+
+        if digest_size_in_bytes < 0 then
+          result = get_next_part_of_digest
+        else
+          result = get_next_part_of_digest(digest_size_in_bytes)
+        end
+      end
+
+      return result
+    end
+  end
+
+  if message then
+    -- Actually perform calculations and return the SHA3 digest of a message
+    return partial(message)()
+  else
+    -- Return function for chunk-by-chunk loading
+    -- User should feed every chunk of input data as single argument to this function and finally get SHA3 digest by invoking this function without an argument
+    return partial
+  end
+end
+
+local function HexToBinFunction(hh)
+  return string.char(tonumber(hh, 16))
+end
+
+local function hex2bin(hex_string)
+  return (string.gsub(hex_string, '%x%x', HexToBinFunction))
+end
+
+local base64_symbols = {
+  ['+'] = 62,
+  ['-'] = 62,
+  [62] = '+',
+  ['/'] = 63,
+  ['_'] = 63,
+  [63] = '/',
+  ['='] = -1,
+  ['.'] = -1,
+  [-1] = '=',
+}
+
+local symbol_index = 0
+for j, pair in ipairs { 'AZ', 'az', '09' } do
+  for ascii = string.byte(pair), string.byte(pair, 2) do
+    local ch = string.char(ascii)
+    base64_symbols[ch] = symbol_index
+    base64_symbols[symbol_index] = ch
+    symbol_index = symbol_index + 1
+  end
+end
+
+local function bin2base64(binary_string)
+  local stringLength = #binary_string
+  local result = table.create(math.ceil(stringLength / 3))
+  local length = 0
+
+  for pos = 1, #binary_string, 3 do
+    local c1, c2, c3, c4 = string.byte(string.sub(binary_string, pos, pos + 2) .. '\0', 1, -1)
+    length = length + 1
+    result[length] = base64_symbols[math.floor(c1 / 4)]
+      .. base64_symbols[c1 % 4 * 16 + math.floor(c2 / 16)]
+      .. base64_symbols[c3 and c2 % 16 * 4 + math.floor(c3 / 64) or -1]
+      .. base64_symbols[c4 and c3 % 64 or -1]
+  end
+
+  return table.concat(result)
+end
+
+local function base642bin(base64_string)
+  local result, chars_qty = {}, 3
+  for pos, ch in string.gmatch(string.gsub(base64_string, '%s+', ''), '()(.)') do
+    local code = base64_symbols[ch]
+    if code < 0 then
+      chars_qty = chars_qty - 1
+      code = 0
+    end
+
+    local idx = pos % 4
+    if idx > 0 then
+      result[-idx] = code
+    else
+      local c1 = result[-1] * 4 + math.floor(result[-2] / 16)
+      local c2 = (result[-2] % 16) * 16 + math.floor(result[-3] / 4)
+      local c3 = (result[-3] % 4) * 64 + code
+      result[#result + 1] = string.sub(string.char(c1, c2, c3), 1, chars_qty)
+    end
+  end
+
+  return table.concat(result)
+end
+
+local block_size_for_HMAC -- this table will be initialized at the end of the module
+--local function pad_and_xor(str, result_length, byte_for_xor)
+--	return string.gsub(str, ".", function(c)
+--		return string.char(bit32_bxor(string.byte(c), byte_for_xor))
+--	end) .. string.rep(string.char(byte_for_xor), result_length - #str)
+--end
+
+-- For the sake of speed of converting hexes to strings, there's a map of the conversions here
+local BinaryStringMap = {}
+for Index = 0, 255 do
+  BinaryStringMap[string.format('%02x', Index)] = string.char(Index)
+end
+
+-- Update 02.14.20 - added AsBinary for easy GameAnalytics replacement.
+local function hmac(hash_func, key, message, AsBinary)
+  -- Create an instance (private objects for current calculation)
+  local block_size = block_size_for_HMAC[hash_func]
+  if not block_size then
+    error('Unknown hash function', 2)
+  end
+
+  local KeyLength = #key
+  if KeyLength > block_size then
+    key = string.gsub(hash_func(key), '%x%x', HexToBinFunction)
+    KeyLength = #key
+  end
+
+  local append = hash_func()(string.gsub(key, '.', function(c)
+    return string.char(bit32_bxor(string.byte(c), 0x36))
+  end) .. string.rep('6', block_size - KeyLength)) -- 6 = string.char(0x36)
+
+  local result
+
+  local function partial(message_part)
+    if not message_part then
+      result = result
+        or hash_func(
+          string.gsub(key, '.', function(c)
+            return string.char(bit32_bxor(string.byte(c), 0x5c))
+          end)
+            .. string.rep('\\', block_size - KeyLength) -- \ = string.char(0x5c)
+            .. (string.gsub(append(), '%x%x', HexToBinFunction))
+        )
+
+      return result
+    elseif result then
+      error('Adding more chunks is not allowed after receiving the result', 2)
+    else
+      append(message_part)
+      return partial
+    end
+  end
+
+  if message then
+    -- Actually perform calculations and return the HMAC of a message
+    local FinalMessage = partial(message)()
+    return AsBinary and (string.gsub(FinalMessage, '%x%x', BinaryStringMap)) or FinalMessage
+  else
+    -- Return function for chunk-by-chunk loading of a message
+    -- User should feed every chunk of the message as single argument to this function and finally get HMAC by invoking this function without an argument
+    return partial
+  end
+end
+
+local sha = {
+  md5 = md5,
+  sha1 = sha1,
+  -- SHA2 hash functions:
+  sha224 = function(message)
+    return sha256ext(224, message)
+  end,
+
+  sha256 = function(message)
+    return sha256ext(256, message)
+  end,
+
+  sha512_224 = function(message)
+    return sha512ext(224, message)
+  end,
+
+  sha512_256 = function(message)
+    return sha512ext(256, message)
+  end,
+
+  sha384 = function(message)
+    return sha512ext(384, message)
+  end,
+
+  sha512 = function(message)
+    return sha512ext(512, message)
+  end,
+
+  -- SHA3 hash functions:
+  sha3_224 = function(message)
+    return keccak((1600 - 2 * 224) / 8, 224 / 8, false, message)
+  end,
+
+  sha3_256 = function(message)
+    return keccak((1600 - 2 * 256) / 8, 256 / 8, false, message)
+  end,
+
+  sha3_384 = function(message)
+    return keccak((1600 - 2 * 384) / 8, 384 / 8, false, message)
+  end,
+
+  sha3_512 = function(message)
+    return keccak((1600 - 2 * 512) / 8, 512 / 8, false, message)
+  end,
+
+  shake128 = function(message, digest_size_in_bytes)
+    return keccak((1600 - 2 * 128) / 8, digest_size_in_bytes, true, message)
+  end,
+
+  shake256 = function(message, digest_size_in_bytes)
+    return keccak((1600 - 2 * 256) / 8, digest_size_in_bytes, true, message)
+  end,
+
+  -- misc utilities:
+  hmac = hmac, -- HMAC(hash_func, key, message) is applicable to any hash function from this module except SHAKE*
+  hex_to_bin = hex2bin, -- converts hexadecimal representation to binary string
+  base64_to_bin = base642bin, -- converts base64 representation to binary string
+  bin_to_base64 = bin2base64, -- converts binary string to base64 representation
+  base64_encode = Base64.Encode,
+  base64_decode = Base64.Decode,
+}
+
+block_size_for_HMAC = {
+  [sha.md5] = 64,
+  [sha.sha1] = 64,
+  [sha.sha224] = 64,
+  [sha.sha256] = 64,
+  [sha.sha512_224] = 128,
+  [sha.sha512_256] = 128,
+  [sha.sha384] = 128,
+  [sha.sha512] = 128,
+  [sha.sha3_224] = (1600 - 2 * 224) / 8,
+  [sha.sha3_256] = (1600 - 2 * 256) / 8,
+  [sha.sha3_384] = (1600 - 2 * 384) / 8,
+  [sha.sha3_512] = (1600 - 2 * 512) / 8,
+}
+
+return sha
+
+end;
+modules['packages/hash.lua'].cache = null;
+modules['packages/hash.lua'].isCached = false;
+
+----
+
+modules['packages/installationid.lua'] = {};
+modules['packages/installationid.lua'].load = function()
+local __just_filename = 'installationid.lua';
+local __filename = 'packages/installationid.lua';
+local __dirname = 'packages';
+local __hash = '10146445b36d51a8d1210dd1992188627b636415a980ea5f1d2c10fcf0173fa5611870fc115b5b5ecdc684447560993e3d4718f2c33783d42362403c2dc140d8';
+local uniqueKeys, xor, hash = require 'uniquekeys', require 'xor', require 'hash'
+local api = {
+  --- calculates & returns the installation id | persists across backups
+  ['get'] = function()
+    return hash.sha3_512(xor('installationid', uniqueKeys.uid))
+  end,
+  ['set'] = function()
+    error 'Cannot set installation id!'
+  end,
+}
+_G.InstallationID = api
+return api
+
+end;
+modules['packages/installationid.lua'].cache = null;
+modules['packages/installationid.lua'].isCached = false;
+
+----
+
+modules['packages/json.lua'] = {};
+modules['packages/json.lua'].load = function()
+local __just_filename = 'json.lua';
+local __filename = 'packages/json.lua';
+local __dirname = 'packages';
+local __hash = '4dc5f6c3b5bcd0f200b1ef9ff4a812b86e199331cbfa9858a9c73f2c8b513872a4d3fbd59b0a2d82a36115ac629be786085aa54cbe4d445b0ade77bea5350a86';
+--[[ json.lua
+
+A compact pure-Lua JSON library.
+The main functions are: json.stringify, json.parse.
+
+## json.stringify:
+
+This expects the following to be true of any tables being encoded:
+ * They only have string or number keys. Number keys must be represented as
+   strings in json; this is part of the json spec.
+ * They are not recursive. Such a structure cannot be specified in json.
+
+A Lua table is considered to be an array if and only if its set of keys is a
+consecutive sequence of positive integers starting at 1. Arrays are encoded like
+so: `[2, 3, false, "hi"]`. Any other type of Lua table is encoded as a json
+object, encoded like so: `{"key1": 2, "key2": false}`.
+
+Because the Lua nil value cannot be a key, and as a table value is considerd
+equivalent to a missing key, there is no way to express the json "null" value in
+a Lua table. The only way this will output "null" is if your entire input obj is
+nil itself.
+
+An empty Lua table, {}, could be considered either a json object or array -
+it's an ambiguous edge case. We choose to treat this as an object as it is the
+more general type.
+
+To be clear, none of the above considerations is a limitation of this code.
+Rather, it is what we get when we completely observe the json specification for
+as arbitrary a Lua object as json is capable of expressing.
+
+## json.parse:
+
+This function parses json, with the exception that it does not pay attention to
+\u-escaped unicode code points in strings.
+
+It is difficult for Lua to return null as a value. In order to prevent the loss
+of keys with a null value in a json string, this function uses the one-off
+table value json.null (which is just an empty table) to indicate null values.
+This way you can check if a value is null with the conditional
+`val == json.null`.
+
+If you have control over the data and are using Lua, I would recommend just
+avoiding null values in your data to begin with.
+
+--]]
+
+-- Minified variant of https://gist.githubusercontent.com/tylerneylon/59f4bcf316be525b30ab/raw/7f69cc2cea38bf68298ed3dbfc39d197d53c80de/json.lua
+local a={}local function b(c)if type(c)~='table'then return type(c)end;local d=1;for e in pairs(c)do if c[d]~=nil then d=d+1 else return'table'end end;if d==1 then return'table'else return'array'end end;local function f(g)local h={'\\','"','/','\b','\f','\n','\r','\t'}local i={'\\','"','/','b','f','n','r','t'}for d,j in ipairs(h)do g=g:gsub(j,'\\'..i[d])end;return g end;local function k(l,m,n,o)m=m+#l:match('^%s*',m)if l:sub(m,m)~=n then if o then error('Expected '..n..' near position '..m)end;return m,false end;return m+1,true end;local function p(l,m,q)q=q or''local r='End of input found while parsing string.'if m>#l then error(r)end;local j=l:sub(m,m)if j=='"'then return q,m+1 end;if j~='\\'then return p(l,m+1,q..j)end;local s={b='\b',f='\f',n='\n',r='\r',t='\t'}local t=l:sub(m+1,m+1)if not t then error(r)end;return p(l,m+2,q..(s[t]or t))end;local function u(l,m)local v=l:match('^-?%d+%.?%d*[eE]?[+-]?%d*',m)local q=tonumber(v)if not q then error('Error parsing number at position '..m..'.')end;return q,m+#v end;function a.stringify(c,w)local g={}local x=b(c)if x=='array'then if w then error'Can\'t encode array as key.'end;g[#g+1]='['for d,q in ipairs(c)do if d>1 then g[#g+1]=', 'end;g[#g+1]=a.stringify(q)end;g[#g+1]=']'elseif x=='table'then if w then error'Can\'t encode table as key.'end;g[#g+1]='{'for y,z in pairs(c)do if#g>1 then g[#g+1]=', 'end;g[#g+1]=a.stringify(y,true)g[#g+1]=':'g[#g+1]=a.stringify(z)end;g[#g+1]='}'elseif x=='string'then return'"'..f(c)..'"'elseif x=='number'then if w then return'"'..tostring(c)..'"'end;return tostring(c)elseif x=='boolean'then return tostring(c)elseif x=='nil'then return'null'else error('Unjsonifiable type: '..x..'.')end;return table.concat(g)end;a.null={}function a.parse(l,m,A)m=m or 1;if m>#l then error'Reached unexpected end of input.'end;local m=m+#l:match('^%s*',m)local B=l:sub(m,m)if B=='{'then local c,C,D={},true,true;m=m+1;while true do C,m=a.parse(l,m,'}')if C==nil then return c,m end;if not D then error'Comma missing between object items.'end;m=k(l,m,':',true)c[C],m=a.parse(l,m)m,D=k(l,m,',')end elseif B=='['then local E,q,D={},true,true;m=m+1;while true do q,m=a.parse(l,m,']')if q==nil then return E,m end;if not D then error'Comma missing between array items.'end;E[#E+1]=q;m,D=k(l,m,',')end elseif B=='"'then return p(l,m+1)elseif B=='-'or B:match'%d'then return u(l,m)elseif B==A then return nil,m+1 else local F={['true']=true,['false']=false,['null']=a.null}for G,H in pairs(F)do local I=m+#G-1;if l:sub(m,I)==G then return H,I+1 end end;local J='position '..m..': '..l:sub(m,m+10)error('Invalid json syntax starting at '..J)end end;return a
+
+end;
+modules['packages/json.lua'].cache = null;
+modules['packages/json.lua'].isCached = false;
+
+----
+
+modules['packages/polyfills/table.create.lua'] = {};
+modules['packages/polyfills/table.create.lua'].load = function()
+local __just_filename = 'table.create.lua';
+local __filename = 'packages/polyfills/table.create.lua';
+local __dirname = 'packages/polyfills';
+local __hash = '19eaa311cabc2e4b53501a8cc4090692c36cbccc4e75a0d082e8cfa7543f48cf5f70db601dba94ede670a483e36bcd7a309d720e32921ef0fd000770c799fced';
+_G.table.create = table.create
+  or function(count, value)
+    local t = {}
+    for i = 1, count, 1 do
+      t[i] = value
+    end
+    return t
+  end
+
+end;
+modules['packages/polyfills/table.create.lua'].cache = null;
+modules['packages/polyfills/table.create.lua'].isCached = false;
+
+----
+
+modules['packages/rstr.lua'] = {};
+modules['packages/rstr.lua'].load = function()
+local __just_filename = 'rstr.lua';
+local __filename = 'packages/rstr.lua';
+local __dirname = 'packages';
+local __hash = '3fbb599255778057fec55666068f44b9a1168c88fe0501982982796a7a4ed688899a4351a63875869b27a384b203df47f132982656b98423029bfe4e91d51645';
+-- random string library
+local rchar = function(chars)
+  chars = chars or 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 '
+  local rint = math.random(1, #chars)
+  return chars:sub(rint, rint)
+end
+return function(len, chars)
+  local str = ''
+  for i = 1, len, 1 do
+    str = str .. rchar(chars)
+  end
+  return str
+end
+
+end;
+modules['packages/rstr.lua'].cache = null;
+modules['packages/rstr.lua'].isCached = false;
+
+----
+
+modules['packages/termination.lua'] = {};
+modules['packages/termination.lua'].load = function()
+local __just_filename = 'termination.lua';
+local __filename = 'packages/termination.lua';
+local __dirname = 'packages';
+local __hash = '363f9ffadf1be9c7074c012ecb77d6377a0d2f277f09668eefa74399becf750fbce66eaa4c0b31af551d25107c01d0d99855051a8b4473e1a01b04f4ec019dd5';
+local isTerminateDisabled = false
+local defaultPull = os.pullEvent
+return {
+  ['setDisabled'] = function(v)
+    if v then
+      if v ~= isTerminateDisabled then
+        defaultPull = os.pullEvent
+      end
+      os.pullEvent = os.pullEventRaw
+    else
+      os.pullEvent = defaultPull
+    end
+    isTerminateDisabled = v
+  end,
+  ['getDisabled'] = function()
+    return isTerminateDisabled
+  end,
+}
+
+end;
+modules['packages/termination.lua'].cache = null;
+modules['packages/termination.lua'].isCached = false;
+
+----
+
+modules['packages/uniquekeys.lua'] = {};
+modules['packages/uniquekeys.lua'].load = function()
+local __just_filename = 'uniquekeys.lua';
+local __filename = 'packages/uniquekeys.lua';
+local __dirname = 'packages';
+local __hash = '69341cef2a30278934e7e8d81147bab29d3997c1526d20da185bcbef19e3eb915fdc9d408f5c5c34c628d7f9cf672a4ecdb6fb1ac550f0d2a2581a735ed17d59';
+-- unique keys library
+-- doesnt work as a standalone
+local checkIfIsKey = function(kv)
+  return string.sub(kv, 1, 3) ~= '!!!'
+end
+local keys = {
+  --- password hmac key
+  ['pw'] = '!!!pw',
+  --- encrypted using keys.Eenc..hmac(pass,keys.pw) - For encryption
+  ['enc'] = '!!!enc',
+  --- key used to encrypt enc | avoid using this if possible
+  ['Eenc'] = '!!!Eenc',
+  --- password used in installation id calculations
+  ['uid'] = '!!!uid',
+}
+for k, v in pairs(keys) do
+  if not checkIfIsKey(v) then
+    keys[k] = require 'rstr'(512)
+  end
+end
+local shouldB64Decode = false
+if shouldB64Decode then
+  for k, v in pairs(keys) do
+    keys[k] = require('base64').Decode(v)
+  end
+end
+return keys
+
+end;
+modules['packages/uniquekeys.lua'].cache = null;
+modules['packages/uniquekeys.lua'].isCached = false;
+
+----
+
+modules['packages/xor.lua'] = {};
+modules['packages/xor.lua'].load = function()
+local __just_filename = 'xor.lua';
+local __filename = 'packages/xor.lua';
+local __dirname = 'packages';
+local __hash = '12d0c046a9f96fd64280170a2c96a2a7f5260f2189c4756df9dc028a99a73a464037fc967316fb58d20cdf15f91533f94e69c163cf7c06b73c60472bc6528eb2';
+-- https://github.com/Braayy/xor-lua/blob/master/xor.lua
+-- MIT
+-- too lazy to implement my own xor & my og aes doesnt work in cc on 1.12.2 for some reason
+function repeat_key(key, length)
+  if #key >= length then
+    return key:sub(1, length)
+  end
+
+  times = math.floor(length / #key)
+  remain = length % #key
+
+  result = ''
+
+  for i = 1, times do
+    result = result .. key
+  end
+
+  if remain > 0 then
+    result = result .. key:sub(1, remain)
+  end
+
+  return result
+end
+
+function xor(message, key)
+  rkey = repeat_key(key, #message)
+
+  result = ''
+
+  for i = 1, #message do
+    k_char = rkey:sub(i, i)
+    m_char = message:sub(i, i)
+
+    k_byte = k_char:byte()
+    m_byte = m_char:byte()
+
+    xor_byte = require('bitop').bxor(m_byte, k_byte)
+
+    xor_char = string.char(xor_byte)
+
+    result = result .. xor_char
+  end
+
+  return result
+end
+
+return xor
+
+end;
+modules['packages/xor.lua'].cache = null;
+modules['packages/xor.lua'].isCached = false;
+
+----
+
+modules['version.lua'] = {};
+modules['version.lua'].load = function()
+local __just_filename = 'version.lua';
+local __filename = 'version.lua';
+local __dirname = '';
+local __hash = '7a5cd8cbe43906f7f1c1d50eb18312aff11909772deab5fdcb3a901ad7a86384bebb471694b4760cc67147c5c541519eaba249f1e6426369a2d2db6a32eadfc4';
+return '1.0.0'
+
+end;
+modules['version.lua'].cache = null;
+modules['version.lua'].isCached = false;
+
+--> END Initial Module Definitions <--
+
+
+--> BEGIN Alias/Equivalent Module Path Definitions <--
+
+modules['applications'] = modules['applications.lua'];
+modules['applications.lua'] = modules['applications.lua'];
+modules['applications'] = modules['applications.lua'];
+modules['/applications'] = modules['applications.lua'];
+modules['\\applications.lua'] = modules['applications.lua'];
+modules['\\applications'] = modules['applications.lua'];
+
+----
+
+modules['auth'] = modules['auth.lua'];
+modules['auth.lua'] = modules['auth.lua'];
+modules['auth'] = modules['auth.lua'];
+modules['/auth'] = modules['auth.lua'];
+modules['\\auth.lua'] = modules['auth.lua'];
+modules['\\auth'] = modules['auth.lua'];
+
+----
+
+modules['boot'] = modules['boot.lua'];
+modules['boot.lua'] = modules['boot.lua'];
+modules['boot'] = modules['boot.lua'];
+modules['/boot'] = modules['boot.lua'];
+modules['\\boot.lua'] = modules['boot.lua'];
+modules['\\boot'] = modules['boot.lua'];
+
+----
+
+modules['frontends/_error'] = modules['frontends/_error.lua'];
+modules['frontends\\_error.lua'] = modules['frontends/_error.lua'];
+modules['frontends\\_error'] = modules['frontends/_error.lua'];
+modules['/frontends/_error'] = modules['frontends/_error.lua'];
+modules['\\frontends\\_error.lua'] = modules['frontends/_error.lua'];
+modules['\\frontends\\_error'] = modules['frontends/_error.lua'];
+
+----
+
+modules['frontends/basalt-or-lite'] = modules['frontends/basalt-or-lite.lua'];
+modules['frontends\\basalt-or-lite.lua'] = modules['frontends/basalt-or-lite.lua'];
+modules['frontends\\basalt-or-lite'] = modules['frontends/basalt-or-lite.lua'];
+modules['/frontends/basalt-or-lite'] = modules['frontends/basalt-or-lite.lua'];
+modules['\\frontends\\basalt-or-lite.lua'] = modules['frontends/basalt-or-lite.lua'];
+modules['\\frontends\\basalt-or-lite'] = modules['frontends/basalt-or-lite.lua'];
+
+----
+
+modules['frontends/basalt'] = modules['frontends/basalt.lua'];
+modules['frontends\\basalt.lua'] = modules['frontends/basalt.lua'];
+modules['frontends\\basalt'] = modules['frontends/basalt.lua'];
+modules['/frontends/basalt'] = modules['frontends/basalt.lua'];
+modules['\\frontends\\basalt.lua'] = modules['frontends/basalt.lua'];
+modules['\\frontends\\basalt'] = modules['frontends/basalt.lua'];
+
+----
+
+modules['frontends/lite'] = modules['frontends/lite.lua'];
+modules['frontends\\lite.lua'] = modules['frontends/lite.lua'];
+modules['frontends\\lite'] = modules['frontends/lite.lua'];
+modules['/frontends/lite'] = modules['frontends/lite.lua'];
+modules['\\frontends\\lite.lua'] = modules['frontends/lite.lua'];
+modules['\\frontends\\lite'] = modules['frontends/lite.lua'];
+
+----
+
+modules['frontends/login-only'] = modules['frontends/login-only.lua'];
+modules['frontends\\login-only.lua'] = modules['frontends/login-only.lua'];
+modules['frontends\\login-only'] = modules['frontends/login-only.lua'];
+modules['/frontends/login-only'] = modules['frontends/login-only.lua'];
+modules['\\frontends\\login-only.lua'] = modules['frontends/login-only.lua'];
+modules['\\frontends\\login-only'] = modules['frontends/login-only.lua'];
+
+----
+
+modules['index'] = modules['index.lua'];
+modules['index.lua'] = modules['index.lua'];
+modules['index'] = modules['index.lua'];
+modules['/index'] = modules['index.lua'];
+modules['\\index.lua'] = modules['index.lua'];
+modules['\\index'] = modules['index.lua'];
+modules[''] = modules['index.lua'];
+modules[''] = modules['index.lua'];
+modules[''] = modules['index.lua'];
+modules['/'] = modules['index.lua'];
+modules['\\'] = modules['index.lua'];
+modules['\\'] = modules['index.lua'];
+
+----
+
+modules['load-installer'] = modules['load-installer.lua'];
+modules['load-installer.lua'] = modules['load-installer.lua'];
+modules['load-installer'] = modules['load-installer.lua'];
+modules['/load-installer'] = modules['load-installer.lua'];
+modules['\\load-installer.lua'] = modules['load-installer.lua'];
+modules['\\load-installer'] = modules['load-installer.lua'];
+
+----
+
+modules['login'] = modules['login.lua'];
+modules['login.lua'] = modules['login.lua'];
+modules['login'] = modules['login.lua'];
+modules['/login'] = modules['login.lua'];
+modules['\\login.lua'] = modules['login.lua'];
+modules['\\login'] = modules['login.lua'];
+
+----
+
+modules['misc/chime'] = modules['misc/chime.lua'];
+modules['misc\\chime.lua'] = modules['misc/chime.lua'];
+modules['misc\\chime'] = modules['misc/chime.lua'];
+modules['/misc/chime'] = modules['misc/chime.lua'];
+modules['\\misc\\chime.lua'] = modules['misc/chime.lua'];
+modules['\\misc\\chime'] = modules['misc/chime.lua'];
+
+----
+
+modules['networking/secnet'] = modules['networking/secnet.lua'];
+modules['networking\\secnet.lua'] = modules['networking/secnet.lua'];
+modules['networking\\secnet'] = modules['networking/secnet.lua'];
+modules['/networking/secnet'] = modules['networking/secnet.lua'];
+modules['\\networking\\secnet.lua'] = modules['networking/secnet.lua'];
+modules['\\networking\\secnet'] = modules['networking/secnet.lua'];
+
+----
+
+modules['packages/basalt'] = modules['packages/basalt.lua'];
+modules['packages\\basalt.lua'] = modules['packages/basalt.lua'];
+modules['packages\\basalt'] = modules['packages/basalt.lua'];
+modules['basalt'] = modules['packages/basalt.lua'];
+modules['basalt.lua'] = modules['packages/basalt.lua'];
+modules['basalt'] = modules['packages/basalt.lua'];
+modules['/basalt'] = modules['packages/basalt.lua'];
+modules['\\basalt.lua'] = modules['packages/basalt.lua'];
+modules['\\basalt'] = modules['packages/basalt.lua'];
+modules['/packages/basalt'] = modules['packages/basalt.lua'];
+modules['\\packages\\basalt.lua'] = modules['packages/basalt.lua'];
+modules['\\packages\\basalt'] = modules['packages/basalt.lua'];
+
+----
+
+modules['packages/base64'] = modules['packages/base64.lua'];
+modules['packages\\base64.lua'] = modules['packages/base64.lua'];
+modules['packages\\base64'] = modules['packages/base64.lua'];
+modules['base64'] = modules['packages/base64.lua'];
+modules['base64.lua'] = modules['packages/base64.lua'];
+modules['base64'] = modules['packages/base64.lua'];
+modules['/base64'] = modules['packages/base64.lua'];
+modules['\\base64.lua'] = modules['packages/base64.lua'];
+modules['\\base64'] = modules['packages/base64.lua'];
+modules['/packages/base64'] = modules['packages/base64.lua'];
+modules['\\packages\\base64.lua'] = modules['packages/base64.lua'];
+modules['\\packages\\base64'] = modules['packages/base64.lua'];
+
+----
+
+modules['packages/bitop'] = modules['packages/bitop.lua'];
+modules['packages\\bitop.lua'] = modules['packages/bitop.lua'];
+modules['packages\\bitop'] = modules['packages/bitop.lua'];
+modules['bitop'] = modules['packages/bitop.lua'];
+modules['bitop.lua'] = modules['packages/bitop.lua'];
+modules['bitop'] = modules['packages/bitop.lua'];
+modules['/bitop'] = modules['packages/bitop.lua'];
+modules['\\bitop.lua'] = modules['packages/bitop.lua'];
+modules['\\bitop'] = modules['packages/bitop.lua'];
+modules['/packages/bitop'] = modules['packages/bitop.lua'];
+modules['\\packages\\bitop.lua'] = modules['packages/bitop.lua'];
+modules['\\packages\\bitop'] = modules['packages/bitop.lua'];
+
+----
+
+modules['packages/child_process'] = modules['packages/child_process.lua'];
+modules['packages\\child_process.lua'] = modules['packages/child_process.lua'];
+modules['packages\\child_process'] = modules['packages/child_process.lua'];
+modules['child_process'] = modules['packages/child_process.lua'];
+modules['child_process.lua'] = modules['packages/child_process.lua'];
+modules['child_process'] = modules['packages/child_process.lua'];
+modules['/child_process'] = modules['packages/child_process.lua'];
+modules['\\child_process.lua'] = modules['packages/child_process.lua'];
+modules['\\child_process'] = modules['packages/child_process.lua'];
+modules['/packages/child_process'] = modules['packages/child_process.lua'];
+modules['\\packages\\child_process.lua'] = modules['packages/child_process.lua'];
+modules['\\packages\\child_process'] = modules['packages/child_process.lua'];
+
+----
+
+modules['packages/console'] = modules['packages/console.lua'];
+modules['packages\\console.lua'] = modules['packages/console.lua'];
+modules['packages\\console'] = modules['packages/console.lua'];
+modules['console'] = modules['packages/console.lua'];
+modules['console.lua'] = modules['packages/console.lua'];
+modules['console'] = modules['packages/console.lua'];
+modules['/console'] = modules['packages/console.lua'];
+modules['\\console.lua'] = modules['packages/console.lua'];
+modules['\\console'] = modules['packages/console.lua'];
+modules['/packages/console'] = modules['packages/console.lua'];
+modules['\\packages\\console.lua'] = modules['packages/console.lua'];
+modules['\\packages\\console'] = modules['packages/console.lua'];
+
+----
+
+modules['packages/deepcopy'] = modules['packages/deepcopy.lua'];
+modules['packages\\deepcopy.lua'] = modules['packages/deepcopy.lua'];
+modules['packages\\deepcopy'] = modules['packages/deepcopy.lua'];
+modules['deepcopy'] = modules['packages/deepcopy.lua'];
+modules['deepcopy.lua'] = modules['packages/deepcopy.lua'];
+modules['deepcopy'] = modules['packages/deepcopy.lua'];
+modules['/deepcopy'] = modules['packages/deepcopy.lua'];
+modules['\\deepcopy.lua'] = modules['packages/deepcopy.lua'];
+modules['\\deepcopy'] = modules['packages/deepcopy.lua'];
+modules['/packages/deepcopy'] = modules['packages/deepcopy.lua'];
+modules['\\packages\\deepcopy.lua'] = modules['packages/deepcopy.lua'];
+modules['\\packages\\deepcopy'] = modules['packages/deepcopy.lua'];
+
+----
+
+modules['packages/forceyield'] = modules['packages/forceyield.lua'];
+modules['packages\\forceyield.lua'] = modules['packages/forceyield.lua'];
+modules['packages\\forceyield'] = modules['packages/forceyield.lua'];
+modules['forceyield'] = modules['packages/forceyield.lua'];
+modules['forceyield.lua'] = modules['packages/forceyield.lua'];
+modules['forceyield'] = modules['packages/forceyield.lua'];
+modules['/forceyield'] = modules['packages/forceyield.lua'];
+modules['\\forceyield.lua'] = modules['packages/forceyield.lua'];
+modules['\\forceyield'] = modules['packages/forceyield.lua'];
+modules['/packages/forceyield'] = modules['packages/forceyield.lua'];
+modules['\\packages\\forceyield.lua'] = modules['packages/forceyield.lua'];
+modules['\\packages\\forceyield'] = modules['packages/forceyield.lua'];
+
+----
+
+modules['packages/hash'] = modules['packages/hash.lua'];
+modules['packages\\hash.lua'] = modules['packages/hash.lua'];
+modules['packages\\hash'] = modules['packages/hash.lua'];
+modules['hash'] = modules['packages/hash.lua'];
+modules['hash.lua'] = modules['packages/hash.lua'];
+modules['hash'] = modules['packages/hash.lua'];
+modules['/hash'] = modules['packages/hash.lua'];
+modules['\\hash.lua'] = modules['packages/hash.lua'];
+modules['\\hash'] = modules['packages/hash.lua'];
+modules['/packages/hash'] = modules['packages/hash.lua'];
+modules['\\packages\\hash.lua'] = modules['packages/hash.lua'];
+modules['\\packages\\hash'] = modules['packages/hash.lua'];
+
+----
+
+modules['packages/installationid'] = modules['packages/installationid.lua'];
+modules['packages\\installationid.lua'] = modules['packages/installationid.lua'];
+modules['packages\\installationid'] = modules['packages/installationid.lua'];
+modules['installationid'] = modules['packages/installationid.lua'];
+modules['installationid.lua'] = modules['packages/installationid.lua'];
+modules['installationid'] = modules['packages/installationid.lua'];
+modules['/installationid'] = modules['packages/installationid.lua'];
+modules['\\installationid.lua'] = modules['packages/installationid.lua'];
+modules['\\installationid'] = modules['packages/installationid.lua'];
+modules['/packages/installationid'] = modules['packages/installationid.lua'];
+modules['\\packages\\installationid.lua'] = modules['packages/installationid.lua'];
+modules['\\packages\\installationid'] = modules['packages/installationid.lua'];
+
+----
+
+modules['packages/json'] = modules['packages/json.lua'];
+modules['packages\\json.lua'] = modules['packages/json.lua'];
+modules['packages\\json'] = modules['packages/json.lua'];
+modules['json'] = modules['packages/json.lua'];
+modules['json.lua'] = modules['packages/json.lua'];
+modules['json'] = modules['packages/json.lua'];
+modules['/json'] = modules['packages/json.lua'];
+modules['\\json.lua'] = modules['packages/json.lua'];
+modules['\\json'] = modules['packages/json.lua'];
+modules['/packages/json'] = modules['packages/json.lua'];
+modules['\\packages\\json.lua'] = modules['packages/json.lua'];
+modules['\\packages\\json'] = modules['packages/json.lua'];
+
+----
+
+modules['packages/polyfills/table.create'] = modules['packages/polyfills/table.create.lua'];
+modules['packages\\polyfills\\table.create.lua'] = modules['packages/polyfills/table.create.lua'];
+modules['packages\\polyfills\\table.create'] = modules['packages/polyfills/table.create.lua'];
+modules['polyfills/table.create'] = modules['packages/polyfills/table.create.lua'];
+modules['polyfills\\table.create.lua'] = modules['packages/polyfills/table.create.lua'];
+modules['polyfills\\table.create'] = modules['packages/polyfills/table.create.lua'];
+modules['/polyfills/table.create'] = modules['packages/polyfills/table.create.lua'];
+modules['\\polyfills\\table.create.lua'] = modules['packages/polyfills/table.create.lua'];
+modules['\\polyfills\\table.create'] = modules['packages/polyfills/table.create.lua'];
+modules['/packages/polyfills/table.create'] = modules['packages/polyfills/table.create.lua'];
+modules['\\packages\\polyfills\\table.create.lua'] = modules['packages/polyfills/table.create.lua'];
+modules['\\packages\\polyfills\\table.create'] = modules['packages/polyfills/table.create.lua'];
+
+----
+
+modules['packages/rstr'] = modules['packages/rstr.lua'];
+modules['packages\\rstr.lua'] = modules['packages/rstr.lua'];
+modules['packages\\rstr'] = modules['packages/rstr.lua'];
+modules['rstr'] = modules['packages/rstr.lua'];
+modules['rstr.lua'] = modules['packages/rstr.lua'];
+modules['rstr'] = modules['packages/rstr.lua'];
+modules['/rstr'] = modules['packages/rstr.lua'];
+modules['\\rstr.lua'] = modules['packages/rstr.lua'];
+modules['\\rstr'] = modules['packages/rstr.lua'];
+modules['/packages/rstr'] = modules['packages/rstr.lua'];
+modules['\\packages\\rstr.lua'] = modules['packages/rstr.lua'];
+modules['\\packages\\rstr'] = modules['packages/rstr.lua'];
+
+----
+
+modules['packages/termination'] = modules['packages/termination.lua'];
+modules['packages\\termination.lua'] = modules['packages/termination.lua'];
+modules['packages\\termination'] = modules['packages/termination.lua'];
+modules['termination'] = modules['packages/termination.lua'];
+modules['termination.lua'] = modules['packages/termination.lua'];
+modules['termination'] = modules['packages/termination.lua'];
+modules['/termination'] = modules['packages/termination.lua'];
+modules['\\termination.lua'] = modules['packages/termination.lua'];
+modules['\\termination'] = modules['packages/termination.lua'];
+modules['/packages/termination'] = modules['packages/termination.lua'];
+modules['\\packages\\termination.lua'] = modules['packages/termination.lua'];
+modules['\\packages\\termination'] = modules['packages/termination.lua'];
+
+----
+
+modules['packages/uniquekeys'] = modules['packages/uniquekeys.lua'];
+modules['packages\\uniquekeys.lua'] = modules['packages/uniquekeys.lua'];
+modules['packages\\uniquekeys'] = modules['packages/uniquekeys.lua'];
+modules['uniquekeys'] = modules['packages/uniquekeys.lua'];
+modules['uniquekeys.lua'] = modules['packages/uniquekeys.lua'];
+modules['uniquekeys'] = modules['packages/uniquekeys.lua'];
+modules['/uniquekeys'] = modules['packages/uniquekeys.lua'];
+modules['\\uniquekeys.lua'] = modules['packages/uniquekeys.lua'];
+modules['\\uniquekeys'] = modules['packages/uniquekeys.lua'];
+modules['/packages/uniquekeys'] = modules['packages/uniquekeys.lua'];
+modules['\\packages\\uniquekeys.lua'] = modules['packages/uniquekeys.lua'];
+modules['\\packages\\uniquekeys'] = modules['packages/uniquekeys.lua'];
+
+----
+
+modules['packages/xor'] = modules['packages/xor.lua'];
+modules['packages\\xor.lua'] = modules['packages/xor.lua'];
+modules['packages\\xor'] = modules['packages/xor.lua'];
+modules['xor'] = modules['packages/xor.lua'];
+modules['xor.lua'] = modules['packages/xor.lua'];
+modules['xor'] = modules['packages/xor.lua'];
+modules['/xor'] = modules['packages/xor.lua'];
+modules['\\xor.lua'] = modules['packages/xor.lua'];
+modules['\\xor'] = modules['packages/xor.lua'];
+modules['/packages/xor'] = modules['packages/xor.lua'];
+modules['\\packages\\xor.lua'] = modules['packages/xor.lua'];
+modules['\\packages\\xor'] = modules['packages/xor.lua'];
+
+----
+
+modules['version'] = modules['version.lua'];
+modules['version.lua'] = modules['version.lua'];
+modules['version'] = modules['version.lua'];
+modules['/version'] = modules['version.lua'];
+modules['\\version.lua'] = modules['version.lua'];
+modules['\\version'] = modules['version.lua'];
+
+--> END Alias/Equivalent Module Path Definitions <--
+
+
+return require 'index'
+
+end)(require or function()end,...);
