@@ -4,9 +4,14 @@ local checkIfIsKey = function(kv)
   return string.sub(kv, 1, 3) ~= '!!!'
 end
 local keys = {
-  ['pw'] = '!!!pw', -- password hmac key
-  ['enc'] = '!!!enc', -- general encryption key
-  ['Eenc'] = '!!!Eenc', -- password used to encrypt enc, concatted with the result of hmac(pass,pw)
+  --- password hmac key
+  ['pw'] = '!!!pw',
+  --- encrypted using keys.Eenc..hmac(pass,keys.pw) - For encryption
+  ['enc'] = '!!!enc',
+  --- key used to encrypt enc | avoid using this if possible
+  ['Eenc'] = '!!!Eenc',
+  --- password used in installation id calculations
+  ['uid'] = '!!!uid',
 }
 for k, v in pairs(keys) do
   if not checkIfIsKey(v) then

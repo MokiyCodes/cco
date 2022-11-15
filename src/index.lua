@@ -1,8 +1,5 @@
 local console = require 'console'
 _G.console = console
-if args[#args - 1] == 'loadprogram' then
-  return require('programs/' .. args[#args])
-end
 if isStartup then
   require('termination').setDisabled(true)
 end
@@ -16,6 +13,9 @@ if installer and (not term.isColor or not term.isColor()) then
 end
 -- init script
 require 'polyfills/table.create'
+require 'networking/secnet'
+require 'installationid'
+_G.sha = require 'deepcopy'(require 'hash')
 console.clear()
 print('Host:', _HOST)
 print('Is Installer:', (installer and 'true' or 'false'))
