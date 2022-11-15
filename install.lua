@@ -6,15 +6,22 @@ for _, o in pairs { ... } do
 end
 local loadbundle = function(bundle)
   _G.bundle = bundle
+  print 'Compiling CCO...'
   local b, ce =
     loadstring('local installer = true;local thisBundle = _G.bundle;_G.bundle=nil;' .. bundle, 'installer bundle')
   if typeof(b) ~= 'function' then
     error('Compilation Error: ' .. (ce or b or 'Unknown Error'))
   end
+  print 'Loading Installer...'
   b()
-  print 'b2'
 end
-print 'Loading Installer...'
+print 'Downloading CCO...'
+if fs.exists '/cco.lua' then
+  fs.delete '/cco.lua'
+end
+if fs.exists '/startup.lua' then
+  fs.delete '/startup.lua'
+end
 if flags['devserver'] or (os.about and string.find(os.about(), 'CraftOS-PC')) then
   -- ComputerCraft Development Loader
   local _http_url = 'http://127.0.0.1:16969/build.lua';
@@ -36,8 +43,6 @@ if flags['devserver'] or (os.about and string.find(os.about(), 'CraftOS-PC')) th
     ---@diagnostic disable-next-line: undefined-global
   end)(http.get(_http_url))
 else
-  fs.delete '/cco.lua'
-  fs.delete '/startup.lua'
   shell.run 'wget https://raw.githubusercontent.com/MokiyCodes/cco/main/out.lua'
   local file = fs.open('out.lua', 'r')
   local data = (file.readAll())
