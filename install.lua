@@ -47,10 +47,9 @@ if flags['devserver'] or (os.about and string.find(os.about(), 'CraftOS-PC')) th
   end)(http.get(_http_url))
 else
   shell.run 'wget https://raw.githubusercontent.com/MokiyCodes/cco/main/out.lua'
-  fs.move('out.lua', 'install-cco.lua')
-  local file = fs.open('install-cco', 'r')
+  local file = fs.open('out.lua', 'r')
   local data = (file.readAll())
   file.close()
-  fs.delete 'install-cco.lua'
+  fs.delete 'out.lua'
   loadbundle(data)
 end
