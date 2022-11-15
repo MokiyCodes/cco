@@ -1,7 +1,8 @@
+---@diagnostic disable: lowercase-global
 -- https://github.com/Braayy/xor-lua/blob/master/xor.lua
 -- MIT
 -- too lazy to implement my own xor & my og aes doesnt work in cc on 1.12.2 for some reason
-function repeat_key(key, length)
+local repeat_key = function(key, length)
   if #key >= length then
     return key:sub(1, length)
   end
@@ -11,7 +12,7 @@ function repeat_key(key, length)
 
   result = ''
 
-  for i = 1, times do
+  for _ = 1, times do
     result = result .. key
   end
 
@@ -22,7 +23,7 @@ function repeat_key(key, length)
   return result
 end
 
-function xor(message, key)
+local xor = function(message, key)
   rkey = repeat_key(key, #message)
 
   result = ''

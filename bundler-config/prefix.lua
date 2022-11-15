@@ -1,3 +1,4 @@
+---@diagnostic disable
 -- Yielding's Bundler Prefix Script
 -- Forked & Stripped by Mokiy
 -- Copyright (c) 2022 YieldingExploiter.

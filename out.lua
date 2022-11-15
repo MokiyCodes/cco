@@ -1,4 +1,5 @@
--- Built at Tue Nov 15 2022 13:37:45 GMT+0100 (Central European Standard Time) / Development --
+---@diagnostic disable
+-- Built at Tue Nov 15 2022 13:44:31 GMT+0100 (Central European Standard Time) / Development --
 return (function(oldRequire,...) -- put everything in a seperate closure
 -- Yielding's Bundler Prefix Script
 -- Forked & Stripped by Mokiy
@@ -32,12 +33,12 @@ end
 
 --> BEGIN Initial Module Definitions <--
 
-modules['applications.lua'] = {};
+modules['applications.lua'] = {}
 modules['applications.lua'].load = function()
-local __just_filename = 'applications.lua';
-local __filename = 'applications.lua';
-local __dirname = '';
-local __hash = '9384cfe3d0f3cd0a463b2c81c081e54aeebe13458f917af15426f3ae617df2a3a72abef3a0b080e83a0aaea9840235c4fbd22993af84f5d4b39439018941441d';
+local __just_filename = 'applications.lua'
+local __filename = 'applications.lua'
+local __dirname = ''
+local __hash = '9384cfe3d0f3cd0a463b2c81c081e54aeebe13458f917af15426f3ae617df2a3a72abef3a0b080e83a0aaea9840235c4fbd22993af84f5d4b39439018941441d'
 local progs = {
   ['System'] = {
     ['Update'] = '/rom/programs/http/wget.lua run https://raw.githubusercontent.com/MokiyCodes/cco/main/install.lua',
@@ -83,18 +84,18 @@ if fs.exists '/.cco/programs.json' then
 end
 return progs
 
-end;
-modules['applications.lua'].cache = null;
-modules['applications.lua'].isCached = false;
+end
+modules['applications.lua'].cache = null
+modules['applications.lua'].isCached = false
 
 ----
 
-modules['auth.lua'] = {};
+modules['auth.lua'] = {}
 modules['auth.lua'].load = function()
-local __just_filename = 'auth.lua';
-local __filename = 'auth.lua';
-local __dirname = '';
-local __hash = '96323b36e72a59f49468259a2f09b374829301bff3962b92cea634898064cedecbd96860feb71ee0ad1b58f0f4a55592d3cf8d0733f48c2f84ea93d1ed14a50f';
+local __just_filename = 'auth.lua'
+local __filename = 'auth.lua'
+local __dirname = ''
+local __hash = '96323b36e72a59f49468259a2f09b374829301bff3962b92cea634898064cedecbd96860feb71ee0ad1b58f0f4a55592d3cf8d0733f48c2f84ea93d1ed14a50f'
 local base64 = require 'base64'
 local encrypted = '_ENCRYPTME'
 if encrypted ~= '_' .. 'ENCRYPTME' then
@@ -102,18 +103,18 @@ if encrypted ~= '_' .. 'ENCRYPTME' then
 end
 return { encryped = encrypted }
 
-end;
-modules['auth.lua'].cache = null;
-modules['auth.lua'].isCached = false;
+end
+modules['auth.lua'].cache = null
+modules['auth.lua'].isCached = false
 
 ----
 
-modules['boot.lua'] = {};
+modules['boot.lua'] = {}
 modules['boot.lua'].load = function()
-local __just_filename = 'boot.lua';
-local __filename = 'boot.lua';
-local __dirname = '';
-local __hash = 'a304cfcf78758924e37a9d5f4f5cc63a85aca112351daa54b6edf17fa1bf396edc9b176bdf9c3a0ab5b86fb3eae978315c6896f5f8cc760fe80a9d50591941e0';
+local __just_filename = 'boot.lua'
+local __filename = 'boot.lua'
+local __dirname = ''
+local __hash = 'a304cfcf78758924e37a9d5f4f5cc63a85aca112351daa54b6edf17fa1bf396edc9b176bdf9c3a0ab5b86fb3eae978315c6896f5f8cc760fe80a9d50591941e0'
 local console = require 'console'
 return function()
   console.clear()
@@ -166,49 +167,49 @@ return function()
   end
 end
 
-end;
-modules['boot.lua'].cache = null;
-modules['boot.lua'].isCached = false;
+end
+modules['boot.lua'].cache = null
+modules['boot.lua'].isCached = false
 
 ----
 
-modules['frontends/_error.lua'] = {};
+modules['frontends/_error.lua'] = {}
 modules['frontends/_error.lua'].load = function()
-local __just_filename = '_error.lua';
-local __filename = 'frontends/_error.lua';
-local __dirname = 'frontends';
-local __hash = 'd825138b2031244e0b51fb8ada0f6820ba99b7913e62cbeb33262dd83ac0fc916217eef046df77f679858d5e44add7b1cdf24f2daac40e5eba0947a7c6541f22';
+local __just_filename = '_error.lua'
+local __filename = 'frontends/_error.lua'
+local __dirname = 'frontends'
+local __hash = 'd825138b2031244e0b51fb8ada0f6820ba99b7913e62cbeb33262dd83ac0fc916217eef046df77f679858d5e44add7b1cdf24f2daac40e5eba0947a7c6541f22'
 return function()
   printError 'An error has occurred while loading your Desktop Manager / Frontend.\n\nRestart using the \'reboot\' command.\nReset the frontend setting by running \'delete .cco/setting-dm.txt\' then rebooting.'
 end
 
-end;
-modules['frontends/_error.lua'].cache = null;
-modules['frontends/_error.lua'].isCached = false;
+end
+modules['frontends/_error.lua'].cache = null
+modules['frontends/_error.lua'].isCached = false
 
 ----
 
-modules['frontends/basalt-or-lite.lua'] = {};
+modules['frontends/basalt-or-lite.lua'] = {}
 modules['frontends/basalt-or-lite.lua'].load = function()
-local __just_filename = 'basalt-or-lite.lua';
-local __filename = 'frontends/basalt-or-lite.lua';
-local __dirname = 'frontends';
-local __hash = '23695980f5c1b4ae1150662633433a041962f8e4fa3885f93b676b3f2526236e771f904184a6f664cc8d00d9e6f709450aca5e0a962b2235e0e3f6ce04721da2';
+local __just_filename = 'basalt-or-lite.lua'
+local __filename = 'frontends/basalt-or-lite.lua'
+local __dirname = 'frontends'
+local __hash = '23695980f5c1b4ae1150662633433a041962f8e4fa3885f93b676b3f2526236e771f904184a6f664cc8d00d9e6f709450aca5e0a962b2235e0e3f6ce04721da2'
 -- basalt if we're in color, otherwise use lite
 return (not term.isColor or not term.isColor()) and require 'frontends/lite' or require 'frontends/basalt'
 
-end;
-modules['frontends/basalt-or-lite.lua'].cache = null;
-modules['frontends/basalt-or-lite.lua'].isCached = false;
+end
+modules['frontends/basalt-or-lite.lua'].cache = null
+modules['frontends/basalt-or-lite.lua'].isCached = false
 
 ----
 
-modules['frontends/basalt.lua'] = {};
+modules['frontends/basalt.lua'] = {}
 modules['frontends/basalt.lua'].load = function()
-local __just_filename = 'basalt.lua';
-local __filename = 'frontends/basalt.lua';
-local __dirname = 'frontends';
-local __hash = 'e76f9b283e65800d55164d1aafa5da75bd99801f8bf8760584e66cdb7f8f69833a3aee6471861ee7c467ab18c6a7323a3eb0da55d5d89ae9f7d59bf40bf48b5d';
+local __just_filename = 'basalt.lua'
+local __filename = 'frontends/basalt.lua'
+local __dirname = 'frontends'
+local __hash = 'e76f9b283e65800d55164d1aafa5da75bd99801f8bf8760584e66cdb7f8f69833a3aee6471861ee7c467ab18c6a7323a3eb0da55d5d89ae9f7d59bf40bf48b5d'
 return function(programs)
   -- display check
   if not term.isColor or not term.isColor() then
@@ -379,50 +380,50 @@ return function(programs)
   basalt.autoUpdate()
 end
 
-end;
-modules['frontends/basalt.lua'].cache = null;
-modules['frontends/basalt.lua'].isCached = false;
+end
+modules['frontends/basalt.lua'].cache = null
+modules['frontends/basalt.lua'].isCached = false
 
 ----
 
-modules['frontends/lite.lua'] = {};
+modules['frontends/lite.lua'] = {}
 modules['frontends/lite.lua'].load = function()
-local __just_filename = 'lite.lua';
-local __filename = 'frontends/lite.lua';
-local __dirname = 'frontends';
-local __hash = '02b40ee1069e5c407f258bfa77eb3486961ef2acae8697445efe6c1bf67eb3719f12b9736b789666c8da2ba56c42c913b73aa83d6f356289fb5338c5fbe027d5';
+local __just_filename = 'lite.lua'
+local __filename = 'frontends/lite.lua'
+local __dirname = 'frontends'
+local __hash = '02b40ee1069e5c407f258bfa77eb3486961ef2acae8697445efe6c1bf67eb3719f12b9736b789666c8da2ba56c42c913b73aa83d6f356289fb5338c5fbe027d5'
 return function()
   printError 'Unimplemented.'
 end
 
-end;
-modules['frontends/lite.lua'].cache = null;
-modules['frontends/lite.lua'].isCached = false;
+end
+modules['frontends/lite.lua'].cache = null
+modules['frontends/lite.lua'].isCached = false
 
 ----
 
-modules['frontends/login-only.lua'] = {};
+modules['frontends/login-only.lua'] = {}
 modules['frontends/login-only.lua'].load = function()
-local __just_filename = 'login-only.lua';
-local __filename = 'frontends/login-only.lua';
-local __dirname = 'frontends';
-local __hash = '05240a0b1f5d7b14b78a66f714493a7399a27146d81d0b46df86cf8c2d072d523448427e49703ed80fc7fd66bf0ad62b59339b1300bac21b92e4fe1ecb98779a';
+local __just_filename = 'login-only.lua'
+local __filename = 'frontends/login-only.lua'
+local __dirname = 'frontends'
+local __hash = '05240a0b1f5d7b14b78a66f714493a7399a27146d81d0b46df86cf8c2d072d523448427e49703ed80fc7fd66bf0ad62b59339b1300bac21b92e4fe1ecb98779a'
 return function()
   print 'Login-Only Mode\nDropping you into a shell...'
 end
 
-end;
-modules['frontends/login-only.lua'].cache = null;
-modules['frontends/login-only.lua'].isCached = false;
+end
+modules['frontends/login-only.lua'].cache = null
+modules['frontends/login-only.lua'].isCached = false
 
 ----
 
-modules['index.lua'] = {};
+modules['index.lua'] = {}
 modules['index.lua'].load = function()
-local __just_filename = 'index.lua';
-local __filename = 'index.lua';
-local __dirname = '';
-local __hash = 'f318ac9f245dcef8f763239dcf5e2af2703d775f2805d5e7b3affc4813fde2a1721f730d3b853947615b6e82f528a2f1c52487e3088a2f5a813a5a178933e832';
+local __just_filename = 'index.lua'
+local __filename = 'index.lua'
+local __dirname = ''
+local __hash = 'f318ac9f245dcef8f763239dcf5e2af2703d775f2805d5e7b3affc4813fde2a1721f730d3b853947615b6e82f528a2f1c52487e3088a2f5a813a5a178933e832'
 local console = require 'console'
 _G.console = console
 if isStartup then
@@ -446,18 +447,18 @@ print('Host:', _HOST)
 print('Is Installer:', (installer and 'true' or 'false'))
 return require(installer and 'load-installer' or 'login')
 
-end;
-modules['index.lua'].cache = null;
-modules['index.lua'].isCached = false;
+end
+modules['index.lua'].cache = null
+modules['index.lua'].isCached = false
 
 ----
 
-modules['load-installer.lua'] = {};
+modules['load-installer.lua'] = {}
 modules['load-installer.lua'].load = function()
-local __just_filename = 'load-installer.lua';
-local __filename = 'load-installer.lua';
-local __dirname = '';
-local __hash = '9eeb3ea95ae8739ee17f296aa0e898ac973052ba9b29b401c4440a755fdf4a138d25640837ccb4eaeaff20f0417be32ba202abe0e082915b6a57d45fda0de74c';
+local __just_filename = 'load-installer.lua'
+local __filename = 'load-installer.lua'
+local __dirname = ''
+local __hash = '9eeb3ea95ae8739ee17f296aa0e898ac973052ba9b29b401c4440a755fdf4a138d25640837ccb4eaeaff20f0417be32ba202abe0e082915b6a57d45fda0de74c'
 local console = require 'console'
 local json = require 'json'
 local base64 = require 'base64'
@@ -626,18 +627,18 @@ else
   -- require 'login'
 end
 
-end;
-modules['load-installer.lua'].cache = null;
-modules['load-installer.lua'].isCached = false;
+end
+modules['load-installer.lua'].cache = null
+modules['load-installer.lua'].isCached = false
 
 ----
 
-modules['login.lua'] = {};
+modules['login.lua'] = {}
 modules['login.lua'].load = function()
-local __just_filename = 'login.lua';
-local __filename = 'login.lua';
-local __dirname = '';
-local __hash = '30b62a3133de9679a733967ec982c9a5719a6de6699e63d84ebb5861d49c176bb28fe6e3aabf8d38f3ba2c5396a30f5896906ce09cbb5eea2540e4ab9b08c3df';
+local __just_filename = 'login.lua'
+local __filename = 'login.lua'
+local __dirname = ''
+local __hash = '30b62a3133de9679a733967ec982c9a5719a6de6699e63d84ebb5861d49c176bb28fe6e3aabf8d38f3ba2c5396a30f5896906ce09cbb5eea2540e4ab9b08c3df'
 local console = require 'console'
 -- load ui
 print 'Preparing...'
@@ -671,18 +672,18 @@ repeat
   console.log 'Enter your password.'
 until not tryAuth(read '.')
 
-end;
-modules['login.lua'].cache = null;
-modules['login.lua'].isCached = false;
+end
+modules['login.lua'].cache = null
+modules['login.lua'].isCached = false
 
 ----
 
-modules['misc/chime.lua'] = {};
+modules['misc/chime.lua'] = {}
 modules['misc/chime.lua'].load = function()
-local __just_filename = 'chime.lua';
-local __filename = 'misc/chime.lua';
-local __dirname = 'misc';
-local __hash = '5cccb2e7b818ee81d9c7d596c00ec7871ab43e5bc512541595d4d896f370762e8c72d58946d9e5d8c52126b4ea2e881348397c7557bec7f087caaa5c88cbeec8';
+local __just_filename = 'chime.lua'
+local __filename = 'misc/chime.lua'
+local __dirname = 'misc'
+local __hash = '5cccb2e7b818ee81d9c7d596c00ec7871ab43e5bc512541595d4d896f370762e8c72d58946d9e5d8c52126b4ea2e881348397c7557bec7f087caaa5c88cbeec8'
 return function(volume)
   volume = volume or 0.5
   local speaker = peripheral.find 'speaker'
@@ -697,18 +698,18 @@ return function(volume)
   end
 end
 
-end;
-modules['misc/chime.lua'].cache = null;
-modules['misc/chime.lua'].isCached = false;
+end
+modules['misc/chime.lua'].cache = null
+modules['misc/chime.lua'].isCached = false
 
 ----
 
-modules['networking/secnet.lua'] = {};
+modules['networking/secnet.lua'] = {}
 modules['networking/secnet.lua'].load = function()
-local __just_filename = 'secnet.lua';
-local __filename = 'networking/secnet.lua';
-local __dirname = 'networking';
-local __hash = '9590bfbd10e2c465f4e850f49356b498edaf3f4ff7533ba1b9d0df1828cac6605477beafadea3b2ccb7be25709b694dfa28c7addf57882b57a8f47af1c004a3f';
+local __just_filename = 'secnet.lua'
+local __filename = 'networking/secnet.lua'
+local __dirname = 'networking'
+local __hash = '9590bfbd10e2c465f4e850f49356b498edaf3f4ff7533ba1b9d0df1828cac6605477beafadea3b2ccb7be25709b694dfa28c7addf57882b57a8f47af1c004a3f'
 ---@diagnostic disable: deprecated
 local sha, xor, json = require 'hash', require 'xor', require 'json'
 local secnet = {}
@@ -799,18 +800,18 @@ secnet.new = function(channel, pass)
   end
 end
 
-end;
-modules['networking/secnet.lua'].cache = null;
-modules['networking/secnet.lua'].isCached = false;
+end
+modules['networking/secnet.lua'].cache = null
+modules['networking/secnet.lua'].isCached = false
 
 ----
 
-modules['packages/basalt.lua'] = {};
+modules['packages/basalt.lua'] = {}
 modules['packages/basalt.lua'].load = function()
-local __just_filename = 'basalt.lua';
-local __filename = 'packages/basalt.lua';
-local __dirname = 'packages';
-local __hash = 'a0aec13284aad4cc27ecd4aa8e43823a4f8a771b14bf7b314029d51fb3fe5096db8b336e9d5afa7bfe49d1fe37610df0f0e789e9a157c7609736c1ba817b5627';
+local __just_filename = 'basalt.lua'
+local __filename = 'packages/basalt.lua'
+local __dirname = 'packages'
+local __hash = 'a0aec13284aad4cc27ecd4aa8e43823a4f8a771b14bf7b314029d51fb3fe5096db8b336e9d5afa7bfe49d1fe37610df0f0e789e9a157c7609736c1ba817b5627'
 if not fs.exists '/basalt.lua' then
   local url = 'https://raw.githubusercontent.com/MokiyCodes/cco/main/basalt.lua'
   local f = fs.open('/basalt.lua', 'w')
@@ -828,18 +829,18 @@ if not chunk then
 end
 return chunk()
 
-end;
-modules['packages/basalt.lua'].cache = null;
-modules['packages/basalt.lua'].isCached = false;
+end
+modules['packages/basalt.lua'].cache = null
+modules['packages/basalt.lua'].isCached = false
 
 ----
 
-modules['packages/base64.lua'] = {};
+modules['packages/base64.lua'] = {}
 modules['packages/base64.lua'].load = function()
-local __just_filename = 'base64.lua';
-local __filename = 'packages/base64.lua';
-local __dirname = 'packages';
-local __hash = 'abb838d74919d0c924ed1acf353dcf667886b064e70a109c7bd514b0e96f38c168e23adf930d75cfc288dad437591d485b8a35ce11fa4f8dc08a8090956796bd';
+local __just_filename = 'base64.lua'
+local __filename = 'packages/base64.lua'
+local __dirname = 'packages'
+local __hash = 'abb838d74919d0c924ed1acf353dcf667886b064e70a109c7bd514b0e96f38c168e23adf930d75cfc288dad437591d485b8a35ce11fa4f8dc08a8090956796bd'
 -- @original: https://gist.github.com/Reselim/40d62b17d138cc74335a1b0709e19ce2
 local Alphabet = {}
 local Indexes = {}
@@ -967,18 +968,18 @@ end
 
 return Base64
 
-end;
-modules['packages/base64.lua'].cache = null;
-modules['packages/base64.lua'].isCached = false;
+end
+modules['packages/base64.lua'].cache = null
+modules['packages/base64.lua'].isCached = false
 
 ----
 
-modules['packages/bitop.lua'] = {};
+modules['packages/bitop.lua'] = {}
 modules['packages/bitop.lua'].load = function()
-local __just_filename = 'bitop.lua';
-local __filename = 'packages/bitop.lua';
-local __dirname = 'packages';
-local __hash = '3eb8138fba20e6efce960c977bd8b3d0120aa7c230bc95a3ec462484610b8433d05a6035ad08c36f43925f6af3d63338fcde5ed1956391b382b49546ed9e245b';
+local __just_filename = 'bitop.lua'
+local __filename = 'packages/bitop.lua'
+local __dirname = 'packages'
+local __hash = '3eb8138fba20e6efce960c977bd8b3d0120aa7c230bc95a3ec462484610b8433d05a6035ad08c36f43925f6af3d63338fcde5ed1956391b382b49546ed9e245b'
 -- https://github.com/AlberTajuelo/bitop-lua
 -- MIT
 -- im only using this for bxor but it may be useful for smth else one day :shrug:
@@ -1348,18 +1349,18 @@ end
 
 return M
 
-end;
-modules['packages/bitop.lua'].cache = null;
-modules['packages/bitop.lua'].isCached = false;
+end
+modules['packages/bitop.lua'].cache = null
+modules['packages/bitop.lua'].isCached = false
 
 ----
 
-modules['packages/child_process.lua'] = {};
+modules['packages/child_process.lua'] = {}
 modules['packages/child_process.lua'].load = function()
-local __just_filename = 'child_process.lua';
-local __filename = 'packages/child_process.lua';
-local __dirname = 'packages';
-local __hash = 'd4d9127b6d57470743431b879789e451653aa26ade0fc0440567f71aefbaddd05601ce4fcf995065ff2ebe3c70eb5c88c380ea8d1bc7015a06f330e14d75b5fc';
+local __just_filename = 'child_process.lua'
+local __filename = 'packages/child_process.lua'
+local __dirname = 'packages'
+local __hash = 'd4d9127b6d57470743431b879789e451653aa26ade0fc0440567f71aefbaddd05601ce4fcf995065ff2ebe3c70eb5c88c380ea8d1bc7015a06f330e14d75b5fc'
 ---@diagnostic disable: deprecated
 local cid = 0
 return {
@@ -1377,18 +1378,18 @@ return {
   end,
 }
 
-end;
-modules['packages/child_process.lua'].cache = null;
-modules['packages/child_process.lua'].isCached = false;
+end
+modules['packages/child_process.lua'].cache = null
+modules['packages/child_process.lua'].isCached = false
 
 ----
 
-modules['packages/console.lua'] = {};
+modules['packages/console.lua'] = {}
 modules['packages/console.lua'].load = function()
-local __just_filename = 'console.lua';
-local __filename = 'packages/console.lua';
-local __dirname = 'packages';
-local __hash = '4680436d6f199fd8fcb61ecc496c4bf33dbe7448eb2eefe36f8d0ab419726c0183db12921807d96b6d921011909418ca6d6ed8156e4a53ec2a0adee832c88a11';
+local __just_filename = 'console.lua'
+local __filename = 'packages/console.lua'
+local __dirname = 'packages'
+local __hash = '4680436d6f199fd8fcb61ecc496c4bf33dbe7448eb2eefe36f8d0ab419726c0183db12921807d96b6d921011909418ca6d6ed8156e4a53ec2a0adee832c88a11'
 -- attempt to reimplement the js console api
 return {
   ['clear'] = function()
@@ -1416,18 +1417,18 @@ return {
   end,
 }
 
-end;
-modules['packages/console.lua'].cache = null;
-modules['packages/console.lua'].isCached = false;
+end
+modules['packages/console.lua'].cache = null
+modules['packages/console.lua'].isCached = false
 
 ----
 
-modules['packages/deepcopy.lua'] = {};
+modules['packages/deepcopy.lua'] = {}
 modules['packages/deepcopy.lua'].load = function()
-local __just_filename = 'deepcopy.lua';
-local __filename = 'packages/deepcopy.lua';
-local __dirname = 'packages';
-local __hash = '8b6fd8f13fcb736e172f5f42c443f0f4aa06ac56a3aa716cef7aef0c7d4e6a2c08d25e8626609d449428a1c45a2400c8189b96d8ac89244d626dcfc2f43c4cb1';
+local __just_filename = 'deepcopy.lua'
+local __filename = 'packages/deepcopy.lua'
+local __dirname = 'packages'
+local __hash = '8b6fd8f13fcb736e172f5f42c443f0f4aa06ac56a3aa716cef7aef0c7d4e6a2c08d25e8626609d449428a1c45a2400c8189b96d8ac89244d626dcfc2f43c4cb1'
 -- https://lua-users.org/wiki/CopyTable
 local deepcopy = function(orig, copies)
   copies = copies or {}
@@ -1452,35 +1453,35 @@ end
 _G.deepcopy = deepcopy
 return deepcopy
 
-end;
-modules['packages/deepcopy.lua'].cache = null;
-modules['packages/deepcopy.lua'].isCached = false;
+end
+modules['packages/deepcopy.lua'].cache = null
+modules['packages/deepcopy.lua'].isCached = false
 
 ----
 
-modules['packages/forceyield.lua'] = {};
+modules['packages/forceyield.lua'] = {}
 modules['packages/forceyield.lua'].load = function()
-local __just_filename = 'forceyield.lua';
-local __filename = 'packages/forceyield.lua';
-local __dirname = 'packages';
-local __hash = 'eb04b7f3c25eb022ecf4eb6d4cd49852ba4d34df8f91b9a51667256940f57f740f52dc3c6b3e3630b96f26bc12fee62fb72ed3f7ecc9608960b9727b447b964a';
+local __just_filename = 'forceyield.lua'
+local __filename = 'packages/forceyield.lua'
+local __dirname = 'packages'
+local __hash = 'eb04b7f3c25eb022ecf4eb6d4cd49852ba4d34df8f91b9a51667256940f57f740f52dc3c6b3e3630b96f26bc12fee62fb72ed3f7ecc9608960b9727b447b964a'
 return function()
   os.queueEvent 'fakeEvent'
   os.pullEvent()
 end
 
-end;
-modules['packages/forceyield.lua'].cache = null;
-modules['packages/forceyield.lua'].isCached = false;
+end
+modules['packages/forceyield.lua'].cache = null
+modules['packages/forceyield.lua'].isCached = false
 
 ----
 
-modules['packages/hash.lua'] = {};
+modules['packages/hash.lua'] = {}
 modules['packages/hash.lua'].load = function()
-local __just_filename = 'hash.lua';
-local __filename = 'packages/hash.lua';
-local __dirname = 'packages';
-local __hash = '634545ee941dd77783331999bdf495b4922468b96b61595d91f7b6bb76a09319f23ec27b6cf379889b8fd528366d47aa45563bcf1f5a3bfe2e5f5cbb385b3d66';
+local __just_filename = 'hash.lua'
+local __filename = 'packages/hash.lua'
+local __dirname = 'packages'
+local __hash = '634545ee941dd77783331999bdf495b4922468b96b61595d91f7b6bb76a09319f23ec27b6cf379889b8fd528366d47aa45563bcf1f5a3bfe2e5f5cbb385b3d66'
 --[=[------------------------------------------------------------------------------------------------------------------------
 -- HashLib by Egor Skriptunoff, boatbomber, and howmanysmall
 
@@ -3030,18 +3031,18 @@ block_size_for_HMAC = {
 
 return sha
 
-end;
-modules['packages/hash.lua'].cache = null;
-modules['packages/hash.lua'].isCached = false;
+end
+modules['packages/hash.lua'].cache = null
+modules['packages/hash.lua'].isCached = false
 
 ----
 
-modules['packages/installationid.lua'] = {};
+modules['packages/installationid.lua'] = {}
 modules['packages/installationid.lua'].load = function()
-local __just_filename = 'installationid.lua';
-local __filename = 'packages/installationid.lua';
-local __dirname = 'packages';
-local __hash = '10146445b36d51a8d1210dd1992188627b636415a980ea5f1d2c10fcf0173fa5611870fc115b5b5ecdc684447560993e3d4718f2c33783d42362403c2dc140d8';
+local __just_filename = 'installationid.lua'
+local __filename = 'packages/installationid.lua'
+local __dirname = 'packages'
+local __hash = '10146445b36d51a8d1210dd1992188627b636415a980ea5f1d2c10fcf0173fa5611870fc115b5b5ecdc684447560993e3d4718f2c33783d42362403c2dc140d8'
 local uniqueKeys, xor, hash = require 'uniquekeys', require 'xor', require 'hash'
 local api = {
   --- calculates & returns the installation id | persists across backups
@@ -3055,18 +3056,18 @@ local api = {
 _G.InstallationID = api
 return api
 
-end;
-modules['packages/installationid.lua'].cache = null;
-modules['packages/installationid.lua'].isCached = false;
+end
+modules['packages/installationid.lua'].cache = null
+modules['packages/installationid.lua'].isCached = false
 
 ----
 
-modules['packages/json.lua'] = {};
+modules['packages/json.lua'] = {}
 modules['packages/json.lua'].load = function()
-local __just_filename = 'json.lua';
-local __filename = 'packages/json.lua';
-local __dirname = 'packages';
-local __hash = '4dc5f6c3b5bcd0f200b1ef9ff4a812b86e199331cbfa9858a9c73f2c8b513872a4d3fbd59b0a2d82a36115ac629be786085aa54cbe4d445b0ade77bea5350a86';
+local __just_filename = 'json.lua'
+local __filename = 'packages/json.lua'
+local __dirname = 'packages'
+local __hash = '4dc5f6c3b5bcd0f200b1ef9ff4a812b86e199331cbfa9858a9c73f2c8b513872a4d3fbd59b0a2d82a36115ac629be786085aa54cbe4d445b0ade77bea5350a86'
 --[[ json.lua
 
 A compact pure-Lua JSON library.
@@ -3114,20 +3115,59 @@ avoiding null values in your data to begin with.
 --]]
 
 -- Minified variant of https://gist.githubusercontent.com/tylerneylon/59f4bcf316be525b30ab/raw/7f69cc2cea38bf68298ed3dbfc39d197d53c80de/json.lua
-local a={}local function b(c)if type(c)~='table'then return type(c)end;local d=1;for e in pairs(c)do if c[d]~=nil then d=d+1 else return'table'end end;if d==1 then return'table'else return'array'end end;local function f(g)local h={'\\','"','/','\b','\f','\n','\r','\t'}local i={'\\','"','/','b','f','n','r','t'}for d,j in ipairs(h)do g=g:gsub(j,'\\'..i[d])end;return g end;local function k(l,m,n,o)m=m+#l:match('^%s*',m)if l:sub(m,m)~=n then if o then error('Expected '..n..' near position '..m)end;return m,false end;return m+1,true end;local function p(l,m,q)q=q or''local r='End of input found while parsing string.'if m>#l then error(r)end;local j=l:sub(m,m)if j=='"'then return q,m+1 end;if j~='\\'then return p(l,m+1,q..j)end;local s={b='\b',f='\f',n='\n',r='\r',t='\t'}local t=l:sub(m+1,m+1)if not t then error(r)end;return p(l,m+2,q..(s[t]or t))end;local function u(l,m)local v=l:match('^-?%d+%.?%d*[eE]?[+-]?%d*',m)local q=tonumber(v)if not q then error('Error parsing number at position '..m..'.')end;return q,m+#v end;function a.stringify(c,w)local g={}local x=b(c)if x=='array'then if w then error'Can\'t encode array as key.'end;g[#g+1]='['for d,q in ipairs(c)do if d>1 then g[#g+1]=', 'end;g[#g+1]=a.stringify(q)end;g[#g+1]=']'elseif x=='table'then if w then error'Can\'t encode table as key.'end;g[#g+1]='{'for y,z in pairs(c)do if#g>1 then g[#g+1]=', 'end;g[#g+1]=a.stringify(y,true)g[#g+1]=':'g[#g+1]=a.stringify(z)end;g[#g+1]='}'elseif x=='string'then return'"'..f(c)..'"'elseif x=='number'then if w then return'"'..tostring(c)..'"'end;return tostring(c)elseif x=='boolean'then return tostring(c)elseif x=='nil'then return'null'else error('Unjsonifiable type: '..x..'.')end;return table.concat(g)end;a.null={}function a.parse(l,m,A)m=m or 1;if m>#l then error'Reached unexpected end of input.'end;local m=m+#l:match('^%s*',m)local B=l:sub(m,m)if B=='{'then local c,C,D={},true,true;m=m+1;while true do C,m=a.parse(l,m,'}')if C==nil then return c,m end;if not D then error'Comma missing between object items.'end;m=k(l,m,':',true)c[C],m=a.parse(l,m)m,D=k(l,m,',')end elseif B=='['then local E,q,D={},true,true;m=m+1;while true do q,m=a.parse(l,m,']')if q==nil then return E,m end;if not D then error'Comma missing between array items.'end;E[#E+1]=q;m,D=k(l,m,',')end elseif B=='"'then return p(l,m+1)elseif B=='-'or B:match'%d'then return u(l,m)elseif B==A then return nil,m+1 else local F={['true']=true,['false']=false,['null']=a.null}for G,H in pairs(F)do local I=m+#G-1;if l:sub(m,I)==G then return H,I+1 end end;local J='position '..m..': '..l:sub(m,m+10)error('Invalid json syntax starting at '..J)end end;return a
+local a={}local function b(c)if type(c)~='table'then return type(c)end
+local d=1
+for e in pairs(c)do if c[d]~=nil then d=d+1 else return'table'end end
+if d==1 then return'table'else return'array'end end
+local function f(g)local h={'\\','"','/','\b','\f','\n','\r','\t'}local i={'\\','"','/','b','f','n','r','t'}for d,j in ipairs(h)do g=g:gsub(j,'\\'..i[d])end
+return g end
+local function k(l,m,n,o)m=m+#l:match('^%s*',m)if l:sub(m,m)~=n then if o then error('Expected '..n..' near position '..m)end
+return m,false end
+return m+1,true end
+local function p(l,m,q)q=q or''local r='End of input found while parsing string.'if m>#l then error(r)end
+local j=l:sub(m,m)if j=='"'then return q,m+1 end
+if j~='\\'then return p(l,m+1,q..j)end
+local s={b='\b',f='\f',n='\n',r='\r',t='\t'}local t=l:sub(m+1,m+1)if not t then error(r)end
+return p(l,m+2,q..(s[t]or t))end
+local function u(l,m)local v=l:match('^-?%d+%.?%d*[eE]?[+-]?%d*',m)local q=tonumber(v)if not q then error('Error parsing number at position '..m..'.')end
+return q,m+#v end
+function a.stringify(c,w)local g={}local x=b(c)if x=='array'then if w then error'Can\'t encode array as key.'end
+g[#g+1]='['for d,q in ipairs(c)do if d>1 then g[#g+1]=', 'end
+g[#g+1]=a.stringify(q)end
+g[#g+1]=']'elseif x=='table'then if w then error'Can\'t encode table as key.'end
+g[#g+1]='{'for y,z in pairs(c)do if#g>1 then g[#g+1]=', 'end
+g[#g+1]=a.stringify(y,true)g[#g+1]=':'g[#g+1]=a.stringify(z)end
+g[#g+1]='}'elseif x=='string'then return'"'..f(c)..'"'elseif x=='number'then if w then return'"'..tostring(c)..'"'end
+return tostring(c)elseif x=='boolean'then return tostring(c)elseif x=='nil'then return'null'else error('Unjsonifiable type: '..x..'.')end
+return table.concat(g)end
+a.null={}function a.parse(l,m,A)m=m or 1
+if m>#l then error'Reached unexpected end of input.'end
+local m=m+#l:match('^%s*',m)local B=l:sub(m,m)if B=='{'then local c,C,D={},true,true
+m=m+1
+while true do C,m=a.parse(l,m,'}')if C==nil then return c,m end
+if not D then error'Comma missing between object items.'end
+m=k(l,m,':',true)c[C],m=a.parse(l,m)m,D=k(l,m,',')end elseif B=='['then local E,q,D={},true,true
+m=m+1
+while true do q,m=a.parse(l,m,']')if q==nil then return E,m end
+if not D then error'Comma missing between array items.'end
+E[#E+1]=q
+m,D=k(l,m,',')end elseif B=='"'then return p(l,m+1)elseif B=='-'or B:match'%d'then return u(l,m)elseif B==A then return nil,m+1 else local F={['true']=true,['false']=false,['null']=a.null}for G,H in pairs(F)do local I=m+#G-1
+if l:sub(m,I)==G then return H,I+1 end end
+local J='position '..m..': '..l:sub(m,m+10)error('Invalid json syntax starting at '..J)end end
+return a
 
-end;
-modules['packages/json.lua'].cache = null;
-modules['packages/json.lua'].isCached = false;
+end
+modules['packages/json.lua'].cache = null
+modules['packages/json.lua'].isCached = false
 
 ----
 
-modules['packages/polyfills/table.create.lua'] = {};
+modules['packages/polyfills/table.create.lua'] = {}
 modules['packages/polyfills/table.create.lua'].load = function()
-local __just_filename = 'table.create.lua';
-local __filename = 'packages/polyfills/table.create.lua';
-local __dirname = 'packages/polyfills';
-local __hash = '19eaa311cabc2e4b53501a8cc4090692c36cbccc4e75a0d082e8cfa7543f48cf5f70db601dba94ede670a483e36bcd7a309d720e32921ef0fd000770c799fced';
+local __just_filename = 'table.create.lua'
+local __filename = 'packages/polyfills/table.create.lua'
+local __dirname = 'packages/polyfills'
+local __hash = '19eaa311cabc2e4b53501a8cc4090692c36cbccc4e75a0d082e8cfa7543f48cf5f70db601dba94ede670a483e36bcd7a309d720e32921ef0fd000770c799fced'
 _G.table.create = table.create
   or function(count, value)
     local t = {}
@@ -3137,18 +3177,18 @@ _G.table.create = table.create
     return t
   end
 
-end;
-modules['packages/polyfills/table.create.lua'].cache = null;
-modules['packages/polyfills/table.create.lua'].isCached = false;
+end
+modules['packages/polyfills/table.create.lua'].cache = null
+modules['packages/polyfills/table.create.lua'].isCached = false
 
 ----
 
-modules['packages/rstr.lua'] = {};
+modules['packages/rstr.lua'] = {}
 modules['packages/rstr.lua'].load = function()
-local __just_filename = 'rstr.lua';
-local __filename = 'packages/rstr.lua';
-local __dirname = 'packages';
-local __hash = '3fbb599255778057fec55666068f44b9a1168c88fe0501982982796a7a4ed688899a4351a63875869b27a384b203df47f132982656b98423029bfe4e91d51645';
+local __just_filename = 'rstr.lua'
+local __filename = 'packages/rstr.lua'
+local __dirname = 'packages'
+local __hash = '3fbb599255778057fec55666068f44b9a1168c88fe0501982982796a7a4ed688899a4351a63875869b27a384b203df47f132982656b98423029bfe4e91d51645'
 -- random string library
 local rchar = function(chars)
   chars = chars or 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 '
@@ -3163,18 +3203,18 @@ return function(len, chars)
   return str
 end
 
-end;
-modules['packages/rstr.lua'].cache = null;
-modules['packages/rstr.lua'].isCached = false;
+end
+modules['packages/rstr.lua'].cache = null
+modules['packages/rstr.lua'].isCached = false
 
 ----
 
-modules['packages/termination.lua'] = {};
+modules['packages/termination.lua'] = {}
 modules['packages/termination.lua'].load = function()
-local __just_filename = 'termination.lua';
-local __filename = 'packages/termination.lua';
-local __dirname = 'packages';
-local __hash = '363f9ffadf1be9c7074c012ecb77d6377a0d2f277f09668eefa74399becf750fbce66eaa4c0b31af551d25107c01d0d99855051a8b4473e1a01b04f4ec019dd5';
+local __just_filename = 'termination.lua'
+local __filename = 'packages/termination.lua'
+local __dirname = 'packages'
+local __hash = '363f9ffadf1be9c7074c012ecb77d6377a0d2f277f09668eefa74399becf750fbce66eaa4c0b31af551d25107c01d0d99855051a8b4473e1a01b04f4ec019dd5'
 local isTerminateDisabled = false
 local defaultPull = os.pullEvent
 return {
@@ -3194,18 +3234,18 @@ return {
   end,
 }
 
-end;
-modules['packages/termination.lua'].cache = null;
-modules['packages/termination.lua'].isCached = false;
+end
+modules['packages/termination.lua'].cache = null
+modules['packages/termination.lua'].isCached = false
 
 ----
 
-modules['packages/uniquekeys.lua'] = {};
+modules['packages/uniquekeys.lua'] = {}
 modules['packages/uniquekeys.lua'].load = function()
-local __just_filename = 'uniquekeys.lua';
-local __filename = 'packages/uniquekeys.lua';
-local __dirname = 'packages';
-local __hash = '69341cef2a30278934e7e8d81147bab29d3997c1526d20da185bcbef19e3eb915fdc9d408f5c5c34c628d7f9cf672a4ecdb6fb1ac550f0d2a2581a735ed17d59';
+local __just_filename = 'uniquekeys.lua'
+local __filename = 'packages/uniquekeys.lua'
+local __dirname = 'packages'
+local __hash = '69341cef2a30278934e7e8d81147bab29d3997c1526d20da185bcbef19e3eb915fdc9d408f5c5c34c628d7f9cf672a4ecdb6fb1ac550f0d2a2581a735ed17d59'
 -- unique keys library
 -- doesnt work as a standalone
 local checkIfIsKey = function(kv)
@@ -3234,18 +3274,18 @@ if shouldB64Decode then
 end
 return keys
 
-end;
-modules['packages/uniquekeys.lua'].cache = null;
-modules['packages/uniquekeys.lua'].isCached = false;
+end
+modules['packages/uniquekeys.lua'].cache = null
+modules['packages/uniquekeys.lua'].isCached = false
 
 ----
 
-modules['packages/xor.lua'] = {};
+modules['packages/xor.lua'] = {}
 modules['packages/xor.lua'].load = function()
-local __just_filename = 'xor.lua';
-local __filename = 'packages/xor.lua';
-local __dirname = 'packages';
-local __hash = '12d0c046a9f96fd64280170a2c96a2a7f5260f2189c4756df9dc028a99a73a464037fc967316fb58d20cdf15f91533f94e69c163cf7c06b73c60472bc6528eb2';
+local __just_filename = 'xor.lua'
+local __filename = 'packages/xor.lua'
+local __dirname = 'packages'
+local __hash = '12d0c046a9f96fd64280170a2c96a2a7f5260f2189c4756df9dc028a99a73a464037fc967316fb58d20cdf15f91533f94e69c163cf7c06b73c60472bc6528eb2'
 -- https://github.com/Braayy/xor-lua/blob/master/xor.lua
 -- MIT
 -- too lazy to implement my own xor & my og aes doesnt work in cc on 1.12.2 for some reason
@@ -3294,387 +3334,387 @@ end
 
 return xor
 
-end;
-modules['packages/xor.lua'].cache = null;
-modules['packages/xor.lua'].isCached = false;
+end
+modules['packages/xor.lua'].cache = null
+modules['packages/xor.lua'].isCached = false
 
 ----
 
-modules['version.lua'] = {};
+modules['version.lua'] = {}
 modules['version.lua'].load = function()
-local __just_filename = 'version.lua';
-local __filename = 'version.lua';
-local __dirname = '';
-local __hash = '7a5cd8cbe43906f7f1c1d50eb18312aff11909772deab5fdcb3a901ad7a86384bebb471694b4760cc67147c5c541519eaba249f1e6426369a2d2db6a32eadfc4';
+local __just_filename = 'version.lua'
+local __filename = 'version.lua'
+local __dirname = ''
+local __hash = '7a5cd8cbe43906f7f1c1d50eb18312aff11909772deab5fdcb3a901ad7a86384bebb471694b4760cc67147c5c541519eaba249f1e6426369a2d2db6a32eadfc4'
 return '1.0.0'
 
-end;
-modules['version.lua'].cache = null;
-modules['version.lua'].isCached = false;
+end
+modules['version.lua'].cache = null
+modules['version.lua'].isCached = false
 
 --> END Initial Module Definitions <--
 
 
 --> BEGIN Alias/Equivalent Module Path Definitions <--
 
-modules['applications'] = modules['applications.lua'];
-modules['applications.lua'] = modules['applications.lua'];
-modules['applications'] = modules['applications.lua'];
-modules['/applications'] = modules['applications.lua'];
-modules['\\applications.lua'] = modules['applications.lua'];
-modules['\\applications'] = modules['applications.lua'];
+modules['applications'] = modules['applications.lua']
+modules['applications.lua'] = modules['applications.lua']
+modules['applications'] = modules['applications.lua']
+modules['/applications'] = modules['applications.lua']
+modules['\\applications.lua'] = modules['applications.lua']
+modules['\\applications'] = modules['applications.lua']
 
 ----
 
-modules['auth'] = modules['auth.lua'];
-modules['auth.lua'] = modules['auth.lua'];
-modules['auth'] = modules['auth.lua'];
-modules['/auth'] = modules['auth.lua'];
-modules['\\auth.lua'] = modules['auth.lua'];
-modules['\\auth'] = modules['auth.lua'];
+modules['auth'] = modules['auth.lua']
+modules['auth.lua'] = modules['auth.lua']
+modules['auth'] = modules['auth.lua']
+modules['/auth'] = modules['auth.lua']
+modules['\\auth.lua'] = modules['auth.lua']
+modules['\\auth'] = modules['auth.lua']
 
 ----
 
-modules['boot'] = modules['boot.lua'];
-modules['boot.lua'] = modules['boot.lua'];
-modules['boot'] = modules['boot.lua'];
-modules['/boot'] = modules['boot.lua'];
-modules['\\boot.lua'] = modules['boot.lua'];
-modules['\\boot'] = modules['boot.lua'];
+modules['boot'] = modules['boot.lua']
+modules['boot.lua'] = modules['boot.lua']
+modules['boot'] = modules['boot.lua']
+modules['/boot'] = modules['boot.lua']
+modules['\\boot.lua'] = modules['boot.lua']
+modules['\\boot'] = modules['boot.lua']
 
 ----
 
-modules['frontends/_error'] = modules['frontends/_error.lua'];
-modules['frontends\\_error.lua'] = modules['frontends/_error.lua'];
-modules['frontends\\_error'] = modules['frontends/_error.lua'];
-modules['/frontends/_error'] = modules['frontends/_error.lua'];
-modules['\\frontends\\_error.lua'] = modules['frontends/_error.lua'];
-modules['\\frontends\\_error'] = modules['frontends/_error.lua'];
+modules['frontends/_error'] = modules['frontends/_error.lua']
+modules['frontends\\_error.lua'] = modules['frontends/_error.lua']
+modules['frontends\\_error'] = modules['frontends/_error.lua']
+modules['/frontends/_error'] = modules['frontends/_error.lua']
+modules['\\frontends\\_error.lua'] = modules['frontends/_error.lua']
+modules['\\frontends\\_error'] = modules['frontends/_error.lua']
 
 ----
 
-modules['frontends/basalt-or-lite'] = modules['frontends/basalt-or-lite.lua'];
-modules['frontends\\basalt-or-lite.lua'] = modules['frontends/basalt-or-lite.lua'];
-modules['frontends\\basalt-or-lite'] = modules['frontends/basalt-or-lite.lua'];
-modules['/frontends/basalt-or-lite'] = modules['frontends/basalt-or-lite.lua'];
-modules['\\frontends\\basalt-or-lite.lua'] = modules['frontends/basalt-or-lite.lua'];
-modules['\\frontends\\basalt-or-lite'] = modules['frontends/basalt-or-lite.lua'];
+modules['frontends/basalt-or-lite'] = modules['frontends/basalt-or-lite.lua']
+modules['frontends\\basalt-or-lite.lua'] = modules['frontends/basalt-or-lite.lua']
+modules['frontends\\basalt-or-lite'] = modules['frontends/basalt-or-lite.lua']
+modules['/frontends/basalt-or-lite'] = modules['frontends/basalt-or-lite.lua']
+modules['\\frontends\\basalt-or-lite.lua'] = modules['frontends/basalt-or-lite.lua']
+modules['\\frontends\\basalt-or-lite'] = modules['frontends/basalt-or-lite.lua']
 
 ----
 
-modules['frontends/basalt'] = modules['frontends/basalt.lua'];
-modules['frontends\\basalt.lua'] = modules['frontends/basalt.lua'];
-modules['frontends\\basalt'] = modules['frontends/basalt.lua'];
-modules['/frontends/basalt'] = modules['frontends/basalt.lua'];
-modules['\\frontends\\basalt.lua'] = modules['frontends/basalt.lua'];
-modules['\\frontends\\basalt'] = modules['frontends/basalt.lua'];
+modules['frontends/basalt'] = modules['frontends/basalt.lua']
+modules['frontends\\basalt.lua'] = modules['frontends/basalt.lua']
+modules['frontends\\basalt'] = modules['frontends/basalt.lua']
+modules['/frontends/basalt'] = modules['frontends/basalt.lua']
+modules['\\frontends\\basalt.lua'] = modules['frontends/basalt.lua']
+modules['\\frontends\\basalt'] = modules['frontends/basalt.lua']
 
 ----
 
-modules['frontends/lite'] = modules['frontends/lite.lua'];
-modules['frontends\\lite.lua'] = modules['frontends/lite.lua'];
-modules['frontends\\lite'] = modules['frontends/lite.lua'];
-modules['/frontends/lite'] = modules['frontends/lite.lua'];
-modules['\\frontends\\lite.lua'] = modules['frontends/lite.lua'];
-modules['\\frontends\\lite'] = modules['frontends/lite.lua'];
+modules['frontends/lite'] = modules['frontends/lite.lua']
+modules['frontends\\lite.lua'] = modules['frontends/lite.lua']
+modules['frontends\\lite'] = modules['frontends/lite.lua']
+modules['/frontends/lite'] = modules['frontends/lite.lua']
+modules['\\frontends\\lite.lua'] = modules['frontends/lite.lua']
+modules['\\frontends\\lite'] = modules['frontends/lite.lua']
 
 ----
 
-modules['frontends/login-only'] = modules['frontends/login-only.lua'];
-modules['frontends\\login-only.lua'] = modules['frontends/login-only.lua'];
-modules['frontends\\login-only'] = modules['frontends/login-only.lua'];
-modules['/frontends/login-only'] = modules['frontends/login-only.lua'];
-modules['\\frontends\\login-only.lua'] = modules['frontends/login-only.lua'];
-modules['\\frontends\\login-only'] = modules['frontends/login-only.lua'];
+modules['frontends/login-only'] = modules['frontends/login-only.lua']
+modules['frontends\\login-only.lua'] = modules['frontends/login-only.lua']
+modules['frontends\\login-only'] = modules['frontends/login-only.lua']
+modules['/frontends/login-only'] = modules['frontends/login-only.lua']
+modules['\\frontends\\login-only.lua'] = modules['frontends/login-only.lua']
+modules['\\frontends\\login-only'] = modules['frontends/login-only.lua']
 
 ----
 
-modules['index'] = modules['index.lua'];
-modules['index.lua'] = modules['index.lua'];
-modules['index'] = modules['index.lua'];
-modules['/index'] = modules['index.lua'];
-modules['\\index.lua'] = modules['index.lua'];
-modules['\\index'] = modules['index.lua'];
-modules[''] = modules['index.lua'];
-modules[''] = modules['index.lua'];
-modules[''] = modules['index.lua'];
-modules['/'] = modules['index.lua'];
-modules['\\'] = modules['index.lua'];
-modules['\\'] = modules['index.lua'];
+modules['index'] = modules['index.lua']
+modules['index.lua'] = modules['index.lua']
+modules['index'] = modules['index.lua']
+modules['/index'] = modules['index.lua']
+modules['\\index.lua'] = modules['index.lua']
+modules['\\index'] = modules['index.lua']
+modules[''] = modules['index.lua']
+modules[''] = modules['index.lua']
+modules[''] = modules['index.lua']
+modules['/'] = modules['index.lua']
+modules['\\'] = modules['index.lua']
+modules['\\'] = modules['index.lua']
 
 ----
 
-modules['load-installer'] = modules['load-installer.lua'];
-modules['load-installer.lua'] = modules['load-installer.lua'];
-modules['load-installer'] = modules['load-installer.lua'];
-modules['/load-installer'] = modules['load-installer.lua'];
-modules['\\load-installer.lua'] = modules['load-installer.lua'];
-modules['\\load-installer'] = modules['load-installer.lua'];
+modules['load-installer'] = modules['load-installer.lua']
+modules['load-installer.lua'] = modules['load-installer.lua']
+modules['load-installer'] = modules['load-installer.lua']
+modules['/load-installer'] = modules['load-installer.lua']
+modules['\\load-installer.lua'] = modules['load-installer.lua']
+modules['\\load-installer'] = modules['load-installer.lua']
 
 ----
 
-modules['login'] = modules['login.lua'];
-modules['login.lua'] = modules['login.lua'];
-modules['login'] = modules['login.lua'];
-modules['/login'] = modules['login.lua'];
-modules['\\login.lua'] = modules['login.lua'];
-modules['\\login'] = modules['login.lua'];
+modules['login'] = modules['login.lua']
+modules['login.lua'] = modules['login.lua']
+modules['login'] = modules['login.lua']
+modules['/login'] = modules['login.lua']
+modules['\\login.lua'] = modules['login.lua']
+modules['\\login'] = modules['login.lua']
 
 ----
 
-modules['misc/chime'] = modules['misc/chime.lua'];
-modules['misc\\chime.lua'] = modules['misc/chime.lua'];
-modules['misc\\chime'] = modules['misc/chime.lua'];
-modules['/misc/chime'] = modules['misc/chime.lua'];
-modules['\\misc\\chime.lua'] = modules['misc/chime.lua'];
-modules['\\misc\\chime'] = modules['misc/chime.lua'];
+modules['misc/chime'] = modules['misc/chime.lua']
+modules['misc\\chime.lua'] = modules['misc/chime.lua']
+modules['misc\\chime'] = modules['misc/chime.lua']
+modules['/misc/chime'] = modules['misc/chime.lua']
+modules['\\misc\\chime.lua'] = modules['misc/chime.lua']
+modules['\\misc\\chime'] = modules['misc/chime.lua']
 
 ----
 
-modules['networking/secnet'] = modules['networking/secnet.lua'];
-modules['networking\\secnet.lua'] = modules['networking/secnet.lua'];
-modules['networking\\secnet'] = modules['networking/secnet.lua'];
-modules['/networking/secnet'] = modules['networking/secnet.lua'];
-modules['\\networking\\secnet.lua'] = modules['networking/secnet.lua'];
-modules['\\networking\\secnet'] = modules['networking/secnet.lua'];
+modules['networking/secnet'] = modules['networking/secnet.lua']
+modules['networking\\secnet.lua'] = modules['networking/secnet.lua']
+modules['networking\\secnet'] = modules['networking/secnet.lua']
+modules['/networking/secnet'] = modules['networking/secnet.lua']
+modules['\\networking\\secnet.lua'] = modules['networking/secnet.lua']
+modules['\\networking\\secnet'] = modules['networking/secnet.lua']
 
 ----
 
-modules['packages/basalt'] = modules['packages/basalt.lua'];
-modules['packages\\basalt.lua'] = modules['packages/basalt.lua'];
-modules['packages\\basalt'] = modules['packages/basalt.lua'];
-modules['basalt'] = modules['packages/basalt.lua'];
-modules['basalt.lua'] = modules['packages/basalt.lua'];
-modules['basalt'] = modules['packages/basalt.lua'];
-modules['/basalt'] = modules['packages/basalt.lua'];
-modules['\\basalt.lua'] = modules['packages/basalt.lua'];
-modules['\\basalt'] = modules['packages/basalt.lua'];
-modules['/packages/basalt'] = modules['packages/basalt.lua'];
-modules['\\packages\\basalt.lua'] = modules['packages/basalt.lua'];
-modules['\\packages\\basalt'] = modules['packages/basalt.lua'];
+modules['packages/basalt'] = modules['packages/basalt.lua']
+modules['packages\\basalt.lua'] = modules['packages/basalt.lua']
+modules['packages\\basalt'] = modules['packages/basalt.lua']
+modules['basalt'] = modules['packages/basalt.lua']
+modules['basalt.lua'] = modules['packages/basalt.lua']
+modules['basalt'] = modules['packages/basalt.lua']
+modules['/basalt'] = modules['packages/basalt.lua']
+modules['\\basalt.lua'] = modules['packages/basalt.lua']
+modules['\\basalt'] = modules['packages/basalt.lua']
+modules['/packages/basalt'] = modules['packages/basalt.lua']
+modules['\\packages\\basalt.lua'] = modules['packages/basalt.lua']
+modules['\\packages\\basalt'] = modules['packages/basalt.lua']
 
 ----
 
-modules['packages/base64'] = modules['packages/base64.lua'];
-modules['packages\\base64.lua'] = modules['packages/base64.lua'];
-modules['packages\\base64'] = modules['packages/base64.lua'];
-modules['base64'] = modules['packages/base64.lua'];
-modules['base64.lua'] = modules['packages/base64.lua'];
-modules['base64'] = modules['packages/base64.lua'];
-modules['/base64'] = modules['packages/base64.lua'];
-modules['\\base64.lua'] = modules['packages/base64.lua'];
-modules['\\base64'] = modules['packages/base64.lua'];
-modules['/packages/base64'] = modules['packages/base64.lua'];
-modules['\\packages\\base64.lua'] = modules['packages/base64.lua'];
-modules['\\packages\\base64'] = modules['packages/base64.lua'];
+modules['packages/base64'] = modules['packages/base64.lua']
+modules['packages\\base64.lua'] = modules['packages/base64.lua']
+modules['packages\\base64'] = modules['packages/base64.lua']
+modules['base64'] = modules['packages/base64.lua']
+modules['base64.lua'] = modules['packages/base64.lua']
+modules['base64'] = modules['packages/base64.lua']
+modules['/base64'] = modules['packages/base64.lua']
+modules['\\base64.lua'] = modules['packages/base64.lua']
+modules['\\base64'] = modules['packages/base64.lua']
+modules['/packages/base64'] = modules['packages/base64.lua']
+modules['\\packages\\base64.lua'] = modules['packages/base64.lua']
+modules['\\packages\\base64'] = modules['packages/base64.lua']
 
 ----
 
-modules['packages/bitop'] = modules['packages/bitop.lua'];
-modules['packages\\bitop.lua'] = modules['packages/bitop.lua'];
-modules['packages\\bitop'] = modules['packages/bitop.lua'];
-modules['bitop'] = modules['packages/bitop.lua'];
-modules['bitop.lua'] = modules['packages/bitop.lua'];
-modules['bitop'] = modules['packages/bitop.lua'];
-modules['/bitop'] = modules['packages/bitop.lua'];
-modules['\\bitop.lua'] = modules['packages/bitop.lua'];
-modules['\\bitop'] = modules['packages/bitop.lua'];
-modules['/packages/bitop'] = modules['packages/bitop.lua'];
-modules['\\packages\\bitop.lua'] = modules['packages/bitop.lua'];
-modules['\\packages\\bitop'] = modules['packages/bitop.lua'];
+modules['packages/bitop'] = modules['packages/bitop.lua']
+modules['packages\\bitop.lua'] = modules['packages/bitop.lua']
+modules['packages\\bitop'] = modules['packages/bitop.lua']
+modules['bitop'] = modules['packages/bitop.lua']
+modules['bitop.lua'] = modules['packages/bitop.lua']
+modules['bitop'] = modules['packages/bitop.lua']
+modules['/bitop'] = modules['packages/bitop.lua']
+modules['\\bitop.lua'] = modules['packages/bitop.lua']
+modules['\\bitop'] = modules['packages/bitop.lua']
+modules['/packages/bitop'] = modules['packages/bitop.lua']
+modules['\\packages\\bitop.lua'] = modules['packages/bitop.lua']
+modules['\\packages\\bitop'] = modules['packages/bitop.lua']
 
 ----
 
-modules['packages/child_process'] = modules['packages/child_process.lua'];
-modules['packages\\child_process.lua'] = modules['packages/child_process.lua'];
-modules['packages\\child_process'] = modules['packages/child_process.lua'];
-modules['child_process'] = modules['packages/child_process.lua'];
-modules['child_process.lua'] = modules['packages/child_process.lua'];
-modules['child_process'] = modules['packages/child_process.lua'];
-modules['/child_process'] = modules['packages/child_process.lua'];
-modules['\\child_process.lua'] = modules['packages/child_process.lua'];
-modules['\\child_process'] = modules['packages/child_process.lua'];
-modules['/packages/child_process'] = modules['packages/child_process.lua'];
-modules['\\packages\\child_process.lua'] = modules['packages/child_process.lua'];
-modules['\\packages\\child_process'] = modules['packages/child_process.lua'];
+modules['packages/child_process'] = modules['packages/child_process.lua']
+modules['packages\\child_process.lua'] = modules['packages/child_process.lua']
+modules['packages\\child_process'] = modules['packages/child_process.lua']
+modules['child_process'] = modules['packages/child_process.lua']
+modules['child_process.lua'] = modules['packages/child_process.lua']
+modules['child_process'] = modules['packages/child_process.lua']
+modules['/child_process'] = modules['packages/child_process.lua']
+modules['\\child_process.lua'] = modules['packages/child_process.lua']
+modules['\\child_process'] = modules['packages/child_process.lua']
+modules['/packages/child_process'] = modules['packages/child_process.lua']
+modules['\\packages\\child_process.lua'] = modules['packages/child_process.lua']
+modules['\\packages\\child_process'] = modules['packages/child_process.lua']
 
 ----
 
-modules['packages/console'] = modules['packages/console.lua'];
-modules['packages\\console.lua'] = modules['packages/console.lua'];
-modules['packages\\console'] = modules['packages/console.lua'];
-modules['console'] = modules['packages/console.lua'];
-modules['console.lua'] = modules['packages/console.lua'];
-modules['console'] = modules['packages/console.lua'];
-modules['/console'] = modules['packages/console.lua'];
-modules['\\console.lua'] = modules['packages/console.lua'];
-modules['\\console'] = modules['packages/console.lua'];
-modules['/packages/console'] = modules['packages/console.lua'];
-modules['\\packages\\console.lua'] = modules['packages/console.lua'];
-modules['\\packages\\console'] = modules['packages/console.lua'];
+modules['packages/console'] = modules['packages/console.lua']
+modules['packages\\console.lua'] = modules['packages/console.lua']
+modules['packages\\console'] = modules['packages/console.lua']
+modules['console'] = modules['packages/console.lua']
+modules['console.lua'] = modules['packages/console.lua']
+modules['console'] = modules['packages/console.lua']
+modules['/console'] = modules['packages/console.lua']
+modules['\\console.lua'] = modules['packages/console.lua']
+modules['\\console'] = modules['packages/console.lua']
+modules['/packages/console'] = modules['packages/console.lua']
+modules['\\packages\\console.lua'] = modules['packages/console.lua']
+modules['\\packages\\console'] = modules['packages/console.lua']
 
 ----
 
-modules['packages/deepcopy'] = modules['packages/deepcopy.lua'];
-modules['packages\\deepcopy.lua'] = modules['packages/deepcopy.lua'];
-modules['packages\\deepcopy'] = modules['packages/deepcopy.lua'];
-modules['deepcopy'] = modules['packages/deepcopy.lua'];
-modules['deepcopy.lua'] = modules['packages/deepcopy.lua'];
-modules['deepcopy'] = modules['packages/deepcopy.lua'];
-modules['/deepcopy'] = modules['packages/deepcopy.lua'];
-modules['\\deepcopy.lua'] = modules['packages/deepcopy.lua'];
-modules['\\deepcopy'] = modules['packages/deepcopy.lua'];
-modules['/packages/deepcopy'] = modules['packages/deepcopy.lua'];
-modules['\\packages\\deepcopy.lua'] = modules['packages/deepcopy.lua'];
-modules['\\packages\\deepcopy'] = modules['packages/deepcopy.lua'];
+modules['packages/deepcopy'] = modules['packages/deepcopy.lua']
+modules['packages\\deepcopy.lua'] = modules['packages/deepcopy.lua']
+modules['packages\\deepcopy'] = modules['packages/deepcopy.lua']
+modules['deepcopy'] = modules['packages/deepcopy.lua']
+modules['deepcopy.lua'] = modules['packages/deepcopy.lua']
+modules['deepcopy'] = modules['packages/deepcopy.lua']
+modules['/deepcopy'] = modules['packages/deepcopy.lua']
+modules['\\deepcopy.lua'] = modules['packages/deepcopy.lua']
+modules['\\deepcopy'] = modules['packages/deepcopy.lua']
+modules['/packages/deepcopy'] = modules['packages/deepcopy.lua']
+modules['\\packages\\deepcopy.lua'] = modules['packages/deepcopy.lua']
+modules['\\packages\\deepcopy'] = modules['packages/deepcopy.lua']
 
 ----
 
-modules['packages/forceyield'] = modules['packages/forceyield.lua'];
-modules['packages\\forceyield.lua'] = modules['packages/forceyield.lua'];
-modules['packages\\forceyield'] = modules['packages/forceyield.lua'];
-modules['forceyield'] = modules['packages/forceyield.lua'];
-modules['forceyield.lua'] = modules['packages/forceyield.lua'];
-modules['forceyield'] = modules['packages/forceyield.lua'];
-modules['/forceyield'] = modules['packages/forceyield.lua'];
-modules['\\forceyield.lua'] = modules['packages/forceyield.lua'];
-modules['\\forceyield'] = modules['packages/forceyield.lua'];
-modules['/packages/forceyield'] = modules['packages/forceyield.lua'];
-modules['\\packages\\forceyield.lua'] = modules['packages/forceyield.lua'];
-modules['\\packages\\forceyield'] = modules['packages/forceyield.lua'];
+modules['packages/forceyield'] = modules['packages/forceyield.lua']
+modules['packages\\forceyield.lua'] = modules['packages/forceyield.lua']
+modules['packages\\forceyield'] = modules['packages/forceyield.lua']
+modules['forceyield'] = modules['packages/forceyield.lua']
+modules['forceyield.lua'] = modules['packages/forceyield.lua']
+modules['forceyield'] = modules['packages/forceyield.lua']
+modules['/forceyield'] = modules['packages/forceyield.lua']
+modules['\\forceyield.lua'] = modules['packages/forceyield.lua']
+modules['\\forceyield'] = modules['packages/forceyield.lua']
+modules['/packages/forceyield'] = modules['packages/forceyield.lua']
+modules['\\packages\\forceyield.lua'] = modules['packages/forceyield.lua']
+modules['\\packages\\forceyield'] = modules['packages/forceyield.lua']
 
 ----
 
-modules['packages/hash'] = modules['packages/hash.lua'];
-modules['packages\\hash.lua'] = modules['packages/hash.lua'];
-modules['packages\\hash'] = modules['packages/hash.lua'];
-modules['hash'] = modules['packages/hash.lua'];
-modules['hash.lua'] = modules['packages/hash.lua'];
-modules['hash'] = modules['packages/hash.lua'];
-modules['/hash'] = modules['packages/hash.lua'];
-modules['\\hash.lua'] = modules['packages/hash.lua'];
-modules['\\hash'] = modules['packages/hash.lua'];
-modules['/packages/hash'] = modules['packages/hash.lua'];
-modules['\\packages\\hash.lua'] = modules['packages/hash.lua'];
-modules['\\packages\\hash'] = modules['packages/hash.lua'];
+modules['packages/hash'] = modules['packages/hash.lua']
+modules['packages\\hash.lua'] = modules['packages/hash.lua']
+modules['packages\\hash'] = modules['packages/hash.lua']
+modules['hash'] = modules['packages/hash.lua']
+modules['hash.lua'] = modules['packages/hash.lua']
+modules['hash'] = modules['packages/hash.lua']
+modules['/hash'] = modules['packages/hash.lua']
+modules['\\hash.lua'] = modules['packages/hash.lua']
+modules['\\hash'] = modules['packages/hash.lua']
+modules['/packages/hash'] = modules['packages/hash.lua']
+modules['\\packages\\hash.lua'] = modules['packages/hash.lua']
+modules['\\packages\\hash'] = modules['packages/hash.lua']
 
 ----
 
-modules['packages/installationid'] = modules['packages/installationid.lua'];
-modules['packages\\installationid.lua'] = modules['packages/installationid.lua'];
-modules['packages\\installationid'] = modules['packages/installationid.lua'];
-modules['installationid'] = modules['packages/installationid.lua'];
-modules['installationid.lua'] = modules['packages/installationid.lua'];
-modules['installationid'] = modules['packages/installationid.lua'];
-modules['/installationid'] = modules['packages/installationid.lua'];
-modules['\\installationid.lua'] = modules['packages/installationid.lua'];
-modules['\\installationid'] = modules['packages/installationid.lua'];
-modules['/packages/installationid'] = modules['packages/installationid.lua'];
-modules['\\packages\\installationid.lua'] = modules['packages/installationid.lua'];
-modules['\\packages\\installationid'] = modules['packages/installationid.lua'];
+modules['packages/installationid'] = modules['packages/installationid.lua']
+modules['packages\\installationid.lua'] = modules['packages/installationid.lua']
+modules['packages\\installationid'] = modules['packages/installationid.lua']
+modules['installationid'] = modules['packages/installationid.lua']
+modules['installationid.lua'] = modules['packages/installationid.lua']
+modules['installationid'] = modules['packages/installationid.lua']
+modules['/installationid'] = modules['packages/installationid.lua']
+modules['\\installationid.lua'] = modules['packages/installationid.lua']
+modules['\\installationid'] = modules['packages/installationid.lua']
+modules['/packages/installationid'] = modules['packages/installationid.lua']
+modules['\\packages\\installationid.lua'] = modules['packages/installationid.lua']
+modules['\\packages\\installationid'] = modules['packages/installationid.lua']
 
 ----
 
-modules['packages/json'] = modules['packages/json.lua'];
-modules['packages\\json.lua'] = modules['packages/json.lua'];
-modules['packages\\json'] = modules['packages/json.lua'];
-modules['json'] = modules['packages/json.lua'];
-modules['json.lua'] = modules['packages/json.lua'];
-modules['json'] = modules['packages/json.lua'];
-modules['/json'] = modules['packages/json.lua'];
-modules['\\json.lua'] = modules['packages/json.lua'];
-modules['\\json'] = modules['packages/json.lua'];
-modules['/packages/json'] = modules['packages/json.lua'];
-modules['\\packages\\json.lua'] = modules['packages/json.lua'];
-modules['\\packages\\json'] = modules['packages/json.lua'];
+modules['packages/json'] = modules['packages/json.lua']
+modules['packages\\json.lua'] = modules['packages/json.lua']
+modules['packages\\json'] = modules['packages/json.lua']
+modules['json'] = modules['packages/json.lua']
+modules['json.lua'] = modules['packages/json.lua']
+modules['json'] = modules['packages/json.lua']
+modules['/json'] = modules['packages/json.lua']
+modules['\\json.lua'] = modules['packages/json.lua']
+modules['\\json'] = modules['packages/json.lua']
+modules['/packages/json'] = modules['packages/json.lua']
+modules['\\packages\\json.lua'] = modules['packages/json.lua']
+modules['\\packages\\json'] = modules['packages/json.lua']
 
 ----
 
-modules['packages/polyfills/table.create'] = modules['packages/polyfills/table.create.lua'];
-modules['packages\\polyfills\\table.create.lua'] = modules['packages/polyfills/table.create.lua'];
-modules['packages\\polyfills\\table.create'] = modules['packages/polyfills/table.create.lua'];
-modules['polyfills/table.create'] = modules['packages/polyfills/table.create.lua'];
-modules['polyfills\\table.create.lua'] = modules['packages/polyfills/table.create.lua'];
-modules['polyfills\\table.create'] = modules['packages/polyfills/table.create.lua'];
-modules['/polyfills/table.create'] = modules['packages/polyfills/table.create.lua'];
-modules['\\polyfills\\table.create.lua'] = modules['packages/polyfills/table.create.lua'];
-modules['\\polyfills\\table.create'] = modules['packages/polyfills/table.create.lua'];
-modules['/packages/polyfills/table.create'] = modules['packages/polyfills/table.create.lua'];
-modules['\\packages\\polyfills\\table.create.lua'] = modules['packages/polyfills/table.create.lua'];
-modules['\\packages\\polyfills\\table.create'] = modules['packages/polyfills/table.create.lua'];
+modules['packages/polyfills/table.create'] = modules['packages/polyfills/table.create.lua']
+modules['packages\\polyfills\\table.create.lua'] = modules['packages/polyfills/table.create.lua']
+modules['packages\\polyfills\\table.create'] = modules['packages/polyfills/table.create.lua']
+modules['polyfills/table.create'] = modules['packages/polyfills/table.create.lua']
+modules['polyfills\\table.create.lua'] = modules['packages/polyfills/table.create.lua']
+modules['polyfills\\table.create'] = modules['packages/polyfills/table.create.lua']
+modules['/polyfills/table.create'] = modules['packages/polyfills/table.create.lua']
+modules['\\polyfills\\table.create.lua'] = modules['packages/polyfills/table.create.lua']
+modules['\\polyfills\\table.create'] = modules['packages/polyfills/table.create.lua']
+modules['/packages/polyfills/table.create'] = modules['packages/polyfills/table.create.lua']
+modules['\\packages\\polyfills\\table.create.lua'] = modules['packages/polyfills/table.create.lua']
+modules['\\packages\\polyfills\\table.create'] = modules['packages/polyfills/table.create.lua']
 
 ----
 
-modules['packages/rstr'] = modules['packages/rstr.lua'];
-modules['packages\\rstr.lua'] = modules['packages/rstr.lua'];
-modules['packages\\rstr'] = modules['packages/rstr.lua'];
-modules['rstr'] = modules['packages/rstr.lua'];
-modules['rstr.lua'] = modules['packages/rstr.lua'];
-modules['rstr'] = modules['packages/rstr.lua'];
-modules['/rstr'] = modules['packages/rstr.lua'];
-modules['\\rstr.lua'] = modules['packages/rstr.lua'];
-modules['\\rstr'] = modules['packages/rstr.lua'];
-modules['/packages/rstr'] = modules['packages/rstr.lua'];
-modules['\\packages\\rstr.lua'] = modules['packages/rstr.lua'];
-modules['\\packages\\rstr'] = modules['packages/rstr.lua'];
+modules['packages/rstr'] = modules['packages/rstr.lua']
+modules['packages\\rstr.lua'] = modules['packages/rstr.lua']
+modules['packages\\rstr'] = modules['packages/rstr.lua']
+modules['rstr'] = modules['packages/rstr.lua']
+modules['rstr.lua'] = modules['packages/rstr.lua']
+modules['rstr'] = modules['packages/rstr.lua']
+modules['/rstr'] = modules['packages/rstr.lua']
+modules['\\rstr.lua'] = modules['packages/rstr.lua']
+modules['\\rstr'] = modules['packages/rstr.lua']
+modules['/packages/rstr'] = modules['packages/rstr.lua']
+modules['\\packages\\rstr.lua'] = modules['packages/rstr.lua']
+modules['\\packages\\rstr'] = modules['packages/rstr.lua']
 
 ----
 
-modules['packages/termination'] = modules['packages/termination.lua'];
-modules['packages\\termination.lua'] = modules['packages/termination.lua'];
-modules['packages\\termination'] = modules['packages/termination.lua'];
-modules['termination'] = modules['packages/termination.lua'];
-modules['termination.lua'] = modules['packages/termination.lua'];
-modules['termination'] = modules['packages/termination.lua'];
-modules['/termination'] = modules['packages/termination.lua'];
-modules['\\termination.lua'] = modules['packages/termination.lua'];
-modules['\\termination'] = modules['packages/termination.lua'];
-modules['/packages/termination'] = modules['packages/termination.lua'];
-modules['\\packages\\termination.lua'] = modules['packages/termination.lua'];
-modules['\\packages\\termination'] = modules['packages/termination.lua'];
+modules['packages/termination'] = modules['packages/termination.lua']
+modules['packages\\termination.lua'] = modules['packages/termination.lua']
+modules['packages\\termination'] = modules['packages/termination.lua']
+modules['termination'] = modules['packages/termination.lua']
+modules['termination.lua'] = modules['packages/termination.lua']
+modules['termination'] = modules['packages/termination.lua']
+modules['/termination'] = modules['packages/termination.lua']
+modules['\\termination.lua'] = modules['packages/termination.lua']
+modules['\\termination'] = modules['packages/termination.lua']
+modules['/packages/termination'] = modules['packages/termination.lua']
+modules['\\packages\\termination.lua'] = modules['packages/termination.lua']
+modules['\\packages\\termination'] = modules['packages/termination.lua']
 
 ----
 
-modules['packages/uniquekeys'] = modules['packages/uniquekeys.lua'];
-modules['packages\\uniquekeys.lua'] = modules['packages/uniquekeys.lua'];
-modules['packages\\uniquekeys'] = modules['packages/uniquekeys.lua'];
-modules['uniquekeys'] = modules['packages/uniquekeys.lua'];
-modules['uniquekeys.lua'] = modules['packages/uniquekeys.lua'];
-modules['uniquekeys'] = modules['packages/uniquekeys.lua'];
-modules['/uniquekeys'] = modules['packages/uniquekeys.lua'];
-modules['\\uniquekeys.lua'] = modules['packages/uniquekeys.lua'];
-modules['\\uniquekeys'] = modules['packages/uniquekeys.lua'];
-modules['/packages/uniquekeys'] = modules['packages/uniquekeys.lua'];
-modules['\\packages\\uniquekeys.lua'] = modules['packages/uniquekeys.lua'];
-modules['\\packages\\uniquekeys'] = modules['packages/uniquekeys.lua'];
+modules['packages/uniquekeys'] = modules['packages/uniquekeys.lua']
+modules['packages\\uniquekeys.lua'] = modules['packages/uniquekeys.lua']
+modules['packages\\uniquekeys'] = modules['packages/uniquekeys.lua']
+modules['uniquekeys'] = modules['packages/uniquekeys.lua']
+modules['uniquekeys.lua'] = modules['packages/uniquekeys.lua']
+modules['uniquekeys'] = modules['packages/uniquekeys.lua']
+modules['/uniquekeys'] = modules['packages/uniquekeys.lua']
+modules['\\uniquekeys.lua'] = modules['packages/uniquekeys.lua']
+modules['\\uniquekeys'] = modules['packages/uniquekeys.lua']
+modules['/packages/uniquekeys'] = modules['packages/uniquekeys.lua']
+modules['\\packages\\uniquekeys.lua'] = modules['packages/uniquekeys.lua']
+modules['\\packages\\uniquekeys'] = modules['packages/uniquekeys.lua']
 
 ----
 
-modules['packages/xor'] = modules['packages/xor.lua'];
-modules['packages\\xor.lua'] = modules['packages/xor.lua'];
-modules['packages\\xor'] = modules['packages/xor.lua'];
-modules['xor'] = modules['packages/xor.lua'];
-modules['xor.lua'] = modules['packages/xor.lua'];
-modules['xor'] = modules['packages/xor.lua'];
-modules['/xor'] = modules['packages/xor.lua'];
-modules['\\xor.lua'] = modules['packages/xor.lua'];
-modules['\\xor'] = modules['packages/xor.lua'];
-modules['/packages/xor'] = modules['packages/xor.lua'];
-modules['\\packages\\xor.lua'] = modules['packages/xor.lua'];
-modules['\\packages\\xor'] = modules['packages/xor.lua'];
+modules['packages/xor'] = modules['packages/xor.lua']
+modules['packages\\xor.lua'] = modules['packages/xor.lua']
+modules['packages\\xor'] = modules['packages/xor.lua']
+modules['xor'] = modules['packages/xor.lua']
+modules['xor.lua'] = modules['packages/xor.lua']
+modules['xor'] = modules['packages/xor.lua']
+modules['/xor'] = modules['packages/xor.lua']
+modules['\\xor.lua'] = modules['packages/xor.lua']
+modules['\\xor'] = modules['packages/xor.lua']
+modules['/packages/xor'] = modules['packages/xor.lua']
+modules['\\packages\\xor.lua'] = modules['packages/xor.lua']
+modules['\\packages\\xor'] = modules['packages/xor.lua']
 
 ----
 
-modules['version'] = modules['version.lua'];
-modules['version.lua'] = modules['version.lua'];
-modules['version'] = modules['version.lua'];
-modules['/version'] = modules['version.lua'];
-modules['\\version.lua'] = modules['version.lua'];
-modules['\\version'] = modules['version.lua'];
+modules['version'] = modules['version.lua']
+modules['version.lua'] = modules['version.lua']
+modules['version'] = modules['version.lua']
+modules['/version'] = modules['version.lua']
+modules['\\version.lua'] = modules['version.lua']
+modules['\\version'] = modules['version.lua']
 
 --> END Alias/Equivalent Module Path Definitions <--
 
 
 return require 'index'
 
-end)(require or function()end,...);
+end)(require or function()end,...)

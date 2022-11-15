@@ -1,4 +1,4 @@
----@diagnostic disable: deprecated
+---@diagnostic disable: deprecated, redundant-parameter, discard-returns, unused-local, param-type-mismatch, lowercase-global
 local project = {}
 local packaged = true
 local baseRequire = require
@@ -5726,11 +5726,11 @@ project['default']['Frame'] = function(...)
       return false
     end
     local function bac(dbc)
-      local _cc, acc = pcall(load('return ' .. dbc))
+      local _cc, acc = pcall((load or loadstring)('return ' .. dbc))
       if not _cc then
         error(dbc .. ' is not a valid dynamic code')
       end
-      return load('return ' .. dbc)()
+      return (load or loadstring)('return ' .. dbc)()
     end
     local function cac(dbc, _cc, acc)
       for bcc, ccc in pairs(bca) do
