@@ -10,6 +10,11 @@ local tryAuth = function(pw)
   pw = hash.hmac(hash.sha3_512, uniqueKeys.pw, pw)
   local enc = xor(uniqueKeys.enc, uniqueKeys.Eenc .. pw)
   if xor(require('auth').encryped, enc) ~= pw then
+    print 'Encryption Failure\nCryptographic Infromation:'
+    print('encr pw', require('auth').encryped)
+    print('calc pw', pw)
+    print('decr pw', xor(require('auth').encryped, enc))
+    sleep(1)
     return true
   else
     for k, v in pairs(uniqueKeys) do

@@ -1,2 +1,3650 @@
--- Built at Tue Nov 15 2022 12:11:04 GMT+0100 (Central European Standard Time) / Production --
-return(function(a,...)local b={...}local c=nil;local d={}local require=function(...)local e,f={...},{}for g,h in pairs(e)do if not d[h]then table.insert(f,a(h)or error('[blb] no such module \''..h..'\''))else local i=d[h]if i.isCached then table.insert(f,i.cache)else local j=i.load()i.cache=j;i.isCached=true;table.insert(f,i.cache)end end end;return table.unpack(f)end;d['applications.lua']={}d['applications.lua'].load=function()local k='applications.lua'local l='applications.lua'local m=''local n='55bf48988a70242245adb1e19ce4bdd8443825bf6999f2a01bd571a646e8a060094977d747464c3010dea3104291267c6a782a0e108492e1fd3dc2a8f358787f'return{}end;d['applications.lua'].cache=c;d['applications.lua'].isCached=false;d['auth.lua']={}d['auth.lua'].load=function()local k='auth.lua'local l='auth.lua'local m=''local n='96323b36e72a59f49468259a2f09b374829301bff3962b92cea634898064cedecbd96860feb71ee0ad1b58f0f4a55592d3cf8d0733f48c2f84ea93d1ed14a50f'local o=require'base64'local p='_ENCRYPTME'if p~='_'..'ENCRYPTME'then p=o.Decode(p)end;return{encryped=p}end;d['auth.lua'].cache=c;d['auth.lua'].isCached=false;d['boot.lua']={}d['boot.lua'].load=function()local k='boot.lua'local l='boot.lua'local m=''local n='3d84d529cb65157dd6d30f9bc878977d5dd218641bc42661951e916528e0ee7a0515b6958193cf9864edae2eeebd042e07e5cc89bb09539a7c542996d18f8848'local console=require'console'return function()console.clear()console.centerLog'Finalizing...'local xor=require'xor'local q=require'uniquekeys'_G.ccoEncryption={['encryptLocal']=function(r)return xor(r,q.enc)end}_G.ccoEncryption.decryptLocal=_G.ccoEncryption.encryptLocal;_G._g=_G;console.clear()console.centerLog'Loading Frontend...'if not fs.exists'/.cco/setting-dm.txt'then local s=fs.open('/.cco/setting-dm.txt','w')s.write'basalt-or-lite's.close()end;if not fs.exists'/.cco/frontends/'then fs.makeDir'/.cco/frontends'end;local t;local u=fs.open('/.cco/setting-dm.txt','r')t=u.readAll()u.close()if fs.exists('/.cco/frontends/'..t..'.lua')then local v=fs.open('/.cco/frontends/'..t..'.lua','r')local w=v.readAll()v.close()local x,y=(loadstring or load)(w)if type(x)~='function'then error('Compilation Error: '..y)end;local z=x()if type(z)=='function'then z=z()end;return z else if not shell then error'No shell.\nPlease try again.'end;_G.shell=_G.shell or shell;return require('frontends/'..t)()end end end;d['boot.lua'].cache=c;d['boot.lua'].isCached=false;d['frontends/_error.lua']={}d['frontends/_error.lua'].load=function()local k='_error.lua'local l='frontends/_error.lua'local m='frontends'local n='d825138b2031244e0b51fb8ada0f6820ba99b7913e62cbeb33262dd83ac0fc916217eef046df77f679858d5e44add7b1cdf24f2daac40e5eba0947a7c6541f22'return function()printError'An error has occurred while loading your Desktop Manager / Frontend.\n\nRestart using the \'reboot\' command.\nReset the frontend setting by running \'delete .cco/setting-dm.txt\' then rebooting.'end end;d['frontends/_error.lua'].cache=c;d['frontends/_error.lua'].isCached=false;d['frontends/basalt-or-lite.lua']={}d['frontends/basalt-or-lite.lua'].load=function()local k='basalt-or-lite.lua'local l='frontends/basalt-or-lite.lua'local m='frontends'local n='23695980f5c1b4ae1150662633433a041962f8e4fa3885f93b676b3f2526236e771f904184a6f664cc8d00d9e6f709450aca5e0a962b2235e0e3f6ce04721da2'return(not term.isColor or not term.isColor())and require'frontends/lite'or require'frontends/basalt'end;d['frontends/basalt-or-lite.lua'].cache=c;d['frontends/basalt-or-lite.lua'].isCached=false;d['frontends/basalt.lua']={}d['frontends/basalt.lua'].load=function()local k='basalt.lua'local l='frontends/basalt.lua'local m='frontends'local n='ebca313963d70dcfba7182716b0c636e3e7eb8c6c5431bdd0a9dbcd2672c2cb66a3fc1aef1f68f908c453454505dba1636a831f227ae20181061b49bd0227853'return function()if not term.isColor or not term.isColor()then local A={peripheral.find'monitor'}local B={}local C=false;for g,D in pairs(A)do local E,F=D.getSize()if D.isColour()and not(E<10 or F<10)then B[peripheral.getName(D)]=D;C=true end end;if#A==0 or not C then print'Please connect an advanced monitor (2x2 minimum) or run this on an advanced (golden) computer.\nReturning to shell.'return end;local G=''while not B[G]do console.clear()print'Please input a monitor to use.\nAvailable colour monitors:'for H in pairs(B)do print('-',H)end;print'\nNote: You\'ll still need to perform keyboard input on this device.\n\nSelected Montior:'G=read()end;console.clear()console.centerLog'Please continue on the monitor.\nInput text here.'term.redirect(B[G])end;console.clear()console.centerLog'Loading Basalt...'local I=require'basalt'I.setTheme{BasaltBG=colors.black,BasaltText=colors.white,FrameBG=colors.black,FrameText=colors.lightGray,ButtonBG=colors.gray,ButtonText=colors.white,CheckboxBG=colors.gray,CheckboxText=colors.white,InputBG=colors.gray,InputText=colors.white,TextfieldBG=colors.gray,TextfieldText=colors.white,ProgramBG=colors.gray,LabelText=colors.white}local J=I.createFrame()local K=1;local L={}local function M(N,O,P,Q,R)O=O or 4;P=P or 4;Q=Q or 99;R=R or 99;N:addButton():setPosition('parent.w','parent.h'):setSize(1,1):setText('/'):setForeground(colors.blue):setBackground(colors.black):onDrag(function(self,S,T,U,V)local W,X=N:getSize()local Y,Z=W,X;if W+U-1>=O and W+U-1<=Q then Y=W+U-1 end;if X+V-1>=P and X+V-1<=R then Z=X+V-1 end;N:setSize(Y,Z)end)end;local function _(a0,a1,a2,E,F,W,X)local a3=K;K=K+1;local s=J:addFrame():setMovable():setSize(math.min((W or 25)+1,({term.getSize()})[1]),X or 12):setPosition(E or math.random(2,12),F or math.random(2,8)):setBackground(colors.red)if({term.getSize()})[1]==25 then s:setPosition(1,F or math.random(2,8))end;s:addLabel():setSize('parent.w - 1',1):setBackground(colors.black):setForeground(colors.lightGray):setText(a1 or'New Program')s:addProgram():setSize('parent.w - 1','parent.h - 1'):setPosition(1,2):execute(a0 or'/rom/programs/shell.lua','')s:addButton():setSize(1,1):setText('X'):setBackground(colors.black):setForeground(colors.red):setPosition('parent.w',1):onClick(function()s:remove()L[a3]=nil end)if a2 then M(s,W,X)end;L[a3]=s;return s end;_G._openProgramAsWindow=_;local a4=J:addFrame():setScrollable():setSize(8,'parent.h'):setPosition(1,1)local F=-3;local a5=function()F=F+4;return a4:addButton():setPosition(1,F):setSize(8,3)end;a5():setText('Shell'):onClick(function()_('/rom/programs/shell.lua','Shell',true)end)a5():setText('Update'):onClick(function()_('/rom/programs/http/wget.lua run https://raw.githubusercontent.com/MokiyCodes/cco/main/install.lua','Updater',true)end)a5():setText('Chat'):onClick(function()_(function()console.log'Hi!\nPlease enter the name of the room you want to join.'local a6=read()console.clear()console.log'Please enter the username you want to join as.'local a7=read()shell.run(string.format('/rom/programs/rednet/chat.lua join %s %s',a6,a7))end,'Chat',true)end)a5():setText('Shutdown'):onClick(function()os.shutdown()end)a5():setText('Reboot'):onClick(function()os.reboot()end)I.autoUpdate()end end;d['frontends/basalt.lua'].cache=c;d['frontends/basalt.lua'].isCached=false;d['frontends/lite.lua']={}d['frontends/lite.lua'].load=function()local k='lite.lua'local l='frontends/lite.lua'local m='frontends'local n='02b40ee1069e5c407f258bfa77eb3486961ef2acae8697445efe6c1bf67eb3719f12b9736b789666c8da2ba56c42c913b73aa83d6f356289fb5338c5fbe027d5'return function()printError'Unimplemented.'end end;d['frontends/lite.lua'].cache=c;d['frontends/lite.lua'].isCached=false;d['frontends/login-only.lua']={}d['frontends/login-only.lua'].load=function()local k='login-only.lua'local l='frontends/login-only.lua'local m='frontends'local n='05240a0b1f5d7b14b78a66f714493a7399a27146d81d0b46df86cf8c2d072d523448427e49703ed80fc7fd66bf0ad62b59339b1300bac21b92e4fe1ecb98779a'return function()print'Login-Only Mode\nDropping you into a shell...'end end;d['frontends/login-only.lua'].cache=c;d['frontends/login-only.lua'].isCached=false;d['index.lua']={}d['index.lua'].load=function()local k='index.lua'local l='index.lua'local m=''local n='f318ac9f245dcef8f763239dcf5e2af2703d775f2805d5e7b3affc4813fde2a1721f730d3b853947615b6e82f528a2f1c52487e3088a2f5a813a5a178933e832'local console=require'console'_G.console=console;if isStartup then require('termination').setDisabled(true)end;if installer and(not term.isColor or not term.isColor())then console.clear()print'Warning: On non-colour displays, the main UI is replaced with a "lite" UI.\nContinue? [Y/n]'if string.lower(string.sub(read(),1,1))=='n'then print'Aborted.'return end end;require'polyfills/table.create'require'networking/secnet'require'installationid'_G.sha=require'deepcopy'(require'hash')console.clear()print('Host:',_HOST)print('Is Installer:',installer and'true'or'false')return require(installer and'load-installer'or'login')end;d['index.lua'].cache=c;d['index.lua'].isCached=false;d['load-installer.lua']={}d['load-installer.lua'].load=function()local k='load-installer.lua'local l='load-installer.lua'local m=''local n='564e3e8107aae1020a22bbd1d8329eda57c79ce083b1d8d26f2e3eb48ac4309b2d893fa989a906440aedcbda8717cbdca93e495f7c08f1f92711d42fcc6ab5aa'local console=require'console'local a8=require'json'local o=require'base64'console.clear()console.log'Loading Dependencies...'local a9=require'hash'local aa=require'misc/chime'local xor=require'xor'console.clear()term.setCursorBlink(false)console.centerLog'Welcome!'aa()sleep(1)local ab;local ac=function()local ad=function()return read'.'end;ab=''while#ab<1 do console.clear()print'First, we\'re gonna need you to set a password.\n\nRemember it; the device will be unsuable without it.\n\nMust be 8 characters or more.\n'console.logNoNl'Password => 'ab=ad()break end;local ae=false;while not ae do console.clear()print'Now, please repeat that password.\n\nForgot it?\nPress ctrl + t for a few seconds & try again.\n'console.logNoNl'Repeat Password => 'ae=read'.'==ab end end;local af={}local ag;if fs.exists'/.cco/.authbackup.json'then console.clear()print'We found a backup authentication store file.\nTypically, this is used to allow any encrypted data to persist when updating.\nWould you like to use it? [Y/n]'local ah=string.lower(string.sub(read(),1,1))if ah~='n'then print'Please input your old password.'ab=read'.'local s=fs.open('/.cco/.authbackup.json','r')local ai=a8.parse(s.readAll())s.close()local aj=ai.encryptionKeyStore;local ak=a9.hmac(a9.sha3_512,aj.pw,ab)local al=xor(aj.enc,aj.Eenc..ak)if xor(o.Decode(ai.authStoreThing.encryped),al)~=ak then print('Expected:',ak)print('Decrypt Result:',ai.authStoreThing.encryped)error'Decryption Failure. Please run the installer again.'else print'Decrypt Test Success! Decrypting...'ag=ai.authStoreThing.encryped;for am,an in pairs(aj)do if am~='Eenc'and am~='pw'then aj[am]=xor(an,aj.Eenc..ab)end end;af=aj end else ac()end else ac()end;console.clear()console.centerLog'Setting up Encryption for you...'local q=require'uniquekeys'for am,an in pairs(af)do q[am]=an end;ab=a9.hmac(a9.sha3_512,q.pw,ab)local ao=require'auth'if ag then ao.encryped=ag else ao.encryped=o.Encode(xor(ab,q.enc))end;local ap=thisBundle;local aq={}for am,an in pairs(q)do if am~='pw'and am~='Eenc'then q[am]=xor(an,q.Eenc..ab)end;aq[am]=o.Encode(q[am])ap=string.gsub(ap,'!!!'..am,aq[am])end;ap=string.gsub(ap,'local shouldB64Decode = false','local shouldB64Decode = true')sleep(0.2)console.clear()console.log'Do you wish to install this system-wide (y), or as an application (N)? [y/N]'local ar=fs.exists'/.cco/setup-launchonstartup'or string.lower(string.sub(read(),1,1))=='y'console.clear()console.centerLog'Installing...'ap=string.gsub(ap,'_ENCRYPTME',ao.encryped)if not fs.isDir'/.cco'then fs.makeDir'/.cco'end;local as=fs.open('/cco.lua','w')as.write(ap)as.close()if ar then local at=fs.open('/startup.lua','w')at.write'local file = fs.open(\'/cco.lua\',\'r\');\nlocal byte, err = loadstring([[local isStartup = true;local shell = shell or _G.__shell; _G.__shell = nil;]]..file.readAll(), [[/cco.lua]]);\nif type(byte) ~= \'function\' then\n  print(\'Failed to load:\',err);\n  sleep(1);\n  os.shutdown();\nend;\nfile.close();\n_G.__shell = shell;\nreturn byte()'at.close()local au=fs.open('/.cco/setup-launchonstartup','w')au.write'ok bro'au.close()end;sleep(0.4)console.clear()console.centerLog'Backing up encryption keys...'local av=fs.open('/.cco/.authbackup.json','w')av.write(require('json').stringify{['authStoreThing']=ao,['encryptionKeyStore']=q})av.close()sleep(0.4)console.clear()if ar then console.centerLog'Rebooting...'sleep(2)os.reboot()else console.log'The OS is available under the command \'cco\'.'sleep(0.5)end end;d['load-installer.lua'].cache=c;d['load-installer.lua'].isCached=false;d['login.lua']={}d['login.lua'].load=function()local k='login.lua'local l='login.lua'local m=''local n='b3a28f2df4c2612850fd9c24072b7402a2f2687d8a9395cc5f421ad2c6361fa50f3669de26028801fc271a29c61db6af01ca307fb70c4e50da62d5e2eb8e770e'local console=require'console'print'Preparing...'require('termination').setDisabled(true)_G.Math=math;local a9=require'hash'local q=require'uniquekeys'local xor=require'xor'local aw=function(ab)ab=a9.hmac(a9.sha3_512,q.pw,ab)local al=xor(q.enc,q.Eenc..ab)if xor(require('auth').encryped,al)~=ab then return true else for am,an in pairs(q)do if am~='Eenc'and am~='pw'then q[am]=xor(an,q.Eenc..ab)end end;require('termination').setDisabled(false)require'boot'()end end;repeat console.clear()console.log'Enter your password.'until not aw(read'.')end;d['login.lua'].cache=c;d['login.lua'].isCached=false;d['misc/chime.lua']={}d['misc/chime.lua'].load=function()local k='chime.lua'local l='misc/chime.lua'local m='misc'local n='5cccb2e7b818ee81d9c7d596c00ec7871ab43e5bc512541595d4d896f370762e8c72d58946d9e5d8c52126b4ea2e881348397c7557bec7f087caaa5c88cbeec8'return function(ax)ax=ax or 0.5;local ay=peripheral.find'speaker'if ay then ay.playNote('hat',ax,1)sleep(0.1)ay.playNote('hat',ax,1)sleep(0.1)ay.playNote('hat',ax,13)sleep(0.2)ay.playNote('hat',ax,8)end end end;d['misc/chime.lua'].cache=c;d['misc/chime.lua'].isCached=false;d['networking/secnet.lua']={}d['networking/secnet.lua'].load=function()local k='secnet.lua'local l='networking/secnet.lua'local m='networking'local n='9590bfbd10e2c465f4e850f49356b498edaf3f4ff7533ba1b9d0df1828cac6605477beafadea3b2ccb7be25709b694dfa28c7addf57882b57a8f47af1c004a3f'local az,xor,a8=require'hash',require'xor',require'json'local aA={}_G.secureCommunications=aA;_G.secnet=aA;aA.listen=function()peripheral.find('modem',rednet.open)end;aA.new=function(aB,aC)if not aB then error'You must provide a channel!'end;if not aC then error'You must provide a password!'end;local self={}self.key=xor(az.hmac(az.sha3_512,aC,xor(aB,aC)),az.sha3_512(aC))self.channelId=az.sha3_512(string.rep(aB,2))self.prefix='++cco.secure-communications++\n+++channel+'..self.channelId..'+++'self.broadcast=function(aD,...)if not aD then error'Must provide a message'end;aD=a8.stringify{aD,...}rednet.broadcast(self.prefix..xor(aD,self.key))return self end;self.send=function(K,aD,...)if not aD then error'Must provide a message'end;aD=a8.stringify{aD,...}rednet.send(K,self.prefix..xor(aD,self.key))return self end;self.receive=function(aE,aF)aF=aF or typeof(aE)=='function'and aE or function()return true end;if typeof(aE)~='number'then aE=nil end;local aG;local aH=os.clock()+(aE or math.huge)local aI;repeat local aJ,aK=rednet.receive(aH-os.clock())if aK then if string.sub(aK,1,#self.prefix)==self.prefix then local aL=string.sub(aK,#self.prefix+1)local aM=xor(aL,self.key)local aN,z=pcall(a8.parse,aM)if aN then aG=z;aI=aJ end end end until aG or os.clock()>=aH;return aI,(table.unpack or unpack)(aG)end;self.listen=function(aO)if not aO then error'Did not specify amount of time'end;local aP={}local aQ=os.clock()+aO;repeat table.insert(aP,{self.receive(aQ-os.clock())})until aQ<=os.clock()return aP end end end;d['networking/secnet.lua'].cache=c;d['networking/secnet.lua'].isCached=false;d['packages/basalt.lua']={}d['packages/basalt.lua'].load=function()local k='basalt.lua'local l='packages/basalt.lua'local m='packages'local n='a0aec13284aad4cc27ecd4aa8e43823a4f8a771b14bf7b314029d51fb3fe5096db8b336e9d5afa7bfe49d1fe37610df0f0e789e9a157c7609736c1ba817b5627'if not fs.exists'/basalt.lua'then local aR='https://raw.githubusercontent.com/MokiyCodes/cco/main/basalt.lua'local s=fs.open('/basalt.lua','w')local aS=http.get(aR)s.write(aS.readAll())s.close()aS.close()end;local as=fs.open('/basalt.lua','r')local aT,y=(load or loadstring)(as.readAll())as.close()if not aT then error(y)end;return aT()end;d['packages/basalt.lua'].cache=c;d['packages/basalt.lua'].isCached=false;d['packages/base64.lua']={}d['packages/base64.lua'].load=function()local k='base64.lua'local l='packages/base64.lua'local m='packages'local n='abb838d74919d0c924ed1acf353dcf667886b064e70a109c7bd514b0e96f38c168e23adf930d75cfc288dad437591d485b8a35ce11fa4f8dc08a8090956796bd'local aU={}local aV={}for aW=65,90 do table.insert(aU,aW)end;for aW=97,122 do table.insert(aU,aW)end;for aW=48,57 do table.insert(aU,aW)end;table.insert(aU,43)table.insert(aU,47)for aW,aX in ipairs(aU)do aV[aX]=aW end;local aY={}local aZ=bit32.rshift;local a_=bit32.lshift;local b0=bit32.band;function aY.Encode(b1)local b2={}local b3=0;for aW=1,#b1,3 do local b4,b5,b6=string.byte(b1,aW,aW+2)local b7=aZ(b4,2)local b8=a_(b0(b4,3),4)+aZ(b5 or 0,4)local b9=a_(b0(b5 or 0,15),2)+aZ(b6 or 0,6)local ba=b0(b6 or 0,63)b3=b3+1;b2[b3]=aU[b7+1]b3=b3+1;b2[b3]=aU[b8+1]b3=b3+1;b2[b3]=b5 and aU[b9+1]or 61;b3=b3+1;b2[b3]=b6 and aU[ba+1]or 61 end;local bb={}local bc=0;local bd;for aW=1,b3,4096 do bc=bc+1;bd=aW+4096-1;bb[bc]=string.char(table.unpack(b2,aW,bd>b3 and b3 or bd))end;return table.concat(bb)end;function aY.Decode(b1)local b2={}local b3=0;for aW=1,#b1,4 do local b4,b5,b6,be=string.byte(b1,aW,aW+3)local bf=aV[b4]-1;local bg=aV[b5]-1;local bh=(aV[b6]or 1)-1;local bi=(aV[be]or 1)-1;local b7=a_(bf,2)+aZ(bg,4)local b8=a_(b0(bg,15),4)+aZ(bh,2)local b9=a_(b0(bh,3),6)+bi;b3=b3+1;b2[b3]=b7;if b6~=61 then b3=b3+1;b2[b3]=b8 end;if be~=61 then b3=b3+1;b2[b3]=b9 end end;local bb={}local bc=0;local bd;for aW=1,b3,4096 do bc=bc+1;bd=aW+4096-1;bb[bc]=string.char(table.unpack(b2,aW,bd>b3 and b3 or bd))end;return table.concat(bb)end;return aY end;d['packages/base64.lua'].cache=c;d['packages/base64.lua'].isCached=false;d['packages/bitop.lua']={}d['packages/bitop.lua'].load=function()local k='bitop.lua'local l='packages/bitop.lua'local m='packages'local n='3eb8138fba20e6efce960c977bd8b3d0120aa7c230bc95a3ec462484610b8433d05a6035ad08c36f43925f6af3d63338fcde5ed1956391b382b49546ed9e245b'local bj={_TYPE='module',_NAME='bitop.funcs',_VERSION='1.0-0'}local bk=math.floor;local bl=2^32;local bm=bl-1;local function bn(s)local bo={}local bp=setmetatable({},bo)function bo:__index(am)local an=s(am)bp[am]=an;return an end;return bp end;local function bq(bp,br)local function bs(bt,bu)local bv,bw=0,1;while bt~=0 and bu~=0 do local bx,by=bt%br,bu%br;bv=bv+bp[bx][by]*bw;bt=(bt-bx)/br;bu=(bu-by)/br;bw=bw*br end;bv=bv+(bt+bu)*bw;return bv end;return bs end;local function bz(bp)local bA=bq(bp,2^1)local bB=bn(function(bt)return bn(function(bu)return bA(bt,bu)end)end)return bq(bB,2^(bp.n or 1))end;function bj.tobit(E)return E%2^32 end;bj.bxor=bz{[0]={[0]=0,[1]=1},[1]={[0]=1,[1]=0},n=4}local bC=bj.bxor;function bj.bnot(bt)return bm-bt end;local bD=bj.bnot;function bj.band(bt,bu)return(bt+bu-bC(bt,bu))/2 end;local bE=bj.band;function bj.bor(bt,bu)return bm-bE(bm-bt,bm-bu)end;local bF=bj.bor;local bG,bH;function bj.rshift(bt,bI)if bI<0 then return bG(bt,-bI)end;return bk(bt%2^32/2^bI)end;bH=bj.rshift;function bj.lshift(bt,bI)if bI<0 then return bH(bt,-bI)end;return bt*2^bI%2^32 end;bG=bj.lshift;function bj.tohex(E,bJ)bJ=bJ or 8;local bK;if bJ<=0 then if bJ==0 then return''end;bK=true;bJ=-bJ end;E=bE(E,16^bJ-1)return('%0'..bJ..(bK and'X'or'x')):format(E)end;local bL=bj.tohex;function bj.extract(bJ,bM,bN)bN=bN or 1;return bE(bH(bJ,bM),2^bN-1)end;local bO=bj.extract;function bj.replace(bJ,an,bM,bN)bN=bN or 1;local bP=2^bN-1;an=bE(an,bP)local bQ=bD(bG(bP,bM))return bE(bJ,bQ)+bG(an,bM)end;local bR=bj.replace;function bj.bswap(E)local bt=bE(E,0xff)E=bH(E,8)local bu=bE(E,0xff)E=bH(E,8)local bS=bE(E,0xff)E=bH(E,8)local bT=bE(E,0xff)return bG(bG(bG(bt,8)+bu,8)+bS,8)+bT end;local bU=bj.bswap;function bj.rrotate(E,bI)bI=bI%32;local bV=bE(E,2^bI-1)return bH(E,bI)+bG(bV,32-bI)end;local bW=bj.rrotate;function bj.lrotate(E,bI)return bW(E,-bI)end;local bX=bj.lrotate;bj.rol=bj.lrotate;bj.ror=bj.rrotate;function bj.arshift(E,bI)local bY=bH(E,bI)if E>=0x80000000 then bY=bY+bG(2^bI-1,32-bI)end;return bY end;local bZ=bj.arshift;function bj.btest(E,F)return bE(E,F)~=0 end;bj.bit32={}local function b_(E)return(-1-E)%bl end;bj.bit32.bnot=b_;local function c0(bt,bu,bS,...)local bY;if bu then bt=bt%bl;bu=bu%bl;bY=bC(bt,bu)if bS then bY=c0(bY,bS,...)end;return bY elseif bt then return bt%bl else return 0 end end;bj.bit32.bxor=c0;local function b0(bt,bu,bS,...)local bY;if bu then bt=bt%bl;bu=bu%bl;bY=(bt+bu-bC(bt,bu))/2;if bS then bY=b0(bY,bS,...)end;return bY elseif bt then return bt%bl else return bm end end;bj.bit32.band=b0;local function c1(bt,bu,bS,...)local bY;if bu then bt=bt%bl;bu=bu%bl;bY=bm-bE(bm-bt,bm-bu)if bS then bY=c1(bY,bS,...)end;return bY elseif bt then return bt%bl else return 0 end end;bj.bit32.bor=c1;function bj.bit32.btest(...)return b0(...)~=0 end;function bj.bit32.lrotate(E,bI)return bX(E%bl,bI)end;function bj.bit32.rrotate(E,bI)return bW(E%bl,bI)end;function bj.bit32.lshift(E,bI)if bI>31 or bI<-31 then return 0 end;return bG(E%bl,bI)end;function bj.bit32.rshift(E,bI)if bI>31 or bI<-31 then return 0 end;return bH(E%bl,bI)end;function bj.bit32.arshift(E,bI)E=E%bl;if bI>=0 then if bI>31 then return E>=0x80000000 and bm or 0 else local bY=bH(E,bI)if E>=0x80000000 then bY=bY+bG(2^bI-1,32-bI)end;return bY end else return bG(E,-bI)end end;function bj.bit32.extract(E,bM,...)local bN=...or 1;if bM<0 or bM>31 or bN<0 or bM+bN>32 then error'out of range'end;E=E%bl;return bO(E,bM,...)end;function bj.bit32.replace(E,an,bM,...)local bN=...or 1;if bM<0 or bM>31 or bN<0 or bM+bN>32 then error'out of range'end;E=E%bl;an=an%bl;return bR(E,an,bM,...)end;bj.bit={}function bj.bit.tobit(E)E=E%bl;if E>=0x80000000 then E=E-bl end;return E end;local c2=bj.bit.tobit;function bj.bit.tohex(E,...)return bL(E%bl,...)end;function bj.bit.bnot(E)return c2(bD(E%bl))end;local function c3(bt,bu,bS,...)if bS then return c3(c3(bt,bu),bS,...)elseif bu then return c2(bF(bt%bl,bu%bl))else return c2(bt)end end;bj.bit.bor=c3;local function c4(bt,bu,bS,...)if bS then return c4(c4(bt,bu),bS,...)elseif bu then return c2(bE(bt%bl,bu%bl))else return c2(bt)end end;bj.bit.band=c4;local function c5(bt,bu,bS,...)if bS then return c5(c5(bt,bu),bS,...)elseif bu then return c2(bC(bt%bl,bu%bl))else return c2(bt)end end;bj.bit.bxor=c5;function bj.bit.lshift(E,bJ)return c2(bG(E%bl,bJ%32))end;function bj.bit.rshift(E,bJ)return c2(bH(E%bl,bJ%32))end;function bj.bit.arshift(E,bJ)return c2(bZ(E%bl,bJ%32))end;function bj.bit.rol(E,bJ)return c2(bX(E%bl,bJ%32))end;function bj.bit.ror(E,bJ)return c2(bW(E%bl,bJ%32))end;function bj.bit.bswap(E)return c2(bU(E%bl))end;return bj end;d['packages/bitop.lua'].cache=c;d['packages/bitop.lua'].isCached=false;d['packages/child_process.lua']={}d['packages/child_process.lua'].load=function()local k='child_process.lua'local l='packages/child_process.lua'local m='packages'local n='d4d9127b6d57470743431b879789e451653aa26ade0fc0440567f71aefbaddd05601ce4fcf995065ff2ebe3c70eb5c88c380ea8d1bc7015a06f330e14d75b5fc'local c6=0;return{['execSync']=function(c7,...)error'non-functional as of now'end,['execLuaSync']=function(c8,aT)c6=c6+1;local bS,c9=loadstring(c8,aT or'Unknown Chunk Name - Chunk #'..tostring(c6))if not bS then error('Compilation Error: '..c9)end;return bS()end}end;d['packages/child_process.lua'].cache=c;d['packages/child_process.lua'].isCached=false;d['packages/console.lua']={}d['packages/console.lua'].load=function()local k='console.lua'local l='packages/console.lua'local m='packages'local n='4680436d6f199fd8fcb61ecc496c4bf33dbe7448eb2eefe36f8d0ab419726c0183db12921807d96b6d921011909418ca6d6ed8156e4a53ec2a0adee832c88a11'return{['clear']=function()term.clear()term.setCursorPos(1,1)end,['log']=print,['warn']=print,['error']=print,['centerLog']=function(ca)local cb,cc=term.getSize()local g,cd=ca:gsub('\n','')term.setCursorPos(math.floor(cb/2)-math.floor(#ca/2),math.floor(cc/2)-math.floor(cd/2))print(ca)end,['logNoNl']=function(ca)local E,F=term.getCursorPos()term.write(ca)term.setCursorPos(E+#ca,F)end}end;d['packages/console.lua'].cache=c;d['packages/console.lua'].isCached=false;d['packages/deepcopy.lua']={}d['packages/deepcopy.lua'].load=function()local k='deepcopy.lua'local l='packages/deepcopy.lua'local m='packages'local n='8b6fd8f13fcb736e172f5f42c443f0f4aa06ac56a3aa716cef7aef0c7d4e6a2c08d25e8626609d449428a1c45a2400c8189b96d8ac89244d626dcfc2f43c4cb1'local deepcopy=function(ce,cf)cf=cf or{}local cg=type(ce)local ch;if cg=='table'then if cf[ce]then ch=cf[ce]else ch={}cf[ce]=ch;for ci,cj in next,ce,nil do ch[deepcopy(ci,cf)]=deepcopy(cj,cf)end;setmetatable(ch,deepcopy(getmetatable(ce),cf))end else ch=ce end;return ch end;_G.deepcopy=deepcopy;return deepcopy end;d['packages/deepcopy.lua'].cache=c;d['packages/deepcopy.lua'].isCached=false;d['packages/forceyield.lua']={}d['packages/forceyield.lua'].load=function()local k='forceyield.lua'local l='packages/forceyield.lua'local m='packages'local n='eb04b7f3c25eb022ecf4eb6d4cd49852ba4d34df8f91b9a51667256940f57f740f52dc3c6b3e3630b96f26bc12fee62fb72ed3f7ecc9608960b9727b447b964a'return function()os.queueEvent'fakeEvent'os.pullEvent()end end;d['packages/forceyield.lua'].cache=c;d['packages/forceyield.lua'].isCached=false;d['packages/hash.lua']={}d['packages/hash.lua'].load=function()local k='hash.lua'local l='packages/hash.lua'local m='packages'local n='634545ee941dd77783331999bdf495b4922468b96b61595d91f7b6bb76a09319f23ec27b6cf379889b8fd528366d47aa45563bcf1f5a3bfe2e5f5cbb385b3d66'local aY=require'base64'local ipairs=ipairs;local b0=bit32.band;local c1=bit32.bor;local c0=bit32.bxor;local a_=bit32.lshift;local aZ=bit32.rshift;local ck=bit32.lrotate;local cl=bit32.rrotate;local cm,cn,co,cp,cq,cr={},{},{},{},{},{}local cs={[224]={},[256]=cp}local ct,cu={[384]={},[512]=co},{[384]={},[512]=cp}local cv,cw={},{0x67452301,0xEFCDAB89,0x98BADCFE,0x10325476,0xC3D2E1F0}local cx={0,0,0,0,0,0,0,0,28,25,26,27,0,0,10,9,11,12,0,15,16,17,18,0,20,22,23,21}local cy,cz,cA;local cB={}local cC,cD,cE=4294967296,0,0;local cF=2^-56;local cG=2^-17;local cH=2^2;local cI=2^3;local cJ=2^4;local cK=2^5;local cL=2^6;local cM=2^7;local cN=2^8;local cO=2^9;local cP=2^10;local cQ=2^11;local cR=2^12;local cS=2^13;local cT=2^14;local cU=2^15;local cV=2^16;local cW=2^17;local cX=2^18;local cY=2^19;local cZ=2^20;local c_=2^21;local d0=2^22;local d1=2^23;local d2=2^24;local d3=2^25;local d4=2^26;local d5=2^27;local d6=2^28;local d7=2^29;local d8=2^30;local d9=2^31;local da=2^32;local db=2^40;local dc=256^7;local function dd(de,df,dg,dh)local di,dj=cB,cn;local dk,dl,dm,dn,dp,dq,dr,ds=de[1],de[2],de[3],de[4],de[5],de[6],de[7],de[8]for dt=dg,dg+dh-1,64 do for du=1,16 do dt=dt+4;local bt,bu,bS,bT=string.byte(df,dt-3,dt)di[du]=((bt*256+bu)*256+bS)*256+bT end;for du=17,64 do local bt,bu=di[du-15],di[du-2]di[du]=c0(cl(bt,7),ck(bt,14),aZ(bt,3))+c0(ck(bu,15),ck(bu,13),aZ(bu,10))+di[du-7]+di[du-16]end;local bt,bu,bS,bT,dv,s,dw,X=dk,dl,dm,dn,dp,dq,dr,ds;for du=1,64 do local bY=c0(cl(dv,6),cl(dv,11),ck(dv,7))+b0(dv,s)+b0(-1-dv,dw)+X+dj[du]+di[du]X=dw;dw=s;s=dv;dv=bY+bT;bT=bS;bS=bu;bu=bt;bt=bY+b0(bT,bS)+b0(bt,c0(bT,bS))+c0(cl(bt,2),cl(bt,13),ck(bt,10))end;dk,dl,dm,dn=(bt+dk)%4294967296,(bu+dl)%4294967296,(bS+dm)%4294967296,(bT+dn)%4294967296;dp,dq,dr,ds=(dv+dp)%4294967296,(s+dq)%4294967296,(dw+dr)%4294967296,(X+ds)%4294967296 end;de[1],de[2],de[3],de[4],de[5],de[6],de[7],de[8]=dk,dl,dm,dn,dp,dq,dr,ds end;local function dx(dy,dz,df,dg,dh)local di,dA,dB=cB,cm,cn;local dC,dD,dE,dF,dG,dH,dI,dJ=dy[1],dy[2],dy[3],dy[4],dy[5],dy[6],dy[7],dy[8]local dK,dL,dM,dN,dO,dP,dQ,dR=dz[1],dz[2],dz[3],dz[4],dz[5],dz[6],dz[7],dz[8]for dt=dg,dg+dh-1,128 do for du=1,16*2 do dt=dt+4;local bt,bu,bS,bT=string.byte(df,dt-3,dt)di[du]=((bt*256+bu)*256+bS)*256+bT end;for dS=34,160,2 do local dT,dU,dV,dW=di[dS-30],di[dS-31],di[dS-4],di[dS-5]local dX=c0(aZ(dT,1)+a_(dU,31),aZ(dT,8)+a_(dU,24),aZ(dT,7)+a_(dU,25))%4294967296+c0(aZ(dV,19)+a_(dW,13),a_(dV,3)+aZ(dW,29),aZ(dV,6)+a_(dW,26))%4294967296+di[dS-14]+di[dS-32]local dY=dX%4294967296;di[dS-1]=c0(aZ(dU,1)+a_(dT,31),aZ(dU,8)+a_(dT,24),aZ(dU,7))+c0(aZ(dW,19)+a_(dV,13),a_(dW,3)+aZ(dV,29),aZ(dW,6))+di[dS-15]+di[dS-33]+(dX-dY)/4294967296;di[dS]=dY end;local dT,dV,dZ,d_,e0,e1,e2,e3=dC,dD,dE,dF,dG,dH,dI,dJ;local dU,dW,e4,e5,e6,e7,e8,e9=dK,dL,dM,dN,dO,dP,dQ,dR;for du=1,80 do local dS=2*du;local dX=c0(aZ(e0,14)+a_(e6,18),aZ(e0,18)+a_(e6,14),a_(e0,23)+aZ(e6,9))%4294967296+(b0(e0,e1)+b0(-1-e0,e2))%4294967296+e3+dA[du]+di[dS]local ea=dX%4294967296;local eb=c0(aZ(e6,14)+a_(e0,18),aZ(e6,18)+a_(e0,14),a_(e6,23)+aZ(e0,9))+b0(e6,e7)+b0(-1-e6,e8)+e9+dB[du]+di[dS-1]+(dX-ea)/4294967296;e3=e2;e9=e8;e2=e1;e8=e7;e1=e0;e7=e6;dX=ea+d_;e0=dX%4294967296;e6=eb+e5+(dX-e0)/4294967296;d_=dZ;e5=e4;dZ=dV;e4=dW;dV=dT;dW=dU;dX=ea+(b0(d_,dZ)+b0(dV,c0(d_,dZ)))%4294967296+c0(aZ(dV,28)+a_(dW,4),a_(dV,30)+aZ(dW,2),a_(dV,25)+aZ(dW,7))%4294967296;dT=dX%4294967296;dU=eb+b0(e5,e4)+b0(dW,c0(e5,e4))+c0(aZ(dW,28)+a_(dV,4),a_(dW,30)+aZ(dV,2),a_(dW,25)+aZ(dV,7))+(dX-dT)/4294967296 end;dT=dC+dT;dC=dT%4294967296;dK=(dK+dU+(dT-dC)/4294967296)%4294967296;dT=dD+dV;dD=dT%4294967296;dL=(dL+dW+(dT-dD)/4294967296)%4294967296;dT=dE+dZ;dE=dT%4294967296;dM=(dM+e4+(dT-dE)/4294967296)%4294967296;dT=dF+d_;dF=dT%4294967296;dN=(dN+e5+(dT-dF)/4294967296)%4294967296;dT=dG+e0;dG=dT%4294967296;dO=(dO+e6+(dT-dG)/4294967296)%4294967296;dT=dH+e1;dH=dT%4294967296;dP=(dP+e7+(dT-dH)/4294967296)%4294967296;dT=dI+e2;dI=dT%4294967296;dQ=(dQ+e8+(dT-dI)/4294967296)%4294967296;dT=dJ+e3;dJ=dT%4294967296;dR=(dR+e9+(dT-dJ)/4294967296)%4294967296 end;dy[1],dy[2],dy[3],dy[4],dy[5],dy[6],dy[7],dy[8]=dC,dD,dE,dF,dG,dH,dI,dJ;dz[1],dz[2],dz[3],dz[4],dz[5],dz[6],dz[7],dz[8]=dK,dL,dM,dN,dO,dP,dQ,dR end;local function ec(de,df,dg,dh)local di,dj,cx=cB,cv,cx;local dk,dl,dm,dn=de[1],de[2],de[3],de[4]for dt=dg,dg+dh-1,64 do for du=1,16 do dt=dt+4;local bt,bu,bS,bT=string.byte(df,dt-3,dt)di[du]=((bT*256+bS)*256+bu)*256+bt end;local bt,bu,bS,bT=dk,dl,dm,dn;local aN=25;for du=1,16 do local ed=cl(b0(bu,bS)+b0(-1-bu,bT)+bt+dj[du]+di[du],aN)+bu;aN=cx[aN]bt=bT;bT=bS;bS=bu;bu=ed end;aN=27;for du=17,32 do local ed=cl(b0(bT,bu)+b0(-1-bT,bS)+bt+dj[du]+di[(5*du-4)%16+1],aN)+bu;aN=cx[aN]bt=bT;bT=bS;bS=bu;bu=ed end;aN=28;for du=33,48 do local ed=cl(c0(c0(bu,bS),bT)+bt+dj[du]+di[(3*du+2)%16+1],aN)+bu;aN=cx[aN]bt=bT;bT=bS;bS=bu;bu=ed end;aN=26;for du=49,64 do local ed=cl(c0(bS,c1(bu,-1-bT))+bt+dj[du]+di[(du*7-7)%16+1],aN)+bu;aN=cx[aN]bt=bT;bT=bS;bS=bu;bu=ed end;dk=(bt+dk)%4294967296;dl=(bu+dl)%4294967296;dm=(bS+dm)%4294967296;dn=(bT+dn)%4294967296 end;de[1],de[2],de[3],de[4]=dk,dl,dm,dn end;local function ee(de,df,dg,dh)local di=cB;local dk,dl,dm,dn,dp=de[1],de[2],de[3],de[4],de[5]for dt=dg,dg+dh-1,64 do for du=1,16 do dt=dt+4;local bt,bu,bS,bT=string.byte(df,dt-3,dt)di[du]=((bt*256+bu)*256+bS)*256+bT end;for du=17,80 do di[du]=ck(c0(di[du-3],di[du-8],di[du-14],di[du-16]),1)end;local bt,bu,bS,bT,dv=dk,dl,dm,dn,dp;for du=1,20 do local bY=ck(bt,5)+b0(bu,bS)+b0(-1-bu,bT)+0x5A827999+di[du]+dv;dv=bT;bT=bS;bS=cl(bu,2)bu=bt;bt=bY end;for du=21,40 do local bY=ck(bt,5)+c0(bu,bS,bT)+0x6ED9EBA1+di[du]+dv;dv=bT;bT=bS;bS=cl(bu,2)bu=bt;bt=bY end;for du=41,60 do local bY=ck(bt,5)+b0(bT,bS)+b0(bu,c0(bT,bS))+0x8F1BBCDC+di[du]+dv;dv=bT;bT=bS;bS=cl(bu,2)bu=bt;bt=bY end;for du=61,80 do local bY=ck(bt,5)+c0(bu,bS,bT)+0xCA62C1D6+di[du]+dv;dv=bT;bT=bS;bS=cl(bu,2)bu=bt;bt=bY end;dk=(bt+dk)%4294967296;dl=(bu+dl)%4294967296;dm=(bS+dm)%4294967296;dn=(bT+dn)%4294967296;dp=(dv+dp)%4294967296 end;de[1],de[2],de[3],de[4],de[5]=dk,dl,dm,dn,dp end;local function ef(eg,eh,df,dg,dh,ei)local ej,ek=cq,cr;local el=ei/8;for dt=dg,dg+dh-1,ei do for du=1,el do local bt,bu,bS,bT=string.byte(df,dt+1,dt+4)eg[du]=c0(eg[du],((bT*256+bS)*256+bu)*256+bt)dt=dt+8;bt,bu,bS,bT=string.byte(df,dt-3,dt)eh[du]=c0(eh[du],((bT*256+bS)*256+bu)*256+bt)end;local em,en,eo,ep,eq,er,es,et,eu,ev,ew,ex,ey,ez,eA,eB,eC,eD,eE,eF,eG,eH,eI,eJ,eK,eL,eM,eN,eO,eP,eQ,eR,eS,eT,eU,eV,eW,eX,eY,eZ,e_,f0,f1,f2,f3,f4,f5,f6,f7,f8=eg[1],eh[1],eg[2],eh[2],eg[3],eh[3],eg[4],eh[4],eg[5],eh[5],eg[6],eh[6],eg[7],eh[7],eg[8],eh[8],eg[9],eh[9],eg[10],eh[10],eg[11],eh[11],eg[12],eh[12],eg[13],eh[13],eg[14],eh[14],eg[15],eh[15],eg[16],eh[16],eg[17],eh[17],eg[18],eh[18],eg[19],eh[19],eg[20],eh[20],eg[21],eh[21],eg[22],eh[22],eg[23],eh[23],eg[24],eh[24],eg[25],eh[25]for f9=1,24 do local fa=c0(em,ew,eG,eQ,e_)local fb=c0(en,ex,eH,eR,f0)local fc=c0(eo,ey,eI,eS,f1)local fd=c0(ep,ez,eJ,eT,f2)local fe=c0(eq,eA,eK,eU,f3)local ff=c0(er,eB,eL,eV,f4)local fg=c0(es,eC,eM,eW,f5)local fh=c0(et,eD,eN,eX,f6)local fi=c0(eu,eE,eO,eY,f7)local fj=c0(ev,eF,eP,eZ,f8)local fk=c0(fa,fe*2+(ff%da-ff%d9)/d9)local fl=c0(fb,ff*2+(fe%da-fe%d9)/d9)local fm=c0(fk,eo)local fn=c0(fl,ep)local fo=c0(fk,ey)local fp=c0(fl,ez)local fq=c0(fk,eI)local fr=c0(fl,eJ)local ft=c0(fk,eS)local fu=c0(fl,eT)local fv=c0(fk,f1)local fw=c0(fl,f2)eo=(fo%da-fo%cZ)/cZ+fp*cR;ep=(fp%da-fp%cZ)/cZ+fo*cR;ey=(ft%da-ft%cY)/cY+fu*cS;ez=(fu%da-fu%cY)/cY+ft*cS;eI=fm*2+(fn%da-fn%d9)/d9;eJ=fn*2+(fm%da-fm%d9)/d9;eS=fq*cP+(fr%da-fr%d0)/d0;eT=fr*cP+(fq%da-fq%d0)/d0;f1=fv*cH+(fw%da-fw%d8)/d8;f2=fw*cH+(fv%da-fv%d8)/d8;fk=c0(fc,fg*2+(fh%da-fh%d9)/d9)fl=c0(fd,fh*2+(fg%da-fg%d9)/d9)fm=c0(fk,eq)fn=c0(fl,er)fo=c0(fk,eA)fp=c0(fl,eB)fq=c0(fk,eK)fr=c0(fl,eL)ft=c0(fk,eU)fu=c0(fl,eV)fv=c0(fk,f3)fw=c0(fl,f4)eq=(fq%da-fq%c_)/c_+fr*cQ;er=(fr%da-fr%c_)/c_+fq*cQ;eA=(fv%da-fv%cI)/cI+fw*d7%da;eB=(fw%da-fw%cI)/cI+fv*d7%da;eK=fo*cL+(fp%da-fp%d4)/d4;eL=fp*cL+(fo%da-fo%d4)/d4;eU=ft*cU+(fu%da-fu%cW)/cW;eV=fu*cU+(ft%da-ft%cW)/cW;f3=(fm%da-fm%cH)/cH+fn*d8%da;f4=(fn%da-fn%cH)/cH+fm*d8%da;fk=c0(fe,fi*2+(fj%da-fj%d9)/d9)fl=c0(ff,fj*2+(fi%da-fi%d9)/d9)fm=c0(fk,es)fn=c0(fl,et)fo=c0(fk,eC)fp=c0(fl,eD)fq=c0(fk,eM)fr=c0(fl,eN)ft=c0(fk,eW)fu=c0(fl,eX)fv=c0(fk,f5)fw=c0(fl,f6)es=ft*c_%da+(fu%da-fu%cQ)/cQ;et=fu*c_%da+(ft%da-ft%cQ)/cQ;eC=fm*d6%da+(fn%da-fn%cJ)/cJ;eD=fn*d6%da+(fm%da-fm%cJ)/cJ;eM=fq*d3%da+(fr%da-fr%cM)/cM;eN=fr*d3%da+(fq%da-fq%cM)/cM;eW=(fv%da-fv%cN)/cN+fw*d2%da;eX=(fw%da-fw%cN)/cN+fv*d2%da;f5=(fo%da-fo%cO)/cO+fp*d1%da;f6=(fp%da-fp%cO)/cO+fo*d1%da;fk=c0(fg,fa*2+(fb%da-fb%d9)/d9)fl=c0(fh,fb*2+(fa%da-fa%d9)/d9)fm=c0(fk,eu)fn=c0(fl,ev)fo=c0(fk,eE)fp=c0(fl,eF)fq=c0(fk,eO)fr=c0(fl,eP)ft=c0(fk,eY)fu=c0(fl,eZ)fv=c0(fk,f7)fw=c0(fl,f8)eu=fv*cT+(fw%da-fw%cX)/cX;ev=fw*cT+(fv%da-fv%cX)/cX;eE=fo*cZ%da+(fp%da-fp%cR)/cR;eF=fp*cZ%da+(fo%da-fo%cR)/cR;eO=ft*cN+(fu%da-fu%d2)/d2;eP=fu*cN+(ft%da-ft%d2)/d2;eY=fm*d5%da+(fn%da-fn%cK)/cK;eZ=fn*d5%da+(fm%da-fm%cK)/cK;f7=(fq%da-fq%d3)/d3+fr*cM;f8=(fr%da-fr%d3)/d3+fq*cM;fk=c0(fi,fc*2+(fd%da-fd%d9)/d9)fl=c0(fj,fd*2+(fc%da-fc%d9)/d9)fo=c0(fk,ew)fp=c0(fl,ex)fq=c0(fk,eG)fr=c0(fl,eH)ft=c0(fk,eQ)fu=c0(fl,eR)fv=c0(fk,e_)fw=c0(fl,f0)ew=fq*cI+(fr%da-fr%d7)/d7;ex=fr*cI+(fq%da-fq%d7)/d7;eG=fv*cX+(fw%da-fw%cT)/cT;eH=fw*cX+(fv%da-fv%cT)/cT;eQ=(fo%da-fo%d6)/d6+fp*cJ;eR=(fp%da-fp%d6)/d6+fo*cJ;e_=(ft%da-ft%d1)/d1+fu*cO;f0=(fu%da-fu%d1)/d1+ft*cO;em=c0(fk,em)en=c0(fl,en)em,eo,eq,es,eu=c0(em,b0(-1-eo,eq)),c0(eo,b0(-1-eq,es)),c0(eq,b0(-1-es,eu)),c0(es,b0(-1-eu,em)),c0(eu,b0(-1-em,eo))en,ep,er,et,ev=c0(en,b0(-1-ep,er)),c0(ep,b0(-1-er,et)),c0(er,b0(-1-et,ev)),c0(et,b0(-1-ev,en)),c0(ev,b0(-1-en,ep))ew,ey,eA,eC,eE=c0(eC,b0(-1-eE,ew)),c0(eE,b0(-1-ew,ey)),c0(ew,b0(-1-ey,eA)),c0(ey,b0(-1-eA,eC)),c0(eA,b0(-1-eC,eE))ex,ez,eB,eD,eF=c0(eD,b0(-1-eF,ex)),c0(eF,b0(-1-ex,ez)),c0(ex,b0(-1-ez,eB)),c0(ez,b0(-1-eB,eD)),c0(eB,b0(-1-eD,eF))eG,eI,eK,eM,eO=c0(eI,b0(-1-eK,eM)),c0(eK,b0(-1-eM,eO)),c0(eM,b0(-1-eO,eG)),c0(eO,b0(-1-eG,eI)),c0(eG,b0(-1-eI,eK))eH,eJ,eL,eN,eP=c0(eJ,b0(-1-eL,eN)),c0(eL,b0(-1-eN,eP)),c0(eN,b0(-1-eP,eH)),c0(eP,b0(-1-eH,eJ)),c0(eH,b0(-1-eJ,eL))eQ,eS,eU,eW,eY=c0(eY,b0(-1-eQ,eS)),c0(eQ,b0(-1-eS,eU)),c0(eS,b0(-1-eU,eW)),c0(eU,b0(-1-eW,eY)),c0(eW,b0(-1-eY,eQ))eR,eT,eV,eX,eZ=c0(eZ,b0(-1-eR,eT)),c0(eR,b0(-1-eT,eV)),c0(eT,b0(-1-eV,eX)),c0(eV,b0(-1-eX,eZ)),c0(eX,b0(-1-eZ,eR))e_,f1,f3,f5,f7=c0(f3,b0(-1-f5,f7)),c0(f5,b0(-1-f7,e_)),c0(f7,b0(-1-e_,f1)),c0(e_,b0(-1-f1,f3)),c0(f1,b0(-1-f3,f5))f0,f2,f4,f6,f8=c0(f4,b0(-1-f6,f8)),c0(f6,b0(-1-f8,f0)),c0(f8,b0(-1-f0,f2)),c0(f0,b0(-1-f2,f4)),c0(f2,b0(-1-f4,f6))em=c0(em,ej[f9])en=en+ek[f9]end;eg[1]=em;eh[1]=en;eg[2]=eo;eh[2]=ep;eg[3]=eq;eh[3]=er;eg[4]=es;eh[4]=et;eg[5]=eu;eh[5]=ev;eg[6]=ew;eh[6]=ex;eg[7]=ey;eh[7]=ez;eg[8]=eA;eh[8]=eB;eg[9]=eC;eh[9]=eD;eg[10]=eE;eh[10]=eF;eg[11]=eG;eh[11]=eH;eg[12]=eI;eh[12]=eJ;eg[13]=eK;eh[13]=eL;eg[14]=eM;eh[14]=eN;eg[15]=eO;eh[15]=eP;eg[16]=eQ;eh[16]=eR;eg[17]=eS;eh[17]=eT;eg[18]=eU;eh[18]=eV;eg[19]=eW;eh[19]=eX;eg[20]=eY;eh[20]=eZ;eg[21]=e_;eh[21]=f0;eg[22]=f1;eh[22]=f2;eg[23]=f3;eh[23]=f4;eg[24]=f5;eh[24]=f6;eg[25]=f7;eh[25]=f8 end end;do local function fx(fy,fz,fA,fB)local result,fC,fD,fE=table.create(fB),0,0,1;for du=1,fB do for am=math.max(1,du+1-#fz),math.min(du,#fy)do fC=fC+fA*fy[am]*fz[du+1-am]end;local fF=fC%d2;result[du]=math.floor(fF)fC=(fC-fF)/d2;fD=fD+fF*fE;fE=fE*d2 end;return result,fD end;local fG,fH,bw,fI,fJ,fK=0,{4,1,2,-2,2},4,{1},cp,co;repeat bw=bw+fH[bw%6]local bT=1;repeat bT=bT+fH[bT%6]if bT*bT>bw then local fL=bw^(1/3)local fM=fL*db;fM=fx(table.create(1,math.floor(fM)),fI,1,2)local g,fN=fx(fM,fx(fM,fM,1,4),-1,4)local fO=fM[2]%65536*65536+math.floor(fM[1]/256)local fP=fM[1]%256*16777216+math.floor(fN*cF/3*fL/bw)if fG<16 then fL=math.sqrt(bw)fM=fL*db;fM=fx(table.create(1,math.floor(fM)),fI,1,2)g,fN=fx(fM,fM,-1,2)local fO=fM[2]%65536*65536+math.floor(fM[1]/256)local fP=fM[1]%256*16777216+math.floor(fN*cG/fL)local fG=fG%8+1;cs[224][fG]=fP;fJ[fG],fK[fG]=fO,fP+fO*cD;if fG>7 then fJ,fK=cu[384],ct[384]end end;fG=fG+1;cn[fG],cm[fG]=fO,fP%cC+fO*cD;break end until bw%bT==0 until fG>79 end;for bN=224,256,32 do local dy,dz={},nil;if cz then for du=1,8 do dy[du]=cz(co[du])end else dz={}for du=1,8 do dy[du]=c0(co[du],0xA5A5A5A5)%4294967296;dz[du]=c0(cp[du],0xA5A5A5A5)%4294967296 end end;dx(dy,dz,'SHA-512/'..tostring(bN)..'\128'..string.rep('\0',115)..'\88',0,128)ct[bN]=dy;cu[bN]=dz end;do for fG=1,64 do local fO,fP=math.modf(math.abs(math.sin(fG))*cV)cv[fG]=fO*65536+math.floor(fP*cV)end end;do local fQ=29;local function fR()local fS=fQ%2;fQ=c0((fQ-fS)/2,142*fS)return fS end;for fG=1,24 do local fP,br=0,nil;for g=1,6 do br=br and br*br*2 or 1;fP=fP+fR()*br end;local fO=fR()*br;cr[fG],cq[fG]=fO,fP+fO*cE end end;local function fT(bN,aD)local fU=cs[bN]local fV,fW=0,''local de=table.create(8)de[1],de[2],de[3],de[4],de[5],de[6],de[7],de[8]=fU[1],fU[2],fU[3],fU[4],fU[5],fU[6],fU[7],fU[8]local function fX(fY)if fY then local fZ=#fY;if fW then fV=fV+fZ;local dg=0;local f_=#fW;if fW~=''and f_+fZ>=64 then dg=64-f_;dd(de,fW..string.sub(fY,1,dg),0,64)fW=''end;local dh=fZ-dg;local g0=dh%64;dd(de,fY,dg,dh-g0)fW=fW..string.sub(fY,fZ+1-g0)return fX else error('Adding more chunks is not allowed after receiving the result',2)end else if fW then local g1=table.create(10)g1[1]=fW;g1[2]='\128'g1[3]=string.rep('\0',(-9-fV)%64+1)fW=nil;fV=fV*8/dc;for du=4,10 do fV=fV%1*256;g1[du]=string.char(math.floor(fV))end;g1=table.concat(g1)dd(de,g1,0,#g1)local g2=bN/32;for du=1,g2 do de[du]=string.format('%08x',de[du]%4294967296)end;de=table.concat(de,'',1,g2)end;return de end end;if aD then return fX(aD)()else return fX end end;local function g3(bN,aD)local fV,fW,dy,dz=0,'',table.pack(table.unpack(ct[bN])),not cy and table.pack(table.unpack(cu[bN]))local function fX(fY)if fY then local fZ=#fY;if fW then fV=fV+fZ;local dg=0;if fW~=''and#fW+fZ>=128 then dg=128-#fW;dx(dy,dz,fW..string.sub(fY,1,dg),0,128)fW=''end;local dh=fZ-dg;local g0=dh%128;dx(dy,dz,fY,dg,dh-g0)fW=fW..string.sub(fY,fZ+1-g0)return fX else error('Adding more chunks is not allowed after receiving the result',2)end else if fW then local g1=table.create(3)g1[1]=fW;g1[2]='\128'g1[3]=string.rep('\0',(-17-fV)%128+9)fW=nil;fV=fV*8/dc;for du=4,10 do fV=fV%1*256;g1[du]=string.char(math.floor(fV))end;g1=table.concat(g1)dx(dy,dz,g1,0,#g1)local g2=math.ceil(bN/64)if cy then for du=1,g2 do dy[du]=cy(dy[du])end else for du=1,g2 do dy[du]=string.format('%08x',dz[du]%4294967296)..string.format('%08x',dy[du]%4294967296)end;dz=nil end;dy=string.sub(table.concat(dy,'',1,g2),1,bN/4)end;return dy end end;if aD then return fX(aD)()else return fX end end;local function g4(aD)local de,fV,fW=table.create(4),0,''de[1],de[2],de[3],de[4]=cw[1],cw[2],cw[3],cw[4]local function fX(fY)if fY then local fZ=#fY;if fW then fV=fV+fZ;local dg=0;if fW~=''and#fW+fZ>=64 then dg=64-#fW;ec(de,fW..string.sub(fY,1,dg),0,64)fW=''end;local dh=fZ-dg;local g0=dh%64;ec(de,fY,dg,dh-g0)fW=fW..string.sub(fY,fZ+1-g0)return fX else error('Adding more chunks is not allowed after receiving the result',2)end else if fW then local g1=table.create(3)g1[1]=fW;g1[2]='\128'g1[3]=string.rep('\0',(-9-fV)%64)fW=nil;fV=fV*8;for du=4,11 do local g5=fV%256;g1[du]=string.char(g5)fV=(fV-g5)/256 end;g1=table.concat(g1)ec(de,g1,0,#g1)for du=1,4 do de[du]=string.format('%08x',de[du]%4294967296)end;de=string.gsub(table.concat(de),'(..)(..)(..)(..)','%4%3%2%1')end;return de end end;if aD then return fX(aD)()else return fX end end;local function g6(aD)local de,fV,fW=table.pack(table.unpack(cw)),0,''local function fX(fY)if fY then local fZ=#fY;if fW then fV=fV+fZ;local dg=0;if fW~=''and#fW+fZ>=64 then dg=64-#fW;ee(de,fW..string.sub(fY,1,dg),0,64)fW=''end;local dh=fZ-dg;local g0=dh%64;ee(de,fY,dg,dh-g0)fW=fW..string.sub(fY,fZ+1-g0)return fX else error('Adding more chunks is not allowed after receiving the result',2)end else if fW then local g1=table.create(10)g1[1]=fW;g1[2]='\128'g1[3]=string.rep('\0',(-9-fV)%64+1)fW=nil;fV=fV*8/dc;for du=4,10 do fV=fV%1*256;g1[du]=string.char(math.floor(fV))end;g1=table.concat(g1)ee(de,g1,0,#g1)for du=1,5 do de[du]=string.format('%08x',de[du]%4294967296)end;de=table.concat(de)end;return de end end;if aD then return fX(aD)()else return fX end end;local function g7(ei,g8,g9,aD)if type(g8)~='number'then error('Argument \'digest_size_in_bytes\' must be a number',2)end;local fW,eg,eh='',table.create(25,0),cE==0 and table.create(25,0)local result;local function fX(fY)if fY then local fZ=#fY;if fW then local dg=0;if fW~=''and#fW+fZ>=ei then dg=ei-#fW;ef(eg,eh,fW..string.sub(fY,1,dg),0,ei,ei)fW=''end;local dh=fZ-dg;local g0=dh%ei;ef(eg,eh,fY,dg,dh-g0,ei)fW=fW..string.sub(fY,fZ+1-g0)return fX else error('Adding more chunks is not allowed after receiving the result',2)end else if fW then local ga=g9 and 31 or 6;fW=fW..(#fW+1==ei and string.char(ga+128)or string.char(ga)..string.rep('\0',(-2-#fW)%ei)..'\128')ef(eg,eh,fW,0,#fW,ei)fW=nil;local gb=0;local gc=math.floor(ei/8)local gd={}local function ge(el)if gb>=gc then ef(eg,eh,'\0\0\0\0\0\0\0\0',0,8,8)gb=0 end;el=math.floor(math.min(el,gc-gb))if cE~=0 then for du=1,el do gd[du]=cy(eg[gb+du-1+cA])end else for du=1,el do gd[du]=string.format('%08x',eh[gb+du]%4294967296)..string.format('%08x',eg[gb+du]%4294967296)end end;gb=gb+el;return string.gsub(table.concat(gd,'',1,el),'(..)(..)(..)(..)(..)(..)(..)(..)','%8%7%6%5%4%3%2%1'),el*8 end;local gf={}local gg,gh='',0;local function gi(gj)gj=gj or 1;if gj<=gh then gh=gh-gj;local gk=gj*2;local result=string.sub(gg,1,gk)gg=string.sub(gg,gk+1)return result end;local gl=0;if gh>0 then gl=1;gf[gl]=gg;gj=gj-gh end;while gj>=8 do local gm,gn=ge(gj/8)gl=gl+1;gf[gl]=gm;gj=gj-gn end;if gj>0 then gg,gh=ge(1)gl=gl+1;gf[gl]=gi(gj)else gg,gh='',0 end;return table.concat(gf,'',1,gl)end;if g8<0 then result=gi else result=gi(g8)end end;return result end end;if aD then return fX(aD)()else return fX end end;local function go(gp)return string.char(tonumber(gp,16))end;local function gq(gr)return string.gsub(gr,'%x%x',go)end;local gs={['+']=62,['-']=62,[62]='+',['/']=63,['_']=63,[63]='/',['=']=-1,['.']=-1,[-1]='='}local gt=0;for du,gu in ipairs{'AZ','az','09'}do for gv=string.byte(gu),string.byte(gu,2)do local gw=string.char(gv)gs[gw]=gt;gs[gt]=gw;gt=gt+1 end end;local function gx(gy)local gz=#gy;local result=table.create(math.ceil(gz/3))local fV=0;for dt=1,#gy,3 do local gA,gB,gC,gD=string.byte(string.sub(gy,dt,dt+2)..'\0',1,-1)fV=fV+1;result[fV]=gs[math.floor(gA/4)]..gs[gA%4*16+math.floor(gB/16)]..gs[gC and gB%16*4+math.floor(gC/64)or-1]..gs[gD and gC%64 or-1]end;return table.concat(result)end;local function gE(gF)local result,gG={},3;for dt,gw in string.gmatch(string.gsub(gF,'%s+',''),'()(.)')do local gH=gs[gw]if gH<0 then gG=gG-1;gH=0 end;local fG=dt%4;if fG>0 then result[-fG]=gH else local gA=result[-1]*4+math.floor(result[-2]/16)local gB=result[-2]%16*16+math.floor(result[-3]/4)local gC=result[-3]%4*64+gH;result[#result+1]=string.sub(string.char(gA,gB,gC),1,gG)end end;return table.concat(result)end;local gI;local gJ={}for aW=0,255 do gJ[string.format('%02x',aW)]=string.char(aW)end;local function gK(gL,gM,aD,gN)local gO=gI[gL]if not gO then error('Unknown hash function',2)end;local gP=#gM;if gP>gO then gM=string.gsub(gL(gM),'%x%x',go)gP=#gM end;local gQ=gL()(string.gsub(gM,'.',function(bS)return string.char(c0(string.byte(bS),0x36))end)..string.rep('6',gO-gP))local result;local function fX(fY)if not fY then result=result or gL(string.gsub(gM,'.',function(bS)return string.char(c0(string.byte(bS),0x5c))end)..string.rep('\\',gO-gP)..string.gsub(gQ(),'%x%x',go))return result elseif result then error('Adding more chunks is not allowed after receiving the result',2)else gQ(fY)return fX end end;if aD then local gR=fX(aD)()return gN and string.gsub(gR,'%x%x',gJ)or gR else return fX end end;local az={md5=g4,sha1=g6,sha224=function(aD)return fT(224,aD)end,sha256=function(aD)return fT(256,aD)end,sha512_224=function(aD)return g3(224,aD)end,sha512_256=function(aD)return g3(256,aD)end,sha384=function(aD)return g3(384,aD)end,sha512=function(aD)return g3(512,aD)end,sha3_224=function(aD)return g7((1600-2*224)/8,224/8,false,aD)end,sha3_256=function(aD)return g7((1600-2*256)/8,256/8,false,aD)end,sha3_384=function(aD)return g7((1600-2*384)/8,384/8,false,aD)end,sha3_512=function(aD)return g7((1600-2*512)/8,512/8,false,aD)end,shake128=function(aD,g8)return g7((1600-2*128)/8,g8,true,aD)end,shake256=function(aD,g8)return g7((1600-2*256)/8,g8,true,aD)end,hmac=gK,hex_to_bin=gq,base64_to_bin=gE,bin_to_base64=gx,base64_encode=aY.Encode,base64_decode=aY.Decode}gI={[az.md5]=64,[az.sha1]=64,[az.sha224]=64,[az.sha256]=64,[az.sha512_224]=128,[az.sha512_256]=128,[az.sha384]=128,[az.sha512]=128,[az.sha3_224]=(1600-2*224)/8,[az.sha3_256]=(1600-2*256)/8,[az.sha3_384]=(1600-2*384)/8,[az.sha3_512]=(1600-2*512)/8}return az end;d['packages/hash.lua'].cache=c;d['packages/hash.lua'].isCached=false;d['packages/installationid.lua']={}d['packages/installationid.lua'].load=function()local k='installationid.lua'local l='packages/installationid.lua'local m='packages'local n='10146445b36d51a8d1210dd1992188627b636415a980ea5f1d2c10fcf0173fa5611870fc115b5b5ecdc684447560993e3d4718f2c33783d42362403c2dc140d8'local q,xor,a9=require'uniquekeys',require'xor',require'hash'local gS={['get']=function()return a9.sha3_512(xor('installationid',q.uid))end,['set']=function()error'Cannot set installation id!'end}_G.InstallationID=gS;return gS end;d['packages/installationid.lua'].cache=c;d['packages/installationid.lua'].isCached=false;d['packages/json.lua']={}d['packages/json.lua'].load=function()local k='json.lua'local l='packages/json.lua'local m='packages'local n='4dc5f6c3b5bcd0f200b1ef9ff4a812b86e199331cbfa9858a9c73f2c8b513872a4d3fbd59b0a2d82a36115ac629be786085aa54cbe4d445b0ade77bea5350a86'local bt={}local function bu(bS)if type(bS)~='table'then return type(bS)end;local bT=1;for dv in pairs(bS)do if bS[bT]~=nil then bT=bT+1 else return'table'end end;if bT==1 then return'table'else return'array'end end;local function s(dw)local X={'\\','"','/','\b','\f','\n','\r','\t'}local gT={'\\','"','/','b','f','n','r','t'}for bT,du in ipairs(X)do dw=dw:gsub(du,'\\'..gT[bT])end;return dw end;local function am(gU,br,bJ,D)br=br+#gU:match('^%s*',br)if gU:sub(br,br)~=bJ then if D then error('Expected '..bJ..' near position '..br)end;return br,false end;return br+1,true end;local function bw(gU,br,gV)gV=gV or''local fS='End of input found while parsing string.'if br>#gU then error(fS)end;local du=gU:sub(br,br)if du=='"'then return gV,br+1 end;if du~='\\'then return bw(gU,br+1,gV..du)end;local aN={b='\b',f='\f',n='\n',r='\r',t='\t'}local bp=gU:sub(br+1,br+1)if not bp then error(fS)end;return bw(gU,br+2,gV..(aN[bp]or bp))end;local function gW(gU,br)local an=gU:match('^-?%d+%.?%d*[eE]?[+-]?%d*',br)local gV=tonumber(an)if not gV then error('Error parsing number at position '..br..'.')end;return gV,br+#an end;function bt.stringify(bS,W)local dw={}local E=bu(bS)if E=='array'then if W then error'Can\'t encode array as key.'end;dw[#dw+1]='['for bT,gV in ipairs(bS)do if bT>1 then dw[#dw+1]=', 'end;dw[#dw+1]=bt.stringify(gV)end;dw[#dw+1]=']'elseif E=='table'then if W then error'Can\'t encode table as key.'end;dw[#dw+1]='{'for F,bY in pairs(bS)do if#dw>1 then dw[#dw+1]=', 'end;dw[#dw+1]=bt.stringify(F,true)dw[#dw+1]=':'dw[#dw+1]=bt.stringify(bY)end;dw[#dw+1]='}'elseif E=='string'then return'"'..s(bS)..'"'elseif E=='number'then if W then return'"'..tostring(bS)..'"'end;return tostring(bS)elseif E=='boolean'then return tostring(bS)elseif E=='nil'then return'null'else error('Unjsonifiable type: '..E..'.')end;return table.concat(dw)end;bt.null={}function bt.parse(gU,br,b7)br=br or 1;if br>#gU then error'Reached unexpected end of input.'end;local br=br+#gU:match('^%s*',br)local b8=gU:sub(br,br)if b8=='{'then local bS,b9,ba={},true,true;br=br+1;while true do b9,br=bt.parse(gU,br,'}')if b9==nil then return bS,br end;if not ba then error'Comma missing between object items.'end;br=am(gU,br,':',true)bS[b9],br=bt.parse(gU,br)br,ba=am(gU,br,',')end elseif b8=='['then local gX,gV,ba={},true,true;br=br+1;while true do gV,br=bt.parse(gU,br,']')if gV==nil then return gX,br end;if not ba then error'Comma missing between array items.'end;gX[#gX+1]=gV;br,ba=am(gU,br,',')end elseif b8=='"'then return bw(gU,br+1)elseif b8=='-'or b8:match'%d'then return gW(gU,br)elseif b8==b7 then return nil,br+1 else local ed={['true']=true,['false']=false,['null']=bt.null}for gY,de in pairs(ed)do local gZ=br+#gY-1;if gU:sub(br,gZ)==gY then return de,gZ+1 end end;local g_='position '..br..': '..gU:sub(br,br+10)error('Invalid json syntax starting at '..g_)end end;return bt end;d['packages/json.lua'].cache=c;d['packages/json.lua'].isCached=false;d['packages/polyfills/table.create.lua']={}d['packages/polyfills/table.create.lua'].load=function()local k='table.create.lua'local l='packages/polyfills/table.create.lua'local m='packages/polyfills'local n='19eaa311cabc2e4b53501a8cc4090692c36cbccc4e75a0d082e8cfa7543f48cf5f70db601dba94ede670a483e36bcd7a309d720e32921ef0fd000770c799fced'_G.table.create=table.create or function(h0,fD)local bp={}for gT=1,h0,1 do bp[gT]=fD end;return bp end end;d['packages/polyfills/table.create.lua'].cache=c;d['packages/polyfills/table.create.lua'].isCached=false;d['packages/rstr.lua']={}d['packages/rstr.lua'].load=function()local k='rstr.lua'local l='packages/rstr.lua'local m='packages'local n='3fbb599255778057fec55666068f44b9a1168c88fe0501982982796a7a4ed688899a4351a63875869b27a384b203df47f132982656b98423029bfe4e91d51645'local h1=function(h2)h2=h2 or'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 'local h3=math.random(1,#h2)return h2:sub(h3,h3)end;return function(h4,h2)local df=''for gT=1,h4,1 do df=df..h1(h2)end;return df end end;d['packages/rstr.lua'].cache=c;d['packages/rstr.lua'].isCached=false;d['packages/termination.lua']={}d['packages/termination.lua'].load=function()local k='termination.lua'local l='packages/termination.lua'local m='packages'local n='363f9ffadf1be9c7074c012ecb77d6377a0d2f277f09668eefa74399becf750fbce66eaa4c0b31af551d25107c01d0d99855051a8b4473e1a01b04f4ec019dd5'local h5=false;local h6=os.pullEvent;return{['setDisabled']=function(an)if an then if an~=h5 then h6=os.pullEvent end;os.pullEvent=os.pullEventRaw else os.pullEvent=h6 end;h5=an end,['getDisabled']=function()return h5 end}end;d['packages/termination.lua'].cache=c;d['packages/termination.lua'].isCached=false;d['packages/uniquekeys.lua']={}d['packages/uniquekeys.lua'].load=function()local k='uniquekeys.lua'local l='packages/uniquekeys.lua'local m='packages'local n='69341cef2a30278934e7e8d81147bab29d3997c1526d20da185bcbef19e3eb915fdc9d408f5c5c34c628d7f9cf672a4ecdb6fb1ac550f0d2a2581a735ed17d59'local h7=function(h8)return string.sub(h8,1,3)~='!!!'end;local h9={['pw']='!!!pw',['enc']='!!!enc',['Eenc']='!!!Eenc',['uid']='!!!uid'}for am,an in pairs(h9)do if not h7(an)then h9[am]=require'rstr'(512)end end;local ha=false;if ha then for am,an in pairs(h9)do h9[am]=require('base64').Decode(an)end end;return h9 end;d['packages/uniquekeys.lua'].cache=c;d['packages/uniquekeys.lua'].isCached=false;d['packages/xor.lua']={}d['packages/xor.lua'].load=function()local k='xor.lua'local l='packages/xor.lua'local m='packages'local n='12d0c046a9f96fd64280170a2c96a2a7f5260f2189c4756df9dc028a99a73a464037fc967316fb58d20cdf15f91533f94e69c163cf7c06b73c60472bc6528eb2'function repeat_key(gM,fV)if#gM>=fV then return gM:sub(1,fV)end;times=math.floor(fV/#gM)remain=fV%#gM;result=''for gT=1,times do result=result..gM end;if remain>0 then result=result..gM:sub(1,remain)end;return result end;function xor(aD,gM)rkey=repeat_key(gM,#aD)result=''for gT=1,#aD do k_char=rkey:sub(gT,gT)m_char=aD:sub(gT,gT)k_byte=k_char:byte()m_byte=m_char:byte()xor_byte=require('bitop').bxor(m_byte,k_byte)xor_char=string.char(xor_byte)result=result..xor_char end;return result end;return xor end;d['packages/xor.lua'].cache=c;d['packages/xor.lua'].isCached=false;d['version.lua']={}d['version.lua'].load=function()local k='version.lua'local l='version.lua'local m=''local n='7a5cd8cbe43906f7f1c1d50eb18312aff11909772deab5fdcb3a901ad7a86384bebb471694b4760cc67147c5c541519eaba249f1e6426369a2d2db6a32eadfc4'return'1.0.0'end;d['version.lua'].cache=c;d['version.lua'].isCached=false;d['applications']=d['applications.lua']d['applications.lua']=d['applications.lua']d['applications']=d['applications.lua']d['/applications']=d['applications.lua']d['\\applications.lua']=d['applications.lua']d['\\applications']=d['applications.lua']d['auth']=d['auth.lua']d['auth.lua']=d['auth.lua']d['auth']=d['auth.lua']d['/auth']=d['auth.lua']d['\\auth.lua']=d['auth.lua']d['\\auth']=d['auth.lua']d['boot']=d['boot.lua']d['boot.lua']=d['boot.lua']d['boot']=d['boot.lua']d['/boot']=d['boot.lua']d['\\boot.lua']=d['boot.lua']d['\\boot']=d['boot.lua']d['frontends/_error']=d['frontends/_error.lua']d['frontends\\_error.lua']=d['frontends/_error.lua']d['frontends\\_error']=d['frontends/_error.lua']d['/frontends/_error']=d['frontends/_error.lua']d['\\frontends\\_error.lua']=d['frontends/_error.lua']d['\\frontends\\_error']=d['frontends/_error.lua']d['frontends/basalt-or-lite']=d['frontends/basalt-or-lite.lua']d['frontends\\basalt-or-lite.lua']=d['frontends/basalt-or-lite.lua']d['frontends\\basalt-or-lite']=d['frontends/basalt-or-lite.lua']d['/frontends/basalt-or-lite']=d['frontends/basalt-or-lite.lua']d['\\frontends\\basalt-or-lite.lua']=d['frontends/basalt-or-lite.lua']d['\\frontends\\basalt-or-lite']=d['frontends/basalt-or-lite.lua']d['frontends/basalt']=d['frontends/basalt.lua']d['frontends\\basalt.lua']=d['frontends/basalt.lua']d['frontends\\basalt']=d['frontends/basalt.lua']d['/frontends/basalt']=d['frontends/basalt.lua']d['\\frontends\\basalt.lua']=d['frontends/basalt.lua']d['\\frontends\\basalt']=d['frontends/basalt.lua']d['frontends/lite']=d['frontends/lite.lua']d['frontends\\lite.lua']=d['frontends/lite.lua']d['frontends\\lite']=d['frontends/lite.lua']d['/frontends/lite']=d['frontends/lite.lua']d['\\frontends\\lite.lua']=d['frontends/lite.lua']d['\\frontends\\lite']=d['frontends/lite.lua']d['frontends/login-only']=d['frontends/login-only.lua']d['frontends\\login-only.lua']=d['frontends/login-only.lua']d['frontends\\login-only']=d['frontends/login-only.lua']d['/frontends/login-only']=d['frontends/login-only.lua']d['\\frontends\\login-only.lua']=d['frontends/login-only.lua']d['\\frontends\\login-only']=d['frontends/login-only.lua']d['index']=d['index.lua']d['index.lua']=d['index.lua']d['index']=d['index.lua']d['/index']=d['index.lua']d['\\index.lua']=d['index.lua']d['\\index']=d['index.lua']d['']=d['index.lua']d['']=d['index.lua']d['']=d['index.lua']d['/']=d['index.lua']d['\\']=d['index.lua']d['\\']=d['index.lua']d['load-installer']=d['load-installer.lua']d['load-installer.lua']=d['load-installer.lua']d['load-installer']=d['load-installer.lua']d['/load-installer']=d['load-installer.lua']d['\\load-installer.lua']=d['load-installer.lua']d['\\load-installer']=d['load-installer.lua']d['login']=d['login.lua']d['login.lua']=d['login.lua']d['login']=d['login.lua']d['/login']=d['login.lua']d['\\login.lua']=d['login.lua']d['\\login']=d['login.lua']d['misc/chime']=d['misc/chime.lua']d['misc\\chime.lua']=d['misc/chime.lua']d['misc\\chime']=d['misc/chime.lua']d['/misc/chime']=d['misc/chime.lua']d['\\misc\\chime.lua']=d['misc/chime.lua']d['\\misc\\chime']=d['misc/chime.lua']d['networking/secnet']=d['networking/secnet.lua']d['networking\\secnet.lua']=d['networking/secnet.lua']d['networking\\secnet']=d['networking/secnet.lua']d['/networking/secnet']=d['networking/secnet.lua']d['\\networking\\secnet.lua']=d['networking/secnet.lua']d['\\networking\\secnet']=d['networking/secnet.lua']d['packages/basalt']=d['packages/basalt.lua']d['packages\\basalt.lua']=d['packages/basalt.lua']d['packages\\basalt']=d['packages/basalt.lua']d['basalt']=d['packages/basalt.lua']d['basalt.lua']=d['packages/basalt.lua']d['basalt']=d['packages/basalt.lua']d['/basalt']=d['packages/basalt.lua']d['\\basalt.lua']=d['packages/basalt.lua']d['\\basalt']=d['packages/basalt.lua']d['/packages/basalt']=d['packages/basalt.lua']d['\\packages\\basalt.lua']=d['packages/basalt.lua']d['\\packages\\basalt']=d['packages/basalt.lua']d['packages/base64']=d['packages/base64.lua']d['packages\\base64.lua']=d['packages/base64.lua']d['packages\\base64']=d['packages/base64.lua']d['base64']=d['packages/base64.lua']d['base64.lua']=d['packages/base64.lua']d['base64']=d['packages/base64.lua']d['/base64']=d['packages/base64.lua']d['\\base64.lua']=d['packages/base64.lua']d['\\base64']=d['packages/base64.lua']d['/packages/base64']=d['packages/base64.lua']d['\\packages\\base64.lua']=d['packages/base64.lua']d['\\packages\\base64']=d['packages/base64.lua']d['packages/bitop']=d['packages/bitop.lua']d['packages\\bitop.lua']=d['packages/bitop.lua']d['packages\\bitop']=d['packages/bitop.lua']d['bitop']=d['packages/bitop.lua']d['bitop.lua']=d['packages/bitop.lua']d['bitop']=d['packages/bitop.lua']d['/bitop']=d['packages/bitop.lua']d['\\bitop.lua']=d['packages/bitop.lua']d['\\bitop']=d['packages/bitop.lua']d['/packages/bitop']=d['packages/bitop.lua']d['\\packages\\bitop.lua']=d['packages/bitop.lua']d['\\packages\\bitop']=d['packages/bitop.lua']d['packages/child_process']=d['packages/child_process.lua']d['packages\\child_process.lua']=d['packages/child_process.lua']d['packages\\child_process']=d['packages/child_process.lua']d['child_process']=d['packages/child_process.lua']d['child_process.lua']=d['packages/child_process.lua']d['child_process']=d['packages/child_process.lua']d['/child_process']=d['packages/child_process.lua']d['\\child_process.lua']=d['packages/child_process.lua']d['\\child_process']=d['packages/child_process.lua']d['/packages/child_process']=d['packages/child_process.lua']d['\\packages\\child_process.lua']=d['packages/child_process.lua']d['\\packages\\child_process']=d['packages/child_process.lua']d['packages/console']=d['packages/console.lua']d['packages\\console.lua']=d['packages/console.lua']d['packages\\console']=d['packages/console.lua']d['console']=d['packages/console.lua']d['console.lua']=d['packages/console.lua']d['console']=d['packages/console.lua']d['/console']=d['packages/console.lua']d['\\console.lua']=d['packages/console.lua']d['\\console']=d['packages/console.lua']d['/packages/console']=d['packages/console.lua']d['\\packages\\console.lua']=d['packages/console.lua']d['\\packages\\console']=d['packages/console.lua']d['packages/deepcopy']=d['packages/deepcopy.lua']d['packages\\deepcopy.lua']=d['packages/deepcopy.lua']d['packages\\deepcopy']=d['packages/deepcopy.lua']d['deepcopy']=d['packages/deepcopy.lua']d['deepcopy.lua']=d['packages/deepcopy.lua']d['deepcopy']=d['packages/deepcopy.lua']d['/deepcopy']=d['packages/deepcopy.lua']d['\\deepcopy.lua']=d['packages/deepcopy.lua']d['\\deepcopy']=d['packages/deepcopy.lua']d['/packages/deepcopy']=d['packages/deepcopy.lua']d['\\packages\\deepcopy.lua']=d['packages/deepcopy.lua']d['\\packages\\deepcopy']=d['packages/deepcopy.lua']d['packages/forceyield']=d['packages/forceyield.lua']d['packages\\forceyield.lua']=d['packages/forceyield.lua']d['packages\\forceyield']=d['packages/forceyield.lua']d['forceyield']=d['packages/forceyield.lua']d['forceyield.lua']=d['packages/forceyield.lua']d['forceyield']=d['packages/forceyield.lua']d['/forceyield']=d['packages/forceyield.lua']d['\\forceyield.lua']=d['packages/forceyield.lua']d['\\forceyield']=d['packages/forceyield.lua']d['/packages/forceyield']=d['packages/forceyield.lua']d['\\packages\\forceyield.lua']=d['packages/forceyield.lua']d['\\packages\\forceyield']=d['packages/forceyield.lua']d['packages/hash']=d['packages/hash.lua']d['packages\\hash.lua']=d['packages/hash.lua']d['packages\\hash']=d['packages/hash.lua']d['hash']=d['packages/hash.lua']d['hash.lua']=d['packages/hash.lua']d['hash']=d['packages/hash.lua']d['/hash']=d['packages/hash.lua']d['\\hash.lua']=d['packages/hash.lua']d['\\hash']=d['packages/hash.lua']d['/packages/hash']=d['packages/hash.lua']d['\\packages\\hash.lua']=d['packages/hash.lua']d['\\packages\\hash']=d['packages/hash.lua']d['packages/installationid']=d['packages/installationid.lua']d['packages\\installationid.lua']=d['packages/installationid.lua']d['packages\\installationid']=d['packages/installationid.lua']d['installationid']=d['packages/installationid.lua']d['installationid.lua']=d['packages/installationid.lua']d['installationid']=d['packages/installationid.lua']d['/installationid']=d['packages/installationid.lua']d['\\installationid.lua']=d['packages/installationid.lua']d['\\installationid']=d['packages/installationid.lua']d['/packages/installationid']=d['packages/installationid.lua']d['\\packages\\installationid.lua']=d['packages/installationid.lua']d['\\packages\\installationid']=d['packages/installationid.lua']d['packages/json']=d['packages/json.lua']d['packages\\json.lua']=d['packages/json.lua']d['packages\\json']=d['packages/json.lua']d['json']=d['packages/json.lua']d['json.lua']=d['packages/json.lua']d['json']=d['packages/json.lua']d['/json']=d['packages/json.lua']d['\\json.lua']=d['packages/json.lua']d['\\json']=d['packages/json.lua']d['/packages/json']=d['packages/json.lua']d['\\packages\\json.lua']=d['packages/json.lua']d['\\packages\\json']=d['packages/json.lua']d['packages/polyfills/table.create']=d['packages/polyfills/table.create.lua']d['packages\\polyfills\\table.create.lua']=d['packages/polyfills/table.create.lua']d['packages\\polyfills\\table.create']=d['packages/polyfills/table.create.lua']d['polyfills/table.create']=d['packages/polyfills/table.create.lua']d['polyfills\\table.create.lua']=d['packages/polyfills/table.create.lua']d['polyfills\\table.create']=d['packages/polyfills/table.create.lua']d['/polyfills/table.create']=d['packages/polyfills/table.create.lua']d['\\polyfills\\table.create.lua']=d['packages/polyfills/table.create.lua']d['\\polyfills\\table.create']=d['packages/polyfills/table.create.lua']d['/packages/polyfills/table.create']=d['packages/polyfills/table.create.lua']d['\\packages\\polyfills\\table.create.lua']=d['packages/polyfills/table.create.lua']d['\\packages\\polyfills\\table.create']=d['packages/polyfills/table.create.lua']d['packages/rstr']=d['packages/rstr.lua']d['packages\\rstr.lua']=d['packages/rstr.lua']d['packages\\rstr']=d['packages/rstr.lua']d['rstr']=d['packages/rstr.lua']d['rstr.lua']=d['packages/rstr.lua']d['rstr']=d['packages/rstr.lua']d['/rstr']=d['packages/rstr.lua']d['\\rstr.lua']=d['packages/rstr.lua']d['\\rstr']=d['packages/rstr.lua']d['/packages/rstr']=d['packages/rstr.lua']d['\\packages\\rstr.lua']=d['packages/rstr.lua']d['\\packages\\rstr']=d['packages/rstr.lua']d['packages/termination']=d['packages/termination.lua']d['packages\\termination.lua']=d['packages/termination.lua']d['packages\\termination']=d['packages/termination.lua']d['termination']=d['packages/termination.lua']d['termination.lua']=d['packages/termination.lua']d['termination']=d['packages/termination.lua']d['/termination']=d['packages/termination.lua']d['\\termination.lua']=d['packages/termination.lua']d['\\termination']=d['packages/termination.lua']d['/packages/termination']=d['packages/termination.lua']d['\\packages\\termination.lua']=d['packages/termination.lua']d['\\packages\\termination']=d['packages/termination.lua']d['packages/uniquekeys']=d['packages/uniquekeys.lua']d['packages\\uniquekeys.lua']=d['packages/uniquekeys.lua']d['packages\\uniquekeys']=d['packages/uniquekeys.lua']d['uniquekeys']=d['packages/uniquekeys.lua']d['uniquekeys.lua']=d['packages/uniquekeys.lua']d['uniquekeys']=d['packages/uniquekeys.lua']d['/uniquekeys']=d['packages/uniquekeys.lua']d['\\uniquekeys.lua']=d['packages/uniquekeys.lua']d['\\uniquekeys']=d['packages/uniquekeys.lua']d['/packages/uniquekeys']=d['packages/uniquekeys.lua']d['\\packages\\uniquekeys.lua']=d['packages/uniquekeys.lua']d['\\packages\\uniquekeys']=d['packages/uniquekeys.lua']d['packages/xor']=d['packages/xor.lua']d['packages\\xor.lua']=d['packages/xor.lua']d['packages\\xor']=d['packages/xor.lua']d['xor']=d['packages/xor.lua']d['xor.lua']=d['packages/xor.lua']d['xor']=d['packages/xor.lua']d['/xor']=d['packages/xor.lua']d['\\xor.lua']=d['packages/xor.lua']d['\\xor']=d['packages/xor.lua']d['/packages/xor']=d['packages/xor.lua']d['\\packages\\xor.lua']=d['packages/xor.lua']d['\\packages\\xor']=d['packages/xor.lua']d['version']=d['version.lua']d['version.lua']=d['version.lua']d['version']=d['version.lua']d['/version']=d['version.lua']d['\\version.lua']=d['version.lua']d['\\version']=d['version.lua']return require'index'end)(require or function()end,...)
+-- Built at Tue Nov 15 2022 12:31:36 GMT+0100 (Central European Standard Time) / Development --
+return (function(oldRequire,...) -- put everything in a seperate closure
+-- Yielding's Bundler Prefix Script
+-- Forked & Stripped by Mokiy
+-- Copyright (c) 2022 YieldingExploiter.
+-- Copyright (c) 2022 MokiyCodes.
+-- MIT License
+
+local args = { ... }
+local null = nil -- null is better than nil, change my mind
+local modules = {} -- we will assign modules to here later
+local require = function(...) -- handle loading modules
+  local requested, returned = { ... }, {}
+  for _, filepath in pairs(requested) do
+    if not modules[filepath] then
+      table.insert(returned, oldRequire(filepath) or error('[blb] no such module \'' .. filepath .. '\''))
+    else
+      local module = modules[filepath]
+      if module.isCached then
+        table.insert(returned, module.cache)
+      else
+        local moduleValue = module.load()
+        module.cache = moduleValue
+        module.isCached = true
+        table.insert(returned, module.cache)
+      end
+    end
+  end
+  return table.unpack(returned)
+end
+
+
+--> BEGIN Initial Module Definitions <--
+
+modules['applications.lua'] = {};
+modules['applications.lua'].load = function()
+local __just_filename = 'applications.lua';
+local __filename = 'applications.lua';
+local __dirname = '';
+local __hash = '55bf48988a70242245adb1e19ce4bdd8443825bf6999f2a01bd571a646e8a060094977d747464c3010dea3104291267c6a782a0e108492e1fd3dc2a8f358787f';
+return {}
+
+end;
+modules['applications.lua'].cache = null;
+modules['applications.lua'].isCached = false;
+
+----
+
+modules['auth.lua'] = {};
+modules['auth.lua'].load = function()
+local __just_filename = 'auth.lua';
+local __filename = 'auth.lua';
+local __dirname = '';
+local __hash = '96323b36e72a59f49468259a2f09b374829301bff3962b92cea634898064cedecbd96860feb71ee0ad1b58f0f4a55592d3cf8d0733f48c2f84ea93d1ed14a50f';
+local base64 = require 'base64'
+local encrypted = '_ENCRYPTME'
+if encrypted ~= '_' .. 'ENCRYPTME' then
+  encrypted = base64.Decode(encrypted)
+end
+return { encryped = encrypted }
+
+end;
+modules['auth.lua'].cache = null;
+modules['auth.lua'].isCached = false;
+
+----
+
+modules['boot.lua'] = {};
+modules['boot.lua'].load = function()
+local __just_filename = 'boot.lua';
+local __filename = 'boot.lua';
+local __dirname = '';
+local __hash = '3d84d529cb65157dd6d30f9bc878977d5dd218641bc42661951e916528e0ee7a0515b6958193cf9864edae2eeebd042e07e5cc89bb09539a7c542996d18f8848';
+local console = require 'console'
+return function()
+  console.clear()
+  console.centerLog 'Finalizing...'
+  -- provide encryption lib
+  local xor = require 'xor'
+  local uniqueKeys = require 'uniquekeys'
+  _G.ccoEncryption = {
+    -- Encrypts a string to securely store it locally
+    ['encryptLocal'] = function(data)
+      return xor(data, uniqueKeys.enc)
+    end,
+  }
+  _G.ccoEncryption.decryptLocal = _G.ccoEncryption.encryptLocal
+  _G._g = _G
+  console.clear()
+  console.centerLog 'Loading Frontend...'
+  if not fs.exists '/.cco/setting-dm.txt' then
+    local f = fs.open('/.cco/setting-dm.txt', 'w')
+    f.write 'basalt-or-lite'
+    f.close()
+  end
+  if not fs.exists '/.cco/frontends/' then
+    fs.makeDir '/.cco/frontends'
+  end
+  local frontend
+  local frontendFile = fs.open('/.cco/setting-dm.txt', 'r')
+  frontend = frontendFile.readAll()
+  frontendFile.close()
+  if fs.exists('/.cco/frontends/' .. frontend .. '.lua') then
+    local frontendScript = fs.open('/.cco/frontends/' .. frontend .. '.lua', 'r')
+    local frontendCode = frontendScript.readAll()
+    frontendScript.close()
+    ---@diagnostic disable-next-line: deprecated
+    local byte, err = (loadstring or load)(frontendCode)
+    if type(byte) ~= 'function' then
+      error('Compilation Error: ' .. err)
+    end
+    local rt = byte()
+    if type(rt) == 'function' then
+      rt = rt()
+    end
+    return rt
+  else
+    if not shell then
+      error 'No shell.\nPlease try again.'
+    end
+    _G.shell = _G.shell or shell
+    return require('frontends/' .. frontend)()
+  end
+end
+
+end;
+modules['boot.lua'].cache = null;
+modules['boot.lua'].isCached = false;
+
+----
+
+modules['frontends/_error.lua'] = {};
+modules['frontends/_error.lua'].load = function()
+local __just_filename = '_error.lua';
+local __filename = 'frontends/_error.lua';
+local __dirname = 'frontends';
+local __hash = 'd825138b2031244e0b51fb8ada0f6820ba99b7913e62cbeb33262dd83ac0fc916217eef046df77f679858d5e44add7b1cdf24f2daac40e5eba0947a7c6541f22';
+return function()
+  printError 'An error has occurred while loading your Desktop Manager / Frontend.\n\nRestart using the \'reboot\' command.\nReset the frontend setting by running \'delete .cco/setting-dm.txt\' then rebooting.'
+end
+
+end;
+modules['frontends/_error.lua'].cache = null;
+modules['frontends/_error.lua'].isCached = false;
+
+----
+
+modules['frontends/basalt-or-lite.lua'] = {};
+modules['frontends/basalt-or-lite.lua'].load = function()
+local __just_filename = 'basalt-or-lite.lua';
+local __filename = 'frontends/basalt-or-lite.lua';
+local __dirname = 'frontends';
+local __hash = '23695980f5c1b4ae1150662633433a041962f8e4fa3885f93b676b3f2526236e771f904184a6f664cc8d00d9e6f709450aca5e0a962b2235e0e3f6ce04721da2';
+-- basalt if we're in color, otherwise use lite
+return (not term.isColor or not term.isColor()) and require 'frontends/lite' or require 'frontends/basalt'
+
+end;
+modules['frontends/basalt-or-lite.lua'].cache = null;
+modules['frontends/basalt-or-lite.lua'].isCached = false;
+
+----
+
+modules['frontends/basalt.lua'] = {};
+modules['frontends/basalt.lua'].load = function()
+local __just_filename = 'basalt.lua';
+local __filename = 'frontends/basalt.lua';
+local __dirname = 'frontends';
+local __hash = 'ebca313963d70dcfba7182716b0c636e3e7eb8c6c5431bdd0a9dbcd2672c2cb66a3fc1aef1f68f908c453454505dba1636a831f227ae20181061b49bd0227853';
+return function()
+  -- display check
+  if not term.isColor or not term.isColor() then
+    local monitors = { peripheral.find 'monitor' }
+    local monitorsByName = {}
+    local hasColour = false
+    for _, o in pairs(monitors) do
+      local x, y = o.getSize()
+      if o.isColour() and not (x < 10 or y < 10) then
+        monitorsByName[peripheral.getName(o)] = o
+        hasColour = true
+      end
+    end
+    if #monitors == 0 or not hasColour then
+      print 'Please connect an advanced monitor (2x2 minimum) or run this on an advanced (golden) computer.\nReturning to shell.'
+      return
+    end
+    local response = ''
+    while not monitorsByName[response] do
+      console.clear()
+      print 'Please input a monitor to use.\nAvailable colour monitors:'
+      for name in pairs(monitorsByName) do
+        print('-', name)
+      end
+      print '\nNote: You\'ll still need to perform keyboard input on this device.\n\nSelected Montior:'
+      response = read()
+    end
+    console.clear()
+    console.centerLog 'Please continue on the monitor.\nInput text here.'
+    term.redirect(monitorsByName[response])
+  end
+
+  console.clear()
+  console.centerLog 'Loading Basalt...'
+  local basalt = require 'basalt'
+  basalt.setTheme {
+    BasaltBG = colors.black,
+    BasaltText = colors.white,
+    FrameBG = colors.black,
+    FrameText = colors.lightGray,
+    ButtonBG = colors.gray,
+    ButtonText = colors.white,
+    CheckboxBG = colors.gray,
+    CheckboxText = colors.white,
+    InputBG = colors.gray,
+    InputText = colors.white,
+    TextfieldBG = colors.gray,
+    TextfieldText = colors.white,
+    -- ListBG = colors.gray,
+    -- ListText = colors.black,
+    -- MenubarBG = colors.gray,
+    -- MenubarText = colors.black,
+    -- DropdownBG = colors.gray,
+    -- DropdownText = colors.black,
+    -- RadioBG = colors.gray,
+    -- RadioText = colors.black,
+    -- SelectionBG = colors.black,
+    -- SelectionText = colors.lightGray,
+    -- GraphicBG = colors.black,
+    -- ImageBG = colors.black,
+    -- PaneBG = colors.black,
+    ProgramBG = colors.gray,
+    -- ProgressbarBG = colors.gray,
+    -- ProgressbarText = colors.black,
+    -- ProgressbarActiveBG = colors.black,
+    -- ScrollbarBG = colors.lightGray,
+    -- ScrollbarText = colors.gray,
+    -- ScrollbarSymbolColor = colors.black,
+    -- SliderBG = false,
+    -- SliderText = colors.gray,
+    -- SliderSymbolColor = colors.black,
+    -- SwitchBG = colors.lightGray,
+    -- SwitchText = colors.gray,
+    -- SwitchBGSymbol = colors.black,
+    -- SwitchInactive = colors.red,
+    -- SwitchActive = colors.green,
+    -- LabelBG = false,
+    LabelText = colors.white,
+  }
+
+  local main = basalt.createFrame()
+
+  -- https://basalt.madefor.cc/#/objects/Frame?id=movable-frames-with-a-program-object
+  local id = 1
+  local processes = {}
+  local function makeResizeable(frame, minW, minH, maxW, maxH)
+    minW = minW or 4
+    minH = minH or 4
+    maxW = maxW or 99
+    maxH = maxH or 99
+    frame
+      :addButton()
+      :setPosition('parent.w', 'parent.h')
+      :setSize(1, 1)
+      :setText('/')
+      :setForeground(colors.blue)
+      :setBackground(colors.black)
+      :onDrag(function(self, event, btn, xOffset, yOffset)
+        local w, h = frame:getSize()
+        local wOff, hOff = w, h
+        if (w + xOffset - 1 >= minW) and (w + xOffset - 1 <= maxW) then
+          wOff = w + xOffset - 1
+        end
+        if (h + yOffset - 1 >= minH) and (h + yOffset - 1 <= maxH) then
+          hOff = h + yOffset - 1
+        end
+        frame:setSize(wOff, hOff)
+      end)
+  end
+  local function openProgram(path, title, resizable, x, y, w, h)
+    local pId = id
+    id = id + 1
+    local f = main
+      :addFrame()
+      :setMovable()
+      :setSize(math.min((w or 25) + 1, ({ term.getSize() })[1]), (h or 12))
+      :setPosition(x or math.random(2, 12), y or math.random(2, 8))
+      :setBackground(colors.red)
+    if ({ term.getSize() })[1] == 25 then
+      f:setPosition(1, y or math.random(2, 8))
+    end
+
+    f:addLabel()
+      :setSize('parent.w - 1', 1)
+      :setBackground(colors.black)
+      :setForeground(colors.lightGray)
+      :setText(title or 'New Program')
+
+    f:addProgram():setSize('parent.w - 1', 'parent.h - 1'):setPosition(1, 2):execute(path or '/rom/programs/shell.lua', '')
+
+    f:addButton()
+      :setSize(1, 1)
+      :setText('X')
+      :setBackground(colors.black)
+      :setForeground(colors.red)
+      :setPosition('parent.w', 1)
+      :onClick(function()
+        f:remove()
+        processes[pId] = nil
+      end)
+    if resizable then
+      makeResizeable(f, w, h)
+    end
+    processes[pId] = f
+    return f
+  end
+  _G._openProgramAsWindow = openProgram
+  local appList = main:addFrame():setScrollable():setSize(8, 'parent.h'):setPosition(1, 1)
+  local y = -3
+  local addAppButton = function()
+    y = y + 4
+    return appList:addButton():setPosition(1, y):setSize(8, 3)
+  end
+  addAppButton():setText('Shell'):onClick(function()
+    openProgram('/rom/programs/shell.lua', 'Shell', true)
+  end)
+  addAppButton():setText('Update'):onClick(function()
+    openProgram(
+      '/rom/programs/http/wget.lua run https://raw.githubusercontent.com/MokiyCodes/cco/main/install.lua',
+      'Updater',
+      true
+    )
+  end)
+  addAppButton():setText('Chat'):onClick(function()
+    openProgram(function()
+      console.log 'Hi!\nPlease enter the name of the room you want to join.'
+      local room = read()
+      console.clear()
+      console.log 'Please enter the username you want to join as.'
+      local uname = read()
+      shell.run(string.format('/rom/programs/rednet/chat.lua join %s %s', room, uname))
+    end, 'Chat', true)
+  end)
+  addAppButton():setText('Shutdown'):onClick(function()
+    os.shutdown()
+  end)
+  addAppButton():setText('Reboot'):onClick(function()
+    os.reboot()
+  end)
+
+  basalt.autoUpdate()
+end
+
+end;
+modules['frontends/basalt.lua'].cache = null;
+modules['frontends/basalt.lua'].isCached = false;
+
+----
+
+modules['frontends/lite.lua'] = {};
+modules['frontends/lite.lua'].load = function()
+local __just_filename = 'lite.lua';
+local __filename = 'frontends/lite.lua';
+local __dirname = 'frontends';
+local __hash = '02b40ee1069e5c407f258bfa77eb3486961ef2acae8697445efe6c1bf67eb3719f12b9736b789666c8da2ba56c42c913b73aa83d6f356289fb5338c5fbe027d5';
+return function()
+  printError 'Unimplemented.'
+end
+
+end;
+modules['frontends/lite.lua'].cache = null;
+modules['frontends/lite.lua'].isCached = false;
+
+----
+
+modules['frontends/login-only.lua'] = {};
+modules['frontends/login-only.lua'].load = function()
+local __just_filename = 'login-only.lua';
+local __filename = 'frontends/login-only.lua';
+local __dirname = 'frontends';
+local __hash = '05240a0b1f5d7b14b78a66f714493a7399a27146d81d0b46df86cf8c2d072d523448427e49703ed80fc7fd66bf0ad62b59339b1300bac21b92e4fe1ecb98779a';
+return function()
+  print 'Login-Only Mode\nDropping you into a shell...'
+end
+
+end;
+modules['frontends/login-only.lua'].cache = null;
+modules['frontends/login-only.lua'].isCached = false;
+
+----
+
+modules['index.lua'] = {};
+modules['index.lua'].load = function()
+local __just_filename = 'index.lua';
+local __filename = 'index.lua';
+local __dirname = '';
+local __hash = 'f318ac9f245dcef8f763239dcf5e2af2703d775f2805d5e7b3affc4813fde2a1721f730d3b853947615b6e82f528a2f1c52487e3088a2f5a813a5a178933e832';
+local console = require 'console'
+_G.console = console
+if isStartup then
+  require('termination').setDisabled(true)
+end
+if installer and (not term.isColor or not term.isColor()) then
+  console.clear()
+  print 'Warning: On non-colour displays, the main UI is replaced with a "lite" UI.\nContinue? [Y/n]'
+  if string.lower(string.sub(read(), 1, 1)) == 'n' then
+    print 'Aborted.'
+    return
+  end
+end
+-- init script
+require 'polyfills/table.create'
+require 'networking/secnet'
+require 'installationid'
+_G.sha = require 'deepcopy'(require 'hash')
+console.clear()
+print('Host:', _HOST)
+print('Is Installer:', (installer and 'true' or 'false'))
+return require(installer and 'load-installer' or 'login')
+
+end;
+modules['index.lua'].cache = null;
+modules['index.lua'].isCached = false;
+
+----
+
+modules['load-installer.lua'] = {};
+modules['load-installer.lua'].load = function()
+local __just_filename = 'load-installer.lua';
+local __filename = 'load-installer.lua';
+local __dirname = '';
+local __hash = '22accb2a247389dbbfaf6f1ba8fda2e8d2025236b1ef439e2a5fc8e08bf403e4785f926b0e899f81141e24e626bc615365d4fded865a0804826e9862a0d802b3';
+local console = require 'console'
+local json = require 'json'
+local base64 = require 'base64'
+-- Load Deps
+console.clear()
+console.log 'Loading Dependencies...'
+local hash = require 'hash'
+local chime = require 'misc/chime'
+local xor = require 'xor'
+console.clear()
+-- Play chime, say hello, all that jazz
+term.setCursorBlink(false)
+console.centerLog 'Welcome!'
+chime()
+sleep(1)
+
+local pw
+-- ask for new password
+local getNewPw = function()
+  -- password input
+  local requestPassword = function()
+    return read '.'
+  end
+  pw = ''
+  while #pw < 1 do
+    console.clear()
+    print 'First, we\'re gonna need you to set a password.\n\nRemember it; the device will be unsuable without it.\n\nMust be 8 characters or more.\n'
+    console.logNoNl 'Password => '
+    pw = requestPassword()
+    break
+  end
+
+  -- password validation
+  local success = false
+  while not success do
+    console.clear()
+    print 'Now, please repeat that password.\n\nForgot it?\nPress ctrl + t for a few seconds & try again.\n'
+    console.logNoNl 'Repeat Password => '
+    success = read '.' == pw
+  end
+end
+-- check for existing auth store
+local overwriteUniqueKeys = {}
+local overwriteAuthStoreThing
+if fs.exists '/.cco/.authbackup.json' then
+  console.clear()
+  print 'We found a backup authentication store file.\nTypically, this is used to allow any encrypted data to persist when updating.\nWould you like to use it? [Y/n]'
+  local rs = string.lower(string.sub(read(), 1, 1))
+  if rs ~= 'n' then
+    print 'Please input your old password.'
+    pw = read '.'
+    local f = fs.open('/.cco/.authbackup.json', 'r')
+    local content = json.parse(f.readAll())
+    f.close()
+    local oldUniqueKeys = content.encryptionKeyStore
+    for k, v in pairs(oldUniqueKeys) do
+      oldUniqueKeys[k] = base64.Decode(v)
+    end
+    local hpw = hash.hmac(hash.sha3_512, oldUniqueKeys.pw, pw)
+    local enc = xor(oldUniqueKeys.enc, oldUniqueKeys.Eenc .. hpw)
+    pcall(function()
+      content.authStoreThing.encryped = base64.Decode(content.authStoreThing.encryped)
+    end)
+    if xor(content.authStoreThing.encryped, enc) ~= hpw then
+      print('Expected:', hpw)
+      print('Decrypt Result:', content.authStoreThing.encryped)
+      error 'Decryption Failure. Please run the installer again.'
+    else
+      print 'Decrypt Test Success! Decrypting...'
+      overwriteAuthStoreThing = content.authStoreThing.encryped
+      for k, v in pairs(oldUniqueKeys) do
+        if k ~= 'Eenc' and k ~= 'pw' then
+          oldUniqueKeys[k] = xor(v, oldUniqueKeys.Eenc .. pw)
+        end
+      end
+      overwriteUniqueKeys = oldUniqueKeys
+    end
+  else
+    getNewPw()
+  end
+else
+  getNewPw()
+end
+
+-- notify user what we're doing
+console.clear()
+console.centerLog 'Setting up Encryption for you...'
+
+-- unique device keys
+local uniqueKeys = require 'uniquekeys'
+
+-- load old keys if any
+for k, v in pairs(overwriteUniqueKeys) do
+  uniqueKeys[k] = v
+end
+
+-- hash password
+---@diagnostic disable-next-line: cast-local-type
+pw = hash.hmac(hash.sha3_512, uniqueKeys.pw, pw)
+
+-- encrypt keys
+local authStoreThing = require 'auth'
+if overwriteAuthStoreThing then
+  authStoreThing.encryped = base64.Encode(overwriteAuthStoreThing)
+else
+  authStoreThing.encryped = base64.Encode(xor(pw, uniqueKeys.enc))
+end
+local script = thisBundle
+for k, v in pairs(uniqueKeys) do
+  if k ~= 'pw' and k ~= 'Eenc' then
+    uniqueKeys[k] = xor(v, uniqueKeys.Eenc .. pw)
+  end
+end
+local newUniqueKeys = {}
+for k, v in pairs(uniqueKeys) do
+  newUniqueKeys[k] = base64.Encode(v)
+  script = string.gsub(script, '!!!' .. k, newUniqueKeys[k])
+end
+script = string.gsub(script, 'local shouldB64Decode = false', 'local shouldB64Decode = true')
+
+print('calc pw', pw)
+print('encr pw', require('auth').encryped)
+sleep(0.5)
+console.clear()
+console.log 'Do you wish to install this system-wide (y), or as an application (N)? [y/N]'
+local systemWide = fs.exists '/.cco/setup-launchonstartup' or string.lower(string.sub(read(), 1, 1)) == 'y'
+console.clear()
+console.centerLog 'Installing...'
+script = string.gsub(script, '_ENCRYPTME', authStoreThing.encryped)
+if not fs.isDir '/.cco' then
+  fs.makeDir '/.cco'
+end
+
+local file = fs.open('/cco.lua', 'w')
+file.write(script)
+file.close()
+if systemWide then
+  local file2 = fs.open('/startup.lua', 'w')
+  file2.write 'local file = fs.open(\'/cco.lua\',\'r\');\nlocal byte, err = loadstring([[local isStartup = true;local shell = shell or _G.__shell; _G.__shell = nil;]]..file.readAll(), [[/cco.lua]]);\nif type(byte) ~= \'function\' then\n  print(\'Failed to load:\',err);\n  sleep(1);\n  os.shutdown();\nend;\nfile.close();\n_G.__shell = shell;\nreturn byte()'
+  file2.close()
+  local file3 = fs.open('/.cco/setup-launchonstartup', 'w')
+  file3.write 'ok bro'
+  file3.close()
+end
+sleep(0.4)
+console.clear()
+console.centerLog 'Backing up encryption keys...'
+local backupfile = fs.open('/.cco/.authbackup.json', 'w')
+backupfile.write(require('json').stringify {
+  ['authStoreThing'] = authStoreThing,
+  ['encryptionKeyStore'] = newUniqueKeys,
+})
+backupfile.close()
+sleep(0.4)
+console.clear()
+if systemWide then
+  console.centerLog 'Rebooting...'
+  sleep(2)
+  os.reboot()
+else
+  console.log 'The OS is available under the command \'cco\'.'
+  sleep(0.5)
+  -- console.centerLog 'Performing Initial Boot...'
+  -- sleep(0.2)
+  -- console.clear()
+  -- require 'login'
+end
+
+end;
+modules['load-installer.lua'].cache = null;
+modules['load-installer.lua'].isCached = false;
+
+----
+
+modules['login.lua'] = {};
+modules['login.lua'].load = function()
+local __just_filename = 'login.lua';
+local __filename = 'login.lua';
+local __dirname = '';
+local __hash = '30b62a3133de9679a733967ec982c9a5719a6de6699e63d84ebb5861d49c176bb28fe6e3aabf8d38f3ba2c5396a30f5896906ce09cbb5eea2540e4ab9b08c3df';
+local console = require 'console'
+-- load ui
+print 'Preparing...'
+require('termination').setDisabled(true)
+_G.Math = math
+local hash = require 'hash'
+local uniqueKeys = require 'uniquekeys'
+local xor = require 'xor'
+local tryAuth = function(pw)
+  pw = hash.hmac(hash.sha3_512, uniqueKeys.pw, pw)
+  local enc = xor(uniqueKeys.enc, uniqueKeys.Eenc .. pw)
+  if xor(require('auth').encryped, enc) ~= pw then
+    print 'Encryption Failure\nCryptographic Infromation:'
+    print('encr pw', require('auth').encryped)
+    print('calc pw', pw)
+    print('decr pw', xor(require('auth').encryped, enc))
+    sleep(1)
+    return true
+  else
+    for k, v in pairs(uniqueKeys) do
+      if k ~= 'Eenc' and k ~= 'pw' then
+        uniqueKeys[k] = xor(v, uniqueKeys.Eenc .. pw)
+      end
+    end
+    require('termination').setDisabled(false)
+    require 'boot'()
+  end
+end
+repeat
+  console.clear()
+  console.log 'Enter your password.'
+until not tryAuth(read '.')
+
+end;
+modules['login.lua'].cache = null;
+modules['login.lua'].isCached = false;
+
+----
+
+modules['misc/chime.lua'] = {};
+modules['misc/chime.lua'].load = function()
+local __just_filename = 'chime.lua';
+local __filename = 'misc/chime.lua';
+local __dirname = 'misc';
+local __hash = '5cccb2e7b818ee81d9c7d596c00ec7871ab43e5bc512541595d4d896f370762e8c72d58946d9e5d8c52126b4ea2e881348397c7557bec7f087caaa5c88cbeec8';
+return function(volume)
+  volume = volume or 0.5
+  local speaker = peripheral.find 'speaker'
+  if speaker then
+    speaker.playNote('hat', volume, 1)
+    sleep(0.1)
+    speaker.playNote('hat', volume, 1)
+    sleep(0.1)
+    speaker.playNote('hat', volume, 13)
+    sleep(0.2)
+    speaker.playNote('hat', volume, 8)
+  end
+end
+
+end;
+modules['misc/chime.lua'].cache = null;
+modules['misc/chime.lua'].isCached = false;
+
+----
+
+modules['networking/secnet.lua'] = {};
+modules['networking/secnet.lua'].load = function()
+local __just_filename = 'secnet.lua';
+local __filename = 'networking/secnet.lua';
+local __dirname = 'networking';
+local __hash = '9590bfbd10e2c465f4e850f49356b498edaf3f4ff7533ba1b9d0df1828cac6605477beafadea3b2ccb7be25709b694dfa28c7addf57882b57a8f47af1c004a3f';
+---@diagnostic disable: deprecated
+local sha, xor, json = require 'hash', require 'xor', require 'json'
+local secnet = {}
+_G.secureCommunications = secnet
+_G.secnet = secnet
+--- Starts listening on to rednet on all peripherals. If you only want to listen on specific ones, manually call rednet.open on those.
+secnet.listen = function()
+  peripheral.find('modem', rednet.open)
+end
+--- Creates and/or joins a new secnet channel, provides an API to interact with it | Channel & Password combinatiton matters to be able to receive data.
+secnet.new = function(channel, pass)
+  if not channel then
+    error 'You must provide a channel!'
+  end
+  if not pass then
+    error 'You must provide a password!'
+  end
+  local self = {}
+  --- Encryption Key. Derived from Channel & Password.
+  self.key = xor(sha.hmac(sha.sha3_512, pass, xor(channel, pass)), sha.sha3_512(pass))
+  --- Internal Channel ID to listen to; hash of the channel as to avoid leaking the channel name publicly in broadcasts
+  self.channelId = sha.sha3_512(string.rep(channel, 2))
+  self.prefix = '++cco.secure-communications++\n+++channel+' .. self.channelId .. '+++'
+  --- Broadcast message to all devices listening on channel
+  self.broadcast = function(message, ...)
+    if not message then
+      error 'Must provide a message'
+    end
+    message = json.stringify { message, ... }
+    rednet.broadcast(self.prefix .. xor(message, self.key))
+    return self
+  end
+  --- Send message to device with id listening on channel
+  self.send = function(id, message, ...)
+    if not message then
+      error 'Must provide a message'
+    end
+    message = json.stringify { message, ... }
+    rednet.send(id, self.prefix .. xor(message, self.key))
+    return self
+  end
+  --- Awaits a message with a specific timeout & an optional filter function | Ignores unparsable (/invalid password) entities | Returns sender, ...message
+  self.receive = function(timeout, filter)
+    filter = filter or (typeof(timeout) == 'function' and timeout) or function()
+      return true
+    end
+    if typeof(timeout) ~= 'number' then
+      timeout = nil
+    end
+    local finalMessage
+    local endTime = os.clock() + (timeout or math.huge)
+    local sender
+    repeat
+      -- wait for message
+      local senderId, encryptedMessageWithPrefix = rednet.receive(endTime - os.clock())
+      if encryptedMessageWithPrefix then
+        -- check if its for us
+        if string.sub(encryptedMessageWithPrefix, 1, #self.prefix) == self.prefix then
+          -- strip prefix
+          local encryptedMessage = string.sub(encryptedMessageWithPrefix, #self.prefix + 1)
+          -- decrypt
+          local decryptedMessage = xor(encryptedMessage, self.key)
+          -- parse
+          local s, rt = pcall(json.parse, decryptedMessage)
+          if s then
+            finalMessage = rt
+            sender = senderId
+          end
+          -- else
+          --   print('Debug: Message not for us', encryptedMessageWithPrefix, '\nExpected prefix', self.prefix)
+        end
+      end
+    until finalMessage or os.clock() >= endTime
+    ---@diagnostic disable-next-line: param-type-mismatch
+    return sender, (table.unpack or unpack)(finalMessage)
+  end
+  --- Listens for a certain amount of time, returning any packets sent in that time | returns a any[][]
+  self.listen = function(time)
+    if not time then
+      error 'Did not specify amount of time'
+    end
+    local messages = {}
+    local endClock = os.clock() + time
+    repeat
+      table.insert(messages, { self.receive(endClock - os.clock()) })
+    until endClock <= os.clock()
+    return messages
+  end
+end
+
+end;
+modules['networking/secnet.lua'].cache = null;
+modules['networking/secnet.lua'].isCached = false;
+
+----
+
+modules['packages/basalt.lua'] = {};
+modules['packages/basalt.lua'].load = function()
+local __just_filename = 'basalt.lua';
+local __filename = 'packages/basalt.lua';
+local __dirname = 'packages';
+local __hash = 'a0aec13284aad4cc27ecd4aa8e43823a4f8a771b14bf7b314029d51fb3fe5096db8b336e9d5afa7bfe49d1fe37610df0f0e789e9a157c7609736c1ba817b5627';
+if not fs.exists '/basalt.lua' then
+  local url = 'https://raw.githubusercontent.com/MokiyCodes/cco/main/basalt.lua'
+  local f = fs.open('/basalt.lua', 'w')
+  local rq = http.get(url)
+  f.write(rq.readAll())
+  f.close()
+  rq.close()
+end
+local file = fs.open('/basalt.lua', 'r')
+---@diagnostic disable-next-line: deprecated
+local chunk, err = (load or loadstring)(file.readAll())
+file.close()
+if not chunk then
+  error(err)
+end
+return chunk()
+
+end;
+modules['packages/basalt.lua'].cache = null;
+modules['packages/basalt.lua'].isCached = false;
+
+----
+
+modules['packages/base64.lua'] = {};
+modules['packages/base64.lua'].load = function()
+local __just_filename = 'base64.lua';
+local __filename = 'packages/base64.lua';
+local __dirname = 'packages';
+local __hash = 'abb838d74919d0c924ed1acf353dcf667886b064e70a109c7bd514b0e96f38c168e23adf930d75cfc288dad437591d485b8a35ce11fa4f8dc08a8090956796bd';
+-- @original: https://gist.github.com/Reselim/40d62b17d138cc74335a1b0709e19ce2
+local Alphabet = {}
+local Indexes = {}
+
+-- A-Z
+for Index = 65, 90 do
+  table.insert(Alphabet, Index)
+end
+
+-- a-z
+for Index = 97, 122 do
+  table.insert(Alphabet, Index)
+end
+
+-- 0-9
+for Index = 48, 57 do
+  table.insert(Alphabet, Index)
+end
+
+table.insert(Alphabet, 43) -- +
+table.insert(Alphabet, 47) -- /
+
+for Index, Character in ipairs(Alphabet) do
+  Indexes[Character] = Index
+end
+
+local Base64 = {}
+
+local bit32_rshift = bit32.rshift
+local bit32_lshift = bit32.lshift
+local bit32_band = bit32.band
+
+--[[**
+	Encodes a string in Base64.
+	@param [t:string] Input The input string to encode.
+	@returns [t:string] The string encoded in Base64.
+**--]]
+function Base64.Encode(Input)
+  local Output = {}
+  local Length = 0
+
+  for Index = 1, #Input, 3 do
+    local C1, C2, C3 = string.byte(Input, Index, Index + 2)
+
+    local A = bit32_rshift(C1, 2)
+    local B = bit32_lshift(bit32_band(C1, 3), 4) + bit32_rshift(C2 or 0, 4)
+    local C = bit32_lshift(bit32_band(C2 or 0, 15), 2) + bit32_rshift(C3 or 0, 6)
+    local D = bit32_band(C3 or 0, 63)
+
+    Length = Length + 1
+    Output[Length] = Alphabet[A + 1]
+
+    Length = Length + 1
+    Output[Length] = Alphabet[B + 1]
+
+    Length = Length + 1
+    Output[Length] = C2 and Alphabet[C + 1] or 61
+
+    Length = Length + 1
+    Output[Length] = C3 and Alphabet[D + 1] or 61
+  end
+
+  local NewOutput = {}
+  local NewLength = 0
+  local IndexAdd4096Sub1
+
+  for Index = 1, Length, 4096 do
+    NewLength = NewLength + 1
+    IndexAdd4096Sub1 = Index + 4096 - 1
+
+    NewOutput[NewLength] = string.char(table.unpack(Output, Index, IndexAdd4096Sub1 > Length and Length or IndexAdd4096Sub1))
+  end
+
+  return table.concat(NewOutput)
+end
+
+--[[**
+	Decodes a string from Base64.
+	@param [t:string] Input The input string to decode.
+	@returns [t:string] The newly decoded string.
+**--]]
+function Base64.Decode(Input)
+  local Output = {}
+  local Length = 0
+
+  for Index = 1, #Input, 4 do
+    local C1, C2, C3, C4 = string.byte(Input, Index, Index + 3)
+
+    local I1 = Indexes[C1] - 1
+    local I2 = Indexes[C2] - 1
+    local I3 = (Indexes[C3] or 1) - 1
+    local I4 = (Indexes[C4] or 1) - 1
+
+    local A = bit32_lshift(I1, 2) + bit32_rshift(I2, 4)
+    local B = bit32_lshift(bit32_band(I2, 15), 4) + bit32_rshift(I3, 2)
+    local C = bit32_lshift(bit32_band(I3, 3), 6) + I4
+
+    Length = Length + 1
+    Output[Length] = A
+
+    if C3 ~= 61 then
+      Length = Length + 1
+      Output[Length] = B
+    end
+
+    if C4 ~= 61 then
+      Length = Length + 1
+      Output[Length] = C
+    end
+  end
+
+  local NewOutput = {}
+  local NewLength = 0
+  local IndexAdd4096Sub1
+
+  for Index = 1, Length, 4096 do
+    NewLength = NewLength + 1
+    IndexAdd4096Sub1 = Index + 4096 - 1
+
+    NewOutput[NewLength] = string.char(table.unpack(Output, Index, IndexAdd4096Sub1 > Length and Length or IndexAdd4096Sub1))
+  end
+
+  return table.concat(NewOutput)
+end
+
+return Base64
+
+end;
+modules['packages/base64.lua'].cache = null;
+modules['packages/base64.lua'].isCached = false;
+
+----
+
+modules['packages/bitop.lua'] = {};
+modules['packages/bitop.lua'].load = function()
+local __just_filename = 'bitop.lua';
+local __filename = 'packages/bitop.lua';
+local __dirname = 'packages';
+local __hash = '3eb8138fba20e6efce960c977bd8b3d0120aa7c230bc95a3ec462484610b8433d05a6035ad08c36f43925f6af3d63338fcde5ed1956391b382b49546ed9e245b';
+-- https://github.com/AlberTajuelo/bitop-lua
+-- MIT
+-- im only using this for bxor but it may be useful for smth else one day :shrug:
+local M = { _TYPE = 'module', _NAME = 'bitop.funcs', _VERSION = '1.0-0' }
+
+local floor = math.floor
+
+local MOD = 2 ^ 32
+local MODM = MOD - 1
+
+local function memoize(f)
+  local mt = {}
+  local t = setmetatable({}, mt)
+
+  function mt:__index(k)
+    local v = f(k)
+    t[k] = v
+    return v
+  end
+
+  return t
+end
+
+local function make_bitop_uncached(t, m)
+  local function bitop(a, b)
+    local res, p = 0, 1
+    while a ~= 0 and b ~= 0 do
+      local am, bm = a % m, b % m
+      res = res + t[am][bm] * p
+      a = (a - am) / m
+      b = (b - bm) / m
+      p = p * m
+    end
+    res = res + (a + b) * p
+    return res
+  end
+  return bitop
+end
+
+local function make_bitop(t)
+  local op1 = make_bitop_uncached(t, 2 ^ 1)
+  local op2 = memoize(function(a)
+    return memoize(function(b)
+      return op1(a, b)
+    end)
+  end)
+  return make_bitop_uncached(op2, 2 ^ (t.n or 1))
+end
+
+-- ok? probably not if running on a 32-bit int Lua number type platform
+function M.tobit(x)
+  return x % 2 ^ 32
+end
+
+M.bxor = make_bitop { [0] = { [0] = 0, [1] = 1 }, [1] = { [0] = 1, [1] = 0 }, n = 4 }
+local bxor = M.bxor
+
+function M.bnot(a)
+  return MODM - a
+end
+local bnot = M.bnot
+
+function M.band(a, b)
+  return ((a + b) - bxor(a, b)) / 2
+end
+local band = M.band
+
+function M.bor(a, b)
+  return MODM - band(MODM - a, MODM - b)
+end
+local bor = M.bor
+
+local lshift, rshift -- forward declare
+
+function M.rshift(a, disp) -- Lua5.2 insipred
+  if disp < 0 then
+    return lshift(a, -disp)
+  end
+  return floor(a % 2 ^ 32 / 2 ^ disp)
+end
+rshift = M.rshift
+
+function M.lshift(a, disp) -- Lua5.2 inspired
+  if disp < 0 then
+    return rshift(a, -disp)
+  end
+  return (a * 2 ^ disp) % 2 ^ 32
+end
+lshift = M.lshift
+
+function M.tohex(x, n) -- BitOp style
+  n = n or 8
+  local up
+  if n <= 0 then
+    if n == 0 then
+      return ''
+    end
+    up = true
+    n = -n
+  end
+  x = band(x, 16 ^ n - 1)
+  return ('%0' .. n .. (up and 'X' or 'x')):format(x)
+end
+local tohex = M.tohex
+
+function M.extract(n, field, width) -- Lua5.2 inspired
+  width = width or 1
+  return band(rshift(n, field), 2 ^ width - 1)
+end
+local extract = M.extract
+
+function M.replace(n, v, field, width) -- Lua5.2 inspired
+  width = width or 1
+  local mask1 = 2 ^ width - 1
+  v = band(v, mask1) -- required by spec?
+  local mask = bnot(lshift(mask1, field))
+  return band(n, mask) + lshift(v, field)
+end
+local replace = M.replace
+
+function M.bswap(x) -- BitOp style
+  local a = band(x, 0xff)
+  x = rshift(x, 8)
+  local b = band(x, 0xff)
+  x = rshift(x, 8)
+  local c = band(x, 0xff)
+  x = rshift(x, 8)
+  local d = band(x, 0xff)
+  return lshift(lshift(lshift(a, 8) + b, 8) + c, 8) + d
+end
+local bswap = M.bswap
+
+function M.rrotate(x, disp) -- Lua5.2 inspired
+  disp = disp % 32
+  local low = band(x, 2 ^ disp - 1)
+  return rshift(x, disp) + lshift(low, 32 - disp)
+end
+local rrotate = M.rrotate
+
+function M.lrotate(x, disp) -- Lua5.2 inspired
+  return rrotate(x, -disp)
+end
+local lrotate = M.lrotate
+
+M.rol = M.lrotate -- LuaOp inspired
+M.ror = M.rrotate -- LuaOp insipred
+
+function M.arshift(x, disp) -- Lua5.2 inspired
+  local z = rshift(x, disp)
+  if x >= 0x80000000 then
+    z = z + lshift(2 ^ disp - 1, 32 - disp)
+  end
+  return z
+end
+local arshift = M.arshift
+
+function M.btest(x, y) -- Lua5.2 inspired
+  return band(x, y) ~= 0
+end
+
+--
+-- Start Lua 5.2 "bit32" compat section.
+--
+
+M.bit32 = {} -- Lua 5.2 'bit32' compatibility
+
+local function bit32_bnot(x)
+  return (-1 - x) % MOD
+end
+M.bit32.bnot = bit32_bnot
+
+local function bit32_bxor(a, b, c, ...)
+  local z
+  if b then
+    a = a % MOD
+    b = b % MOD
+    z = bxor(a, b)
+    if c then
+      z = bit32_bxor(z, c, ...)
+    end
+    return z
+  elseif a then
+    return a % MOD
+  else
+    return 0
+  end
+end
+M.bit32.bxor = bit32_bxor
+
+local function bit32_band(a, b, c, ...)
+  local z
+  if b then
+    a = a % MOD
+    b = b % MOD
+    z = ((a + b) - bxor(a, b)) / 2
+    if c then
+      z = bit32_band(z, c, ...)
+    end
+    return z
+  elseif a then
+    return a % MOD
+  else
+    return MODM
+  end
+end
+M.bit32.band = bit32_band
+
+local function bit32_bor(a, b, c, ...)
+  local z
+  if b then
+    a = a % MOD
+    b = b % MOD
+    z = MODM - band(MODM - a, MODM - b)
+    if c then
+      z = bit32_bor(z, c, ...)
+    end
+    return z
+  elseif a then
+    return a % MOD
+  else
+    return 0
+  end
+end
+M.bit32.bor = bit32_bor
+
+function M.bit32.btest(...)
+  return bit32_band(...) ~= 0
+end
+
+function M.bit32.lrotate(x, disp)
+  return lrotate(x % MOD, disp)
+end
+
+function M.bit32.rrotate(x, disp)
+  return rrotate(x % MOD, disp)
+end
+
+function M.bit32.lshift(x, disp)
+  if disp > 31 or disp < -31 then
+    return 0
+  end
+  return lshift(x % MOD, disp)
+end
+
+function M.bit32.rshift(x, disp)
+  if disp > 31 or disp < -31 then
+    return 0
+  end
+  return rshift(x % MOD, disp)
+end
+
+function M.bit32.arshift(x, disp)
+  x = x % MOD
+  if disp >= 0 then
+    if disp > 31 then
+      return (x >= 0x80000000) and MODM or 0
+    else
+      local z = rshift(x, disp)
+      if x >= 0x80000000 then
+        z = z + lshift(2 ^ disp - 1, 32 - disp)
+      end
+      return z
+    end
+  else
+    return lshift(x, -disp)
+  end
+end
+
+function M.bit32.extract(x, field, ...)
+  local width = ... or 1
+  if field < 0 or field > 31 or width < 0 or field + width > 32 then
+    error 'out of range'
+  end
+  x = x % MOD
+  return extract(x, field, ...)
+end
+
+function M.bit32.replace(x, v, field, ...)
+  local width = ... or 1
+  if field < 0 or field > 31 or width < 0 or field + width > 32 then
+    error 'out of range'
+  end
+  x = x % MOD
+  v = v % MOD
+  return replace(x, v, field, ...)
+end
+
+--
+-- Start LuaBitOp "bit" compat section.
+--
+
+M.bit = {} -- LuaBitOp "bit" compatibility
+
+function M.bit.tobit(x)
+  x = x % MOD
+  if x >= 0x80000000 then
+    x = x - MOD
+  end
+  return x
+end
+local bit_tobit = M.bit.tobit
+
+function M.bit.tohex(x, ...)
+  return tohex(x % MOD, ...)
+end
+
+function M.bit.bnot(x)
+  return bit_tobit(bnot(x % MOD))
+end
+
+local function bit_bor(a, b, c, ...)
+  if c then
+    return bit_bor(bit_bor(a, b), c, ...)
+  elseif b then
+    return bit_tobit(bor(a % MOD, b % MOD))
+  else
+    return bit_tobit(a)
+  end
+end
+M.bit.bor = bit_bor
+
+local function bit_band(a, b, c, ...)
+  if c then
+    return bit_band(bit_band(a, b), c, ...)
+  elseif b then
+    return bit_tobit(band(a % MOD, b % MOD))
+  else
+    return bit_tobit(a)
+  end
+end
+M.bit.band = bit_band
+
+local function bit_bxor(a, b, c, ...)
+  if c then
+    return bit_bxor(bit_bxor(a, b), c, ...)
+  elseif b then
+    return bit_tobit(bxor(a % MOD, b % MOD))
+  else
+    return bit_tobit(a)
+  end
+end
+M.bit.bxor = bit_bxor
+
+function M.bit.lshift(x, n)
+  return bit_tobit(lshift(x % MOD, n % 32))
+end
+
+function M.bit.rshift(x, n)
+  return bit_tobit(rshift(x % MOD, n % 32))
+end
+
+function M.bit.arshift(x, n)
+  return bit_tobit(arshift(x % MOD, n % 32))
+end
+
+function M.bit.rol(x, n)
+  return bit_tobit(lrotate(x % MOD, n % 32))
+end
+
+function M.bit.ror(x, n)
+  return bit_tobit(rrotate(x % MOD, n % 32))
+end
+
+function M.bit.bswap(x)
+  return bit_tobit(bswap(x % MOD))
+end
+
+return M
+
+end;
+modules['packages/bitop.lua'].cache = null;
+modules['packages/bitop.lua'].isCached = false;
+
+----
+
+modules['packages/child_process.lua'] = {};
+modules['packages/child_process.lua'].load = function()
+local __just_filename = 'child_process.lua';
+local __filename = 'packages/child_process.lua';
+local __dirname = 'packages';
+local __hash = 'd4d9127b6d57470743431b879789e451653aa26ade0fc0440567f71aefbaddd05601ce4fcf995065ff2ebe3c70eb5c88c380ea8d1bc7015a06f330e14d75b5fc';
+---@diagnostic disable: deprecated
+local cid = 0
+return {
+  ['execSync'] = function(process, ...)
+    error 'non-functional as of now'
+    -- return shell.execute(process, ...)
+  end,
+  ['execLuaSync'] = function(lua, chunk)
+    cid = cid + 1
+    local c, ex = loadstring(lua, chunk or ('Unknown Chunk Name - Chunk #' .. tostring(cid)))
+    if not c then
+      error('Compilation Error: ' .. ex)
+    end
+    return c()
+  end,
+}
+
+end;
+modules['packages/child_process.lua'].cache = null;
+modules['packages/child_process.lua'].isCached = false;
+
+----
+
+modules['packages/console.lua'] = {};
+modules['packages/console.lua'].load = function()
+local __just_filename = 'console.lua';
+local __filename = 'packages/console.lua';
+local __dirname = 'packages';
+local __hash = '4680436d6f199fd8fcb61ecc496c4bf33dbe7448eb2eefe36f8d0ab419726c0183db12921807d96b6d921011909418ca6d6ed8156e4a53ec2a0adee832c88a11';
+-- attempt to reimplement the js console api
+return {
+  ['clear'] = function()
+    term.clear()
+    term.setCursorPos(1, 1)
+  end,
+  ['log'] = print,
+  -- todo replace with colour variants if term.isColour()
+  ['warn'] = print,
+  ['error'] = print,
+  -- custom apis
+  ['centerLog'] = function(text)
+    local sizeX, sizeY = term.getSize()
+    local _, guaranteedNewlines = text:gsub('\n', '')
+    term.setCursorPos(
+      math.floor(sizeX / 2) - math.floor(#text / 2),
+      math.floor(sizeY / 2) - math.floor(guaranteedNewlines / 2)
+    )
+    print(text)
+  end,
+  ['logNoNl'] = function(text)
+    local x, y = term.getCursorPos()
+    term.write(text)
+    term.setCursorPos(x + #text, y)
+  end,
+}
+
+end;
+modules['packages/console.lua'].cache = null;
+modules['packages/console.lua'].isCached = false;
+
+----
+
+modules['packages/deepcopy.lua'] = {};
+modules['packages/deepcopy.lua'].load = function()
+local __just_filename = 'deepcopy.lua';
+local __filename = 'packages/deepcopy.lua';
+local __dirname = 'packages';
+local __hash = '8b6fd8f13fcb736e172f5f42c443f0f4aa06ac56a3aa716cef7aef0c7d4e6a2c08d25e8626609d449428a1c45a2400c8189b96d8ac89244d626dcfc2f43c4cb1';
+-- https://lua-users.org/wiki/CopyTable
+local deepcopy = function(orig, copies)
+  copies = copies or {}
+  local orig_type = type(orig)
+  local copy
+  if orig_type == 'table' then
+    if copies[orig] then
+      copy = copies[orig]
+    else
+      copy = {}
+      copies[orig] = copy
+      for orig_key, orig_value in next, orig, nil do
+        copy[deepcopy(orig_key, copies)] = deepcopy(orig_value, copies)
+      end
+      setmetatable(copy, deepcopy(getmetatable(orig), copies))
+    end
+  else -- number, string, boolean, etc
+    copy = orig
+  end
+  return copy
+end
+_G.deepcopy = deepcopy
+return deepcopy
+
+end;
+modules['packages/deepcopy.lua'].cache = null;
+modules['packages/deepcopy.lua'].isCached = false;
+
+----
+
+modules['packages/forceyield.lua'] = {};
+modules['packages/forceyield.lua'].load = function()
+local __just_filename = 'forceyield.lua';
+local __filename = 'packages/forceyield.lua';
+local __dirname = 'packages';
+local __hash = 'eb04b7f3c25eb022ecf4eb6d4cd49852ba4d34df8f91b9a51667256940f57f740f52dc3c6b3e3630b96f26bc12fee62fb72ed3f7ecc9608960b9727b447b964a';
+return function()
+  os.queueEvent 'fakeEvent'
+  os.pullEvent()
+end
+
+end;
+modules['packages/forceyield.lua'].cache = null;
+modules['packages/forceyield.lua'].isCached = false;
+
+----
+
+modules['packages/hash.lua'] = {};
+modules['packages/hash.lua'].load = function()
+local __just_filename = 'hash.lua';
+local __filename = 'packages/hash.lua';
+local __dirname = 'packages';
+local __hash = '634545ee941dd77783331999bdf495b4922468b96b61595d91f7b6bb76a09319f23ec27b6cf379889b8fd528366d47aa45563bcf1f5a3bfe2e5f5cbb385b3d66';
+--[=[------------------------------------------------------------------------------------------------------------------------
+-- HashLib by Egor Skriptunoff, boatbomber, and howmanysmall
+
+Documentation here: https://devforum.roblox.com/t/open-source-hashlib/416732/1
+
+--------------------------------------------------------------------------------------------------------------------------
+
+Module was originally written by Egor Skriptunoff and distributed under an MIT license.
+It can be found here: https://github.com/Egor-Skriptunoff/pure_lua_SHA/blob/master/sha2.lua
+
+That version was around 3000 lines long, and supported Lua versions 5.1, 5.2, 5.3, and 5.4, and LuaJIT.
+Although that is super cool, Roblox only uses Lua 5.1, so that was extreme overkill.
+
+I, boatbomber, worked to port it to Roblox in a way that doesn't overcomplicate it with support of unreachable
+cases. Then, howmanysmall did some final optimizations that really squeeze out all the performance possible.
+It's gotten stupid fast, thanks to her!
+
+After quite a bit of work and benchmarking, this is what we were left with.
+Enjoy!
+
+--------------------------------------------------------------------------------------------------------------------------
+
+DESCRIPTION:
+	This module contains functions to calculate SHA digest:
+		MD5, SHA-1,
+		SHA-224, SHA-256, SHA-512/224, SHA-512/256, SHA-384, SHA-512,
+		SHA3-224, SHA3-256, SHA3-384, SHA3-512, SHAKE128, SHAKE256,
+		HMAC
+	Additionally, it has a few extra utility functions:
+		hex_to_bin
+		base64_to_bin
+		bin_to_base64
+	Written in pure Lua.
+USAGE:
+	Input data should be a string
+	Result (SHA digest) is returned in hexadecimal representation as a string of lowercase hex digits.
+	Simplest usage example:
+		local HashLib = require(script.HashLib)
+		local your_hash = HashLib.sha256("your string")
+API:
+		HashLib.md5
+		HashLib.sha1
+	SHA2 hash functions:
+		HashLib.sha224
+		HashLib.sha256
+		HashLib.sha512_224
+		HashLib.sha512_256
+		HashLib.sha384
+		HashLib.sha512
+	SHA3 hash functions:
+		HashLib.sha3_224
+		HashLib.sha3_256
+		HashLib.sha3_384
+		HashLib.sha3_512
+		HashLib.shake128
+		HashLib.shake256
+	Misc utilities:
+		HashLib.hmac (Applicable to any hash function from this module except SHAKE*)
+		HashLib.hex_to_bin
+		HashLib.base64_to_bin
+		HashLib.bin_to_base64
+
+--]=]
+---------------------------------------------------------------------------
+
+local Base64 = require 'base64'
+
+--------------------------------------------------------------------------------
+-- LOCALIZATION FOR VM OPTIMIZATIONS
+--------------------------------------------------------------------------------
+
+local ipairs = ipairs
+
+--------------------------------------------------------------------------------
+-- 32-BIT BITWISE FUNCTIONS
+--------------------------------------------------------------------------------
+-- Only low 32 bits of function arguments matter, high bits are ignored
+-- The result of all functions (except HEX) is an integer inside "correct range":
+-- for "bit" library:    (-TWO_POW_31)..(TWO_POW_31-1)
+-- for "bit32" library:        0..(TWO_POW_32-1)
+local bit32_band = bit32.band -- 2 arguments
+local bit32_bor = bit32.bor -- 2 arguments
+local bit32_bxor = bit32.bxor -- 2..5 arguments
+local bit32_lshift = bit32.lshift -- second argument is integer 0..31
+local bit32_rshift = bit32.rshift -- second argument is integer 0..31
+local bit32_lrotate = bit32.lrotate -- second argument is integer 0..31
+local bit32_rrotate = bit32.rrotate -- second argument is integer 0..31
+
+--------------------------------------------------------------------------------
+-- CREATING OPTIMIZED INNER LOOP
+--------------------------------------------------------------------------------
+-- Arrays of SHA2 "magic numbers" (in "INT64" and "FFI" branches "*_lo" arrays contain 64-bit values)
+local sha2_K_lo, sha2_K_hi, sha2_H_lo, sha2_H_hi, sha3_RC_lo, sha3_RC_hi = {}, {}, {}, {}, {}, {}
+local sha2_H_ext256 = {
+  [224] = {},
+  [256] = sha2_H_hi,
+}
+
+local sha2_H_ext512_lo, sha2_H_ext512_hi = {
+  [384] = {},
+  [512] = sha2_H_lo,
+}, {
+  [384] = {},
+  [512] = sha2_H_hi,
+}
+
+local md5_K, md5_sha1_H = {}, { 0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476, 0xC3D2E1F0 }
+local md5_next_shift = {
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  28,
+  25,
+  26,
+  27,
+  0,
+  0,
+  10,
+  9,
+  11,
+  12,
+  0,
+  15,
+  16,
+  17,
+  18,
+  0,
+  20,
+  22,
+  23,
+  21,
+}
+local HEX64, XOR64A5, lanes_index_base -- defined only for branches that internally use 64-bit integers: "INT64" and "FFI"
+local common_W = {} -- temporary table shared between all calculations (to avoid creating new temporary table every time)
+local K_lo_modulo, hi_factor, hi_factor_keccak = 4294967296, 0, 0
+
+local TWO_POW_NEG_56 = 2 ^ -56
+local TWO_POW_NEG_17 = 2 ^ -17
+
+local TWO_POW_2 = 2 ^ 2
+local TWO_POW_3 = 2 ^ 3
+local TWO_POW_4 = 2 ^ 4
+local TWO_POW_5 = 2 ^ 5
+local TWO_POW_6 = 2 ^ 6
+local TWO_POW_7 = 2 ^ 7
+local TWO_POW_8 = 2 ^ 8
+local TWO_POW_9 = 2 ^ 9
+local TWO_POW_10 = 2 ^ 10
+local TWO_POW_11 = 2 ^ 11
+local TWO_POW_12 = 2 ^ 12
+local TWO_POW_13 = 2 ^ 13
+local TWO_POW_14 = 2 ^ 14
+local TWO_POW_15 = 2 ^ 15
+local TWO_POW_16 = 2 ^ 16
+local TWO_POW_17 = 2 ^ 17
+local TWO_POW_18 = 2 ^ 18
+local TWO_POW_19 = 2 ^ 19
+local TWO_POW_20 = 2 ^ 20
+local TWO_POW_21 = 2 ^ 21
+local TWO_POW_22 = 2 ^ 22
+local TWO_POW_23 = 2 ^ 23
+local TWO_POW_24 = 2 ^ 24
+local TWO_POW_25 = 2 ^ 25
+local TWO_POW_26 = 2 ^ 26
+local TWO_POW_27 = 2 ^ 27
+local TWO_POW_28 = 2 ^ 28
+local TWO_POW_29 = 2 ^ 29
+local TWO_POW_30 = 2 ^ 30
+local TWO_POW_31 = 2 ^ 31
+local TWO_POW_32 = 2 ^ 32
+local TWO_POW_40 = 2 ^ 40
+
+local TWO56_POW_7 = 256 ^ 7
+
+-- Implementation for Lua 5.1/5.2 (with or without bitwise library available)
+local function sha256_feed_64(H, str, offs, size)
+  -- offs >= 0, size >= 0, size is multiple of 64
+  local W, K = common_W, sha2_K_hi
+  local h1, h2, h3, h4, h5, h6, h7, h8 = H[1], H[2], H[3], H[4], H[5], H[6], H[7], H[8]
+  for pos = offs, offs + size - 1, 64 do
+    for j = 1, 16 do
+      pos = pos + 4
+      local a, b, c, d = string.byte(str, pos - 3, pos)
+      W[j] = ((a * 256 + b) * 256 + c) * 256 + d
+    end
+
+    for j = 17, 64 do
+      local a, b = W[j - 15], W[j - 2]
+      W[j] = bit32_bxor(bit32_rrotate(a, 7), bit32_lrotate(a, 14), bit32_rshift(a, 3))
+        + bit32_bxor(bit32_lrotate(b, 15), bit32_lrotate(b, 13), bit32_rshift(b, 10))
+        + W[j - 7]
+        + W[j - 16]
+    end
+
+    local a, b, c, d, e, f, g, h = h1, h2, h3, h4, h5, h6, h7, h8
+    for j = 1, 64 do
+      local z = bit32_bxor(bit32_rrotate(e, 6), bit32_rrotate(e, 11), bit32_lrotate(e, 7))
+        + bit32_band(e, f)
+        + bit32_band(-1 - e, g)
+        + h
+        + K[j]
+        + W[j]
+      h = g
+      g = f
+      f = e
+      e = z + d
+      d = c
+      c = b
+      b = a
+      a = z
+        + bit32_band(d, c)
+        + bit32_band(a, bit32_bxor(d, c))
+        + bit32_bxor(bit32_rrotate(a, 2), bit32_rrotate(a, 13), bit32_lrotate(a, 10))
+    end
+
+    h1, h2, h3, h4 = (a + h1) % 4294967296, (b + h2) % 4294967296, (c + h3) % 4294967296, (d + h4) % 4294967296
+    h5, h6, h7, h8 = (e + h5) % 4294967296, (f + h6) % 4294967296, (g + h7) % 4294967296, (h + h8) % 4294967296
+  end
+
+  H[1], H[2], H[3], H[4], H[5], H[6], H[7], H[8] = h1, h2, h3, h4, h5, h6, h7, h8
+end
+
+local function sha512_feed_128(H_lo, H_hi, str, offs, size)
+  -- offs >= 0, size >= 0, size is multiple of 128
+  -- W1_hi, W1_lo, W2_hi, W2_lo, ...   Wk_hi = W[2*k-1], Wk_lo = W[2*k]
+  local W, K_lo, K_hi = common_W, sha2_K_lo, sha2_K_hi
+  local h1_lo, h2_lo, h3_lo, h4_lo, h5_lo, h6_lo, h7_lo, h8_lo =
+    H_lo[1], H_lo[2], H_lo[3], H_lo[4], H_lo[5], H_lo[6], H_lo[7], H_lo[8]
+  local h1_hi, h2_hi, h3_hi, h4_hi, h5_hi, h6_hi, h7_hi, h8_hi =
+    H_hi[1], H_hi[2], H_hi[3], H_hi[4], H_hi[5], H_hi[6], H_hi[7], H_hi[8]
+  for pos = offs, offs + size - 1, 128 do
+    for j = 1, 16 * 2 do
+      pos = pos + 4
+      local a, b, c, d = string.byte(str, pos - 3, pos)
+      W[j] = ((a * 256 + b) * 256 + c) * 256 + d
+    end
+
+    for jj = 34, 160, 2 do
+      local a_lo, a_hi, b_lo, b_hi = W[jj - 30], W[jj - 31], W[jj - 4], W[jj - 5]
+      local tmp1 = bit32_bxor(
+        bit32_rshift(a_lo, 1) + bit32_lshift(a_hi, 31),
+        bit32_rshift(a_lo, 8) + bit32_lshift(a_hi, 24),
+        bit32_rshift(a_lo, 7) + bit32_lshift(a_hi, 25)
+      ) % 4294967296 + bit32_bxor(
+        bit32_rshift(b_lo, 19) + bit32_lshift(b_hi, 13),
+        bit32_lshift(b_lo, 3) + bit32_rshift(b_hi, 29),
+        bit32_rshift(b_lo, 6) + bit32_lshift(b_hi, 26)
+      ) % 4294967296 + W[jj - 14] + W[jj - 32]
+
+      local tmp2 = tmp1 % 4294967296
+      W[jj - 1] = bit32_bxor(
+        bit32_rshift(a_hi, 1) + bit32_lshift(a_lo, 31),
+        bit32_rshift(a_hi, 8) + bit32_lshift(a_lo, 24),
+        bit32_rshift(a_hi, 7)
+      ) + bit32_bxor(
+        bit32_rshift(b_hi, 19) + bit32_lshift(b_lo, 13),
+        bit32_lshift(b_hi, 3) + bit32_rshift(b_lo, 29),
+        bit32_rshift(b_hi, 6)
+      ) + W[jj - 15] + W[jj - 33] + (tmp1 - tmp2) / 4294967296
+
+      W[jj] = tmp2
+    end
+
+    local a_lo, b_lo, c_lo, d_lo, e_lo, f_lo, g_lo, h_lo = h1_lo, h2_lo, h3_lo, h4_lo, h5_lo, h6_lo, h7_lo, h8_lo
+    local a_hi, b_hi, c_hi, d_hi, e_hi, f_hi, g_hi, h_hi = h1_hi, h2_hi, h3_hi, h4_hi, h5_hi, h6_hi, h7_hi, h8_hi
+    for j = 1, 80 do
+      local jj = 2 * j
+      local tmp1 = bit32_bxor(
+        bit32_rshift(e_lo, 14) + bit32_lshift(e_hi, 18),
+        bit32_rshift(e_lo, 18) + bit32_lshift(e_hi, 14),
+        bit32_lshift(e_lo, 23) + bit32_rshift(e_hi, 9)
+      ) % 4294967296 + (bit32_band(e_lo, f_lo) + bit32_band(-1 - e_lo, g_lo)) % 4294967296 + h_lo + K_lo[j] + W[jj]
+
+      local z_lo = tmp1 % 4294967296
+      local z_hi = bit32_bxor(
+        bit32_rshift(e_hi, 14) + bit32_lshift(e_lo, 18),
+        bit32_rshift(e_hi, 18) + bit32_lshift(e_lo, 14),
+        bit32_lshift(e_hi, 23) + bit32_rshift(e_lo, 9)
+      ) + bit32_band(e_hi, f_hi) + bit32_band(-1 - e_hi, g_hi) + h_hi + K_hi[j] + W[jj - 1] + (tmp1 - z_lo) / 4294967296
+
+      h_lo = g_lo
+      h_hi = g_hi
+      g_lo = f_lo
+      g_hi = f_hi
+      f_lo = e_lo
+      f_hi = e_hi
+      tmp1 = z_lo + d_lo
+      e_lo = tmp1 % 4294967296
+      e_hi = z_hi + d_hi + (tmp1 - e_lo) / 4294967296
+      d_lo = c_lo
+      d_hi = c_hi
+      c_lo = b_lo
+      c_hi = b_hi
+      b_lo = a_lo
+      b_hi = a_hi
+      tmp1 = z_lo
+        + (bit32_band(d_lo, c_lo) + bit32_band(b_lo, bit32_bxor(d_lo, c_lo))) % 4294967296
+        + bit32_bxor(
+            bit32_rshift(b_lo, 28) + bit32_lshift(b_hi, 4),
+            bit32_lshift(b_lo, 30) + bit32_rshift(b_hi, 2),
+            bit32_lshift(b_lo, 25) + bit32_rshift(b_hi, 7)
+          )
+          % 4294967296
+      a_lo = tmp1 % 4294967296
+      a_hi = z_hi
+        + (bit32_band(d_hi, c_hi) + bit32_band(b_hi, bit32_bxor(d_hi, c_hi)))
+        + bit32_bxor(
+          bit32_rshift(b_hi, 28) + bit32_lshift(b_lo, 4),
+          bit32_lshift(b_hi, 30) + bit32_rshift(b_lo, 2),
+          bit32_lshift(b_hi, 25) + bit32_rshift(b_lo, 7)
+        )
+        + (tmp1 - a_lo) / 4294967296
+    end
+
+    a_lo = h1_lo + a_lo
+    h1_lo = a_lo % 4294967296
+    h1_hi = (h1_hi + a_hi + (a_lo - h1_lo) / 4294967296) % 4294967296
+    a_lo = h2_lo + b_lo
+    h2_lo = a_lo % 4294967296
+    h2_hi = (h2_hi + b_hi + (a_lo - h2_lo) / 4294967296) % 4294967296
+    a_lo = h3_lo + c_lo
+    h3_lo = a_lo % 4294967296
+    h3_hi = (h3_hi + c_hi + (a_lo - h3_lo) / 4294967296) % 4294967296
+    a_lo = h4_lo + d_lo
+    h4_lo = a_lo % 4294967296
+    h4_hi = (h4_hi + d_hi + (a_lo - h4_lo) / 4294967296) % 4294967296
+    a_lo = h5_lo + e_lo
+    h5_lo = a_lo % 4294967296
+    h5_hi = (h5_hi + e_hi + (a_lo - h5_lo) / 4294967296) % 4294967296
+    a_lo = h6_lo + f_lo
+    h6_lo = a_lo % 4294967296
+    h6_hi = (h6_hi + f_hi + (a_lo - h6_lo) / 4294967296) % 4294967296
+    a_lo = h7_lo + g_lo
+    h7_lo = a_lo % 4294967296
+    h7_hi = (h7_hi + g_hi + (a_lo - h7_lo) / 4294967296) % 4294967296
+    a_lo = h8_lo + h_lo
+    h8_lo = a_lo % 4294967296
+    h8_hi = (h8_hi + h_hi + (a_lo - h8_lo) / 4294967296) % 4294967296
+  end
+
+  H_lo[1], H_lo[2], H_lo[3], H_lo[4], H_lo[5], H_lo[6], H_lo[7], H_lo[8] =
+    h1_lo, h2_lo, h3_lo, h4_lo, h5_lo, h6_lo, h7_lo, h8_lo
+  H_hi[1], H_hi[2], H_hi[3], H_hi[4], H_hi[5], H_hi[6], H_hi[7], H_hi[8] =
+    h1_hi, h2_hi, h3_hi, h4_hi, h5_hi, h6_hi, h7_hi, h8_hi
+end
+
+local function md5_feed_64(H, str, offs, size)
+  -- offs >= 0, size >= 0, size is multiple of 64
+  local W, K, md5_next_shift = common_W, md5_K, md5_next_shift
+  local h1, h2, h3, h4 = H[1], H[2], H[3], H[4]
+  for pos = offs, offs + size - 1, 64 do
+    for j = 1, 16 do
+      pos = pos + 4
+      local a, b, c, d = string.byte(str, pos - 3, pos)
+      W[j] = ((d * 256 + c) * 256 + b) * 256 + a
+    end
+
+    local a, b, c, d = h1, h2, h3, h4
+    local s = 25
+    for j = 1, 16 do
+      local F = bit32_rrotate(bit32_band(b, c) + bit32_band(-1 - b, d) + a + K[j] + W[j], s) + b
+      s = md5_next_shift[s]
+      a = d
+      d = c
+      c = b
+      b = F
+    end
+
+    s = 27
+    for j = 17, 32 do
+      local F = bit32_rrotate(bit32_band(d, b) + bit32_band(-1 - d, c) + a + K[j] + W[(5 * j - 4) % 16 + 1], s) + b
+      s = md5_next_shift[s]
+      a = d
+      d = c
+      c = b
+      b = F
+    end
+
+    s = 28
+    for j = 33, 48 do
+      local F = bit32_rrotate(bit32_bxor(bit32_bxor(b, c), d) + a + K[j] + W[(3 * j + 2) % 16 + 1], s) + b
+      s = md5_next_shift[s]
+      a = d
+      d = c
+      c = b
+      b = F
+    end
+
+    s = 26
+    for j = 49, 64 do
+      local F = bit32_rrotate(bit32_bxor(c, bit32_bor(b, -1 - d)) + a + K[j] + W[(j * 7 - 7) % 16 + 1], s) + b
+      s = md5_next_shift[s]
+      a = d
+      d = c
+      c = b
+      b = F
+    end
+
+    h1 = (a + h1) % 4294967296
+    h2 = (b + h2) % 4294967296
+    h3 = (c + h3) % 4294967296
+    h4 = (d + h4) % 4294967296
+  end
+
+  H[1], H[2], H[3], H[4] = h1, h2, h3, h4
+end
+
+local function sha1_feed_64(H, str, offs, size)
+  -- offs >= 0, size >= 0, size is multiple of 64
+  local W = common_W
+  local h1, h2, h3, h4, h5 = H[1], H[2], H[3], H[4], H[5]
+  for pos = offs, offs + size - 1, 64 do
+    for j = 1, 16 do
+      pos = pos + 4
+      local a, b, c, d = string.byte(str, pos - 3, pos)
+      W[j] = ((a * 256 + b) * 256 + c) * 256 + d
+    end
+
+    for j = 17, 80 do
+      W[j] = bit32_lrotate(bit32_bxor(W[j - 3], W[j - 8], W[j - 14], W[j - 16]), 1)
+    end
+
+    local a, b, c, d, e = h1, h2, h3, h4, h5
+    for j = 1, 20 do
+      local z = bit32_lrotate(a, 5) + bit32_band(b, c) + bit32_band(-1 - b, d) + 0x5A827999 + W[j] + e -- constant = math.floor(TWO_POW_30 * sqrt(2))
+      e = d
+      d = c
+      c = bit32_rrotate(b, 2)
+      b = a
+      a = z
+    end
+
+    for j = 21, 40 do
+      local z = bit32_lrotate(a, 5) + bit32_bxor(b, c, d) + 0x6ED9EBA1 + W[j] + e -- TWO_POW_30 * sqrt(3)
+      e = d
+      d = c
+      c = bit32_rrotate(b, 2)
+      b = a
+      a = z
+    end
+
+    for j = 41, 60 do
+      local z = bit32_lrotate(a, 5) + bit32_band(d, c) + bit32_band(b, bit32_bxor(d, c)) + 0x8F1BBCDC + W[j] + e -- TWO_POW_30 * sqrt(5)
+      e = d
+      d = c
+      c = bit32_rrotate(b, 2)
+      b = a
+      a = z
+    end
+
+    for j = 61, 80 do
+      local z = bit32_lrotate(a, 5) + bit32_bxor(b, c, d) + 0xCA62C1D6 + W[j] + e -- TWO_POW_30 * sqrt(10)
+      e = d
+      d = c
+      c = bit32_rrotate(b, 2)
+      b = a
+      a = z
+    end
+
+    h1 = (a + h1) % 4294967296
+    h2 = (b + h2) % 4294967296
+    h3 = (c + h3) % 4294967296
+    h4 = (d + h4) % 4294967296
+    h5 = (e + h5) % 4294967296
+  end
+
+  H[1], H[2], H[3], H[4], H[5] = h1, h2, h3, h4, h5
+end
+
+local function keccak_feed(lanes_lo, lanes_hi, str, offs, size, block_size_in_bytes)
+  -- This is an example of a Lua function having 79 local variables :-)
+  -- offs >= 0, size >= 0, size is multiple of block_size_in_bytes, block_size_in_bytes is positive multiple of 8
+  local RC_lo, RC_hi = sha3_RC_lo, sha3_RC_hi
+  local qwords_qty = block_size_in_bytes / 8
+  for pos = offs, offs + size - 1, block_size_in_bytes do
+    for j = 1, qwords_qty do
+      local a, b, c, d = string.byte(str, pos + 1, pos + 4)
+      lanes_lo[j] = bit32_bxor(lanes_lo[j], ((d * 256 + c) * 256 + b) * 256 + a)
+      pos = pos + 8
+      a, b, c, d = string.byte(str, pos - 3, pos)
+      lanes_hi[j] = bit32_bxor(lanes_hi[j], ((d * 256 + c) * 256 + b) * 256 + a)
+    end
+
+    local L01_lo, L01_hi, L02_lo, L02_hi, L03_lo, L03_hi, L04_lo, L04_hi, L05_lo, L05_hi, L06_lo, L06_hi, L07_lo, L07_hi, L08_lo, L08_hi, L09_lo, L09_hi, L10_lo, L10_hi, L11_lo, L11_hi, L12_lo, L12_hi, L13_lo, L13_hi, L14_lo, L14_hi, L15_lo, L15_hi, L16_lo, L16_hi, L17_lo, L17_hi, L18_lo, L18_hi, L19_lo, L19_hi, L20_lo, L20_hi, L21_lo, L21_hi, L22_lo, L22_hi, L23_lo, L23_hi, L24_lo, L24_hi, L25_lo, L25_hi =
+      lanes_lo[1],
+      lanes_hi[1],
+      lanes_lo[2],
+      lanes_hi[2],
+      lanes_lo[3],
+      lanes_hi[3],
+      lanes_lo[4],
+      lanes_hi[4],
+      lanes_lo[5],
+      lanes_hi[5],
+      lanes_lo[6],
+      lanes_hi[6],
+      lanes_lo[7],
+      lanes_hi[7],
+      lanes_lo[8],
+      lanes_hi[8],
+      lanes_lo[9],
+      lanes_hi[9],
+      lanes_lo[10],
+      lanes_hi[10],
+      lanes_lo[11],
+      lanes_hi[11],
+      lanes_lo[12],
+      lanes_hi[12],
+      lanes_lo[13],
+      lanes_hi[13],
+      lanes_lo[14],
+      lanes_hi[14],
+      lanes_lo[15],
+      lanes_hi[15],
+      lanes_lo[16],
+      lanes_hi[16],
+      lanes_lo[17],
+      lanes_hi[17],
+      lanes_lo[18],
+      lanes_hi[18],
+      lanes_lo[19],
+      lanes_hi[19],
+      lanes_lo[20],
+      lanes_hi[20],
+      lanes_lo[21],
+      lanes_hi[21],
+      lanes_lo[22],
+      lanes_hi[22],
+      lanes_lo[23],
+      lanes_hi[23],
+      lanes_lo[24],
+      lanes_hi[24],
+      lanes_lo[25],
+      lanes_hi[25]
+
+    for round_idx = 1, 24 do
+      local C1_lo = bit32_bxor(L01_lo, L06_lo, L11_lo, L16_lo, L21_lo)
+      local C1_hi = bit32_bxor(L01_hi, L06_hi, L11_hi, L16_hi, L21_hi)
+      local C2_lo = bit32_bxor(L02_lo, L07_lo, L12_lo, L17_lo, L22_lo)
+      local C2_hi = bit32_bxor(L02_hi, L07_hi, L12_hi, L17_hi, L22_hi)
+      local C3_lo = bit32_bxor(L03_lo, L08_lo, L13_lo, L18_lo, L23_lo)
+      local C3_hi = bit32_bxor(L03_hi, L08_hi, L13_hi, L18_hi, L23_hi)
+      local C4_lo = bit32_bxor(L04_lo, L09_lo, L14_lo, L19_lo, L24_lo)
+      local C4_hi = bit32_bxor(L04_hi, L09_hi, L14_hi, L19_hi, L24_hi)
+      local C5_lo = bit32_bxor(L05_lo, L10_lo, L15_lo, L20_lo, L25_lo)
+      local C5_hi = bit32_bxor(L05_hi, L10_hi, L15_hi, L20_hi, L25_hi)
+
+      local D_lo = bit32_bxor(C1_lo, C3_lo * 2 + (C3_hi % TWO_POW_32 - C3_hi % TWO_POW_31) / TWO_POW_31)
+      local D_hi = bit32_bxor(C1_hi, C3_hi * 2 + (C3_lo % TWO_POW_32 - C3_lo % TWO_POW_31) / TWO_POW_31)
+
+      local T0_lo = bit32_bxor(D_lo, L02_lo)
+      local T0_hi = bit32_bxor(D_hi, L02_hi)
+      local T1_lo = bit32_bxor(D_lo, L07_lo)
+      local T1_hi = bit32_bxor(D_hi, L07_hi)
+      local T2_lo = bit32_bxor(D_lo, L12_lo)
+      local T2_hi = bit32_bxor(D_hi, L12_hi)
+      local T3_lo = bit32_bxor(D_lo, L17_lo)
+      local T3_hi = bit32_bxor(D_hi, L17_hi)
+      local T4_lo = bit32_bxor(D_lo, L22_lo)
+      local T4_hi = bit32_bxor(D_hi, L22_hi)
+
+      L02_lo = (T1_lo % TWO_POW_32 - T1_lo % TWO_POW_20) / TWO_POW_20 + T1_hi * TWO_POW_12
+      L02_hi = (T1_hi % TWO_POW_32 - T1_hi % TWO_POW_20) / TWO_POW_20 + T1_lo * TWO_POW_12
+      L07_lo = (T3_lo % TWO_POW_32 - T3_lo % TWO_POW_19) / TWO_POW_19 + T3_hi * TWO_POW_13
+      L07_hi = (T3_hi % TWO_POW_32 - T3_hi % TWO_POW_19) / TWO_POW_19 + T3_lo * TWO_POW_13
+      L12_lo = T0_lo * 2 + (T0_hi % TWO_POW_32 - T0_hi % TWO_POW_31) / TWO_POW_31
+      L12_hi = T0_hi * 2 + (T0_lo % TWO_POW_32 - T0_lo % TWO_POW_31) / TWO_POW_31
+      L17_lo = T2_lo * TWO_POW_10 + (T2_hi % TWO_POW_32 - T2_hi % TWO_POW_22) / TWO_POW_22
+      L17_hi = T2_hi * TWO_POW_10 + (T2_lo % TWO_POW_32 - T2_lo % TWO_POW_22) / TWO_POW_22
+      L22_lo = T4_lo * TWO_POW_2 + (T4_hi % TWO_POW_32 - T4_hi % TWO_POW_30) / TWO_POW_30
+      L22_hi = T4_hi * TWO_POW_2 + (T4_lo % TWO_POW_32 - T4_lo % TWO_POW_30) / TWO_POW_30
+
+      D_lo = bit32_bxor(C2_lo, C4_lo * 2 + (C4_hi % TWO_POW_32 - C4_hi % TWO_POW_31) / TWO_POW_31)
+      D_hi = bit32_bxor(C2_hi, C4_hi * 2 + (C4_lo % TWO_POW_32 - C4_lo % TWO_POW_31) / TWO_POW_31)
+
+      T0_lo = bit32_bxor(D_lo, L03_lo)
+      T0_hi = bit32_bxor(D_hi, L03_hi)
+      T1_lo = bit32_bxor(D_lo, L08_lo)
+      T1_hi = bit32_bxor(D_hi, L08_hi)
+      T2_lo = bit32_bxor(D_lo, L13_lo)
+      T2_hi = bit32_bxor(D_hi, L13_hi)
+      T3_lo = bit32_bxor(D_lo, L18_lo)
+      T3_hi = bit32_bxor(D_hi, L18_hi)
+      T4_lo = bit32_bxor(D_lo, L23_lo)
+      T4_hi = bit32_bxor(D_hi, L23_hi)
+
+      L03_lo = (T2_lo % TWO_POW_32 - T2_lo % TWO_POW_21) / TWO_POW_21 + T2_hi * TWO_POW_11
+      L03_hi = (T2_hi % TWO_POW_32 - T2_hi % TWO_POW_21) / TWO_POW_21 + T2_lo * TWO_POW_11
+      L08_lo = (T4_lo % TWO_POW_32 - T4_lo % TWO_POW_3) / TWO_POW_3 + T4_hi * TWO_POW_29 % TWO_POW_32
+      L08_hi = (T4_hi % TWO_POW_32 - T4_hi % TWO_POW_3) / TWO_POW_3 + T4_lo * TWO_POW_29 % TWO_POW_32
+      L13_lo = T1_lo * TWO_POW_6 + (T1_hi % TWO_POW_32 - T1_hi % TWO_POW_26) / TWO_POW_26
+      L13_hi = T1_hi * TWO_POW_6 + (T1_lo % TWO_POW_32 - T1_lo % TWO_POW_26) / TWO_POW_26
+      L18_lo = T3_lo * TWO_POW_15 + (T3_hi % TWO_POW_32 - T3_hi % TWO_POW_17) / TWO_POW_17
+      L18_hi = T3_hi * TWO_POW_15 + (T3_lo % TWO_POW_32 - T3_lo % TWO_POW_17) / TWO_POW_17
+      L23_lo = (T0_lo % TWO_POW_32 - T0_lo % TWO_POW_2) / TWO_POW_2 + T0_hi * TWO_POW_30 % TWO_POW_32
+      L23_hi = (T0_hi % TWO_POW_32 - T0_hi % TWO_POW_2) / TWO_POW_2 + T0_lo * TWO_POW_30 % TWO_POW_32
+
+      D_lo = bit32_bxor(C3_lo, C5_lo * 2 + (C5_hi % TWO_POW_32 - C5_hi % TWO_POW_31) / TWO_POW_31)
+      D_hi = bit32_bxor(C3_hi, C5_hi * 2 + (C5_lo % TWO_POW_32 - C5_lo % TWO_POW_31) / TWO_POW_31)
+
+      T0_lo = bit32_bxor(D_lo, L04_lo)
+      T0_hi = bit32_bxor(D_hi, L04_hi)
+      T1_lo = bit32_bxor(D_lo, L09_lo)
+      T1_hi = bit32_bxor(D_hi, L09_hi)
+      T2_lo = bit32_bxor(D_lo, L14_lo)
+      T2_hi = bit32_bxor(D_hi, L14_hi)
+      T3_lo = bit32_bxor(D_lo, L19_lo)
+      T3_hi = bit32_bxor(D_hi, L19_hi)
+      T4_lo = bit32_bxor(D_lo, L24_lo)
+      T4_hi = bit32_bxor(D_hi, L24_hi)
+
+      L04_lo = T3_lo * TWO_POW_21 % TWO_POW_32 + (T3_hi % TWO_POW_32 - T3_hi % TWO_POW_11) / TWO_POW_11
+      L04_hi = T3_hi * TWO_POW_21 % TWO_POW_32 + (T3_lo % TWO_POW_32 - T3_lo % TWO_POW_11) / TWO_POW_11
+      L09_lo = T0_lo * TWO_POW_28 % TWO_POW_32 + (T0_hi % TWO_POW_32 - T0_hi % TWO_POW_4) / TWO_POW_4
+      L09_hi = T0_hi * TWO_POW_28 % TWO_POW_32 + (T0_lo % TWO_POW_32 - T0_lo % TWO_POW_4) / TWO_POW_4
+      L14_lo = T2_lo * TWO_POW_25 % TWO_POW_32 + (T2_hi % TWO_POW_32 - T2_hi % TWO_POW_7) / TWO_POW_7
+      L14_hi = T2_hi * TWO_POW_25 % TWO_POW_32 + (T2_lo % TWO_POW_32 - T2_lo % TWO_POW_7) / TWO_POW_7
+      L19_lo = (T4_lo % TWO_POW_32 - T4_lo % TWO_POW_8) / TWO_POW_8 + T4_hi * TWO_POW_24 % TWO_POW_32
+      L19_hi = (T4_hi % TWO_POW_32 - T4_hi % TWO_POW_8) / TWO_POW_8 + T4_lo * TWO_POW_24 % TWO_POW_32
+      L24_lo = (T1_lo % TWO_POW_32 - T1_lo % TWO_POW_9) / TWO_POW_9 + T1_hi * TWO_POW_23 % TWO_POW_32
+      L24_hi = (T1_hi % TWO_POW_32 - T1_hi % TWO_POW_9) / TWO_POW_9 + T1_lo * TWO_POW_23 % TWO_POW_32
+
+      D_lo = bit32_bxor(C4_lo, C1_lo * 2 + (C1_hi % TWO_POW_32 - C1_hi % TWO_POW_31) / TWO_POW_31)
+      D_hi = bit32_bxor(C4_hi, C1_hi * 2 + (C1_lo % TWO_POW_32 - C1_lo % TWO_POW_31) / TWO_POW_31)
+
+      T0_lo = bit32_bxor(D_lo, L05_lo)
+      T0_hi = bit32_bxor(D_hi, L05_hi)
+      T1_lo = bit32_bxor(D_lo, L10_lo)
+      T1_hi = bit32_bxor(D_hi, L10_hi)
+      T2_lo = bit32_bxor(D_lo, L15_lo)
+      T2_hi = bit32_bxor(D_hi, L15_hi)
+      T3_lo = bit32_bxor(D_lo, L20_lo)
+      T3_hi = bit32_bxor(D_hi, L20_hi)
+      T4_lo = bit32_bxor(D_lo, L25_lo)
+      T4_hi = bit32_bxor(D_hi, L25_hi)
+
+      L05_lo = T4_lo * TWO_POW_14 + (T4_hi % TWO_POW_32 - T4_hi % TWO_POW_18) / TWO_POW_18
+      L05_hi = T4_hi * TWO_POW_14 + (T4_lo % TWO_POW_32 - T4_lo % TWO_POW_18) / TWO_POW_18
+      L10_lo = T1_lo * TWO_POW_20 % TWO_POW_32 + (T1_hi % TWO_POW_32 - T1_hi % TWO_POW_12) / TWO_POW_12
+      L10_hi = T1_hi * TWO_POW_20 % TWO_POW_32 + (T1_lo % TWO_POW_32 - T1_lo % TWO_POW_12) / TWO_POW_12
+      L15_lo = T3_lo * TWO_POW_8 + (T3_hi % TWO_POW_32 - T3_hi % TWO_POW_24) / TWO_POW_24
+      L15_hi = T3_hi * TWO_POW_8 + (T3_lo % TWO_POW_32 - T3_lo % TWO_POW_24) / TWO_POW_24
+      L20_lo = T0_lo * TWO_POW_27 % TWO_POW_32 + (T0_hi % TWO_POW_32 - T0_hi % TWO_POW_5) / TWO_POW_5
+      L20_hi = T0_hi * TWO_POW_27 % TWO_POW_32 + (T0_lo % TWO_POW_32 - T0_lo % TWO_POW_5) / TWO_POW_5
+      L25_lo = (T2_lo % TWO_POW_32 - T2_lo % TWO_POW_25) / TWO_POW_25 + T2_hi * TWO_POW_7
+      L25_hi = (T2_hi % TWO_POW_32 - T2_hi % TWO_POW_25) / TWO_POW_25 + T2_lo * TWO_POW_7
+
+      D_lo = bit32_bxor(C5_lo, C2_lo * 2 + (C2_hi % TWO_POW_32 - C2_hi % TWO_POW_31) / TWO_POW_31)
+      D_hi = bit32_bxor(C5_hi, C2_hi * 2 + (C2_lo % TWO_POW_32 - C2_lo % TWO_POW_31) / TWO_POW_31)
+
+      T1_lo = bit32_bxor(D_lo, L06_lo)
+      T1_hi = bit32_bxor(D_hi, L06_hi)
+      T2_lo = bit32_bxor(D_lo, L11_lo)
+      T2_hi = bit32_bxor(D_hi, L11_hi)
+      T3_lo = bit32_bxor(D_lo, L16_lo)
+      T3_hi = bit32_bxor(D_hi, L16_hi)
+      T4_lo = bit32_bxor(D_lo, L21_lo)
+      T4_hi = bit32_bxor(D_hi, L21_hi)
+
+      L06_lo = T2_lo * TWO_POW_3 + (T2_hi % TWO_POW_32 - T2_hi % TWO_POW_29) / TWO_POW_29
+      L06_hi = T2_hi * TWO_POW_3 + (T2_lo % TWO_POW_32 - T2_lo % TWO_POW_29) / TWO_POW_29
+      L11_lo = T4_lo * TWO_POW_18 + (T4_hi % TWO_POW_32 - T4_hi % TWO_POW_14) / TWO_POW_14
+      L11_hi = T4_hi * TWO_POW_18 + (T4_lo % TWO_POW_32 - T4_lo % TWO_POW_14) / TWO_POW_14
+      L16_lo = (T1_lo % TWO_POW_32 - T1_lo % TWO_POW_28) / TWO_POW_28 + T1_hi * TWO_POW_4
+      L16_hi = (T1_hi % TWO_POW_32 - T1_hi % TWO_POW_28) / TWO_POW_28 + T1_lo * TWO_POW_4
+      L21_lo = (T3_lo % TWO_POW_32 - T3_lo % TWO_POW_23) / TWO_POW_23 + T3_hi * TWO_POW_9
+      L21_hi = (T3_hi % TWO_POW_32 - T3_hi % TWO_POW_23) / TWO_POW_23 + T3_lo * TWO_POW_9
+
+      L01_lo = bit32_bxor(D_lo, L01_lo)
+      L01_hi = bit32_bxor(D_hi, L01_hi)
+      L01_lo, L02_lo, L03_lo, L04_lo, L05_lo =
+        bit32_bxor(L01_lo, bit32_band(-1 - L02_lo, L03_lo)),
+        bit32_bxor(L02_lo, bit32_band(-1 - L03_lo, L04_lo)),
+        bit32_bxor(L03_lo, bit32_band(-1 - L04_lo, L05_lo)),
+        bit32_bxor(L04_lo, bit32_band(-1 - L05_lo, L01_lo)),
+        bit32_bxor(L05_lo, bit32_band(-1 - L01_lo, L02_lo))
+      L01_hi, L02_hi, L03_hi, L04_hi, L05_hi =
+        bit32_bxor(L01_hi, bit32_band(-1 - L02_hi, L03_hi)),
+        bit32_bxor(L02_hi, bit32_band(-1 - L03_hi, L04_hi)),
+        bit32_bxor(L03_hi, bit32_band(-1 - L04_hi, L05_hi)),
+        bit32_bxor(L04_hi, bit32_band(-1 - L05_hi, L01_hi)),
+        bit32_bxor(L05_hi, bit32_band(-1 - L01_hi, L02_hi))
+      L06_lo, L07_lo, L08_lo, L09_lo, L10_lo =
+        bit32_bxor(L09_lo, bit32_band(-1 - L10_lo, L06_lo)),
+        bit32_bxor(L10_lo, bit32_band(-1 - L06_lo, L07_lo)),
+        bit32_bxor(L06_lo, bit32_band(-1 - L07_lo, L08_lo)),
+        bit32_bxor(L07_lo, bit32_band(-1 - L08_lo, L09_lo)),
+        bit32_bxor(L08_lo, bit32_band(-1 - L09_lo, L10_lo))
+      L06_hi, L07_hi, L08_hi, L09_hi, L10_hi =
+        bit32_bxor(L09_hi, bit32_band(-1 - L10_hi, L06_hi)),
+        bit32_bxor(L10_hi, bit32_band(-1 - L06_hi, L07_hi)),
+        bit32_bxor(L06_hi, bit32_band(-1 - L07_hi, L08_hi)),
+        bit32_bxor(L07_hi, bit32_band(-1 - L08_hi, L09_hi)),
+        bit32_bxor(L08_hi, bit32_band(-1 - L09_hi, L10_hi))
+      L11_lo, L12_lo, L13_lo, L14_lo, L15_lo =
+        bit32_bxor(L12_lo, bit32_band(-1 - L13_lo, L14_lo)),
+        bit32_bxor(L13_lo, bit32_band(-1 - L14_lo, L15_lo)),
+        bit32_bxor(L14_lo, bit32_band(-1 - L15_lo, L11_lo)),
+        bit32_bxor(L15_lo, bit32_band(-1 - L11_lo, L12_lo)),
+        bit32_bxor(L11_lo, bit32_band(-1 - L12_lo, L13_lo))
+      L11_hi, L12_hi, L13_hi, L14_hi, L15_hi =
+        bit32_bxor(L12_hi, bit32_band(-1 - L13_hi, L14_hi)),
+        bit32_bxor(L13_hi, bit32_band(-1 - L14_hi, L15_hi)),
+        bit32_bxor(L14_hi, bit32_band(-1 - L15_hi, L11_hi)),
+        bit32_bxor(L15_hi, bit32_band(-1 - L11_hi, L12_hi)),
+        bit32_bxor(L11_hi, bit32_band(-1 - L12_hi, L13_hi))
+      L16_lo, L17_lo, L18_lo, L19_lo, L20_lo =
+        bit32_bxor(L20_lo, bit32_band(-1 - L16_lo, L17_lo)),
+        bit32_bxor(L16_lo, bit32_band(-1 - L17_lo, L18_lo)),
+        bit32_bxor(L17_lo, bit32_band(-1 - L18_lo, L19_lo)),
+        bit32_bxor(L18_lo, bit32_band(-1 - L19_lo, L20_lo)),
+        bit32_bxor(L19_lo, bit32_band(-1 - L20_lo, L16_lo))
+      L16_hi, L17_hi, L18_hi, L19_hi, L20_hi =
+        bit32_bxor(L20_hi, bit32_band(-1 - L16_hi, L17_hi)),
+        bit32_bxor(L16_hi, bit32_band(-1 - L17_hi, L18_hi)),
+        bit32_bxor(L17_hi, bit32_band(-1 - L18_hi, L19_hi)),
+        bit32_bxor(L18_hi, bit32_band(-1 - L19_hi, L20_hi)),
+        bit32_bxor(L19_hi, bit32_band(-1 - L20_hi, L16_hi))
+      L21_lo, L22_lo, L23_lo, L24_lo, L25_lo =
+        bit32_bxor(L23_lo, bit32_band(-1 - L24_lo, L25_lo)),
+        bit32_bxor(L24_lo, bit32_band(-1 - L25_lo, L21_lo)),
+        bit32_bxor(L25_lo, bit32_band(-1 - L21_lo, L22_lo)),
+        bit32_bxor(L21_lo, bit32_band(-1 - L22_lo, L23_lo)),
+        bit32_bxor(L22_lo, bit32_band(-1 - L23_lo, L24_lo))
+      L21_hi, L22_hi, L23_hi, L24_hi, L25_hi =
+        bit32_bxor(L23_hi, bit32_band(-1 - L24_hi, L25_hi)),
+        bit32_bxor(L24_hi, bit32_band(-1 - L25_hi, L21_hi)),
+        bit32_bxor(L25_hi, bit32_band(-1 - L21_hi, L22_hi)),
+        bit32_bxor(L21_hi, bit32_band(-1 - L22_hi, L23_hi)),
+        bit32_bxor(L22_hi, bit32_band(-1 - L23_hi, L24_hi))
+      L01_lo = bit32_bxor(L01_lo, RC_lo[round_idx])
+      L01_hi = L01_hi + RC_hi[round_idx] -- RC_hi[] is either 0 or 0x80000000, so we could use fast addition instead of slow XOR
+    end
+
+    lanes_lo[1] = L01_lo
+    lanes_hi[1] = L01_hi
+    lanes_lo[2] = L02_lo
+    lanes_hi[2] = L02_hi
+    lanes_lo[3] = L03_lo
+    lanes_hi[3] = L03_hi
+    lanes_lo[4] = L04_lo
+    lanes_hi[4] = L04_hi
+    lanes_lo[5] = L05_lo
+    lanes_hi[5] = L05_hi
+    lanes_lo[6] = L06_lo
+    lanes_hi[6] = L06_hi
+    lanes_lo[7] = L07_lo
+    lanes_hi[7] = L07_hi
+    lanes_lo[8] = L08_lo
+    lanes_hi[8] = L08_hi
+    lanes_lo[9] = L09_lo
+    lanes_hi[9] = L09_hi
+    lanes_lo[10] = L10_lo
+    lanes_hi[10] = L10_hi
+    lanes_lo[11] = L11_lo
+    lanes_hi[11] = L11_hi
+    lanes_lo[12] = L12_lo
+    lanes_hi[12] = L12_hi
+    lanes_lo[13] = L13_lo
+    lanes_hi[13] = L13_hi
+    lanes_lo[14] = L14_lo
+    lanes_hi[14] = L14_hi
+    lanes_lo[15] = L15_lo
+    lanes_hi[15] = L15_hi
+    lanes_lo[16] = L16_lo
+    lanes_hi[16] = L16_hi
+    lanes_lo[17] = L17_lo
+    lanes_hi[17] = L17_hi
+    lanes_lo[18] = L18_lo
+    lanes_hi[18] = L18_hi
+    lanes_lo[19] = L19_lo
+    lanes_hi[19] = L19_hi
+    lanes_lo[20] = L20_lo
+    lanes_hi[20] = L20_hi
+    lanes_lo[21] = L21_lo
+    lanes_hi[21] = L21_hi
+    lanes_lo[22] = L22_lo
+    lanes_hi[22] = L22_hi
+    lanes_lo[23] = L23_lo
+    lanes_hi[23] = L23_hi
+    lanes_lo[24] = L24_lo
+    lanes_hi[24] = L24_hi
+    lanes_lo[25] = L25_lo
+    lanes_hi[25] = L25_hi
+  end
+end
+
+--------------------------------------------------------------------------------
+-- MAGIC NUMBERS CALCULATOR
+--------------------------------------------------------------------------------
+-- Q:
+--    Is 53-bit "double" math enough to calculate square roots and cube roots of primes with 64 correct bits after decimal point?
+-- A:
+--    Yes, 53-bit "double" arithmetic is enough.
+--    We could obtain first 40 bits by direct calculation of p^(1/3) and next 40 bits by one step of Newton's method.
+do
+  local function mul(src1, src2, factor, result_length)
+    -- src1, src2 - long integers (arrays of digits in base TWO_POW_24)
+    -- factor - small integer
+    -- returns long integer result (src1 * src2 * factor) and its floating point approximation
+    local result, carry, value, weight = table.create(result_length), 0, 0, 1
+    for j = 1, result_length do
+      for k = math.max(1, j + 1 - #src2), math.min(j, #src1) do
+        carry = carry + factor * src1[k] * src2[j + 1 - k] -- "int32" is not enough for multiplication result, that's why "factor" must be of type "double"
+      end
+
+      local digit = carry % TWO_POW_24
+      result[j] = math.floor(digit)
+      carry = (carry - digit) / TWO_POW_24
+      value = value + digit * weight
+      weight = weight * TWO_POW_24
+    end
+
+    return result, value
+  end
+
+  local idx, step, p, one, sqrt_hi, sqrt_lo = 0, { 4, 1, 2, -2, 2 }, 4, { 1 }, sha2_H_hi, sha2_H_lo
+  repeat
+    p = p + step[p % 6]
+    local d = 1
+    repeat
+      d = d + step[d % 6]
+      if d * d > p then
+        -- next prime number is found
+        local root = p ^ (1 / 3)
+        local R = root * TWO_POW_40
+        R = mul(table.create(1, math.floor(R)), one, 1, 2)
+        local _, delta = mul(R, mul(R, R, 1, 4), -1, 4)
+        local hi = R[2] % 65536 * 65536 + math.floor(R[1] / 256)
+        local lo = R[1] % 256 * 16777216 + math.floor(delta * (TWO_POW_NEG_56 / 3) * root / p)
+
+        if idx < 16 then
+          root = math.sqrt(p)
+          R = root * TWO_POW_40
+          R = mul(table.create(1, math.floor(R)), one, 1, 2)
+          _, delta = mul(R, R, -1, 2)
+          local hi = R[2] % 65536 * 65536 + math.floor(R[1] / 256)
+          local lo = R[1] % 256 * 16777216 + math.floor(delta * TWO_POW_NEG_17 / root)
+          local idx = idx % 8 + 1
+          sha2_H_ext256[224][idx] = lo
+          sqrt_hi[idx], sqrt_lo[idx] = hi, lo + hi * hi_factor
+          if idx > 7 then
+            sqrt_hi, sqrt_lo = sha2_H_ext512_hi[384], sha2_H_ext512_lo[384]
+          end
+        end
+
+        idx = idx + 1
+        sha2_K_hi[idx], sha2_K_lo[idx] = hi, lo % K_lo_modulo + hi * hi_factor
+        break
+      end
+    until p % d == 0
+  until idx > 79
+end
+
+-- Calculating IVs for SHA512/224 and SHA512/256
+for width = 224, 256, 32 do
+  local H_lo, H_hi = {}, nil
+  if XOR64A5 then
+    for j = 1, 8 do
+      H_lo[j] = XOR64A5(sha2_H_lo[j])
+    end
+  else
+    H_hi = {}
+    for j = 1, 8 do
+      H_lo[j] = bit32_bxor(sha2_H_lo[j], 0xA5A5A5A5) % 4294967296
+      H_hi[j] = bit32_bxor(sha2_H_hi[j], 0xA5A5A5A5) % 4294967296
+    end
+  end
+
+  sha512_feed_128(H_lo, H_hi, 'SHA-512/' .. tostring(width) .. '\128' .. string.rep('\0', 115) .. '\88', 0, 128)
+  sha2_H_ext512_lo[width] = H_lo
+  sha2_H_ext512_hi[width] = H_hi
+end
+
+-- Constants for MD5
+do
+  for idx = 1, 64 do
+    -- we can't use formula math.floor(abs(sin(idx))*TWO_POW_32) because its result may be beyond integer range on Lua built with 32-bit integers
+    local hi, lo = math.modf(math.abs(math.sin(idx)) * TWO_POW_16)
+    md5_K[idx] = hi * 65536 + math.floor(lo * TWO_POW_16)
+  end
+end
+
+-- Constants for SHA3
+do
+  local sh_reg = 29
+  local function next_bit()
+    local r = sh_reg % 2
+    sh_reg = bit32_bxor((sh_reg - r) / 2, 142 * r)
+    return r
+  end
+
+  for idx = 1, 24 do
+    local lo, m = 0, nil
+    for _ = 1, 6 do
+      m = m and m * m * 2 or 1
+      lo = lo + next_bit() * m
+    end
+
+    local hi = next_bit() * m
+    sha3_RC_hi[idx], sha3_RC_lo[idx] = hi, lo + hi * hi_factor_keccak
+  end
+end
+
+--------------------------------------------------------------------------------
+-- MAIN FUNCTIONS
+--------------------------------------------------------------------------------
+local function sha256ext(width, message)
+  -- Create an instance (private objects for current calculation)
+  local Array256 = sha2_H_ext256[width] -- # == 8
+  local length, tail = 0, ''
+  local H = table.create(8)
+  H[1], H[2], H[3], H[4], H[5], H[6], H[7], H[8] =
+    Array256[1], Array256[2], Array256[3], Array256[4], Array256[5], Array256[6], Array256[7], Array256[8]
+
+  local function partial(message_part)
+    if message_part then
+      local partLength = #message_part
+      if tail then
+        length = length + partLength
+        local offs = 0
+        local tailLength = #tail
+        if tail ~= '' and tailLength + partLength >= 64 then
+          offs = 64 - tailLength
+          sha256_feed_64(H, tail .. string.sub(message_part, 1, offs), 0, 64)
+          tail = ''
+        end
+
+        local size = partLength - offs
+        local size_tail = size % 64
+        sha256_feed_64(H, message_part, offs, size - size_tail)
+        tail = tail .. string.sub(message_part, partLength + 1 - size_tail)
+        return partial
+      else
+        error('Adding more chunks is not allowed after receiving the result', 2)
+      end
+    else
+      if tail then
+        local final_blocks = table.create(10) --{tail, "\128", string.rep("\0", (-9 - length) % 64 + 1)}
+        final_blocks[1] = tail
+        final_blocks[2] = '\128'
+        final_blocks[3] = string.rep('\0', (-9 - length) % 64 + 1)
+
+        tail = nil
+        -- Assuming user data length is shorter than (TWO_POW_53)-9 bytes
+        -- Anyway, it looks very unrealistic that someone would spend more than a year of calculations to process TWO_POW_53 bytes of data by using this Lua script :-)
+        -- TWO_POW_53 bytes = TWO_POW_56 bits, so "bit-counter" fits in 7 bytes
+        length = length * (8 / TWO56_POW_7) -- convert "byte-counter" to "bit-counter" and move decimal point to the left
+        for j = 4, 10 do
+          length = length % 1 * 256
+          final_blocks[j] = string.char(math.floor(length))
+        end
+
+        final_blocks = table.concat(final_blocks)
+        sha256_feed_64(H, final_blocks, 0, #final_blocks)
+        local max_reg = width / 32
+        for j = 1, max_reg do
+          H[j] = string.format('%08x', H[j] % 4294967296)
+        end
+
+        H = table.concat(H, '', 1, max_reg)
+      end
+
+      return H
+    end
+  end
+
+  if message then
+    -- Actually perform calculations and return the SHA256 digest of a message
+    return partial(message)()
+  else
+    -- Return function for chunk-by-chunk loading
+    -- User should feed every chunk of input data as single argument to this function and finally get SHA256 digest by invoking this function without an argument
+    return partial
+  end
+end
+
+local function sha512ext(width, message)
+  -- Create an instance (private objects for current calculation)
+  local length, tail, H_lo, H_hi =
+    0, '', table.pack(table.unpack(sha2_H_ext512_lo[width])), not HEX64 and table.pack(table.unpack(sha2_H_ext512_hi[width]))
+
+  local function partial(message_part)
+    if message_part then
+      local partLength = #message_part
+      if tail then
+        length = length + partLength
+        local offs = 0
+        if tail ~= '' and #tail + partLength >= 128 then
+          offs = 128 - #tail
+          sha512_feed_128(H_lo, H_hi, tail .. string.sub(message_part, 1, offs), 0, 128)
+          tail = ''
+        end
+
+        local size = partLength - offs
+        local size_tail = size % 128
+        sha512_feed_128(H_lo, H_hi, message_part, offs, size - size_tail)
+        tail = tail .. string.sub(message_part, partLength + 1 - size_tail)
+        return partial
+      else
+        error('Adding more chunks is not allowed after receiving the result', 2)
+      end
+    else
+      if tail then
+        local final_blocks = table.create(3) --{tail, "\128", string.rep("\0", (-17-length) % 128 + 9)}
+        final_blocks[1] = tail
+        final_blocks[2] = '\128'
+        final_blocks[3] = string.rep('\0', (-17 - length) % 128 + 9)
+
+        tail = nil
+        -- Assuming user data length is shorter than (TWO_POW_53)-17 bytes
+        -- TWO_POW_53 bytes = TWO_POW_56 bits, so "bit-counter" fits in 7 bytes
+        length = length * (8 / TWO56_POW_7) -- convert "byte-counter" to "bit-counter" and move floating point to the left
+        for j = 4, 10 do
+          length = length % 1 * 256
+          final_blocks[j] = string.char(math.floor(length))
+        end
+
+        final_blocks = table.concat(final_blocks)
+        sha512_feed_128(H_lo, H_hi, final_blocks, 0, #final_blocks)
+        local max_reg = math.ceil(width / 64)
+
+        if HEX64 then
+          for j = 1, max_reg do
+            H_lo[j] = HEX64(H_lo[j])
+          end
+        else
+          for j = 1, max_reg do
+            H_lo[j] = string.format('%08x', H_hi[j] % 4294967296) .. string.format('%08x', H_lo[j] % 4294967296)
+          end
+
+          H_hi = nil
+        end
+
+        H_lo = string.sub(table.concat(H_lo, '', 1, max_reg), 1, width / 4)
+      end
+
+      return H_lo
+    end
+  end
+
+  if message then
+    -- Actually perform calculations and return the SHA512 digest of a message
+    return partial(message)()
+  else
+    -- Return function for chunk-by-chunk loading
+    -- User should feed every chunk of input data as single argument to this function and finally get SHA512 digest by invoking this function without an argument
+    return partial
+  end
+end
+
+local function md5(message)
+  -- Create an instance (private objects for current calculation)
+  local H, length, tail = table.create(4), 0, ''
+  H[1], H[2], H[3], H[4] = md5_sha1_H[1], md5_sha1_H[2], md5_sha1_H[3], md5_sha1_H[4]
+
+  local function partial(message_part)
+    if message_part then
+      local partLength = #message_part
+      if tail then
+        length = length + partLength
+        local offs = 0
+        if tail ~= '' and #tail + partLength >= 64 then
+          offs = 64 - #tail
+          md5_feed_64(H, tail .. string.sub(message_part, 1, offs), 0, 64)
+          tail = ''
+        end
+
+        local size = partLength - offs
+        local size_tail = size % 64
+        md5_feed_64(H, message_part, offs, size - size_tail)
+        tail = tail .. string.sub(message_part, partLength + 1 - size_tail)
+        return partial
+      else
+        error('Adding more chunks is not allowed after receiving the result', 2)
+      end
+    else
+      if tail then
+        local final_blocks = table.create(3) --{tail, "\128", string.rep("\0", (-9 - length) % 64)}
+        final_blocks[1] = tail
+        final_blocks[2] = '\128'
+        final_blocks[3] = string.rep('\0', (-9 - length) % 64)
+        tail = nil
+        length = length * 8 -- convert "byte-counter" to "bit-counter"
+        for j = 4, 11 do
+          local low_byte = length % 256
+          final_blocks[j] = string.char(low_byte)
+          length = (length - low_byte) / 256
+        end
+
+        final_blocks = table.concat(final_blocks)
+        md5_feed_64(H, final_blocks, 0, #final_blocks)
+        for j = 1, 4 do
+          H[j] = string.format('%08x', H[j] % 4294967296)
+        end
+
+        H = string.gsub(table.concat(H), '(..)(..)(..)(..)', '%4%3%2%1')
+      end
+
+      return H
+    end
+  end
+
+  if message then
+    -- Actually perform calculations and return the MD5 digest of a message
+    return partial(message)()
+  else
+    -- Return function for chunk-by-chunk loading
+    -- User should feed every chunk of input data as single argument to this function and finally get MD5 digest by invoking this function without an argument
+    return partial
+  end
+end
+
+local function sha1(message)
+  -- Create an instance (private objects for current calculation)
+  local H, length, tail = table.pack(table.unpack(md5_sha1_H)), 0, ''
+
+  local function partial(message_part)
+    if message_part then
+      local partLength = #message_part
+      if tail then
+        length = length + partLength
+        local offs = 0
+        if tail ~= '' and #tail + partLength >= 64 then
+          offs = 64 - #tail
+          sha1_feed_64(H, tail .. string.sub(message_part, 1, offs), 0, 64)
+          tail = ''
+        end
+
+        local size = partLength - offs
+        local size_tail = size % 64
+        sha1_feed_64(H, message_part, offs, size - size_tail)
+        tail = tail .. string.sub(message_part, partLength + 1 - size_tail)
+        return partial
+      else
+        error('Adding more chunks is not allowed after receiving the result', 2)
+      end
+    else
+      if tail then
+        local final_blocks = table.create(10) --{tail, "\128", string.rep("\0", (-9 - length) % 64 + 1)}
+        final_blocks[1] = tail
+        final_blocks[2] = '\128'
+        final_blocks[3] = string.rep('\0', (-9 - length) % 64 + 1)
+        tail = nil
+
+        -- Assuming user data length is shorter than (TWO_POW_53)-9 bytes
+        -- TWO_POW_53 bytes = TWO_POW_56 bits, so "bit-counter" fits in 7 bytes
+        length = length * (8 / TWO56_POW_7) -- convert "byte-counter" to "bit-counter" and move decimal point to the left
+        for j = 4, 10 do
+          length = length % 1 * 256
+          final_blocks[j] = string.char(math.floor(length))
+        end
+
+        final_blocks = table.concat(final_blocks)
+        sha1_feed_64(H, final_blocks, 0, #final_blocks)
+        for j = 1, 5 do
+          H[j] = string.format('%08x', H[j] % 4294967296)
+        end
+
+        H = table.concat(H)
+      end
+
+      return H
+    end
+  end
+
+  if message then
+    -- Actually perform calculations and return the SHA-1 digest of a message
+    return partial(message)()
+  else
+    -- Return function for chunk-by-chunk loading
+    -- User should feed every chunk of input data as single argument to this function and finally get SHA-1 digest by invoking this function without an argument
+    return partial
+  end
+end
+
+local function keccak(block_size_in_bytes, digest_size_in_bytes, is_SHAKE, message)
+  -- "block_size_in_bytes" is multiple of 8
+  if type(digest_size_in_bytes) ~= 'number' then
+    -- arguments in SHAKE are swapped:
+    --    NIST FIPS 202 defines SHAKE(message,num_bits)
+    --    this module   defines SHAKE(num_bytes,message)
+    -- it's easy to forget about this swap, hence the check
+    error('Argument \'digest_size_in_bytes\' must be a number', 2)
+  end
+
+  -- Create an instance (private objects for current calculation)
+  local tail, lanes_lo, lanes_hi = '', table.create(25, 0), hi_factor_keccak == 0 and table.create(25, 0)
+  local result
+
+  --~     pad the input N using the pad function, yielding a padded bit string P with a length divisible by r (such that n = len(P)/r is integer),
+  --~     break P into n consecutive r-bit pieces P0, ..., Pn-1 (last is zero-padded)
+  --~     initialize the state S to a string of b 0 bits.
+  --~     absorb the input into the state: For each block Pi,
+  --~         extend Pi at the end by a string of c 0 bits, yielding one of length b,
+  --~         XOR that with S and
+  --~         apply the block permutation f to the result, yielding a new state S
+  --~     initialize Z to be the empty string
+  --~     while the length of Z is less than d:
+  --~         append the first r bits of S to Z
+  --~         if Z is still less than d bits long, apply f to S, yielding a new state S.
+  --~     truncate Z to d bits
+  local function partial(message_part)
+    if message_part then
+      local partLength = #message_part
+      if tail then
+        local offs = 0
+        if tail ~= '' and #tail + partLength >= block_size_in_bytes then
+          offs = block_size_in_bytes - #tail
+          keccak_feed(
+            lanes_lo,
+            lanes_hi,
+            tail .. string.sub(message_part, 1, offs),
+            0,
+            block_size_in_bytes,
+            block_size_in_bytes
+          )
+          tail = ''
+        end
+
+        local size = partLength - offs
+        local size_tail = size % block_size_in_bytes
+        keccak_feed(lanes_lo, lanes_hi, message_part, offs, size - size_tail, block_size_in_bytes)
+        tail = tail .. string.sub(message_part, partLength + 1 - size_tail)
+        return partial
+      else
+        error('Adding more chunks is not allowed after receiving the result', 2)
+      end
+    else
+      if tail then
+        -- append the following bits to the message: for usual SHA3: 011(0*)1, for SHAKE: 11111(0*)1
+        local gap_start = is_SHAKE and 31 or 6
+        tail = tail
+          .. (
+            #tail + 1 == block_size_in_bytes and string.char(gap_start + 128)
+            or string.char(gap_start) .. string.rep('\0', (-2 - #tail) % block_size_in_bytes) .. '\128'
+          )
+        keccak_feed(lanes_lo, lanes_hi, tail, 0, #tail, block_size_in_bytes)
+        tail = nil
+
+        local lanes_used = 0
+        local total_lanes = math.floor(block_size_in_bytes / 8)
+        local qwords = {}
+
+        local function get_next_qwords_of_digest(qwords_qty)
+          -- returns not more than 'qwords_qty' qwords ('qwords_qty' might be non-integer)
+          -- doesn't go across keccak-buffer boundary
+          -- block_size_in_bytes is a multiple of 8, so, keccak-buffer contains integer number of qwords
+          if lanes_used >= total_lanes then
+            keccak_feed(lanes_lo, lanes_hi, '\0\0\0\0\0\0\0\0', 0, 8, 8)
+            lanes_used = 0
+          end
+
+          qwords_qty = math.floor(math.min(qwords_qty, total_lanes - lanes_used))
+          if hi_factor_keccak ~= 0 then
+            for j = 1, qwords_qty do
+              qwords[j] = HEX64(lanes_lo[lanes_used + j - 1 + lanes_index_base])
+            end
+          else
+            for j = 1, qwords_qty do
+              qwords[j] = string.format('%08x', lanes_hi[lanes_used + j] % 4294967296)
+                .. string.format('%08x', lanes_lo[lanes_used + j] % 4294967296)
+            end
+          end
+
+          lanes_used = lanes_used + qwords_qty
+          return string.gsub(table.concat(qwords, '', 1, qwords_qty), '(..)(..)(..)(..)(..)(..)(..)(..)', '%8%7%6%5%4%3%2%1'),
+            qwords_qty * 8
+        end
+
+        local parts = {} -- digest parts
+        local last_part, last_part_size = '', 0
+
+        local function get_next_part_of_digest(bytes_needed)
+          -- returns 'bytes_needed' bytes, for arbitrary integer 'bytes_needed'
+          bytes_needed = bytes_needed or 1
+          if bytes_needed <= last_part_size then
+            last_part_size = last_part_size - bytes_needed
+            local part_size_in_nibbles = bytes_needed * 2
+            local result = string.sub(last_part, 1, part_size_in_nibbles)
+            last_part = string.sub(last_part, part_size_in_nibbles + 1)
+            return result
+          end
+
+          local parts_qty = 0
+          if last_part_size > 0 then
+            parts_qty = 1
+            parts[parts_qty] = last_part
+            bytes_needed = bytes_needed - last_part_size
+          end
+
+          -- repeats until the length is enough
+          while bytes_needed >= 8 do
+            local next_part, next_part_size = get_next_qwords_of_digest(bytes_needed / 8)
+            parts_qty = parts_qty + 1
+            parts[parts_qty] = next_part
+            bytes_needed = bytes_needed - next_part_size
+          end
+
+          if bytes_needed > 0 then
+            last_part, last_part_size = get_next_qwords_of_digest(1)
+            parts_qty = parts_qty + 1
+            parts[parts_qty] = get_next_part_of_digest(bytes_needed)
+          else
+            last_part, last_part_size = '', 0
+          end
+
+          return table.concat(parts, '', 1, parts_qty)
+        end
+
+        if digest_size_in_bytes < 0 then
+          result = get_next_part_of_digest
+        else
+          result = get_next_part_of_digest(digest_size_in_bytes)
+        end
+      end
+
+      return result
+    end
+  end
+
+  if message then
+    -- Actually perform calculations and return the SHA3 digest of a message
+    return partial(message)()
+  else
+    -- Return function for chunk-by-chunk loading
+    -- User should feed every chunk of input data as single argument to this function and finally get SHA3 digest by invoking this function without an argument
+    return partial
+  end
+end
+
+local function HexToBinFunction(hh)
+  return string.char(tonumber(hh, 16))
+end
+
+local function hex2bin(hex_string)
+  return (string.gsub(hex_string, '%x%x', HexToBinFunction))
+end
+
+local base64_symbols = {
+  ['+'] = 62,
+  ['-'] = 62,
+  [62] = '+',
+  ['/'] = 63,
+  ['_'] = 63,
+  [63] = '/',
+  ['='] = -1,
+  ['.'] = -1,
+  [-1] = '=',
+}
+
+local symbol_index = 0
+for j, pair in ipairs { 'AZ', 'az', '09' } do
+  for ascii = string.byte(pair), string.byte(pair, 2) do
+    local ch = string.char(ascii)
+    base64_symbols[ch] = symbol_index
+    base64_symbols[symbol_index] = ch
+    symbol_index = symbol_index + 1
+  end
+end
+
+local function bin2base64(binary_string)
+  local stringLength = #binary_string
+  local result = table.create(math.ceil(stringLength / 3))
+  local length = 0
+
+  for pos = 1, #binary_string, 3 do
+    local c1, c2, c3, c4 = string.byte(string.sub(binary_string, pos, pos + 2) .. '\0', 1, -1)
+    length = length + 1
+    result[length] = base64_symbols[math.floor(c1 / 4)]
+      .. base64_symbols[c1 % 4 * 16 + math.floor(c2 / 16)]
+      .. base64_symbols[c3 and c2 % 16 * 4 + math.floor(c3 / 64) or -1]
+      .. base64_symbols[c4 and c3 % 64 or -1]
+  end
+
+  return table.concat(result)
+end
+
+local function base642bin(base64_string)
+  local result, chars_qty = {}, 3
+  for pos, ch in string.gmatch(string.gsub(base64_string, '%s+', ''), '()(.)') do
+    local code = base64_symbols[ch]
+    if code < 0 then
+      chars_qty = chars_qty - 1
+      code = 0
+    end
+
+    local idx = pos % 4
+    if idx > 0 then
+      result[-idx] = code
+    else
+      local c1 = result[-1] * 4 + math.floor(result[-2] / 16)
+      local c2 = (result[-2] % 16) * 16 + math.floor(result[-3] / 4)
+      local c3 = (result[-3] % 4) * 64 + code
+      result[#result + 1] = string.sub(string.char(c1, c2, c3), 1, chars_qty)
+    end
+  end
+
+  return table.concat(result)
+end
+
+local block_size_for_HMAC -- this table will be initialized at the end of the module
+--local function pad_and_xor(str, result_length, byte_for_xor)
+--	return string.gsub(str, ".", function(c)
+--		return string.char(bit32_bxor(string.byte(c), byte_for_xor))
+--	end) .. string.rep(string.char(byte_for_xor), result_length - #str)
+--end
+
+-- For the sake of speed of converting hexes to strings, there's a map of the conversions here
+local BinaryStringMap = {}
+for Index = 0, 255 do
+  BinaryStringMap[string.format('%02x', Index)] = string.char(Index)
+end
+
+-- Update 02.14.20 - added AsBinary for easy GameAnalytics replacement.
+local function hmac(hash_func, key, message, AsBinary)
+  -- Create an instance (private objects for current calculation)
+  local block_size = block_size_for_HMAC[hash_func]
+  if not block_size then
+    error('Unknown hash function', 2)
+  end
+
+  local KeyLength = #key
+  if KeyLength > block_size then
+    key = string.gsub(hash_func(key), '%x%x', HexToBinFunction)
+    KeyLength = #key
+  end
+
+  local append = hash_func()(string.gsub(key, '.', function(c)
+    return string.char(bit32_bxor(string.byte(c), 0x36))
+  end) .. string.rep('6', block_size - KeyLength)) -- 6 = string.char(0x36)
+
+  local result
+
+  local function partial(message_part)
+    if not message_part then
+      result = result
+        or hash_func(
+          string.gsub(key, '.', function(c)
+            return string.char(bit32_bxor(string.byte(c), 0x5c))
+          end)
+            .. string.rep('\\', block_size - KeyLength) -- \ = string.char(0x5c)
+            .. (string.gsub(append(), '%x%x', HexToBinFunction))
+        )
+
+      return result
+    elseif result then
+      error('Adding more chunks is not allowed after receiving the result', 2)
+    else
+      append(message_part)
+      return partial
+    end
+  end
+
+  if message then
+    -- Actually perform calculations and return the HMAC of a message
+    local FinalMessage = partial(message)()
+    return AsBinary and (string.gsub(FinalMessage, '%x%x', BinaryStringMap)) or FinalMessage
+  else
+    -- Return function for chunk-by-chunk loading of a message
+    -- User should feed every chunk of the message as single argument to this function and finally get HMAC by invoking this function without an argument
+    return partial
+  end
+end
+
+local sha = {
+  md5 = md5,
+  sha1 = sha1,
+  -- SHA2 hash functions:
+  sha224 = function(message)
+    return sha256ext(224, message)
+  end,
+
+  sha256 = function(message)
+    return sha256ext(256, message)
+  end,
+
+  sha512_224 = function(message)
+    return sha512ext(224, message)
+  end,
+
+  sha512_256 = function(message)
+    return sha512ext(256, message)
+  end,
+
+  sha384 = function(message)
+    return sha512ext(384, message)
+  end,
+
+  sha512 = function(message)
+    return sha512ext(512, message)
+  end,
+
+  -- SHA3 hash functions:
+  sha3_224 = function(message)
+    return keccak((1600 - 2 * 224) / 8, 224 / 8, false, message)
+  end,
+
+  sha3_256 = function(message)
+    return keccak((1600 - 2 * 256) / 8, 256 / 8, false, message)
+  end,
+
+  sha3_384 = function(message)
+    return keccak((1600 - 2 * 384) / 8, 384 / 8, false, message)
+  end,
+
+  sha3_512 = function(message)
+    return keccak((1600 - 2 * 512) / 8, 512 / 8, false, message)
+  end,
+
+  shake128 = function(message, digest_size_in_bytes)
+    return keccak((1600 - 2 * 128) / 8, digest_size_in_bytes, true, message)
+  end,
+
+  shake256 = function(message, digest_size_in_bytes)
+    return keccak((1600 - 2 * 256) / 8, digest_size_in_bytes, true, message)
+  end,
+
+  -- misc utilities:
+  hmac = hmac, -- HMAC(hash_func, key, message) is applicable to any hash function from this module except SHAKE*
+  hex_to_bin = hex2bin, -- converts hexadecimal representation to binary string
+  base64_to_bin = base642bin, -- converts base64 representation to binary string
+  bin_to_base64 = bin2base64, -- converts binary string to base64 representation
+  base64_encode = Base64.Encode,
+  base64_decode = Base64.Decode,
+}
+
+block_size_for_HMAC = {
+  [sha.md5] = 64,
+  [sha.sha1] = 64,
+  [sha.sha224] = 64,
+  [sha.sha256] = 64,
+  [sha.sha512_224] = 128,
+  [sha.sha512_256] = 128,
+  [sha.sha384] = 128,
+  [sha.sha512] = 128,
+  [sha.sha3_224] = (1600 - 2 * 224) / 8,
+  [sha.sha3_256] = (1600 - 2 * 256) / 8,
+  [sha.sha3_384] = (1600 - 2 * 384) / 8,
+  [sha.sha3_512] = (1600 - 2 * 512) / 8,
+}
+
+return sha
+
+end;
+modules['packages/hash.lua'].cache = null;
+modules['packages/hash.lua'].isCached = false;
+
+----
+
+modules['packages/installationid.lua'] = {};
+modules['packages/installationid.lua'].load = function()
+local __just_filename = 'installationid.lua';
+local __filename = 'packages/installationid.lua';
+local __dirname = 'packages';
+local __hash = '10146445b36d51a8d1210dd1992188627b636415a980ea5f1d2c10fcf0173fa5611870fc115b5b5ecdc684447560993e3d4718f2c33783d42362403c2dc140d8';
+local uniqueKeys, xor, hash = require 'uniquekeys', require 'xor', require 'hash'
+local api = {
+  --- calculates & returns the installation id | persists across backups
+  ['get'] = function()
+    return hash.sha3_512(xor('installationid', uniqueKeys.uid))
+  end,
+  ['set'] = function()
+    error 'Cannot set installation id!'
+  end,
+}
+_G.InstallationID = api
+return api
+
+end;
+modules['packages/installationid.lua'].cache = null;
+modules['packages/installationid.lua'].isCached = false;
+
+----
+
+modules['packages/json.lua'] = {};
+modules['packages/json.lua'].load = function()
+local __just_filename = 'json.lua';
+local __filename = 'packages/json.lua';
+local __dirname = 'packages';
+local __hash = '4dc5f6c3b5bcd0f200b1ef9ff4a812b86e199331cbfa9858a9c73f2c8b513872a4d3fbd59b0a2d82a36115ac629be786085aa54cbe4d445b0ade77bea5350a86';
+--[[ json.lua
+
+A compact pure-Lua JSON library.
+The main functions are: json.stringify, json.parse.
+
+## json.stringify:
+
+This expects the following to be true of any tables being encoded:
+ * They only have string or number keys. Number keys must be represented as
+   strings in json; this is part of the json spec.
+ * They are not recursive. Such a structure cannot be specified in json.
+
+A Lua table is considered to be an array if and only if its set of keys is a
+consecutive sequence of positive integers starting at 1. Arrays are encoded like
+so: `[2, 3, false, "hi"]`. Any other type of Lua table is encoded as a json
+object, encoded like so: `{"key1": 2, "key2": false}`.
+
+Because the Lua nil value cannot be a key, and as a table value is considerd
+equivalent to a missing key, there is no way to express the json "null" value in
+a Lua table. The only way this will output "null" is if your entire input obj is
+nil itself.
+
+An empty Lua table, {}, could be considered either a json object or array -
+it's an ambiguous edge case. We choose to treat this as an object as it is the
+more general type.
+
+To be clear, none of the above considerations is a limitation of this code.
+Rather, it is what we get when we completely observe the json specification for
+as arbitrary a Lua object as json is capable of expressing.
+
+## json.parse:
+
+This function parses json, with the exception that it does not pay attention to
+\u-escaped unicode code points in strings.
+
+It is difficult for Lua to return null as a value. In order to prevent the loss
+of keys with a null value in a json string, this function uses the one-off
+table value json.null (which is just an empty table) to indicate null values.
+This way you can check if a value is null with the conditional
+`val == json.null`.
+
+If you have control over the data and are using Lua, I would recommend just
+avoiding null values in your data to begin with.
+
+--]]
+
+-- Minified variant of https://gist.githubusercontent.com/tylerneylon/59f4bcf316be525b30ab/raw/7f69cc2cea38bf68298ed3dbfc39d197d53c80de/json.lua
+local a={}local function b(c)if type(c)~='table'then return type(c)end;local d=1;for e in pairs(c)do if c[d]~=nil then d=d+1 else return'table'end end;if d==1 then return'table'else return'array'end end;local function f(g)local h={'\\','"','/','\b','\f','\n','\r','\t'}local i={'\\','"','/','b','f','n','r','t'}for d,j in ipairs(h)do g=g:gsub(j,'\\'..i[d])end;return g end;local function k(l,m,n,o)m=m+#l:match('^%s*',m)if l:sub(m,m)~=n then if o then error('Expected '..n..' near position '..m)end;return m,false end;return m+1,true end;local function p(l,m,q)q=q or''local r='End of input found while parsing string.'if m>#l then error(r)end;local j=l:sub(m,m)if j=='"'then return q,m+1 end;if j~='\\'then return p(l,m+1,q..j)end;local s={b='\b',f='\f',n='\n',r='\r',t='\t'}local t=l:sub(m+1,m+1)if not t then error(r)end;return p(l,m+2,q..(s[t]or t))end;local function u(l,m)local v=l:match('^-?%d+%.?%d*[eE]?[+-]?%d*',m)local q=tonumber(v)if not q then error('Error parsing number at position '..m..'.')end;return q,m+#v end;function a.stringify(c,w)local g={}local x=b(c)if x=='array'then if w then error'Can\'t encode array as key.'end;g[#g+1]='['for d,q in ipairs(c)do if d>1 then g[#g+1]=', 'end;g[#g+1]=a.stringify(q)end;g[#g+1]=']'elseif x=='table'then if w then error'Can\'t encode table as key.'end;g[#g+1]='{'for y,z in pairs(c)do if#g>1 then g[#g+1]=', 'end;g[#g+1]=a.stringify(y,true)g[#g+1]=':'g[#g+1]=a.stringify(z)end;g[#g+1]='}'elseif x=='string'then return'"'..f(c)..'"'elseif x=='number'then if w then return'"'..tostring(c)..'"'end;return tostring(c)elseif x=='boolean'then return tostring(c)elseif x=='nil'then return'null'else error('Unjsonifiable type: '..x..'.')end;return table.concat(g)end;a.null={}function a.parse(l,m,A)m=m or 1;if m>#l then error'Reached unexpected end of input.'end;local m=m+#l:match('^%s*',m)local B=l:sub(m,m)if B=='{'then local c,C,D={},true,true;m=m+1;while true do C,m=a.parse(l,m,'}')if C==nil then return c,m end;if not D then error'Comma missing between object items.'end;m=k(l,m,':',true)c[C],m=a.parse(l,m)m,D=k(l,m,',')end elseif B=='['then local E,q,D={},true,true;m=m+1;while true do q,m=a.parse(l,m,']')if q==nil then return E,m end;if not D then error'Comma missing between array items.'end;E[#E+1]=q;m,D=k(l,m,',')end elseif B=='"'then return p(l,m+1)elseif B=='-'or B:match'%d'then return u(l,m)elseif B==A then return nil,m+1 else local F={['true']=true,['false']=false,['null']=a.null}for G,H in pairs(F)do local I=m+#G-1;if l:sub(m,I)==G then return H,I+1 end end;local J='position '..m..': '..l:sub(m,m+10)error('Invalid json syntax starting at '..J)end end;return a
+
+end;
+modules['packages/json.lua'].cache = null;
+modules['packages/json.lua'].isCached = false;
+
+----
+
+modules['packages/polyfills/table.create.lua'] = {};
+modules['packages/polyfills/table.create.lua'].load = function()
+local __just_filename = 'table.create.lua';
+local __filename = 'packages/polyfills/table.create.lua';
+local __dirname = 'packages/polyfills';
+local __hash = '19eaa311cabc2e4b53501a8cc4090692c36cbccc4e75a0d082e8cfa7543f48cf5f70db601dba94ede670a483e36bcd7a309d720e32921ef0fd000770c799fced';
+_G.table.create = table.create
+  or function(count, value)
+    local t = {}
+    for i = 1, count, 1 do
+      t[i] = value
+    end
+    return t
+  end
+
+end;
+modules['packages/polyfills/table.create.lua'].cache = null;
+modules['packages/polyfills/table.create.lua'].isCached = false;
+
+----
+
+modules['packages/rstr.lua'] = {};
+modules['packages/rstr.lua'].load = function()
+local __just_filename = 'rstr.lua';
+local __filename = 'packages/rstr.lua';
+local __dirname = 'packages';
+local __hash = '3fbb599255778057fec55666068f44b9a1168c88fe0501982982796a7a4ed688899a4351a63875869b27a384b203df47f132982656b98423029bfe4e91d51645';
+-- random string library
+local rchar = function(chars)
+  chars = chars or 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 '
+  local rint = math.random(1, #chars)
+  return chars:sub(rint, rint)
+end
+return function(len, chars)
+  local str = ''
+  for i = 1, len, 1 do
+    str = str .. rchar(chars)
+  end
+  return str
+end
+
+end;
+modules['packages/rstr.lua'].cache = null;
+modules['packages/rstr.lua'].isCached = false;
+
+----
+
+modules['packages/termination.lua'] = {};
+modules['packages/termination.lua'].load = function()
+local __just_filename = 'termination.lua';
+local __filename = 'packages/termination.lua';
+local __dirname = 'packages';
+local __hash = '363f9ffadf1be9c7074c012ecb77d6377a0d2f277f09668eefa74399becf750fbce66eaa4c0b31af551d25107c01d0d99855051a8b4473e1a01b04f4ec019dd5';
+local isTerminateDisabled = false
+local defaultPull = os.pullEvent
+return {
+  ['setDisabled'] = function(v)
+    if v then
+      if v ~= isTerminateDisabled then
+        defaultPull = os.pullEvent
+      end
+      os.pullEvent = os.pullEventRaw
+    else
+      os.pullEvent = defaultPull
+    end
+    isTerminateDisabled = v
+  end,
+  ['getDisabled'] = function()
+    return isTerminateDisabled
+  end,
+}
+
+end;
+modules['packages/termination.lua'].cache = null;
+modules['packages/termination.lua'].isCached = false;
+
+----
+
+modules['packages/uniquekeys.lua'] = {};
+modules['packages/uniquekeys.lua'].load = function()
+local __just_filename = 'uniquekeys.lua';
+local __filename = 'packages/uniquekeys.lua';
+local __dirname = 'packages';
+local __hash = '69341cef2a30278934e7e8d81147bab29d3997c1526d20da185bcbef19e3eb915fdc9d408f5c5c34c628d7f9cf672a4ecdb6fb1ac550f0d2a2581a735ed17d59';
+-- unique keys library
+-- doesnt work as a standalone
+local checkIfIsKey = function(kv)
+  return string.sub(kv, 1, 3) ~= '!!!'
+end
+local keys = {
+  --- password hmac key
+  ['pw'] = '!!!pw',
+  --- encrypted using keys.Eenc..hmac(pass,keys.pw) - For encryption
+  ['enc'] = '!!!enc',
+  --- key used to encrypt enc | avoid using this if possible
+  ['Eenc'] = '!!!Eenc',
+  --- password used in installation id calculations
+  ['uid'] = '!!!uid',
+}
+for k, v in pairs(keys) do
+  if not checkIfIsKey(v) then
+    keys[k] = require 'rstr'(512)
+  end
+end
+local shouldB64Decode = false
+if shouldB64Decode then
+  for k, v in pairs(keys) do
+    keys[k] = require('base64').Decode(v)
+  end
+end
+return keys
+
+end;
+modules['packages/uniquekeys.lua'].cache = null;
+modules['packages/uniquekeys.lua'].isCached = false;
+
+----
+
+modules['packages/xor.lua'] = {};
+modules['packages/xor.lua'].load = function()
+local __just_filename = 'xor.lua';
+local __filename = 'packages/xor.lua';
+local __dirname = 'packages';
+local __hash = '12d0c046a9f96fd64280170a2c96a2a7f5260f2189c4756df9dc028a99a73a464037fc967316fb58d20cdf15f91533f94e69c163cf7c06b73c60472bc6528eb2';
+-- https://github.com/Braayy/xor-lua/blob/master/xor.lua
+-- MIT
+-- too lazy to implement my own xor & my og aes doesnt work in cc on 1.12.2 for some reason
+function repeat_key(key, length)
+  if #key >= length then
+    return key:sub(1, length)
+  end
+
+  times = math.floor(length / #key)
+  remain = length % #key
+
+  result = ''
+
+  for i = 1, times do
+    result = result .. key
+  end
+
+  if remain > 0 then
+    result = result .. key:sub(1, remain)
+  end
+
+  return result
+end
+
+function xor(message, key)
+  rkey = repeat_key(key, #message)
+
+  result = ''
+
+  for i = 1, #message do
+    k_char = rkey:sub(i, i)
+    m_char = message:sub(i, i)
+
+    k_byte = k_char:byte()
+    m_byte = m_char:byte()
+
+    xor_byte = require('bitop').bxor(m_byte, k_byte)
+
+    xor_char = string.char(xor_byte)
+
+    result = result .. xor_char
+  end
+
+  return result
+end
+
+return xor
+
+end;
+modules['packages/xor.lua'].cache = null;
+modules['packages/xor.lua'].isCached = false;
+
+----
+
+modules['version.lua'] = {};
+modules['version.lua'].load = function()
+local __just_filename = 'version.lua';
+local __filename = 'version.lua';
+local __dirname = '';
+local __hash = '7a5cd8cbe43906f7f1c1d50eb18312aff11909772deab5fdcb3a901ad7a86384bebb471694b4760cc67147c5c541519eaba249f1e6426369a2d2db6a32eadfc4';
+return '1.0.0'
+
+end;
+modules['version.lua'].cache = null;
+modules['version.lua'].isCached = false;
+
+--> END Initial Module Definitions <--
+
+
+--> BEGIN Alias/Equivalent Module Path Definitions <--
+
+modules['applications'] = modules['applications.lua'];
+modules['applications.lua'] = modules['applications.lua'];
+modules['applications'] = modules['applications.lua'];
+modules['/applications'] = modules['applications.lua'];
+modules['\\applications.lua'] = modules['applications.lua'];
+modules['\\applications'] = modules['applications.lua'];
+
+----
+
+modules['auth'] = modules['auth.lua'];
+modules['auth.lua'] = modules['auth.lua'];
+modules['auth'] = modules['auth.lua'];
+modules['/auth'] = modules['auth.lua'];
+modules['\\auth.lua'] = modules['auth.lua'];
+modules['\\auth'] = modules['auth.lua'];
+
+----
+
+modules['boot'] = modules['boot.lua'];
+modules['boot.lua'] = modules['boot.lua'];
+modules['boot'] = modules['boot.lua'];
+modules['/boot'] = modules['boot.lua'];
+modules['\\boot.lua'] = modules['boot.lua'];
+modules['\\boot'] = modules['boot.lua'];
+
+----
+
+modules['frontends/_error'] = modules['frontends/_error.lua'];
+modules['frontends\\_error.lua'] = modules['frontends/_error.lua'];
+modules['frontends\\_error'] = modules['frontends/_error.lua'];
+modules['/frontends/_error'] = modules['frontends/_error.lua'];
+modules['\\frontends\\_error.lua'] = modules['frontends/_error.lua'];
+modules['\\frontends\\_error'] = modules['frontends/_error.lua'];
+
+----
+
+modules['frontends/basalt-or-lite'] = modules['frontends/basalt-or-lite.lua'];
+modules['frontends\\basalt-or-lite.lua'] = modules['frontends/basalt-or-lite.lua'];
+modules['frontends\\basalt-or-lite'] = modules['frontends/basalt-or-lite.lua'];
+modules['/frontends/basalt-or-lite'] = modules['frontends/basalt-or-lite.lua'];
+modules['\\frontends\\basalt-or-lite.lua'] = modules['frontends/basalt-or-lite.lua'];
+modules['\\frontends\\basalt-or-lite'] = modules['frontends/basalt-or-lite.lua'];
+
+----
+
+modules['frontends/basalt'] = modules['frontends/basalt.lua'];
+modules['frontends\\basalt.lua'] = modules['frontends/basalt.lua'];
+modules['frontends\\basalt'] = modules['frontends/basalt.lua'];
+modules['/frontends/basalt'] = modules['frontends/basalt.lua'];
+modules['\\frontends\\basalt.lua'] = modules['frontends/basalt.lua'];
+modules['\\frontends\\basalt'] = modules['frontends/basalt.lua'];
+
+----
+
+modules['frontends/lite'] = modules['frontends/lite.lua'];
+modules['frontends\\lite.lua'] = modules['frontends/lite.lua'];
+modules['frontends\\lite'] = modules['frontends/lite.lua'];
+modules['/frontends/lite'] = modules['frontends/lite.lua'];
+modules['\\frontends\\lite.lua'] = modules['frontends/lite.lua'];
+modules['\\frontends\\lite'] = modules['frontends/lite.lua'];
+
+----
+
+modules['frontends/login-only'] = modules['frontends/login-only.lua'];
+modules['frontends\\login-only.lua'] = modules['frontends/login-only.lua'];
+modules['frontends\\login-only'] = modules['frontends/login-only.lua'];
+modules['/frontends/login-only'] = modules['frontends/login-only.lua'];
+modules['\\frontends\\login-only.lua'] = modules['frontends/login-only.lua'];
+modules['\\frontends\\login-only'] = modules['frontends/login-only.lua'];
+
+----
+
+modules['index'] = modules['index.lua'];
+modules['index.lua'] = modules['index.lua'];
+modules['index'] = modules['index.lua'];
+modules['/index'] = modules['index.lua'];
+modules['\\index.lua'] = modules['index.lua'];
+modules['\\index'] = modules['index.lua'];
+modules[''] = modules['index.lua'];
+modules[''] = modules['index.lua'];
+modules[''] = modules['index.lua'];
+modules['/'] = modules['index.lua'];
+modules['\\'] = modules['index.lua'];
+modules['\\'] = modules['index.lua'];
+
+----
+
+modules['load-installer'] = modules['load-installer.lua'];
+modules['load-installer.lua'] = modules['load-installer.lua'];
+modules['load-installer'] = modules['load-installer.lua'];
+modules['/load-installer'] = modules['load-installer.lua'];
+modules['\\load-installer.lua'] = modules['load-installer.lua'];
+modules['\\load-installer'] = modules['load-installer.lua'];
+
+----
+
+modules['login'] = modules['login.lua'];
+modules['login.lua'] = modules['login.lua'];
+modules['login'] = modules['login.lua'];
+modules['/login'] = modules['login.lua'];
+modules['\\login.lua'] = modules['login.lua'];
+modules['\\login'] = modules['login.lua'];
+
+----
+
+modules['misc/chime'] = modules['misc/chime.lua'];
+modules['misc\\chime.lua'] = modules['misc/chime.lua'];
+modules['misc\\chime'] = modules['misc/chime.lua'];
+modules['/misc/chime'] = modules['misc/chime.lua'];
+modules['\\misc\\chime.lua'] = modules['misc/chime.lua'];
+modules['\\misc\\chime'] = modules['misc/chime.lua'];
+
+----
+
+modules['networking/secnet'] = modules['networking/secnet.lua'];
+modules['networking\\secnet.lua'] = modules['networking/secnet.lua'];
+modules['networking\\secnet'] = modules['networking/secnet.lua'];
+modules['/networking/secnet'] = modules['networking/secnet.lua'];
+modules['\\networking\\secnet.lua'] = modules['networking/secnet.lua'];
+modules['\\networking\\secnet'] = modules['networking/secnet.lua'];
+
+----
+
+modules['packages/basalt'] = modules['packages/basalt.lua'];
+modules['packages\\basalt.lua'] = modules['packages/basalt.lua'];
+modules['packages\\basalt'] = modules['packages/basalt.lua'];
+modules['basalt'] = modules['packages/basalt.lua'];
+modules['basalt.lua'] = modules['packages/basalt.lua'];
+modules['basalt'] = modules['packages/basalt.lua'];
+modules['/basalt'] = modules['packages/basalt.lua'];
+modules['\\basalt.lua'] = modules['packages/basalt.lua'];
+modules['\\basalt'] = modules['packages/basalt.lua'];
+modules['/packages/basalt'] = modules['packages/basalt.lua'];
+modules['\\packages\\basalt.lua'] = modules['packages/basalt.lua'];
+modules['\\packages\\basalt'] = modules['packages/basalt.lua'];
+
+----
+
+modules['packages/base64'] = modules['packages/base64.lua'];
+modules['packages\\base64.lua'] = modules['packages/base64.lua'];
+modules['packages\\base64'] = modules['packages/base64.lua'];
+modules['base64'] = modules['packages/base64.lua'];
+modules['base64.lua'] = modules['packages/base64.lua'];
+modules['base64'] = modules['packages/base64.lua'];
+modules['/base64'] = modules['packages/base64.lua'];
+modules['\\base64.lua'] = modules['packages/base64.lua'];
+modules['\\base64'] = modules['packages/base64.lua'];
+modules['/packages/base64'] = modules['packages/base64.lua'];
+modules['\\packages\\base64.lua'] = modules['packages/base64.lua'];
+modules['\\packages\\base64'] = modules['packages/base64.lua'];
+
+----
+
+modules['packages/bitop'] = modules['packages/bitop.lua'];
+modules['packages\\bitop.lua'] = modules['packages/bitop.lua'];
+modules['packages\\bitop'] = modules['packages/bitop.lua'];
+modules['bitop'] = modules['packages/bitop.lua'];
+modules['bitop.lua'] = modules['packages/bitop.lua'];
+modules['bitop'] = modules['packages/bitop.lua'];
+modules['/bitop'] = modules['packages/bitop.lua'];
+modules['\\bitop.lua'] = modules['packages/bitop.lua'];
+modules['\\bitop'] = modules['packages/bitop.lua'];
+modules['/packages/bitop'] = modules['packages/bitop.lua'];
+modules['\\packages\\bitop.lua'] = modules['packages/bitop.lua'];
+modules['\\packages\\bitop'] = modules['packages/bitop.lua'];
+
+----
+
+modules['packages/child_process'] = modules['packages/child_process.lua'];
+modules['packages\\child_process.lua'] = modules['packages/child_process.lua'];
+modules['packages\\child_process'] = modules['packages/child_process.lua'];
+modules['child_process'] = modules['packages/child_process.lua'];
+modules['child_process.lua'] = modules['packages/child_process.lua'];
+modules['child_process'] = modules['packages/child_process.lua'];
+modules['/child_process'] = modules['packages/child_process.lua'];
+modules['\\child_process.lua'] = modules['packages/child_process.lua'];
+modules['\\child_process'] = modules['packages/child_process.lua'];
+modules['/packages/child_process'] = modules['packages/child_process.lua'];
+modules['\\packages\\child_process.lua'] = modules['packages/child_process.lua'];
+modules['\\packages\\child_process'] = modules['packages/child_process.lua'];
+
+----
+
+modules['packages/console'] = modules['packages/console.lua'];
+modules['packages\\console.lua'] = modules['packages/console.lua'];
+modules['packages\\console'] = modules['packages/console.lua'];
+modules['console'] = modules['packages/console.lua'];
+modules['console.lua'] = modules['packages/console.lua'];
+modules['console'] = modules['packages/console.lua'];
+modules['/console'] = modules['packages/console.lua'];
+modules['\\console.lua'] = modules['packages/console.lua'];
+modules['\\console'] = modules['packages/console.lua'];
+modules['/packages/console'] = modules['packages/console.lua'];
+modules['\\packages\\console.lua'] = modules['packages/console.lua'];
+modules['\\packages\\console'] = modules['packages/console.lua'];
+
+----
+
+modules['packages/deepcopy'] = modules['packages/deepcopy.lua'];
+modules['packages\\deepcopy.lua'] = modules['packages/deepcopy.lua'];
+modules['packages\\deepcopy'] = modules['packages/deepcopy.lua'];
+modules['deepcopy'] = modules['packages/deepcopy.lua'];
+modules['deepcopy.lua'] = modules['packages/deepcopy.lua'];
+modules['deepcopy'] = modules['packages/deepcopy.lua'];
+modules['/deepcopy'] = modules['packages/deepcopy.lua'];
+modules['\\deepcopy.lua'] = modules['packages/deepcopy.lua'];
+modules['\\deepcopy'] = modules['packages/deepcopy.lua'];
+modules['/packages/deepcopy'] = modules['packages/deepcopy.lua'];
+modules['\\packages\\deepcopy.lua'] = modules['packages/deepcopy.lua'];
+modules['\\packages\\deepcopy'] = modules['packages/deepcopy.lua'];
+
+----
+
+modules['packages/forceyield'] = modules['packages/forceyield.lua'];
+modules['packages\\forceyield.lua'] = modules['packages/forceyield.lua'];
+modules['packages\\forceyield'] = modules['packages/forceyield.lua'];
+modules['forceyield'] = modules['packages/forceyield.lua'];
+modules['forceyield.lua'] = modules['packages/forceyield.lua'];
+modules['forceyield'] = modules['packages/forceyield.lua'];
+modules['/forceyield'] = modules['packages/forceyield.lua'];
+modules['\\forceyield.lua'] = modules['packages/forceyield.lua'];
+modules['\\forceyield'] = modules['packages/forceyield.lua'];
+modules['/packages/forceyield'] = modules['packages/forceyield.lua'];
+modules['\\packages\\forceyield.lua'] = modules['packages/forceyield.lua'];
+modules['\\packages\\forceyield'] = modules['packages/forceyield.lua'];
+
+----
+
+modules['packages/hash'] = modules['packages/hash.lua'];
+modules['packages\\hash.lua'] = modules['packages/hash.lua'];
+modules['packages\\hash'] = modules['packages/hash.lua'];
+modules['hash'] = modules['packages/hash.lua'];
+modules['hash.lua'] = modules['packages/hash.lua'];
+modules['hash'] = modules['packages/hash.lua'];
+modules['/hash'] = modules['packages/hash.lua'];
+modules['\\hash.lua'] = modules['packages/hash.lua'];
+modules['\\hash'] = modules['packages/hash.lua'];
+modules['/packages/hash'] = modules['packages/hash.lua'];
+modules['\\packages\\hash.lua'] = modules['packages/hash.lua'];
+modules['\\packages\\hash'] = modules['packages/hash.lua'];
+
+----
+
+modules['packages/installationid'] = modules['packages/installationid.lua'];
+modules['packages\\installationid.lua'] = modules['packages/installationid.lua'];
+modules['packages\\installationid'] = modules['packages/installationid.lua'];
+modules['installationid'] = modules['packages/installationid.lua'];
+modules['installationid.lua'] = modules['packages/installationid.lua'];
+modules['installationid'] = modules['packages/installationid.lua'];
+modules['/installationid'] = modules['packages/installationid.lua'];
+modules['\\installationid.lua'] = modules['packages/installationid.lua'];
+modules['\\installationid'] = modules['packages/installationid.lua'];
+modules['/packages/installationid'] = modules['packages/installationid.lua'];
+modules['\\packages\\installationid.lua'] = modules['packages/installationid.lua'];
+modules['\\packages\\installationid'] = modules['packages/installationid.lua'];
+
+----
+
+modules['packages/json'] = modules['packages/json.lua'];
+modules['packages\\json.lua'] = modules['packages/json.lua'];
+modules['packages\\json'] = modules['packages/json.lua'];
+modules['json'] = modules['packages/json.lua'];
+modules['json.lua'] = modules['packages/json.lua'];
+modules['json'] = modules['packages/json.lua'];
+modules['/json'] = modules['packages/json.lua'];
+modules['\\json.lua'] = modules['packages/json.lua'];
+modules['\\json'] = modules['packages/json.lua'];
+modules['/packages/json'] = modules['packages/json.lua'];
+modules['\\packages\\json.lua'] = modules['packages/json.lua'];
+modules['\\packages\\json'] = modules['packages/json.lua'];
+
+----
+
+modules['packages/polyfills/table.create'] = modules['packages/polyfills/table.create.lua'];
+modules['packages\\polyfills\\table.create.lua'] = modules['packages/polyfills/table.create.lua'];
+modules['packages\\polyfills\\table.create'] = modules['packages/polyfills/table.create.lua'];
+modules['polyfills/table.create'] = modules['packages/polyfills/table.create.lua'];
+modules['polyfills\\table.create.lua'] = modules['packages/polyfills/table.create.lua'];
+modules['polyfills\\table.create'] = modules['packages/polyfills/table.create.lua'];
+modules['/polyfills/table.create'] = modules['packages/polyfills/table.create.lua'];
+modules['\\polyfills\\table.create.lua'] = modules['packages/polyfills/table.create.lua'];
+modules['\\polyfills\\table.create'] = modules['packages/polyfills/table.create.lua'];
+modules['/packages/polyfills/table.create'] = modules['packages/polyfills/table.create.lua'];
+modules['\\packages\\polyfills\\table.create.lua'] = modules['packages/polyfills/table.create.lua'];
+modules['\\packages\\polyfills\\table.create'] = modules['packages/polyfills/table.create.lua'];
+
+----
+
+modules['packages/rstr'] = modules['packages/rstr.lua'];
+modules['packages\\rstr.lua'] = modules['packages/rstr.lua'];
+modules['packages\\rstr'] = modules['packages/rstr.lua'];
+modules['rstr'] = modules['packages/rstr.lua'];
+modules['rstr.lua'] = modules['packages/rstr.lua'];
+modules['rstr'] = modules['packages/rstr.lua'];
+modules['/rstr'] = modules['packages/rstr.lua'];
+modules['\\rstr.lua'] = modules['packages/rstr.lua'];
+modules['\\rstr'] = modules['packages/rstr.lua'];
+modules['/packages/rstr'] = modules['packages/rstr.lua'];
+modules['\\packages\\rstr.lua'] = modules['packages/rstr.lua'];
+modules['\\packages\\rstr'] = modules['packages/rstr.lua'];
+
+----
+
+modules['packages/termination'] = modules['packages/termination.lua'];
+modules['packages\\termination.lua'] = modules['packages/termination.lua'];
+modules['packages\\termination'] = modules['packages/termination.lua'];
+modules['termination'] = modules['packages/termination.lua'];
+modules['termination.lua'] = modules['packages/termination.lua'];
+modules['termination'] = modules['packages/termination.lua'];
+modules['/termination'] = modules['packages/termination.lua'];
+modules['\\termination.lua'] = modules['packages/termination.lua'];
+modules['\\termination'] = modules['packages/termination.lua'];
+modules['/packages/termination'] = modules['packages/termination.lua'];
+modules['\\packages\\termination.lua'] = modules['packages/termination.lua'];
+modules['\\packages\\termination'] = modules['packages/termination.lua'];
+
+----
+
+modules['packages/uniquekeys'] = modules['packages/uniquekeys.lua'];
+modules['packages\\uniquekeys.lua'] = modules['packages/uniquekeys.lua'];
+modules['packages\\uniquekeys'] = modules['packages/uniquekeys.lua'];
+modules['uniquekeys'] = modules['packages/uniquekeys.lua'];
+modules['uniquekeys.lua'] = modules['packages/uniquekeys.lua'];
+modules['uniquekeys'] = modules['packages/uniquekeys.lua'];
+modules['/uniquekeys'] = modules['packages/uniquekeys.lua'];
+modules['\\uniquekeys.lua'] = modules['packages/uniquekeys.lua'];
+modules['\\uniquekeys'] = modules['packages/uniquekeys.lua'];
+modules['/packages/uniquekeys'] = modules['packages/uniquekeys.lua'];
+modules['\\packages\\uniquekeys.lua'] = modules['packages/uniquekeys.lua'];
+modules['\\packages\\uniquekeys'] = modules['packages/uniquekeys.lua'];
+
+----
+
+modules['packages/xor'] = modules['packages/xor.lua'];
+modules['packages\\xor.lua'] = modules['packages/xor.lua'];
+modules['packages\\xor'] = modules['packages/xor.lua'];
+modules['xor'] = modules['packages/xor.lua'];
+modules['xor.lua'] = modules['packages/xor.lua'];
+modules['xor'] = modules['packages/xor.lua'];
+modules['/xor'] = modules['packages/xor.lua'];
+modules['\\xor.lua'] = modules['packages/xor.lua'];
+modules['\\xor'] = modules['packages/xor.lua'];
+modules['/packages/xor'] = modules['packages/xor.lua'];
+modules['\\packages\\xor.lua'] = modules['packages/xor.lua'];
+modules['\\packages\\xor'] = modules['packages/xor.lua'];
+
+----
+
+modules['version'] = modules['version.lua'];
+modules['version.lua'] = modules['version.lua'];
+modules['version'] = modules['version.lua'];
+modules['/version'] = modules['version.lua'];
+modules['\\version.lua'] = modules['version.lua'];
+modules['\\version'] = modules['version.lua'];
+
+--> END Alias/Equivalent Module Path Definitions <--
+
+
+return require 'index'
+
+end)(require or function()end,...);

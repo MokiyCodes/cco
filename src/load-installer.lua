@@ -53,9 +53,15 @@ if fs.exists '/.cco/.authbackup.json' then
     local content = json.parse(f.readAll())
     f.close()
     local oldUniqueKeys = content.encryptionKeyStore
+    for k, v in pairs(oldUniqueKeys) do
+      oldUniqueKeys[k] = base64.Decode(v)
+    end
     local hpw = hash.hmac(hash.sha3_512, oldUniqueKeys.pw, pw)
     local enc = xor(oldUniqueKeys.enc, oldUniqueKeys.Eenc .. hpw)
-    if xor(base64.Decode(content.authStoreThing.encryped), enc) ~= hpw then
+    pcall(function()
+      content.authStoreThing.encryped = base64.Decode(content.authStoreThing.encryped)
+    end)
+    if xor(content.authStoreThing.encryped, enc) ~= hpw then
       print('Expected:', hpw)
       print('Decrypt Result:', content.authStoreThing.encryped)
       error 'Decryption Failure. Please run the installer again.'
@@ -95,22 +101,26 @@ pw = hash.hmac(hash.sha3_512, uniqueKeys.pw, pw)
 -- encrypt keys
 local authStoreThing = require 'auth'
 if overwriteAuthStoreThing then
-  authStoreThing.encryped = overwriteAuthStoreThing
+  authStoreThing.encryped = base64.Encode(overwriteAuthStoreThing)
 else
   authStoreThing.encryped = base64.Encode(xor(pw, uniqueKeys.enc))
 end
 local script = thisBundle
-local newUniqueKeys = {}
 for k, v in pairs(uniqueKeys) do
   if k ~= 'pw' and k ~= 'Eenc' then
     uniqueKeys[k] = xor(v, uniqueKeys.Eenc .. pw)
   end
-  newUniqueKeys[k] = base64.Encode(uniqueKeys[k])
+end
+local newUniqueKeys = {}
+for k, v in pairs(uniqueKeys) do
+  newUniqueKeys[k] = base64.Encode(v)
   script = string.gsub(script, '!!!' .. k, newUniqueKeys[k])
 end
 script = string.gsub(script, 'local shouldB64Decode = false', 'local shouldB64Decode = true')
 
-sleep(0.2)
+print('calc pw', pw)
+print('encr pw', require('auth').encryped)
+sleep(0.5)
 console.clear()
 console.log 'Do you wish to install this system-wide (y), or as an application (N)? [y/N]'
 local systemWide = fs.exists '/.cco/setup-launchonstartup' or string.lower(string.sub(read(), 1, 1)) == 'y'
@@ -138,7 +148,7 @@ console.centerLog 'Backing up encryption keys...'
 local backupfile = fs.open('/.cco/.authbackup.json', 'w')
 backupfile.write(require('json').stringify {
   ['authStoreThing'] = authStoreThing,
-  ['encryptionKeyStore'] = uniqueKeys,
+  ['encryptionKeyStore'] = newUniqueKeys,
 })
 backupfile.close()
 sleep(0.4)
