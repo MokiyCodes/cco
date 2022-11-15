@@ -118,8 +118,8 @@ for k, v in pairs(uniqueKeys) do
 end
 script = string.gsub(script, 'local shouldB64Decode = false', 'local shouldB64Decode = true')
 
-print('calc pw', pw)
-print('encr pw', require('auth').encryped)
+-- print('calc pw', pw)
+-- print('encr pw', require('auth').encryped)
 sleep(0.5)
 console.clear()
 console.log 'Do you wish to install this system-wide (y), or as an application (N)? [y/N]'
