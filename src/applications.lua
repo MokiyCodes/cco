@@ -20,7 +20,9 @@ local progs = {
       shell.run(string.format('/rom/programs/rednet/chat.lua join %s %s', room, uname))
     end,
   },
-  ['Shell'] = '/rom/programs/shell.lua',
+  ['Shell'] = fs.exists '/shell.lua' and '/shell.lua'
+    or fs.exists '/mbs.lua' and '/mbs.lua startup'
+    or '/rom/programs/shell.lua',
 }
 if fs.exists '/.cco/programs.json' then
   local progsFile = fs.open('/.cco/', 'r')
