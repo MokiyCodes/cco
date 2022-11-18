@@ -158,7 +158,7 @@ return function(programs)
         recurse(v)
       else
         addAppButton():setText(k):onClick(function()
-          openProgram(v, 'Shell', true)
+          openProgram(v, k or 'Unknown', true)
         end)
       end
     end
