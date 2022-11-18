@@ -13,4 +13,7 @@ file.close()
 if not chunk then
   error(err)
 end
-return chunk()
+local basalt = chunk()
+_G.libs = _G.libs or {}
+_G.libs.basalt = basalt
+return basalt

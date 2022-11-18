@@ -5,13 +5,22 @@ return function()
   -- provide encryption lib
   local xor = require 'xor'
   local uniqueKeys = require 'uniquekeys'
+  --- XOR encryption
   _G.ccoEncryption = {
     -- Encrypts a string to securely store it locally
     ['encryptLocal'] = function(data)
       return xor(data, uniqueKeys.enc)
     end,
+    --- Encrypts/Decrypts a string for remote sending
+    ['encryptWithKey'] = function(data, key)
+      return xor(data, key)
+    end,
   }
   _G.ccoEncryption.decryptLocal = _G.ccoEncryption.encryptLocal
+  _G.ccoEncryption.decryptWithKey = _G.ccoEncryption.encryptWithKey
+  _G.ccoEncryption.xor = _G.ccoEncryption
+  _G.libs = _G.libs or {}
+  _G.libs.encryption = _G.ccoEncryption
   _G._g = _G
   console.clear()
   console.centerLog 'Loading Frontend...'
